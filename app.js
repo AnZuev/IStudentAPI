@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var log = require('libs/log')(module);
+var log = require('./libs/log')(module);
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var HttpError = require('./error').HttpError;
@@ -29,7 +29,7 @@ app.set('view engine', 'ejs');
 
 
 // uncomment after placing your favicon in /public
-app.use(favicon(__dirname + '/public/favicon.ico'));
+//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -6,31 +6,37 @@ var AuthError = require('../error').AuthError;
 
 var User = new Schema({
     personal_information:{
-        first_name:{
+        firstName:{
             type:String,
             require: true
         },
-        last_name:{
+        lastName:{
             type:String,
             require: true
         },
 
-        photo_url:{
+        photoUrl:{
             type: String,
             require: false,
             default: ''
         },
-        about:{
-            type: String,
-            require: false,
-            default: ''
+        faculty:{
+          type: String,
+          require:true
+        },
+        groupNumber:{
+            type: Number,
+            require: true
+        },
+        year:{
+            type: Number,
+            require:true
         }
-
     },
     auth: {
-        mail:{
-            type:String,
+        studNumber:{
             require: true,
+            type:Number,
             unique: true
         },
         hashed_password:{
@@ -41,66 +47,6 @@ var User = new Schema({
             type:String,
             require: true
         }
-    },
-
-    about_experience:{
-        title:{
-            type: String,
-            default: "Новичок"
-        },
-        rating:{
-            type:Number,
-            default: 0
-        },
-        questions_counter:{
-            type: Number,
-            default: 0
-        },
-        answers_counter:{
-            type: Number,
-            default:0
-        },
-        spam_counter:{
-            type: Number,
-            default: 0
-        }
-
-    },
-
-    about_car:{
-        car:{
-            type: String
-        },
-        model:{
-            type: String
-        },
-        year:{
-            type: Number
-        },
-        photos:[
-            {
-                photo_url:{
-                    type: String,
-                    require: true
-                }
-            }
-        ],
-        engine_volume:{
-            type: Number
-        },
-        engine_type:{
-            type: String
-        },
-        transmission_type:{
-            type: String
-        },
-        body_type:{
-            type: String
-        },
-        run:{
-            type: Number
-        }
-
     }
 });
 
@@ -122,17 +68,17 @@ User.methods.checkPassword = function(password){
 
 User.statics.changePhotoUrl = function(user_id, new_photo_url, callback){
     var User = this;
-    User.findByIdAndUpdate(user_id, {"personal_information.photo_url": new_photo_url}, function(err){
+    User.findByIdAndUpdate(user_id, {"personal_information.photoUrl": new_photo_url}, function(err){
         if(err) return callback(err);
         return callback(null);
     })
 };
 
-User.statics.signIn = function(mail, password, callback){
+User.statics.signIn = function(studNumber, password, callback){
     var User=this;
     async.waterfall([
         function(callback){
-            User.findOne({"auth.mail": mail}, callback)
+            User.findOne({"auth.studNumber": studNumber}, callback)
         },
         function(user, callback){
             if(user){
@@ -148,11 +94,11 @@ User.statics.signIn = function(mail, password, callback){
     ],callback);
 };
 
-User.statics.signUp = function(first_name, last_name, password, mail, callback){
+User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year, studNumber,  password, callback){
     var User = this;
     async.waterfall([
         function(callback){
-            User.findOne({"auth.mail": mail}, callback)
+            User.findOne({"auth.studNumber": studNumber}, callback)
         },
         function(user, callback){
             if(user){
@@ -161,10 +107,13 @@ User.statics.signUp = function(first_name, last_name, password, mail, callback){
            var new_user = new User({
                personal_information:{
                    first_name: first_name,
-                   last_name: last_name
+                   last_name: last_name,
+                   groupNumber:groupNumber,
+                   faculty: faculty,
+                   year: year
                },
                auth:{
-                  mail: mail,
+                  studNumber: studNumber,
                   password: password
                }
            });

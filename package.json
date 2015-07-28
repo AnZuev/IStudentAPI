@@ -17,6 +17,7 @@
      "mongoose": "*",
       "ejs-locals": "*",
       "express-session": "*",
-      "connect-mongo": "*"
+      "connect-mongo": "*",
+      "mongodb":"*"
   }
 }

@@ -35,16 +35,7 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="0" selection-start="876" selection-end="876" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1410">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="www" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/www">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="30" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1515">
+            <state line="40" column="29" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1410">
               <folding />
             </state>
           </provider>
@@ -102,10 +93,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="24" selection-start="162" selection-end="162" vertical-scroll-proportion="0.25316456" vertical-offset="0" max-vertical-offset="474">
+            <state line="5" column="28" selection-start="111" selection-end="111" vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="405">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="www" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bin/www">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="92" column="26" selection-start="1469" selection-end="1504" vertical-scroll-proportion="0.7289157" vertical-offset="1017" max-vertical-offset="1545">
               <folding />
             </state>
           </provider>
@@ -136,12 +136,12 @@
         <option value="$PROJECT_DIR$/config/config.json" />
         <option value="$PROJECT_DIR$/models/User.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/routes/authorize/signUp.js" />
         <option value="$PROJECT_DIR$/routes/authorize/signIn.js" />
         <option value="$PROJECT_DIR$/routes/authorize/logout.js" />
         <option value="$PROJECT_DIR$/routes/authorize/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/bin/www" />
       </list>
     </option>
   </component>
@@ -308,6 +308,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -500,13 +514,6 @@
         <state line="556" column="33" selection-start="17176" selection-end="17176" vertical-scroll-proportion="0.3326316" vertical-offset="8092" max-vertical-offset="16845" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="475">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/error/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="9" selection-start="526" selection-end="526" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
@@ -517,20 +524,6 @@
     <entry file="file://$PROJECT_DIR$/libs/log.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="26" selection-start="439" selection-end="439" vertical-scroll-proportion="0.48192772" vertical-offset="0" max-vertical-offset="498">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="0" selection-start="876" selection-end="876" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1410">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="30" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1515">
           <folding />
         </state>
       </provider>
@@ -591,9 +584,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="475">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="24" selection-start="162" selection-end="162" vertical-scroll-proportion="0.25316456" vertical-offset="0" max-vertical-offset="474">
+        <state line="5" column="28" selection-start="111" selection-end="111" vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="405">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="29" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="447" max-vertical-offset="1410">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="26" selection-start="1469" selection-end="1504" vertical-scroll-proportion="0.7289157" vertical-offset="1017" max-vertical-offset="1545">
           <folding />
         </state>
       </provider>

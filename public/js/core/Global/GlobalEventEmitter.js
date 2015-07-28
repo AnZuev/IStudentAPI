@@ -1,4 +1,0 @@
-var globalEventEmitter = new EventEmitter();
-
-
-

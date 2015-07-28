@@ -1,10 +1,10 @@
 {
     "port": 3000,
     "mongoose":{
-        "uri": "mongodb://localhost/automu"
+        "uri": "mongodb://localhost/IStudentAPI"
     },
     "session":{
-        "secret": "SuperSecret_kjfkjfk21k3jk2nString",
+        "secret": "sdjknfskdjnvdfklnvdfjnvldjkfnv",
         "key": "sid",
         "cookie":{
             "path": "/",

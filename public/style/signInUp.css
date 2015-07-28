@@ -1,0 +1,59 @@
+.signInUp{
+	background: #ebebeb;
+	margin: 0 auto;
+	min-width: 350px;
+	padding-bottom: 40px;
+	padding-top: 40px;
+	position: absolute;
+    top: 40%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+
+    transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+    border-radius: 3px;
+
+
+
+}
+#signInForm input, #signUpForm input{
+	display: block;
+	margin: 0 auto;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	padding: 10px;
+	min-width: 200px;
+}
+.signInUpHeader{
+	width: 250px;
+	overflow: hidden;
+	margin: 0 auto;
+	font-size: 12pt;
+	margin-bottom:30px; 
+}
+.signIn, .signUp{
+	width: 48%;
+	float: left;
+	text-align: center;
+	transition:0.5s background;
+	cursor: pointer;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: solid 1px rgba(104,164, 217,0.8);
+}
+.signIn:hover, .signUp:hover{
+	background: rgba(104,164,217,0.4);
+}
+.authSubmitFormBlock{
+	margin-top: 7px;
+    float:none;
+    text-align: center;
+}
+.authError, .error, #forumMainPageQuestionSendAnswerError{
+    font-size: 9.5pt;
+    color: firebrick;
+    margin:0px auto;
+    text-align: center;
+    min-height: 14px;
+
+}

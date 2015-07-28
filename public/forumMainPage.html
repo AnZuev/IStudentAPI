@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Форум</title>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700&subset=cyrillic' rel='stylesheet' type='text/css'>
+	<link href = './style/globalStyle.css' rel="stylesheet"/>
+	<link rel="stylesheet" href="./style/forumMainPageStyle.css"/>
+	<link rel="stylesheet" href="./style/signInUp.css"/>
+</head>
+<body>
+	<header>
+		<nav>
+			<img src="assets/icon_for_avto_line.png" alt="" class="logo">
+			<span class="header_buttons headerLeftButton">АвтоМы</span>
+			<span class="header_buttons headerRightButton">Вход</span>
+			
+		</nav>
+	</header>
+	<div id="all">
+		<div class="left hide">
+			
+		</div>
+		<div class="centerAndRightContentBlock">
+			<div class="center">
+				<div id="forumMainPageQuestionListBlock" class=''>
+					<p class="forumMainPageCenterHeader">
+					<span>Найдено n результатов:</span> <span class="forumMainPageAddQuestion">Задать вопрос</span><span class="forumMainPageShowOnlyMine">Только мои вопросы</span>
+					</p>
+					<ul class="forumMainPageQuestionSearchResult">
+						<p class="forumMainPageQuestionSearchResultAlt hide">Ничего не найдено</p>
+						<li key="0"><span>n просмотров</span><p>При езде по кочкам машина издает очень странные звуки. Что делать? помогите!! Еще колесо пробил, в общем вообще все плохо При езде по кочкам машина издает очень странные звуки. Что делать? помогите!! Еще колесо пробил, в общем вообще все плохо</p></li>
+						<li key="1">Название вопроса 2<span>n просмотра<span></li>
+						<li key="2">Название вопроса 3<span>n просмотр<span></li>
+						<li key="3">Название вопроса 4<span>n просмотров<span></li>
+						<li key="4">Название вопроса 5<span>n просмотров<span></li>
+						<li key="5">Название вопроса 6<span>n просмотров<span></li>
+						<li key="6">Название вопроса 7<span>n просмотра<span></li>
+						<li key="7">Название вопроса 8<span>n просмотр<span></li>
+						<li key="8">Название вопроса 9<span>n просмотров<span></li>
+						<li key="9">Название вопроса 11<span>n просмотров<span></li>
+						<li key="10">Название вопроса 11<span>n просмотров<span></li>
+						<li key="11">Название вопроса 12<span>n просмотра<span></li>
+						<li key="12">Название вопроса 13<span>n просмотр<span></li>
+						<li key="13">Название вопроса 14<span>n просмотров<span></li>
+						<li key="14">Название вопроса 15<span>n просмотров<span></li>
+						<li key="15">Название вопроса 16<span>n просмотров<span></li>
+						<li key="16">Название вопроса 17<span>n просмотра<span></li>
+						<li key="17">Название вопроса 18<span>n просмотр<span></li>
+						<li key="18">Название вопроса 19<span>n просмотров<span></li>
+						<li key="19">Название вопроса 20<span>n просмотров<span></li>
+					</ul>
+					<p class="forumMainPageLoadMoreResults">
+						Загрузить еще
+					</p>
+				</div>
+
+				<div class="forumMainPageAddNewQuestionBlock hide">
+					<table  cellpadding="20" style=''>
+						<col width = '70%' max-width='70%' valign='top'>
+						<col >
+
+						<tr >
+							<td valign='top' style = 'width:70%; max-width:70%;'>
+								<form action="#" id='forumMainPageAddNewQuestionForm'>
+								<input type="text" name = 'title' placeholder = "Название..."/> <br/>
+								<textarea name= 'content' placeholder="Содержание вопроса..."></textarea>
+								<p class="forumMainPageAddNewQusetionBlockSubmit nextPrevBlock">
+									<span class="prevButton">Закрыть</span>
+									<span class='nextButton'>Поехали</span>
+									<div class="clearfix"></div>
+								</p>
+								</form>
+							</td>
+							<td  valign='top' style='min-width:30%;'>
+								<span class="forumMainPageAddNewQuestionBlockAlert" >
+								<p>Подсказки</p>
+									<div class='forumMainPageNewQuestionBlockAlertText'>Перед тем как создать новый вопрос, убедись, что на него еще не ответили. <br> Может быть так, что кто-то уже ответил на твой вопрос и тебе не придется ждать ответа:)</div>		
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+
+				
+			</div>
+			
+			<div class="right">
+				<ul class='forumMainPageRightUl'>
+					<li class="questionsSearchInformation">Производитель</li>
+						<input type='text' id='carName'  placeholder='Поиск производителя...'/>
+						<ul class="forumMainPageSearchAlt ForumMainPageCarResult hide">
+							
+						</ul>
+					<li class="questionsSearchInformation">Модель</li>
+						<input type='text'id='carModel' placeholder='Поиск модели..'/>
+						<ul class="forumMainPageSearchAlt ForumMainPageModelResult hide">
+							
+						</ul>
+					<li class="questionsSearchInformation">Система</li>
+						<input type='text' id='carSystem' placeholder='Поиск системы...'/>
+						<ul class="forumMainPageSearchAlt ForumMainPageSystemResult hide">
+						</ul>
+					<p class="questionsSearchInformationSearchButton ">Показать</p>
+				</ul>
+				
+			</div>
+		</div>
+		
+	</div>
+	<div class="clearfix"></div>
+
+	<div id="footer">
+		
+	</div>
+	<div class="smoothEverything hide">
+		
+	</div>
+	<div class="signInUp hide">
+		<span class="cross">&#10005</span>
+		<div class="signInUpHeader">
+			<p class="signIn choosen">Вход</p>
+			<p class="signUp">Регистрация</p>
+		</div>
+		<form action="" id="signUpForm" >
+			<input type="text" name='firstName' placeholder='Имя...'/>
+			<input type="text" name = 'lastName' placeholder='Фамилия...'/>
+			<input type="password" name='password' placeholder='Пароль...'/>
+			<input type="password" name='repeatedPassword' placeholder='Повторите...'/>
+			<input type="mail" name = 'mail' placeholder='Почта...'/>
+		</form>
+		<form action="" id="signInForm" >
+			<input type="mail" name = 'mail' placeholder='Почта...'/>
+			<input type="password" name='password' placeholder='Пароль...'/>
+		</form>
+		<p class="signUpInSubmit">
+			Продолжить
+		</p>
+
+	
+	</div>
+	
+
+
+	<!-- скрипты-->
+
+			<script src='./js/outsource/EventEmitter-4.0.3.min.js'> </script>
+	<script src='./js/outsource/jquery-2.1.1.min.js'> </script>
+	<script src = 'js/core/Global/additionalMethods.js'></script>
+
+
+	<script src='js/core/Global/GlobalEventEmitter.js'></script>
+	<script src = 'js/core/Global/UserClass.js'></script>
+	<script src = 'js/core/Global/AutoMuPageClass.js'></script>
+	<script src = './js/core/ForumQuestionPage.js'></script>
+	<script src = 'js/core/Forum/ForumMainPageClass.js'></script>
+	<script src = 'js/core/Global/mainSettings.js'></script>
+	<script src = './js/eventsListeners/forumEventsListener.js'></script>
+
+
+	
+</body>
+</html>

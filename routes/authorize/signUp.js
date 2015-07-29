@@ -11,7 +11,7 @@ exports.post = function(req, res, next){
     var year = req.body.year;
     var faculty = req.body.faculty;
     var groupNumber = req.body.groupNumber;
-    console.log(first_name);
+
     User.signUp(first_name, last_name, groupNumber, faculty, year, studNumber, password, function(err, user){
       if(err){
           if(err instanceof AuthError){
@@ -29,7 +29,6 @@ exports.post = function(req, res, next){
               year: user.personal_information.year,
               photoUrl: user.personal_information.photoUrl,
               id: user._id
-
           };
           res.send(data);
           res.end();

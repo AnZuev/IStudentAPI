@@ -10,7 +10,7 @@ exports.post = function(req, res, next){
         User.signIn(studNumber, password,function(err, user){
             if(err) {
                 if(err instanceof AuthError){
-                    return next(new HttpError(403,  err.message))
+                    return next(new HttpError(401,  err.message))
                 }else{
                     return next(err);
                 }

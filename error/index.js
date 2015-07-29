@@ -41,3 +41,19 @@ util.inherits(DbError, Error);
 DbError.prototype.name = 'DbError';
 
 exports.DbError = DbError;
+
+
+function badDataError(status, message){
+    Error.apply(this, arguments);
+    Error.captureStackTrace(this, DbError);
+    this.status = status || 400;
+    this.message = message || "Плохие данные";
+
+}
+
+util.inherits(DbError, Error);
+badDataError.prototype.name = 'badDataError';
+
+exports.badDataError = badDataError;
+
+

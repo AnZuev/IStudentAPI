@@ -35,26 +35,46 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="29" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="1410">
+            <state line="40" column="29" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="1410">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <file leaf-file-name="checkAuth.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/auth/checkAuth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="24" selection-start="49" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+            <state line="2" column="42" selection-start="93" selection-end="93" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loadUser.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/auth/loadUser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="2" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="7" selection-start="229" selection-end="229" vertical-scroll-proportion="0.21084337" vertical-offset="0" max-vertical-offset="498">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="13" selection-start="274" selection-end="274" vertical-scroll-proportion="0.18072289" vertical-offset="0" max-vertical-offset="498">
-              <folding />
+            <state line="10" column="0" selection-start="382" selection-end="382" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+              <folding>
+                <element signature="e#321#379#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,7 +82,7 @@
       <file leaf-file-name="signIn.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/authorize/signIn.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="45" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="600">
+            <state line="15" column="17" selection-start="616" selection-end="616" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
               <folding />
             </state>
           </provider>
@@ -116,7 +136,6 @@
         <option value="$PROJECT_DIR$/routes/forum/getModels.js" />
         <option value="$PROJECT_DIR$/routes/forum/frontPage.js" />
         <option value="$PROJECT_DIR$/middleware/loadUser.js" />
-        <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/authorize/logout.js" />
         <option value="$PROJECT_DIR$/bin/www" />
@@ -127,6 +146,7 @@
         <option value="$PROJECT_DIR$/routes/authorize/signIn.js" />
         <option value="$PROJECT_DIR$/config/config.json" />
         <option value="$PROJECT_DIR$/routes/authorize/index.js" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
       </list>
     </option>
   </component>
@@ -223,6 +243,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="middleware" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="middleware" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auth" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -416,7 +468,9 @@
     <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="64" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="300">
-          <folding />
+          <folding>
+            <element signature="e#321#379#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -526,13 +580,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="29" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="447" max-vertical-offset="1410">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="19" selection-start="466" selection-end="466" vertical-scroll-proportion="0.6329114" vertical-offset="0" max-vertical-offset="474" />
@@ -552,23 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="42" selection-start="2823" selection-end="2832" vertical-scroll-proportion="0.7360825" vertical-offset="963" max-vertical-offset="1680">
-          <folding>
-            <element signature="e#2140#2341#0" expanded="false" />
-            <element signature="e#3070#4380#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/authorize/signIn.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="45" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="600">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/config.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="6" selection-start="97" selection-end="97" vertical-scroll-proportion="-2.5" vertical-offset="0" max-vertical-offset="345">
@@ -583,16 +613,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
+    <entry file="file://$PROJECT_DIR$/routes/authorize/signIn.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="24" selection-start="49" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+        <state line="15" column="17" selection-start="616" selection-end="616" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="17" selection-start="2910" selection-end="2910" vertical-scroll-proportion="0.643299" vertical-offset="1038" max-vertical-offset="1680">
+          <folding>
+            <element signature="e#2140#2341#0" expanded="false" />
+            <element signature="e#3070#4380#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="274" selection-end="274" vertical-scroll-proportion="0.18072289" vertical-offset="0" max-vertical-offset="498">
+        <state line="10" column="0" selection-start="382" selection-end="382" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+          <folding>
+            <element signature="e#321#379#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/auth/checkAuth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="42" selection-start="93" selection-end="93" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/auth/loadUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="2" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="29" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="447" max-vertical-offset="1410">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="7" selection-start="229" selection-end="229" vertical-scroll-proportion="0.21084337" vertical-offset="0" max-vertical-offset="498">
           <folding />
         </state>
       </provider>

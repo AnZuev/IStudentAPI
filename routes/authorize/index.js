@@ -8,7 +8,5 @@ module.exports = function(app){
         res.send(req.user._id);
         res.end();
     });
-   // app.post('/api/checkMail', require('./checkMail').get);
 
-    //app.get('/api/')
 }

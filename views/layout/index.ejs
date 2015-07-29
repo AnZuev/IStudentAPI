@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://pre-static.istudentapp.ru/static-1.0/IStudentStatic/additionalMethods.js"></script>
+    <script type="text/javascript" src="http://pre-static.istudentapp.ru/static-1.0/IStudentStatic/UserClass.js"></script>
+    <script type="text/javascript" src="http://pre-static.istudentapp.ru/static-1.0/IStudentStatic/scripts.js"></script>
+    <link rel="stylesheet" href="http://pre-static.istudentapp.ru/static-1.0/IStudentStatic/styles.css">
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<header>
+    <p id='title'>
+        IStudent
+    </p>
+
+    <p class='button' id='signIn'>
+        Вход
+    </p>
+
+    <p class='button' id='signUp'>
+        Регистрация
+    </p>
+
+    <div class='clearfix'></div>
+</header>
+
+<div id='layout'>
+    <ul>
+        <li>
+            <div class='line'>
+                <hr>
+                <p>
+                    Для кого этот ресурс?
+                </p>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <table>
+                <tr>
+                    <td id='text' class='block'>
+                        <p>
+                            Этот ресурс в первую очередь ориентирован на студентов СПБГЭТУ. Мы постарались собрать все проблемы, с которыми мы столкнулись на первом году обучения в Вузе, и решить их. К тому же мы добавили к этому всеми и элемент социальной сети - почему бы не подарить ЛЭТИ свою собственную социальную сеть?</p>
+                    </td>
+                    <td id='picture'>
+                        <p>еще одна картинка</p>
+                    </td>
+                </tr>
+            </table>
+
+        </li>
+
+
+        <li>
+            <div class='line'>
+                <hr>
+                <p>How to use it?</p>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <table>
+                <col width="33%">
+                <col width="33%">
+                <col width="33%">
+                <tr>
+                    <td>
+                        <div class=block>
+                            <h1>В куре всех событий</h1>
+                            <p>Благодаря модулю “Календарь” вы всегда будете знать все, что должно произойти: расписание экзаменов, встреч группы, дни рождения - теперь ничего не пройдет мимо вас!
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class=block>
+                            <h1>Участие в проектах</h1>
+                            <p>Каждый участник может создать свой проект и рассказать об этом всему университету. Наверняка у тебя уже есть идея, которую тебе очень хочется реализовать.</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class=block>
+                            <h1>Всегда на связи</h1>
+                            <p>Каждый участник может общаться с каждым и не волноваться, что его сообщения кто-то прочитает вся информация надежно зашифрована. Взломаешь?
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </li>
+
+
+        <li>
+            <div class='line'>
+                <hr>
+                <p>Что мы можем улучшить?</p>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <table>
+                <tr>
+                    <td>
+                        <form>
+                            <input type="text"  class='field' placeholder= 'Как с вами связаться?'>
+                            <input type="text"  class='field' placeholder= 'Допольнительная информация о Вас (не обязательно)'>
+                            <input id='DescriptionOfSuggestion'type="text"  class='field'>
+                            <div  class='field'>
+                                <div id='SendSuggestion' class='button'>
+                                    Отправить
+                                </div>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+        </li>
+    </ul>
+</div>
+
+<div class="hide">
+    <div id="signInUpBlock">
+        <form action="#" name='signInForm' class='hide'>
+            <p>Вход</p>
+            <input type="text" name = 'studNumber' placeholder= 'Номер студенческого...'>
+            <input type="password" name = 'password' placeholder='Пароль...'>
+            <ul>
+                <li style='float:right' id='signInSubmit'>Войти</li>
+                <li style='float:left' id='forgetPassword'>Забыли пароль?</li>
+            </ul>
+            <div class="clearfix"></div>
+        </form>
+        <form action="#" name='signUpForm'>
+            <p>Регистрация</p>
+            <input type="text" name='firstName' placeholder='Имя...'>
+            <input type="text" name='lastName' placeholder='Фамилия...'>
+            <input type="text" name = 'studNumber' placeholder= 'Номер студенческого...'>
+            <input type="text" name='faculty' placeholder='Факультет...'>
+            <input type="text" name='year' placeholder='Курс...'>
+            <input type="text" name='groupNumber' placeholder='Группа...' pattern="[0-9]">
+            <input type="password" name = 'password' placeholder='Пароль...'>
+            <input type="password" name = 'repeatPassword' placeholder='Повторите пароль...'>
+            <p id='signUpSubmit' class='button'>Регистрироваться</p>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <hr>
+    <table>
+        <col width="33%">
+        <col width="33%">
+        <col width="33%">
+        <tr>
+            <td>
+                <h2>Деканату</h2>
+                <p>Как пользоваться</p>
+                <p>Помощь</p>
+            </td>
+            <td>
+                <h2>Студентам</h2>
+                <p>Как пользоваться</p>
+                <p>Правила</p>
+            </td>
+            <td>
+                <h2>Контакты</h2>
+                <p>Эл почта</p>
+                <p>Скайп</p>
+            </td>
+        </tr>
+    </table>
+
+
+    <p>IStudent.2015</p>
+
+</footer>
+
+
+</body>
+</html>

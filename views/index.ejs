@@ -3,6 +3,7 @@
 
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="Error.js"></script>
     <script type="text/javascript" src="http://pre-static.istudentapp.ru/static-1.0/IStudentStatic/additionalMethods.js"></script>
     <script type="text/javascript" src="http://pre-static.istudentapp.ru/static-1.0/IStudentStatic/UserClass.js"></script>
     <script type="text/javascript" src="http://pre-static.istudentapp.ru/static-1.0/IStudentStatic/scripts.js"></script>
@@ -13,7 +14,7 @@
 <body>
 
 <header>
-    <p id='title'>
+    <p id='TitleOfHeader'>
         IStudent
     </p>
 
@@ -43,7 +44,7 @@
 
             <table>
                 <tr>
-                    <td id='text' class='block'>
+                    <td id='text'class='InformativeBlock'>
                         <p>
                             Этот ресурс в первую очередь ориентирован на студентов СПБГЭТУ. Мы постарались собрать все проблемы, с которыми мы столкнулись на первом году обучения в Вузе, и решить их. К тому же мы добавили к этому всеми и элемент социальной сети - почему бы не подарить ЛЭТИ свою собственную социальную сеть?</p>
                     </td>
@@ -71,20 +72,20 @@
                 <col width="33%">
                 <tr>
                     <td>
-                        <div class=block>
+                        <div class='InformativeBlock'>
                             <h1>В куре всех событий</h1>
                             <p>Благодаря модулю “Календарь” вы всегда будете знать все, что должно произойти: расписание экзаменов, встреч группы, дни рождения - теперь ничего не пройдет мимо вас!
                             </p>
                         </div>
                     </td>
                     <td>
-                        <div class=block>
+                        <div class='InformativeBlock'>
                             <h1>Участие в проектах</h1>
                             <p>Каждый участник может создать свой проект и рассказать об этом всему университету. Наверняка у тебя уже есть идея, которую тебе очень хочется реализовать.</p>
                         </div>
                     </td>
                     <td>
-                        <div class=block>
+                        <div class='InformativeBlock'>
                             <h1>Всегда на связи</h1>
                             <p>Каждый участник может общаться с каждым и не волноваться, что его сообщения кто-то прочитает вся информация надежно зашифрована. Взломаешь?
                             </p>
@@ -109,8 +110,10 @@
                     <td>
                         <form>
                             <input type="text"  class='field' placeholder= 'Как с вами связаться?'>
-                            <input type="text"  class='field' placeholder= 'Допольнительная информация о Вас (не обязательно)'>
-                            <input id='DescriptionOfSuggestion'type="text"  class='field'>
+                            <textarea  id='AdditionalInformationAboutSuggestor'  class='field' cols='50' rows='1'>
+                            </textarea>
+                            <textarea id='DescriptionOfSuggestion'  cols='50' rows='20' class='field'>
+                            </textarea>
                             <div  class='field'>
                                 <div id='SendSuggestion' class='button'>
                                     Отправить

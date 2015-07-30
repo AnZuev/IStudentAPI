@@ -4,6 +4,8 @@ var mongoose = require('../libs/mongoose'),
 var async = require('async');
 var AuthError = require('../error').AuthError;
 var badDataError = require('../error').badDataError;
+var DbError = require('../error').DbError;
+
 
 
 var User = new Schema({
@@ -49,6 +51,9 @@ var User = new Schema({
             type:String,
             require: true
         }
+    },
+    calendar: {
+        invites: [Schema.Types.ObjectId]
     }
 });
 
@@ -140,9 +145,20 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
 
 };
 
-User.statics.update_rating = function(user_id, rating_increment, callback){
-
+User.methods.acceptOrDeclineEvent = function(userId,eventId, callback){
+    User.update({_id: userId}, {$pull:{"calendar.invites": eventId }}, function(err){
+        if(err) return callback(new DbError("Не получилось удилать элемент из массива calendar.invites " + eventId));
+        else return callback(null);
+    });
 }
+
+User.methods.recieveInviteToEvent = function(userId,eventId, callback){
+    User.update({_id: userId}, {$push:{"calendar.invites": eventId }}, function(err){
+        if(err) return callback(new DbError("Не получилось добавить элемент в массив calendar.invites " + eventId));
+        else return callback(null);
+    });
+}
+
 
 exports.User = mongoose.model('User', User);
 

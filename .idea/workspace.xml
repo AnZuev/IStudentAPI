@@ -35,7 +35,7 @@
       <file leaf-file-name="index.ejs" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="39" selection-start="4101" selection-end="4101" vertical-scroll-proportion="-1.3427331" vertical-offset="2344" max-vertical-offset="2940">
+            <state line="16" column="26" selection-start="834" selection-end="834" vertical-scroll-proportion="0.52060735" vertical-offset="0" max-vertical-offset="2940">
               <folding>
                 <element signature="n#style#0;n#li#0;n#ul#0;n#form#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#1;n#ul#0;n#form#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -693,7 +693,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="39" selection-start="4101" selection-end="4101" vertical-scroll-proportion="-1.3427331" vertical-offset="2344" max-vertical-offset="2940">
+        <state line="16" column="26" selection-start="834" selection-end="834" vertical-scroll-proportion="0.52060735" vertical-offset="0" max-vertical-offset="2940">
           <folding>
             <element signature="n#style#0;n#li#0;n#ul#0;n#form#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#1;n#ul#0;n#form#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />

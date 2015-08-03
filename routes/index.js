@@ -13,7 +13,7 @@ module.exports = function(app){
     })
     require('./authorize')(app);
     require('./general')(app);
-    require('./calendar')(add);
+    require('./calendar')(app);
 
 
 

@@ -3,7 +3,7 @@ var HttpError = require('../../error').HttpError;
 var AuthError = require('../../error').AuthError;
 
 
-exports.post = function(req, res, next){
+exports.put = function(req, res, next){
     if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
         var title = req.body.title;
         var description = req.body.description;

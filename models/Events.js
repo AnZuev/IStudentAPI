@@ -42,8 +42,9 @@ var Event = new Schema({
         require: true
     },
     created:{
-        type: Date.now,
-        require:true
+        type: Date,
+        require:true,
+        default:Date.now
     },
     creator:{
         type: Schema.Types.ObjectId,

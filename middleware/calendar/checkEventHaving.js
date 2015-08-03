@@ -1,5 +1,5 @@
 var Event= require('../../models/Events').Event;
-var httpError = require('../error').HttpError;
+var httpError = require('../../error').HttpError;
 
 module.exports = function(req, res, next){
 

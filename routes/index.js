@@ -12,6 +12,8 @@ module.exports = function(app){
         next();
     })
     require('./authorize')(app);
+    require('./general')(app);
+    require('./calendar')(add);
 
 
 

@@ -46,14 +46,15 @@ var Event = new Schema({
         require:true
     },
     creator:{
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        require:true
     }
 
 });
 
 
 
-Event.statics.addEvent = function(title, startTime, finishTime, period, invites, place, type, creator, callback){
+Event.statics.addEvent = function(title, startTime, finishTime, period, invites, place, description, type, creator, callback){
     var event = new Event({
         title: title,
         time: {
@@ -65,6 +66,7 @@ Event.statics.addEvent = function(title, startTime, finishTime, period, invites,
             invites: invites
         },
         place: place,
+        description: description,
         type: type,
         creator: creator
     });
@@ -120,11 +122,11 @@ Event.statics.removeEvent = function(id, callback){
 };
 
 Event.statics.findFromDateToDate = function(userId,start, finish, callback){
-    Event.find({creator: userId}).or({"participants.accepted": userId}).where('time.start').gte(start).lte(finish).exec(callback);
-    console.log(callback);
+    var result = Event.find({creator: userId}).or({"participants.accepted": userId}).where('time.start').gte(start).lte(finish).exec(callback);
+    console.log(result);
 }
 
-Event.methods.accept = function(userId, eventid, callback){
+Event.statics.accept = function(userId, eventid, callback){
     var Event = this;
     async.waterfall([
         function(callback){
@@ -144,7 +146,7 @@ Event.methods.accept = function(userId, eventid, callback){
 
 }
 
-Event.methods.decline = function(userId, eventid, callback){
+Event.statics.decline = function(userId, eventid, callback){
     var Event = this;
     async.waterfall([
         function(callback){
@@ -160,12 +162,15 @@ Event.methods.decline = function(userId, eventid, callback){
             }
 
         }
-    ], callback)
+    ], callback);
+};
+
+Event.statics.checkUserInEvent = function(userId, EventId, callback){
+
 }
 
 
-
-exports.User = mongoose.model('User', User);
+exports.Event = mongoose.model('Event', Event);
 
 
 

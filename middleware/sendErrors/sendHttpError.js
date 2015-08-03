@@ -8,6 +8,7 @@ module.exports = function(req, res, next){
             //res.render("error", {error: error});
             res.send(error.message);
         }
+        res.end();
     };
     next();
 };

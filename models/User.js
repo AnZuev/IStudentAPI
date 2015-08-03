@@ -74,7 +74,7 @@ User.methods.checkPassword = function(password){
 };
 
 User.statics.validateData = function(first_name, last_name, groupNumber, faculty, year, studNumber, password){
-    return (((typeof first_name != "string") || (typeof last_name != "string") || (typeof faculty !="string") || (typeof year != "number") || (typeof studNumber != "number") || (first_name.length < 2) || (last_name.length < 3) || (year < 1) || (year > 6) || (faculty.length < 2) || studNumber < 10000));
+    return (((typeof first_name == "string") && (typeof last_name == "string") && (typeof faculty =="string") && (typeof year == "number") && (typeof studNumber == "number") && (first_name.length >= 2) && (last_name.length >= 3) && (year > 1) && (year < 6) && (faculty.length >= 2) && studNumber > 10000));
 };
 
 User.statics.changePhotoUrl = function(user_id, new_photo_url, callback){

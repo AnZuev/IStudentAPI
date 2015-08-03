@@ -9,22 +9,24 @@ exports.post = function(req, res, next){
         var address = req.body.address;
         var AdditionalInformationAboutSuggestor = req.body.AdditionalInformationAboutSuggestor;
         var idea =  req.body.DescriptionOfSuggestion;
-        if(address == '' || AdditionalInformationAboutSuggestor == '' || idea == '') {
-            res.send("нет данных");
-            res.end();
+        if(address == '' || idea == '') {
+            res.end(400);
         }
-        console.log(idea + ' ' + address + " " + AdditionalInformationAboutSuggestor + "запрос получил");
-        /*
-       var suggestion = {
-           address: address,
-           additional: AdditionalInformationAboutSuggestor,
-           idea: idea
-       };
-       Suggest.addSuggestion(suggestion, function(err){
-           if(err) return next(err);
-           else return next();
-       })
-       */
+        else{
+            console.log(idea + ' ' + address + " " + AdditionalInformationAboutSuggestor + "запрос получил");
+
+            var suggestion = {
+                address: address,
+                additional: AdditionalInformationAboutSuggestor,
+                idea: idea
+            };
+            Suggest.addSuggestion(suggestion, function(err){
+                if(err) return next(err);
+                else return next();
+            })
+        }
+
+
 
 
 

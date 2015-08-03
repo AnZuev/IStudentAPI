@@ -44,7 +44,7 @@
       <file leaf-file-name="feedback.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/general/feedback.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="14" selection-start="800" selection-end="800" vertical-scroll-proportion="0.6325301" vertical-offset="0" max-vertical-offset="585">
+            <state line="26" column="30" selection-start="993" selection-end="993" vertical-scroll-proportion="0.78313255" vertical-offset="0" max-vertical-offset="630">
               <folding />
             </state>
           </provider>
@@ -888,7 +888,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/general/feedback.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="14" selection-start="800" selection-end="800" vertical-scroll-proportion="0.6325301" vertical-offset="0" max-vertical-offset="585">
+        <state line="26" column="30" selection-start="993" selection-end="993" vertical-scroll-proportion="0.78313255" vertical-offset="0" max-vertical-offset="630">
           <folding />
         </state>
       </provider>

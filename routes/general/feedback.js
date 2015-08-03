@@ -22,7 +22,10 @@ exports.post = function(req, res, next){
             });
             Suggest.addSuggestion(suggestion, function(err){
                 if(err) return next(err);
-                else return next();
+                else {
+                    res.send(200);
+                    res.end();
+                }
             })
         }
 

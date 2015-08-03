@@ -9,7 +9,8 @@ exports.post = function(req, res, next){
         var address = req.body.address;
         var AdditionalInformationAboutSuggestor = req.body.AdditionalInformationAboutSuggestor;
         var idea =  req.body.DescriptionOfSuggestion;
-        console.log(idea + ' ' + address + " " + AdditionalInformationAboutSuggestor);
+        console.log(idea + ' ' + address + " " + AdditionalInformationAboutSuggestor + "запрос получил");
+        /*
        var suggestion = {
            address: address,
            additional: AdditionalInformationAboutSuggestor,
@@ -19,6 +20,7 @@ exports.post = function(req, res, next){
            if(err) return next(err);
            else return next();
        })
+       */
 
 
 

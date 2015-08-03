@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/general/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="40" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
+            <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.15789473" vertical-offset="0" max-vertical-offset="475">
               <folding />
             </state>
           </provider>
@@ -50,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="feedback.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="feedback.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/general/feedback.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="86" selection-start="495" selection-end="495" vertical-scroll-proportion="0.34736842" vertical-offset="0" max-vertical-offset="475">
+            <state line="11" column="102" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
               <folding />
             </state>
           </provider>
@@ -533,7 +533,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="36" y="23" width="1404" height="877" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299363" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -874,13 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/general/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="40" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/suggestions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="23" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="720">
@@ -897,7 +890,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/general/feedback.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="86" selection-start="495" selection-end="495" vertical-scroll-proportion="0.34736842" vertical-offset="0" max-vertical-offset="475">
+        <state line="11" column="102" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/general/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.15789473" vertical-offset="0" max-vertical-offset="475">
           <folding />
         </state>
       </provider>

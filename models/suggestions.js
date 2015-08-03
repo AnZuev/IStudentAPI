@@ -17,8 +17,9 @@ var Suggest = new Schema({
         type: String
     },
     created:{
-        type: Date.now,
-        require:true
+        type: Date,
+        require:true,
+        default: Date.now
     }
 
 });

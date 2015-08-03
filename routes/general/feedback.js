@@ -1,5 +1,5 @@
 var HttpError = require('../../error').HttpError;
-var Suggest = require('../')
+var Suggest = require('../../models/suggestions').Suggest;
 
 
 

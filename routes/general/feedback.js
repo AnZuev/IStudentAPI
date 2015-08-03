@@ -10,7 +10,7 @@ exports.post = function(req, res, next){
         var AdditionalInformationAboutSuggestor = req.body.AdditionalInformationAboutSuggestor;
         var idea =  req.body.DescriptionOfSuggestion;
         if(address == '' || idea == '') {
-            res.end(400);
+            return next(400);
         }
         else{
             console.log(idea + ' ' + address + " " + AdditionalInformationAboutSuggestor + "запрос получил");

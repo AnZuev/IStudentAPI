@@ -9,6 +9,10 @@ exports.post = function(req, res, next){
         var address = req.body.address;
         var AdditionalInformationAboutSuggestor = req.body.AdditionalInformationAboutSuggestor;
         var idea =  req.body.DescriptionOfSuggestion;
+        if(address == '' || AdditionalInformationAboutSuggestor == '' || idea == '') {
+            res.send("нет данных");
+            res.end();
+        }
         console.log(idea + ' ' + address + " " + AdditionalInformationAboutSuggestor + "запрос получил");
         /*
        var suggestion = {

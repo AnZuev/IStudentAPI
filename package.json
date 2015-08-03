@@ -15,9 +15,9 @@
     "serve-favicon": "~2.2.0",
     "nconf": "*",
      "mongoose": "*",
-      "ejs-locals": "*",
-      "express-session": "*",
-      "connect-mongo": "*",
-      "mongodb":"*"
+     "ejs-locals": "*",
+     "express-session": "*",
+     "connect-mongo": "*",
+     "mongodb":"*"
   }
 }

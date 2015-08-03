@@ -15,11 +15,11 @@ exports.post = function(req, res, next){
         else{
             console.log(idea + ' ' + address + " " + AdditionalInformationAboutSuggestor + "запрос получил");
 
-            var suggestion = {
+            var suggestion =  new Suggest({
                 address: address,
                 additional: AdditionalInformationAboutSuggestor,
                 idea: idea
-            };
+            });
             Suggest.addSuggestion(suggestion, function(err){
                 if(err) return next(err);
                 else return next();

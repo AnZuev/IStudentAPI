@@ -26,79 +26,80 @@
       <file leaf-file-name="User.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/User.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="62" selection-start="2815" selection-end="2878" vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="2580">
+            <state line="119" column="50" selection-start="3626" selection-end="3626" vertical-scroll-proportion="0.0" vertical-offset="1575" max-vertical-offset="2580">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.ejs" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/index.ejs">
+      <file leaf-file-name="Events.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="81" selection-start="1345" selection-end="1345" vertical-scroll-proportion="-6.25" vertical-offset="495" max-vertical-offset="2445">
-              <folding />
+            <state line="196" column="58" selection-start="5932" selection-end="5932" vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1410">
+              <folding>
+                <element signature="e#226#1043#0" expanded="false" />
+                <element signature="e#3124#4630#0" expanded="false" />
+                <element signature="e#4713#5293#0" expanded="false" />
+                <element signature="e#5376#5872#0" expanded="false" />
+                <element signature="e#5932#6881#0" expanded="false" />
+                <element signature="e#6942#7943#0" expanded="false" />
+                <element signature="e#7990#8155#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="feedback.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/general/feedback.js">
+      <file leaf-file-name="createEvents.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/createEvents.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="30" selection-start="993" selection-end="993" vertical-scroll-proportion="0.78313255" vertical-offset="0" max-vertical-offset="630">
-              <folding />
+            <state line="69" column="38" selection-start="1890" selection-end="1890" vertical-scroll-proportion="0.0" vertical-offset="1060" max-vertical-offset="1545">
+              <folding>
+                <element signature="e#0#40#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="suggestions.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/suggestions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="24" selection-start="481" selection-end="481" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="720">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="86" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+            <state line="8" column="32" selection-start="446" selection-end="453" vertical-scroll-proportion="0.24096386" vertical-offset="0" max-vertical-offset="498">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addEvent.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/calendar/addEvent.js">
+      <file leaf-file-name="acceptEvent.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/calendar/acceptEvent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+            <state line="20" column="0" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/config.json">
+      <file leaf-file-name="declineEvent.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/calendar/declineEvent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="26" selection-start="285" selection-end="285" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="345">
+            <state line="13" column="28" selection-start="482" selection-end="482" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="removeEvent.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/calendar/removeEvent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="5" selection-start="449" selection-end="449" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="420">
+            <state line="11" column="30" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getEvents.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/calendar/getEvents.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="34" selection-start="424" selection-end="424" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
               <folding />
             </state>
           </provider>
@@ -126,28 +127,34 @@
         <option value="$PROJECT_DIR$/routes/forum/frontPage.js" />
         <option value="$PROJECT_DIR$/middleware/loadUser.js" />
         <option value="$PROJECT_DIR$/routes/authorize/logout.js" />
-        <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/routes/authorize/signUp.js" />
         <option value="$PROJECT_DIR$/error/index.js" />
         <option value="$PROJECT_DIR$/routes/authorize/signIn.js" />
-        <option value="$PROJECT_DIR$/config/config.json" />
         <option value="$PROJECT_DIR$/routes/authorize/index.js" />
         <option value="$PROJECT_DIR$/views/layout/index.ejs" />
         <option value="$PROJECT_DIR$/models/events.js" />
         <option value="$PROJECT_DIR$/models/User.js" />
-        <option value="$PROJECT_DIR$/createEvents.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/middleware/sendErrors/sendHttpError.js" />
         <option value="$PROJECT_DIR$/routes/general/index.js" />
-        <option value="$PROJECT_DIR$/models/Events.js" />
         <option value="$PROJECT_DIR$/middleware/calendar/checkEventHaving.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
-        <option value="$PROJECT_DIR$/routes/calendar/addEvent.js" />
-        <option value="$PROJECT_DIR$/routes/calendar/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
-        <option value="$PROJECT_DIR$/models/suggestions.js" />
         <option value="$PROJECT_DIR$/routes/general/feedback.js" />
+        <option value="$PROJECT_DIR$/models/suggestions.js" />
+        <option value="$PROJECT_DIR$/libs/validateData.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/addEvent.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/modifyEvent.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/getEvent.js" />
+        <option value="$PROJECT_DIR$/config/config.json" />
+        <option value="$PROJECT_DIR$/bin/www" />
+        <option value="$PROJECT_DIR$/createEvents.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/removeEvent.js" />
+        <option value="$PROJECT_DIR$/models/Events.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/acceptEvent.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/declineEvent.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/index.js" />
       </list>
     </option>
   </component>
@@ -328,10 +335,6 @@
               <option name="myItemId" value="middleware" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="calendar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -343,7 +346,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="middleware" />
+              <option name="myItemId" value="libs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -399,7 +402,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/createEvents.js" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -408,17 +411,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/routes/calendar" />
+      <recent name="$PROJECT_DIR$/libs" />
       <recent name="$PROJECT_DIR$/models" />
       <recent name="$PROJECT_DIR$/routes/general" />
-      <recent name="$PROJECT_DIR$/routes/calendar" />
       <recent name="$PROJECT_DIR$/public/js/outsource" />
-      <recent name="$PROJECT_DIR$/public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/views" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.www">
+  <component name="RunManager" selected="Node.js.CreateEvents">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -471,9 +474,16 @@
       <ConfigurationWrapper RunnerId="NodeJS.run" />
       <method />
     </configuration>
-    <list size="2">
+    <configuration default="false" name="CreateEvents" type="NodeJSConfigurationType" factoryName="Node.js" singleton="true" path-to-node="/usr/local/bin/node" path-to-js-file="createEvents.js" working-dir="$PROJECT_DIR$">
+      <browser start="false" url="" with-js-debugger="false" />
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.debug" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.www" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.CreateEvents" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -534,7 +544,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3299363" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3299363" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -564,53 +574,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="6" selection-start="401" selection-end="408" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="420">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="270">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/auth/checkAuth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="42" selection-start="93" selection-end="93" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="165">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/auth/loadUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="2" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="270">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/calendar/checkEventHaving.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="45" selection-start="391" selection-end="391" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="225">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/error/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="9" selection-start="526" selection-end="526" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="40" column="29" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="1410" />
@@ -714,11 +677,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="475" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/error/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="7" selection-start="1194" selection-end="1194" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="975" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/social_activity_controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="64" column="32" selection-start="1908" selection-end="1908" vertical-scroll-proportion="0.6927711" vertical-offset="615" max-vertical-offset="2550">
@@ -786,53 +744,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/createEvents.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="19" selection-start="625" selection-end="625" vertical-scroll-proportion="0.5421687" vertical-offset="0" max-vertical-offset="498">
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/calendar/checkEventHaving.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="30" selection-start="79" selection-end="79" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="26" selection-start="1469" selection-end="1504" vertical-scroll-proportion="0.7010526" vertical-offset="1047" max-vertical-offset="1545">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="5" selection-start="449" selection-end="449" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="420">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="26" selection-start="285" selection-end="285" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="345">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="24" selection-start="954" selection-end="954" vertical-scroll-proportion="0.46536797" vertical-offset="475" max-vertical-offset="2745">
           <folding />
         </state>
       </provider>
@@ -844,34 +758,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="81" selection-start="1345" selection-end="1345" vertical-scroll-proportion="-6.25" vertical-offset="495" max-vertical-offset="2445">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="86" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/addEvent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0" vertical-offset="20" max-vertical-offset="495">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/suggestions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="24" selection-start="481" selection-end="481" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="720">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/authorize/signUp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="57" selection-start="682" selection-end="682" vertical-scroll-proportion="0.5120482" vertical-offset="0" max-vertical-offset="705">
@@ -879,16 +765,158 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/User.js">
+    <entry file="file://$PROJECT_DIR$/routes/general/feedback.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="62" selection-start="2815" selection-end="2878" vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="2580">
+        <state line="21" column="39" selection-start="791" selection-end="791" vertical-scroll-proportion="0.6325301" vertical-offset="0" max-vertical-offset="600">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/general/feedback.js">
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="30" selection-start="993" selection-end="993" vertical-scroll-proportion="0.78313255" vertical-offset="0" max-vertical-offset="630">
+        <state line="43" column="81" selection-start="1345" selection-end="1345" vertical-scroll-proportion="-6.25" vertical-offset="495" max-vertical-offset="2445">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="5" selection-start="449" selection-end="449" vertical-scroll-proportion="0.6329114" vertical-offset="0" max-vertical-offset="474">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/suggestions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="35" selection-start="342" selection-end="378" vertical-scroll-proportion="0.60240966" vertical-offset="0" max-vertical-offset="780">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="86" selection-start="220" selection-end="220" vertical-scroll-proportion="0.15060242" vertical-offset="0" max-vertical-offset="498">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/addEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="13" selection-start="653" selection-end="653" vertical-scroll-proportion="0.49484536" vertical-offset="0" max-vertical-offset="485">
+          <folding>
+            <element signature="e#787#1096#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/modifyEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="59" selection-start="649" selection-end="649" vertical-scroll-proportion="0.49072164" vertical-offset="2" max-vertical-offset="615">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/mongoose.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="41" selection-end="188" vertical-scroll-proportion="0.090361446" vertical-offset="0" max-vertical-offset="498">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="20" selection-start="341" selection-end="341" vertical-scroll-proportion="-9.375" vertical-offset="0" max-vertical-offset="390">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="91" column="84" selection-start="1527" selection-end="1527" vertical-scroll-proportion="0.7590361" vertical-offset="447" max-vertical-offset="945">
+          <folding>
+            <element signature="n#!!block;n#normalizePort#0" expanded="false" />
+            <element signature="n#!!block;n#onError#0" expanded="false" />
+            <element signature="e#1070#1352#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="119" column="50" selection-start="3626" selection-end="3626" vertical-scroll-proportion="0.0" vertical-offset="1575" max-vertical-offset="2580">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/async/lib/async.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="711" column="33" selection-start="20551" selection-end="20551" vertical-scroll-proportion="0.935743" vertical-offset="10109" max-vertical-offset="17805">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/getEvents.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="34" selection-start="424" selection-end="424" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/error/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="26" selection-start="827" selection-end="827" vertical-scroll-proportion="0.24096386" vertical-offset="405" max-vertical-offset="975">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/acceptEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/declineEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="28" selection-start="482" selection-end="482" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createEvents.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="38" selection-start="1890" selection-end="1890" vertical-scroll-proportion="0.0" vertical-offset="1060" max-vertical-offset="1545">
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="196" column="58" selection-start="5932" selection-end="5932" vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1410">
+          <folding>
+            <element signature="e#226#1043#0" expanded="false" />
+            <element signature="e#3124#4630#0" expanded="false" />
+            <element signature="e#4713#5293#0" expanded="false" />
+            <element signature="e#5376#5872#0" expanded="false" />
+            <element signature="e#5932#6881#0" expanded="false" />
+            <element signature="e#6942#7943#0" expanded="false" />
+            <element signature="e#7990#8155#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/removeEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="30" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="32" selection-start="446" selection-end="453" vertical-scroll-proportion="0.24096386" vertical-offset="0" max-vertical-offset="498">
           <folding />
         </state>
       </provider>

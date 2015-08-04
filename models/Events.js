@@ -5,6 +5,7 @@ var badDataError = require('../error').badDataError;
 var DbError = require('../error').DbError;
 
 
+
 var Event = new Schema({
     title:{
         type: String,
@@ -56,6 +57,7 @@ var Event = new Schema({
 
 
 Event.statics.addEvent = function(title, startTime, finishTime, period, invites, place, description, type, creator, callback){
+    var Event = this;
     var event = new Event({
         title: title,
         time: {
@@ -72,40 +74,38 @@ Event.statics.addEvent = function(title, startTime, finishTime, period, invites,
         creator: creator
     });
     event.save(function(err){
-        if(err) return callback(new DbError("Ошибка при создания события с данными: /n" + event + ". Ошибка " + err ));
+        if(err) return callback(new DbError(500,"Ошибка при создания события с данными: /n" + event + ". Ошибка " + err ));
         else return callback(null, event);
     });
 
 }
 
-Event.statics.modifyEvent = function(id, title, startTime, finishTime, period, invites, place, type, creator, callback){
+Event.statics.modifyEvent = function(eventId, title, startTime, finishTime, period, invites, place, descriotion, userId, callback){
     var Event = this;
     async.waterfall([
             function(callback){
-                Event.findById(id, callback)
+                Event.find({_id:eventId},{creator: userId}, callback);
             },
             function(event, callback){
-                if(!event){
-                    return callback(new DbError("Событие не найдено: " + id));
+                if(event.length == 0){
+                    return callback(new DbError(403, "Событие не найдено: " + eventId));
                 }else{
-                    var modifiedEvent = new Event({
-                        title: title,
-                        time: {
-                            start: startTime,
-                            finish: finishTime
-                        },
-                        period: period,
-                        participants:{
-                            invites: invites
-                        },
-                        place: place,
-                        type: type,
-                        creator: creator
-                    });
-                    event.save(function(err){
-                        if(err) return callback(new DbError("Ошибка при обновления события с  id " + id + " и данными: /n" + event + "./n Ошибка " + err ));
+                    console.log(event + " Изменяю событие");
+                    event = event[0];
+                    console.log(event);
+                    event.title = title;
+                    event.time.start = startTime;
+                    event.time.finish = finishTime;
+                    event.period = period;
+                    event.participants.invites = invites;
+                    event.place = place;
+                    event.type = type;
+                    event.save(function(err, modifiedEvent){
+                        if(err) return callback(new DbError("Ошибка при обновления события с  id " + eventId + " и данными: /n" + event + "./n Ошибка " + err ));
                         else return callback(null, modifiedEvent);
                     });
+
+
                 }
 
             }
@@ -114,32 +114,101 @@ Event.statics.modifyEvent = function(id, title, startTime, finishTime, period, i
 
 };
 
-Event.statics.removeEvent = function(id, callback){
-    Event.findByIdAndRemove(id, function(err, result){
-        if(err) return callback(new DbError("Ошибка при удаления события с id = " + id + ". Ошибка " + err ));
-        else return callback(null, result);
-    });
+Event.statics.removeEvent = function(eventId, userId, callback){
+    var Event = this;
+    var flag = false;
+    async.waterfall([
+        function(callback){
+            Event.find({$and:[{_id:eventId},{creator: userId}]}, callback);
+        },
+        function(event, callback){
+            console.log(event);
+            if(event.length == 0){
+                Event.find({_id:eventId}, {"participants:accepted": userId}, callback);
+            }else{
+                flag = true;
+                event = event[0];
+                console.log("Удаляю событие, creator");
+                event.remove(function(err){
+                    if(err) return callback(new DbError("Ошибка при удалении события с  id " + eventId + " и данными: /n" + event + "./n Ошибка " + err ));
+                    else return callback(null, event);
+                });
+            }
+        },
+        function(event, callback){
+            if(flag) return callback(null);
+            if(event.length == 0){
+                return callback(new DbError(403, "Событие не найдено: " + eventId));
+            }else{
+                console.log("Удаляю событие. Participants.accepted")
+                Event.update({_id: eventId}, {$pull :{ "participants.accepted": userId}}, function(err, events){
+                    if(err) return callback(new DbError("Произошла ошибка при изменении данных поля participants.accepted. UserId = " + userId + " , eventId = " + eventid ));
+                    else return callback(null, events)
+                });
+            }
+
+        }
+    ], callback);
 
 };
 
-Event.statics.findFromDateToDate = function(userId,start, finish, callback){
-    var result = Event.find({creator: userId}).or({"participants.accepted": userId}).where('time.start').gte(start).lte(finish).exec(callback);
-    console.log(result);
+Event.statics.findFromDateToDateFull = function(userId, start, finish, callback){
+    var Event = this;
+    start = new Date(start);
+    finish = new Date(finish);
+    Event.find({$and:[{
+        $or:[
+            {creator: userId},
+            {"participants.accepted" : userId}
+        ]
+    }, {"time.start": {$gte: start, $lte: finish}}
+    ]}).sort('time.start').select({title:1, description:1, place: 1, "time.start":1, "time.finish":1, period:1, type:1, "participants.accepted":1, _id: 1 })
+        .exec(function(err, events){
+            if(err) throw err;
+            else{
+                return callback(null, events);
+            }
+        });
+
+
+}
+
+Event.statics.findFromDateToDateShort = function(userId, start, finish, callback){
+    var Event = this;
+    start = new Date(start);
+    finish = new Date(finish);
+    Event.find({$and:[{
+        $or:[
+            {creator: userId},
+            {"participants.accepted" : userId}
+        ]
+    }, {"time.start": {$gte: start, $lte: finish}}
+    ]}).sort('time.start').sort('time.start').select({title:1, _id: 1 })
+        .exec(function(err, events){
+            if(err) throw err;
+            else{
+                return callback(null, events);
+            }
+        });
+
+
 }
 
 Event.statics.accept = function(userId, eventid, callback){
     var Event = this;
     async.waterfall([
         function(callback){
-            Event.findById({eventId: eventid, "participants.invites": userId}, callback);
+            Event.find({$and:[{_id: eventid}, {"participants.invites": userId}]}, callback);
         },
         function(event, callback){
-            if(!event) return callback(new badDataError("Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventid));
+            if(event.length == 0) return callback(new badDataError(403,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventid));
             else{
-                Event.update({id: userId}, {$pull :{ "participants.invites": userId}, $push:{"participants.accepted": userId}}, function(err){
-                    if(err) return callback(new DbError("Произошла ошибка при изменении данных поля participants.invites и participants.accepted . UserId = " + userId + " , eventId = " + eventid ));
-                    else return callback(null)
+                console.log('Событие нашел, делаю изменения');
+                Event.update({_id: eventid}, {$pull :{ "participants.invites": userId}, $push:{"participants.accepted": userId}}, function(err, events, affected){
+                    if(err) return callback(new DbError(500, "Произошла ошибка при изменении данных поля participants.invites и participants.accepted . UserId = " + userId + " , eventId = " + eventid ));
+                    else return callback(null, events);
                 });
+
             }
 
         }
@@ -147,28 +216,34 @@ Event.statics.accept = function(userId, eventid, callback){
 
 }
 
-Event.statics.decline = function(userId, eventid, callback){
+Event.statics.decline = function(userId, eventId, callback){
     var Event = this;
+    userId = new mongoose.Types.ObjectId(userId);
+    eventId = new mongoose.Types.ObjectId(eventId);
     async.waterfall([
         function(callback){
-            Event.findById({eventId: eventid, "participants.invites": userId}, callback);
+            Event.find({_id: eventId}, {"participants.invites": userId}, callback);
         },
         function(event, callback){
-            if(!event) return callback(new badDataError("Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventid));
+            console.log(typeof userId);
+            if(event.length == 0) return callback(new badDataError(400,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventId));
             else{
-                Event.update({id: userId}, {$pull :{ "participants.invites": userId}, $push:{"participants.declined": userId}}, function(err){
+                Event.update({_id: eventId}, {$pull :{ "participants.invites": userId}, $push:{"participants.declined": userId}}, function(err, events){
                     if(err) return callback(new DbError("Произошла ошибка при изменении данных поля participants.invites и participants.declined . UserId = " + userId + " , eventId = " + eventid ));
-                    else return callback(null)
+                    else return callback(null, events)
                 });
             }
-
         }
     ], callback);
 };
 
-Event.statics.checkUserInEvent = function(userId, EventId, callback){
-
+Event.statics.validateData = function(event){
+    if(event.title == '' || event.title.length < 5 || event.startTime > event.finishTime || event.place.length < 5){
+        return false;
+    }
+    return true;
 }
+
 
 
 exports.Event = mongoose.model('Event', Event);

@@ -16,6 +16,10 @@ var Suggest = new Schema({
         require: true,
         type: String
     },
+    senderSession:{
+        require: true,
+        type: Schema.Types.ObjectId
+    },
     created:{
         type: Date,
         require:true,

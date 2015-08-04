@@ -3,7 +3,7 @@ var HttpError = require('../../error').HttpError;
 var AuthError = require('../../error').AuthError;
 
 
-exports.put = function(req, res, next){
+exports.post = function(req, res, next){
     if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
         var title = req.body.title;
         var description = req.body.description;
@@ -11,11 +11,12 @@ exports.put = function(req, res, next){
         var startTime = req.body.startTime;
         var finishTime = req.body.finishTime;
         var period = req.body.period;
-        var type = req.body.type;
         var place = req.body.place;
+        var eventId = req.params.eventId;
+
         if(!Event.validateData(req.body)) return next(400);
         else{
-            Event.addEvent(title, startTime, finishTime, period,invites,place, description, type, req.user._id, function(err, event ){
+            Event.modifyEvent(eventId, title, startTime, finishTime, period,invites,place, description, req.user._id, function(err, event ){
                 if(err) return next(err);
                 else{
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
@@ -26,6 +27,8 @@ exports.put = function(req, res, next){
                 }
             })
         }
+    }else{
+        next(403);
     }
 };
 

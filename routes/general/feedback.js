@@ -13,8 +13,6 @@ exports.post = function(req, res, next){
             return next(400);
         }
         else{
-            console.log(idea + ' ' + address + " " + AdditionalInformationAboutSuggestor + "запрос получил");
-
             var suggestion =  new Suggest({
                 address: address,
                 additional: AdditionalInformationAboutSuggestor,

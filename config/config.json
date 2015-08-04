@@ -12,6 +12,9 @@
             "httpOnly": true
         }
     },
+    "general":{
+        "version": "0.0.1(1)"
+    },
     "multer":{
         "dest": "../users photos/"
     }

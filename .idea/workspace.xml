@@ -26,7 +26,7 @@
       <file leaf-file-name="User.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/User.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="119" column="50" selection-start="3626" selection-end="3626" vertical-scroll-proportion="0.0" vertical-offset="1575" max-vertical-offset="2580">
+            <state line="62" column="0" selection-start="1262" selection-end="1262" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2640">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="Events.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="196" column="58" selection-start="5932" selection-end="5932" vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1410">
+            <state line="196" column="58" selection-start="5932" selection-end="5932" vertical-scroll-proportion="0.0" vertical-offset="862" max-vertical-offset="1410">
               <folding>
                 <element signature="e#226#1043#0" expanded="false" />
                 <element signature="e#3124#4630#0" expanded="false" />
@@ -49,57 +49,39 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createEvents.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/createEvents.js">
+      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="38" selection-start="1890" selection-end="1890" vertical-scroll-proportion="0.0" vertical-offset="1060" max-vertical-offset="1545">
+            <state line="13" column="38" selection-start="482" selection-end="482" vertical-scroll-proportion="0.26737967" vertical-offset="0" max-vertical-offset="561">
               <folding>
-                <element signature="e#0#40#0" expanded="false" />
+                <element signature="e#382#440#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
+      <file leaf-file-name="loadUser.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/auth/loadUser.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="32" selection-start="446" selection-end="453" vertical-scroll-proportion="0.24096386" vertical-offset="0" max-vertical-offset="498">
+            <state line="12" column="2" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="acceptEvent.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/calendar/acceptEvent.js">
+      <file leaf-file-name="findUsers.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/auth/findUsers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+            <state line="3" column="30" selection-start="120" selection-end="120" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="declineEvent.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/calendar/declineEvent.js">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/general/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="28" selection-start="482" selection-end="482" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="removeEvent.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/calendar/removeEvent.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="30" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="getEvents.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/calendar/getEvents.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="34" selection-start="424" selection-end="424" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+            <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
               <folding />
             </state>
           </provider>
@@ -130,10 +112,8 @@
         <option value="$PROJECT_DIR$/routes/authorize/signUp.js" />
         <option value="$PROJECT_DIR$/error/index.js" />
         <option value="$PROJECT_DIR$/routes/authorize/signIn.js" />
-        <option value="$PROJECT_DIR$/routes/authorize/index.js" />
         <option value="$PROJECT_DIR$/views/layout/index.ejs" />
         <option value="$PROJECT_DIR$/models/events.js" />
-        <option value="$PROJECT_DIR$/models/User.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/middleware/sendErrors/sendHttpError.js" />
         <option value="$PROJECT_DIR$/routes/general/index.js" />
@@ -147,14 +127,19 @@
         <option value="$PROJECT_DIR$/routes/calendar/addEvent.js" />
         <option value="$PROJECT_DIR$/routes/calendar/modifyEvent.js" />
         <option value="$PROJECT_DIR$/routes/calendar/getEvent.js" />
-        <option value="$PROJECT_DIR$/config/config.json" />
         <option value="$PROJECT_DIR$/bin/www" />
-        <option value="$PROJECT_DIR$/createEvents.js" />
         <option value="$PROJECT_DIR$/routes/calendar/removeEvent.js" />
         <option value="$PROJECT_DIR$/models/Events.js" />
         <option value="$PROJECT_DIR$/routes/calendar/acceptEvent.js" />
         <option value="$PROJECT_DIR$/routes/calendar/declineEvent.js" />
         <option value="$PROJECT_DIR$/routes/calendar/index.js" />
+        <option value="$PROJECT_DIR$/config/config.json" />
+        <option value="$PROJECT_DIR$/libs/mongoose.js" />
+        <option value="$PROJECT_DIR$/models/User.js" />
+        <option value="$PROJECT_DIR$/createEvents.js" />
+        <option value="$PROJECT_DIR$/middleware/auth/findUser.js" />
+        <option value="$PROJECT_DIR$/middleware/auth/findUsers.js" />
+        <option value="$PROJECT_DIR$/routes/authorize/index.js" />
       </list>
     </option>
   </component>
@@ -317,10 +302,6 @@
               <option name="myItemId" value="middleware" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sendErrors" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -333,6 +314,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="middleware" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auth" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -411,17 +396,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/middleware/auth" />
       <recent name="$PROJECT_DIR$/routes/calendar" />
       <recent name="$PROJECT_DIR$/libs" />
       <recent name="$PROJECT_DIR$/models" />
       <recent name="$PROJECT_DIR$/routes/general" />
-      <recent name="$PROJECT_DIR$/public/js/outsource" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/views" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.CreateEvents">
+  <component name="RunManager" selected="Node.js.www">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -544,7 +529,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3299363" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24968153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -574,11 +559,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="29" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="1410" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="24" selection-start="49" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="255">
@@ -700,22 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/auth/loadUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="60" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
-          <folding>
-            <element signature="e#321#379#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../node_modules/express/lib/router/route.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="169" column="14" selection-start="3348" selection-end="3348" vertical-scroll-proportion="0.0" vertical-offset="2360" max-vertical-offset="2835">
@@ -747,13 +711,6 @@
     <entry file="file://$PROJECT_DIR$/middleware/calendar/checkEventHaving.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="30" selection-start="79" selection-end="79" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/general/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.15060242" vertical-offset="0" max-vertical-offset="498">
           <folding />
         </state>
       </provider>
@@ -816,20 +773,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/mongoose.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="41" selection-end="188" vertical-scroll-proportion="0.090361446" vertical-offset="0" max-vertical-offset="498">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="20" selection-start="341" selection-end="341" vertical-scroll-proportion="-9.375" vertical-offset="0" max-vertical-offset="390">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/www">
       <provider selected="true" editor-type-id="text-editor">
         <state line="91" column="84" selection-start="1527" selection-end="1527" vertical-scroll-proportion="0.7590361" vertical-offset="447" max-vertical-offset="945">
@@ -841,23 +784,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="50" selection-start="3626" selection-end="3626" vertical-scroll-proportion="0.0" vertical-offset="1575" max-vertical-offset="2580">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/async/lib/async.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="711" column="33" selection-start="20551" selection-end="20551" vertical-scroll-proportion="0.935743" vertical-offset="10109" max-vertical-offset="17805">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/getEvents.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="34" selection-start="424" selection-end="424" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
           <folding />
         </state>
       </provider>
@@ -883,9 +812,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/removeEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="30" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="0" selection-start="1262" selection-end="1262" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2640">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/getEvents.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="34" selection-start="424" selection-end="424" vertical-scroll-proportion="0.30120483" vertical-offset="0" max-vertical-offset="585">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/mongoose.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="77" selection-end="77" vertical-scroll-proportion="0.12048193" vertical-offset="0" max-vertical-offset="498">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="9" selection-start="357" selection-end="357" vertical-scroll-proportion="0.18072289" vertical-offset="0" max-vertical-offset="498">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/auth/loadUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="2" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="16" selection-start="53" selection-end="89" vertical-scroll-proportion="0.083798885" vertical-offset="0" max-vertical-offset="537">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/createEvents.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="38" selection-start="1890" selection-end="1890" vertical-scroll-proportion="0.0" vertical-offset="1060" max-vertical-offset="1545">
+        <state line="112" column="0" selection-start="2866" selection-end="3372" vertical-scroll-proportion="0.39781022" vertical-offset="1432" max-vertical-offset="1980">
           <folding>
             <element signature="e#0#40#0" expanded="false" />
           </folding>
@@ -907,17 +885,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/removeEvent.js">
+    <entry file="file://$PROJECT_DIR$/routes/general/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="30" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+        <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
+    <entry file="file://$PROJECT_DIR$/middleware/auth/findUsers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="32" selection-start="446" selection-end="453" vertical-scroll-proportion="0.24096386" vertical-offset="0" max-vertical-offset="498">
+        <state line="3" column="30" selection-start="120" selection-end="120" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="38" selection-start="482" selection-end="482" vertical-scroll-proportion="0.26737967" vertical-offset="0" max-vertical-offset="561">
+          <folding>
+            <element signature="e#382#440#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

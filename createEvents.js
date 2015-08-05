@@ -90,10 +90,40 @@ Event.accept(userId, eventId, function(err, events){
 */
 
 
-
+/*
 Event.removeEvent(eventId, userId, function(err){
     if(err) throw err;
     else{
         console.log("Я закончил");
     }
+})
+*/
+var keyword = "Имя 2 Фамилия";
+var options = {
+    lean:true
+}
+/*
+
+User.find({$text: {$search: keyword}},{_id: 1, "personal_information.firstName": 1, "personal_information.lastName": 1},options, function(err, result){
+    if(err) throw err;
+    else console.log(result);
+})
+*/
+//{ $project: { itemDescription: { $concat: [ "$item", " - ", "$description" ] }
+User.aggregate([{$match:{ $text: { $search: keyword } }},
+    {$project:
+        //score: { $meta: "textScore" } ,
+        {
+            score: { $meta: "textScore" },
+            student:{$concat:["$personal_information.firstName", " ", "$personal_information.lastName"]}
+        }
+    },{$sort:{
+            score: { $meta: "textScore" }
+        }}
+    ])
+    //.sort({ score: { $meta: "textScore" }})
+    .limit(5)
+    .exec(function(err, result){
+    if(err) throw err;
+    else console.log(result);
 })

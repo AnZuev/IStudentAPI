@@ -1,6 +1,8 @@
 var crypto  = require('crypto');
 var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
+var textSearch = require('mongoose-text-search');
+
 var async = require('async');
 var AuthError = require('../error').AuthError;
 var badDataError = require('../error').badDataError;
@@ -56,6 +58,8 @@ var User = new Schema({
         invites: [Schema.Types.ObjectId]
     }
 });
+
+
 
 User.methods.encryptPassword = function(password){
     return crypto.createHmac('sha1',this.auth.salt).update(password).digest("hex");

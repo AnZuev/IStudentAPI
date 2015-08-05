@@ -1,4 +1,6 @@
 var checkAuth = require('../../middleware/auth/checkAuth');
+var findUsers = require('../../middleware/auth/findUsers');
+
 
 module.exports = function(app){
     app.post('/auth/signUp', require('./signUp').post);
@@ -8,5 +10,7 @@ module.exports = function(app){
         res.send(req.user._id);
         res.end();
     });
+
+    app.get('/user/find',  findUsers);
 
 }

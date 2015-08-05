@@ -19,6 +19,7 @@
      "express-session": "*",
      "connect-mongo": "*",
      "mongodb":"*",
-     "node-mongodb-native":"*"
+     "node-mongodb-native":"*",
+      "async":"*"
   }
 }

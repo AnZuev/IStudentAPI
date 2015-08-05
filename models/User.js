@@ -124,6 +124,7 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
                 if(user){
                     return callback(new AuthError("Пользователь с таким номером студака уже есть"));
                 }else{
+                    console.log('Сохраняю пользователя');
                     var new_user = new User({
                         personal_information:{
                             firstName: first_name,
@@ -138,7 +139,7 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
                         }
                     });
                     new_user.save(function(err){
-                        if(err) return callback(err);
+                        if(err) throw err;//return callback(err);
                         else return callback(null, new_user);
 
                     });

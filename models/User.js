@@ -112,10 +112,11 @@ User.statics.signIn = function(studNumber, password, callback){
 
 User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year, studNumber,  password, callback){
     var User = this;
-    if(!User.validateData(first_name, last_name, groupNumber, faculty, year, studNumber, password)) {
+    /*if(!User.validateData(first_name, last_name, groupNumber, faculty, year, studNumber, password)) {
         return callback(new badDataError());
     }
-    else{
+    */
+    //else{
         async.waterfall([
             function(callback){
                 User.findOne({"auth.studNumber": studNumber}, callback)
@@ -147,7 +148,7 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
 
             }
         ], callback);
-    }
+    //}
 
 };
 

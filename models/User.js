@@ -103,6 +103,8 @@ User.statics.signIn = function(studNumber, password, callback){
                     callback(new AuthError("Неверный пароль"));
                     // неверный пароль
                 }
+            }else{
+                callback(401);
             }
         }
     ],callback);

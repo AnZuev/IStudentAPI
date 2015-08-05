@@ -16,7 +16,7 @@ module.exports = function(req, res, next){
         //.sort({ score: { $meta: "textScore" }})
         .limit(5)
         .exec(function(err, result){
-            if(err) return next(500);
+            if(err) throw err;//return next(500);
             else {
                 if(result.length == 0){
                     res.send(204);

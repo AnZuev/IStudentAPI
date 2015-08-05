@@ -45,7 +45,7 @@ app.use(session({
     cookie: config.get('session:cookie'),
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({mongoose_connection: mongoose.connection})
+    store: new MongoStore({url: config.get("mongoose:uri")})
 }));
 app.use(require('./middleware/sendErrors/sendHttpError'));
 app.use(require('./middleware/sendErrors/sendDbError'));

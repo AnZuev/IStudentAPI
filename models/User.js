@@ -1,7 +1,6 @@
 var crypto  = require('crypto');
 var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
-var textSearch = require('mongoose-text-search');
 
 var async = require('async');
 var AuthError = require('../error').AuthError;

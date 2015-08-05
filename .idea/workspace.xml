@@ -26,7 +26,34 @@
       <file leaf-file-name="User.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/User.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="0" selection-start="1262" selection-end="1262" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2640">
+            <state line="3" column="0" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="2625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="33" selection-start="946" selection-end="953" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1380">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/config.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="16" selection-start="53" selection-end="89" vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="390">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="5" selection-start="469" selection-end="469" vertical-scroll-proportion="0.5865922" vertical-offset="0" max-vertical-offset="537">
               <folding />
             </state>
           </provider>
@@ -49,10 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="38" selection-start="482" selection-end="482" vertical-scroll-proportion="0.26737967" vertical-offset="0" max-vertical-offset="561">
+            <state line="13" column="38" selection-start="482" selection-end="482" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
               <folding>
                 <element signature="e#382#440#0" expanded="false" />
               </folding>
@@ -119,7 +146,6 @@
         <option value="$PROJECT_DIR$/routes/general/index.js" />
         <option value="$PROJECT_DIR$/middleware/calendar/checkEventHaving.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/routes/general/feedback.js" />
         <option value="$PROJECT_DIR$/models/suggestions.js" />
@@ -135,11 +161,12 @@
         <option value="$PROJECT_DIR$/routes/calendar/index.js" />
         <option value="$PROJECT_DIR$/config/config.json" />
         <option value="$PROJECT_DIR$/libs/mongoose.js" />
-        <option value="$PROJECT_DIR$/models/User.js" />
         <option value="$PROJECT_DIR$/createEvents.js" />
         <option value="$PROJECT_DIR$/middleware/auth/findUser.js" />
         <option value="$PROJECT_DIR$/middleware/auth/findUsers.js" />
         <option value="$PROJECT_DIR$/routes/authorize/index.js" />
+        <option value="$PROJECT_DIR$/models/User.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -687,13 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="19" selection-start="1449" selection-end="1449" vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="1380">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/authorize/signIn.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="23" selection-start="733" selection-end="733" vertical-scroll-proportion="0.57228917" vertical-offset="0" max-vertical-offset="600">
@@ -732,13 +752,6 @@
     <entry file="file://$PROJECT_DIR$/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state line="43" column="81" selection-start="1345" selection-end="1345" vertical-scroll-proportion="-6.25" vertical-offset="495" max-vertical-offset="2445">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="5" selection-start="449" selection-end="449" vertical-scroll-proportion="0.6329114" vertical-offset="0" max-vertical-offset="474">
           <folding />
         </state>
       </provider>
@@ -819,13 +832,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="0" selection-start="1262" selection-end="1262" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2640">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/calendar/getEvents.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="34" selection-start="424" selection-end="424" vertical-scroll-proportion="0.30120483" vertical-offset="0" max-vertical-offset="585">
@@ -854,33 +860,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="16" selection-start="53" selection-end="89" vertical-scroll-proportion="0.083798885" vertical-offset="0" max-vertical-offset="537">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/createEvents.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="112" column="0" selection-start="2866" selection-end="3372" vertical-scroll-proportion="0.39781022" vertical-offset="1432" max-vertical-offset="1980">
           <folding>
             <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="196" column="58" selection-start="5932" selection-end="5932" vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1410">
-          <folding>
-            <element signature="e#226#1043#0" expanded="false" />
-            <element signature="e#3124#4630#0" expanded="false" />
-            <element signature="e#4713#5293#0" expanded="false" />
-            <element signature="e#5376#5872#0" expanded="false" />
-            <element signature="e#5932#6881#0" expanded="false" />
-            <element signature="e#6942#7943#0" expanded="false" />
-            <element signature="e#7990#8155#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -901,10 +885,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="38" selection-start="482" selection-end="482" vertical-scroll-proportion="0.26737967" vertical-offset="0" max-vertical-offset="561">
+        <state line="13" column="38" selection-start="482" selection-end="482" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
           <folding>
             <element signature="e#382#440#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="196" column="58" selection-start="5932" selection-end="5932" vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1410">
+          <folding>
+            <element signature="e#226#1043#0" expanded="false" />
+            <element signature="e#3124#4630#0" expanded="false" />
+            <element signature="e#4713#5293#0" expanded="false" />
+            <element signature="e#5376#5872#0" expanded="false" />
+            <element signature="e#5932#6881#0" expanded="false" />
+            <element signature="e#6942#7943#0" expanded="false" />
+            <element signature="e#7990#8155#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="2625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="33" selection-start="946" selection-end="953" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1380">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="16" selection-start="53" selection-end="89" vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="390">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="5" selection-start="469" selection-end="469" vertical-scroll-proportion="0.5865922" vertical-offset="0" max-vertical-offset="537">
+          <folding />
         </state>
       </provider>
     </entry>

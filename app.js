@@ -12,16 +12,7 @@ var config = require('./config');
 var mongoose = require('./libs/mongoose');
 
 
-
-
-
-
-
 var app = express();
-
-
-
-
 
 app.engine('ejs', require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
@@ -64,6 +55,7 @@ require('./routes')(app);
 
 app.use(function(err, req, res, next) {
     if(err){
+        throw err;
         if(typeof err == "number"){
             err = new HttpError(err);
         }
@@ -72,14 +64,13 @@ app.use(function(err, req, res, next) {
         }else if(err instanceof DbError){
             res.sendDBError(err);
         }else{
-            res.status(err.status || 500);
+            res.statusCode = (err.status || 500);
         }
-        res.end(500);
+        res.end();
     }
 
 
 });
-
 
 
 

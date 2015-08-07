@@ -1,0 +1,89 @@
+<% layout('/layout/lkLayout') -%>
+<% block('title', 'Календарь') -%>
+<% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/calendar.css"/>')%>
+
+<section id='calendarModule'>
+    <p class="lkPageHeader">Календарь</p>
+    <table style='border-spacing:30px 0px;'>
+        <tr>
+
+        </tr>
+    </table>
+</section>
+
+
+<section class='' id='notificationsModule'>
+    <p class="lkPageHeader">Новости</p>
+    <ul id='ListOfComingEvents'>
+
+    </ul>
+</section>
+
+<section id='addEvent'class='hide'>
+    <p class="lkPageHeader">Добавление события</p>
+    <div id='AddNewEvent' class="">
+        <form action="#">
+            <table style='border-spacing:20px 0px'>
+                <col width='600'>
+                <col width='*' valign='top'>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>
+                                <input type="text" name='title' placeholder='Название...'>
+                            </li>
+                            <li>
+                                <ul id='layoutForDateOfAddedEvent'>
+                                    <li >
+                                        C
+                                    </li>
+                                    <li >
+                                        <input type="time" name='startTime' value='09:00'>
+                                    </li>
+                                    <li >
+                                        до
+                                    </li>
+                                    <li >
+                                        <input type="time" name='finishTime' value='10:00'>
+                                    </li>
+                                    <li >
+                                        <input type="date" name = 'date' placeholder='9 сентября 2015'>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <input type="text" name='place' placeholder='Место...'>
+                            </li>
+
+                            <li class='RepeatOfAddedEvent'>
+                                <span > Повтор: </span>
+                                <span >Каждый месяц</span>
+                                <input type="checkbox" value='everyMonth'>
+                                <span >Каждую неделю</span>
+                                <input type="checkbox" value='everyWeek'>
+                                <span >Каждый день</span>
+                                <input type="checkbox" value='everyday'>
+                            </li>
+                            <li>
+                                <textarea name="description" id="" placeholder='Описание...' rows="5"></textarea>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <select id='eventType' name='type'>
+                            <option value="private">Личное</option>
+                            <option value="group">На студентов группы</option>
+                            <option value="people">Выбрать людей</option>
+                        </select>
+                        <input name='query' type='text' placeholder='Введите имя и фамилию...' style='width:240px;'/>
+                        <ul id='listOfPeople' class='hide'></ul>
+                        <ul id="listofParticipants"> </ul>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <p id='createNewEvent' class='button'> Создать</p>
+    </div>
+    <hr id='indicatorOfAdding' class="hide">
+    <div class="clearfix"></div>
+</section>

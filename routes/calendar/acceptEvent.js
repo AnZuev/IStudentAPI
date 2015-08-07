@@ -11,7 +11,7 @@ exports.post = function(req, res, next){
                 return next(err);
             }
             else{
-                res.send(200);
+                res.sendStatus(200);
                 res.end();
             }
         })

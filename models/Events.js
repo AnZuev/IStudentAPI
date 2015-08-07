@@ -164,7 +164,7 @@ Event.statics.findFromDateToDateFull = function(userId, start, finish, callback)
     }, {"time.start": {$gte: start, $lte: finish}}
     ]}).sort('time.start').select({title:1, description:1, place: 1, "time.start":1, "time.finish":1, period:1, type:1, "participants.accepted":1, _id: 1 })
         .exec(function(err, events){
-            if(err) throw err;
+            if(err) return callback(err);
             else{
                 return callback(null, events);
             }
@@ -183,9 +183,9 @@ Event.statics.findFromDateToDateShort = function(userId, start, finish, callback
             {"participants.accepted" : userId}
         ]
     }, {"time.start": {$gte: start, $lte: finish}}
-    ]}).sort('time.start').sort('time.start').select({title:1, _id: 1 })
+    ]}).sort('time.start').select({title:1, _id: 1, "time.start":1, "time.finish":1})
         .exec(function(err, events){
-            if(err) throw err;
+            if(err) return callback(err);
             else{
                 return callback(null, events);
             }

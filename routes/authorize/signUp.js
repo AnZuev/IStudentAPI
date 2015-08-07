@@ -30,7 +30,7 @@ exports.post = function(req, res, next){
               photoUrl: user.personal_information.photoUrl,
               id: user._id
           };
-          res.send(data);
+          res.json(data);
           res.end();
           return next();
       }

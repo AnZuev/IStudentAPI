@@ -12,7 +12,9 @@ module.exports = function(app){
 
     //будет удалено, добавлено для теста
     app.get('/calendar', function(req, res, next){
-        res.send('календарь');
+        res.render('calendar', {
+
+        });
         res.end();
     })
 }

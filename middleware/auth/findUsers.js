@@ -13,16 +13,16 @@ module.exports = function(req, res, next){
                 score: { $meta: "textScore" }
             }}
         ])
-        //.sort({ score: { $meta: "textScore" }})
         .limit(5)
         .exec(function(err, result){
-            if(err) throw err;//return next(500);
+            if(err) return next(500);
             else {
                 if(result.length == 0){
-                    res.send(204);
+                    res.statusCode = 204;
                     res.end();
                 }else{
-                    res.json(result);
+                    res.statusCode = 200;
+                    res.json (result);
                     res.end();
                 }
                 console.log(result);

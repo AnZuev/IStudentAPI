@@ -20,6 +20,7 @@
      "connect-mongo": "*",
      "mongodb":"*",
      "node-mongodb-native":"*",
-      "async":"*"
+      "async":"*",
+     "socket.io": "~1.3.6"
   }
 }

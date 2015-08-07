@@ -14,16 +14,27 @@ exports.get = function(req, res, next){
             Event.findFromDateToDateFull(req.user._id, startTime, finishTime, function(err, events){
                 if(err) return next(err);
                 else{
-                    res.send(events);
-                    res.end();
+                    if(events.length == 0) {
+                        res.sendStatus(404);
+                        res.end();
+                    }else{
+                        res.send(events);
+                        res.end();
+                    }
                 }
             })
         }else{
             Event.findFromDateToDateShort(req.user._id, startTime, finishTime, function(err, events){
                 if(err) return next(err);
                 else{
-                    res.send(events);
-                    res.end();
+                    if(events.length == 0) {
+                        res.sendStatus(404);
+                        res.end();
+                    }else{
+                        res.send(events);
+                        res.end();
+                    }
+
                 }
             })
         }

@@ -8,7 +8,7 @@ module.exports = function(app){
         next();
     });
     app.get('/', function(req, res, next){
-        res.render('index');
+        res.render('welcomePage');
         next();
     })
     require('./authorize')(app);

@@ -9,7 +9,7 @@ exports.delete = function(req, res, next){
         Event.removeEvent(eventId, req.user._id, function(err){
             if(err) return next(500);
             else{
-                res.send(200);
+                res.sendStatus(200);
                 res.end();
             }
         })

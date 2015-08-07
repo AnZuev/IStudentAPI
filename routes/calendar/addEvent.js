@@ -20,8 +20,8 @@ exports.put = function(req, res, next){
                 else{
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
 
-                    res.send(200);
-                    res.send(event);
+                    res.sendStatus(200);
+                    res.json(event);
                     res.end();
                 }
             })

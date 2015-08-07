@@ -10,6 +10,7 @@ module.exports = function(req, res, next){
             next(err);
         }
         req.user = res.locals.user = user;
+        req.session.user = user._id;
         console.log(user);
         return next();
 

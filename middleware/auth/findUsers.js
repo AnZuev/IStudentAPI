@@ -2,6 +2,8 @@ var User = require('../../models/User').User;
 
 module.exports = function(req, res, next){
     var keyword = req.query.q;
+    keyword = keyword.toString();
+    if(typeof keyword != "string") return next(400);
     User.aggregate([{$match:{ $text: { $search: keyword } }},
             {$project:
             //score: { $meta: "textScore" } ,
@@ -21,11 +23,10 @@ module.exports = function(req, res, next){
                     res.statusCode = 204;
                     res.end();
                 }else{
-                    res.statusCode = 200;
-                    res.json (result);
+                    res.json(result);
                     res.end();
                 }
-                console.log(result);
+
             }
         })
 

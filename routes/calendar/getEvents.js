@@ -19,7 +19,6 @@ exports.get = function(req, res, next){
                         res.end();
                     }else{
                         res.send(events);
-                        res.end();
                     }
                 }
             })

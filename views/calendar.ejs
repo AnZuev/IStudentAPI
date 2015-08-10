@@ -1,14 +1,38 @@
 <% layout('/layout/lkLayout') -%>
 <% block('title', 'Календарь') -%>
 <% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/calendar.css"/>')%>
+<% block('script', '<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/calendar.js"></script>')%>
 
 <section id='calendarModule'>
     <p class="lkPageHeader">Календарь</p>
     <table style='border-spacing:30px 0px;'>
         <tr>
+            <td id='calendarBlock'>
 
+                <table class="calendarPageTableHeader" cellspacing='0'>
+                    <tr>
+                        <th>Понедельник</th>
+                        <th>Вторник</th>
+                        <th>Среда</th>
+                        <th>Четверг</th>
+                        <th>Пятница</th>
+                        <th>Суббота</th>
+                        <th>Воскресенье</th>
+                    </tr>
+                </table>
+
+                <table id='calendar' cellspacing = '0px;' >
+
+                </table>
+            </td>
         </tr>
     </table>
+    <div class="calendarCellRightClick hide">
+        <ul>
+            <li>Создать событие</li>
+            <li>Показать события</li>
+        </ul>
+    </div>
 </section>
 
 

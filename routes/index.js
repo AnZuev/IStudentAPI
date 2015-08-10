@@ -7,6 +7,7 @@ module.exports = function(app){
         res.header('Access-Control-Allow-Headers', 'Content-Type');
         next();
     });
+
     app.get('/', function(req, res, next){
         res.render('welcomePage');
         next();

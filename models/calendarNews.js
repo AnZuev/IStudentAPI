@@ -1,16 +1,12 @@
 var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
-var async = require('async');
 var badDataError = require('../error').badDataError;
 var DbError = require('../error').DbError;
 
 
 
 var calendarNew = new Schema({
-    type:{
-        type:String,
-        require:true
-    },
+
     to:{
         type: Schema.Types.ObjectId
     },
@@ -18,6 +14,10 @@ var calendarNew = new Schema({
         type: Schema.Types.ObjectId
     },
     notification:{
+        type:{
+        type:String,
+        require:true
+        },
         title:{
             type: String,
             require:true
@@ -39,56 +39,63 @@ var calendarNew = new Schema({
 });
 
 calendarNew.statics.addNew = function(calendarNewObject, callback){
+    var calendarNew = this;
     var calendarNewItem = new calendarNew({
-        type: calendarNewObject.type,
         to:calendarNewObject.to,
         from:calendarNewObject.from,
         notification:{
-            title:calendarNewObject.title,
-            message: calendarNewObject.message,
-            eventId: calendarNewObject.eventId
+            type: calendarNewObject.notification.type,
+            title:calendarNewObject.notification.title,
+            message: calendarNewObject.notification.message,
+            eventId: calendarNewObject.notification.eventId
         }
     });
     calendarNewItem.save(function(err, calendarNewItem){
-        if(err) return next(err);
-        else return callback(calendarNewItem);
+        if(err) return callback(err);
+        else return callback(null,calendarNewItem);
     })
 }
 
 calendarNew.statics.getCalendarNewsForUser = function(userId, callback){
-    calendarNew.find({to: userId})
-        .select({notification:1, to: 0, from: 0, type:1})
+    this.find({to: userId})
+        .select({"notification.title":1, "notification.message":1, "notification.type":1, "notification.eventId":1})
         .exec(function(err, calendarNews){
             if(err) {
-                return next(err);
+                return callback(err);
             }
            else{
-                return callback(calendarNews);
+                return callback(null,calendarNews);
             }
         })
 }
 
 calendarNew.statics.removeNew = function(userId, calendarNewId, callback){
-    calendarNew.remove({$and:[
+    this.remove({$and:[
         {
             to:userId
         },
         {
             _id: calendarNewId
         }]})
-        .exec(function(err, results){
+        .exec(function(err){
             if(err) return callback(err);
             else{
-                console.log(results);
-                return callback(null);
+                callback(null);
             }
     })
 }
 
+calendarNew.statics.removeAllInvites = function(eventId, callback){
+    this.remove({"notification.eventId": eventId, "notification.type":"invite"})
+        .exec(function(err){
+            if(err) return callback(err);
+            else{
+                callback(null);
+            }
+        })
+}
 
-
-
-exports.calendarNew = mongoose.model('calendarNews', calendarNew);
+exports.calendarNews = mongoose.model('calendarNews', calendarNew);
 
 
 

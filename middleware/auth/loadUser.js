@@ -7,7 +7,8 @@ module.exports = function(req, res, next){
     }
     User.find().limit(1).exec(function(err, user){
         if(err) {
-            next(err);
+            throw err;
+            return next(err);
         }
         req.user = res.locals.user = user;
         req.session.user = user._id;

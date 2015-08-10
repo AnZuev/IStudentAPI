@@ -21,6 +21,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
+app.disable('etag');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,7 +42,6 @@ app.use(session({
 app.use(require('./middleware/sendErrors/sendHttpError'));
 app.use(require('./middleware/sendErrors/sendDbError'));
 app.use(require('./middleware/auth/loadUser'));
-
 
 
 // development error handler
@@ -67,6 +67,7 @@ app.use(function(err, req, res, next) {
         }
         res.end();
     }
+
 
 
 });

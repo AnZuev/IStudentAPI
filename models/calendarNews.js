@@ -87,7 +87,7 @@ calendarNew.statics.getCalendarNewsForUser = function(userId, callback){
         })
 }
 
-calendarNew.statics.removeNew = function(userId, calendarNewId, callback){
+calendarNew.statics.removeNewById = function(userId, calendarNewId, callback){
     this.remove({$and:[
         {
             to:userId
@@ -98,9 +98,25 @@ calendarNew.statics.removeNew = function(userId, calendarNewId, callback){
         .exec(function(err){
             if(err) return callback(err);
             else{
-                callback(null);
+                return callback(null);
             }
     })
+}
+
+calendarNew.statics.removeNewByEvent = function(eventId, userId, callback){
+    this.remove({$and:[
+        {
+            to:userId
+        },
+        {
+            "notification.eventId": eventId
+        }]})
+        .exec(function(err){
+            if(err) return callback(err);
+            else{
+                return callback(null);
+            }
+        })
 }
 
 

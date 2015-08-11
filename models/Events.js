@@ -90,9 +90,8 @@ Event.statics.modifyEvent = function(eventId, title, startTime, finishTime, peri
                 if(event.length == 0){
                     return callback(new DbError(403, "Событие не найдено: " + eventId));
                 }else{
-                    console.log(event + " Изменяю событие");
+                    var participants = event.participants.invites.concat(event.participants.accepted).sort();
                     event = event[0];
-                    console.log(event);
                     event.title = title;
                     event.time.start = startTime;
                     event.time.finish = finishTime;
@@ -102,7 +101,7 @@ Event.statics.modifyEvent = function(eventId, title, startTime, finishTime, peri
                     event.type = type;
                     event.save(function(err, modifiedEvent){
                         if(err) return callback(new DbError("Ошибка при обновления события с  id " + eventId + " и данными: /n" + event + "./n Ошибка " + err ));
-                        else return callback(null, modifiedEvent);
+                        else return callback(null, modifiedEvent, participants);
                     });
 
 

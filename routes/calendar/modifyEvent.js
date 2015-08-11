@@ -17,17 +17,13 @@ exports.post = function(req, res, next){
 
         if(!Event.validateData(req.body)) return next(400);
         else{
-            Event.modifyEvent(eventId, title, startTime, finishTime, period,invites,place, description, req.user._id, function(err, event ){
+            Event.modifyEvent(eventId, title, startTime, finishTime, period,invites,place, description, req.user._id, function(err, event, participants){
                 if(err) return next(err);
                 else{
-                    for(var i = 0; i< invites.length; i++){
-                        calendarAdditionalMethods.addCalendarNewsForArrayOfParticipants(event);
-                    }
+                    var usersForNotify = calendarAdditionalMethods.modifyCalendarNews(event, participants);
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
-
                     res.sendStatus(200);
                     res.send(event);
-                    res.end();
                 }
             })
         }

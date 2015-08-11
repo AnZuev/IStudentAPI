@@ -26,7 +26,6 @@ exports.post = function(req, res, next){
                     id: user._id
                 };
                 res.send(data);
-                res.end();
                 return next();
             }
 

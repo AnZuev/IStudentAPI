@@ -1,6 +1,7 @@
 var Event = require('../../models/Events').Event;
 var HttpError = require('../../error').HttpError;
 var AuthError = require('../../error').AuthError;
+var calendarAdditionalMethods = require("../../libs/additionalFunctions/calendar");
 
 
 exports.post = function(req, res, next){
@@ -19,6 +20,9 @@ exports.post = function(req, res, next){
             Event.modifyEvent(eventId, title, startTime, finishTime, period,invites,place, description, req.user._id, function(err, event ){
                 if(err) return next(err);
                 else{
+                    for(var i = 0; i< invites.length; i++){
+                        calendarAdditionalMethods.addCalendarNewsForArrayOfParticipants(event);
+                    }
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
 
                     res.sendStatus(200);

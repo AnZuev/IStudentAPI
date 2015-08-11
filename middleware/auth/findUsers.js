@@ -25,8 +25,7 @@ module.exports = function(req, res, next){
             var query1 = query.exec();
             query1.then(
                 function(result){
-                    console.log(counter++);
-                    console.log(result);
+
                     /*
                      if(res.headersSent) {
                      console.warn("FindUsers.js: headers already sent");

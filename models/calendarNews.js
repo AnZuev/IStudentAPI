@@ -2,6 +2,8 @@ var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
 var badDataError = require('../error').badDataError;
 var DbError = require('../error').DbError;
+var async = require('async');
+
 
 
 
@@ -40,20 +42,36 @@ var calendarNew = new Schema({
 
 calendarNew.statics.addNew = function(calendarNewObject, callback){
     var calendarNew = this;
-    var calendarNewItem = new calendarNew({
-        to:calendarNewObject.to,
-        from:calendarNewObject.from,
-        notification:{
-            type: calendarNewObject.notification.type,
-            title:calendarNewObject.notification.title,
-            message: calendarNewObject.notification.message,
-            eventId: calendarNewObject.notification.eventId
+    async.waterfall([
+        function(callback){
+            calendarNew.findOne({
+                to:calendarNewObject.to,
+                "notification.eventId": calendarNewObject.notification.eventId,
+                "notification.type": calendarNewObject.notification.type
+            }, callback)
+        },
+        function(calendarNewItem, callback){
+            if(calendarNewItem){
+                return callback(new DbError(0, 'CalendarNew already exists'));
+            }else{
+                calendarNewItem = new calendarNew({
+                    to:calendarNewObject.to,
+                    from:calendarNewObject.from,
+                    notification:{
+                        type: calendarNewObject.notification.type,
+                        title:calendarNewObject.notification.title,
+                        message: calendarNewObject.notification.message,
+                        eventId: calendarNewObject.notification.eventId
+                    }
+                });
+                calendarNewItem.save(function(err, calendarNewItem){
+                    if(err) return callback(new DbError(500, "Ошибка при добавлении новости в calendarNew: " + calendarNewItem + " . Ошибка: " + err));
+                    else return callback(null,calendarNewItem);
+                })
+            }
         }
-    });
-    calendarNewItem.save(function(err, calendarNewItem){
-        if(err) return callback(err);
-        else return callback(null,calendarNewItem);
-    })
+    ], callback)
+
 }
 
 calendarNew.statics.getCalendarNewsForUser = function(userId, callback){
@@ -64,7 +82,7 @@ calendarNew.statics.getCalendarNewsForUser = function(userId, callback){
                 return callback(err);
             }
            else{
-                return callback(null,calendarNews);
+                return callback(null, calendarNews);
             }
         })
 }
@@ -84,6 +102,7 @@ calendarNew.statics.removeNew = function(userId, calendarNewId, callback){
             }
     })
 }
+
 
 calendarNew.statics.removeAllInvites = function(eventId, callback){
     this.remove({"notification.eventId": eventId, "notification.type":"invite"})

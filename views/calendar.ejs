@@ -29,8 +29,8 @@
     </table>
     <div class="calendarCellRightClick hide">
         <ul>
-            <li>Создать событие</li>
-            <li>Показать события</li>
+            <li id="createEventButton">Создать событие</li>
+            <li id="showEventsButton">Показать события</li>
         </ul>
     </div>
 </section>
@@ -111,3 +111,10 @@
     <hr id='indicatorOfAdding' class="hide">
     <div class="clearfix"></div>
 </section>
+
+
+<script>
+   var calendarNews = <%-JSON.stringify(calendarNews)%>;
+   var jsonCalendarModuleConstructor = <%-JSON.stringify(jsonCalendarModuleConstructor)%>;
+   console.log(jsonCalendarModuleConstructor);
+</script>

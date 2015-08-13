@@ -44,7 +44,6 @@ app.use(require('./middleware/auth/loadUser'));
 
 
 // development error handler
-
 require('./routes')(app);
 
 // error handlers

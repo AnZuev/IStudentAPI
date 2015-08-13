@@ -37,93 +37,36 @@ for(var i = 0; i< 25; i++){
 
 
 /*
-for(var x = 0; x< 10; x++){
-    var firstName =  "Имя "+ x;
-    var lastName = 'Фамилия ' + x;
-    var groupNumber = 4300 + x;
-    var faculty = "Кти";
-    var year = x%6;
-    var studNumber = groupNumber*100+x;
-    var password = 'hotwinter';
-    var user = new User({
-        personal_information:{
-            firstName: firstName,
-            lastName: lastName,
-            groupNumber:groupNumber,
-            faculty: faculty,
-            year: year
-        },
-        auth:{
-            studNumber: studNumber,
-            password: password
-        }
-    })
-    user.save(function(err, user){
-        if(err) throw err;
-        else{
-            console.log(user);
-        }
-    })
-}
+
 */
 
-var userId = "55c05ed72631f5d19fc0b0e0";
+var userId = "55c05ed72631f5d19fc0b0ds";
 var startTime = '2004-12-30T22:00:00Z';
-var finishTime = "2012-02-02T22:00:00Z";
+var finishTime = "2004-12-31T22:00:00Z";
 var eventId = "55c064fb2767c214a06e92a7";
 var invites = [];
 var period = "два раза в неделю";
 var place = "Новое место";
 var type =  "Новый тип";
+var title = 'Событие для проверки работы метода';
 
-/*
-Event.findFromDateToDate(userId, startTime, finishTime, function(err, events){
-    if(err) throw err;
+var description = 'описание ';
+
+console.log(finishTime > startTime);
+Event.findFromDateToDateShort(userId, startTime, finishTime, function(err, events){
     console.log(events);
 })
-*/
-/*
-Event.accept(userId, eventId, function(err, events){
-    if(err) throw err;
-    console.log(err, events);
-})
-*/
 
-
-/*
-Event.removeEvent(eventId, userId, function(err){
+Event.addEvent(title, startTime, finishTime, '', invites,place, description, type, userId, function(err, event){
     if(err) throw err;
     else{
-        console.log("Я закончил");
+        console.log(event);
+        return;
     }
 })
-*/
 var keyword = "Имя 2 Фамилия";
 var options = {
     lean:true
 }
-/*
 
-User.find({$text: {$search: keyword}},{_id: 1, "personal_information.firstName": 1, "personal_information.lastName": 1},options, function(err, result){
-    if(err) throw err;
-    else console.log(result);
-})
-*/
-//{ $project: { itemDescription: { $concat: [ "$item", " - ", "$description" ] }
-User.aggregate([{$match:{ $text: { $search: keyword } }},
-    {$project:
-        //score: { $meta: "textScore" } ,
-        {
-            score: { $meta: "textScore" },
-            student:{$concat:["$personal_information.firstName", " ", "$personal_information.lastName"]}
-        }
-    },{$sort:{
-            score: { $meta: "textScore" }
-        }}
-    ])
-    //.sort({ score: { $meta: "textScore" }})
-    .limit(5)
-    .exec(function(err, result){
-    if(err) throw err;
-    else console.log(result);
-})
+

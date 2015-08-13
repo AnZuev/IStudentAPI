@@ -5,12 +5,12 @@ var AuthError = require('../../error').AuthError;
 
 exports.get = function(req, res, next){
     if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
-        var startTime = req.query.from;
-        var finishTime = req.query.to;
+        var startTime = new Date(req.query.from);
+        var finishTime = new Date(req.query.to);
 
 
         if(startTime >= finishTime) {
-            console.log("СтартТайм больше, чем финишТайс");
+            console.log("СтартТайм больше, чем финишТайм");
             return next(404);
         }
         var full = req.query.full;

@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var HttpError = require('./error').HttpError;
 var DbError = require('./error').DbError;
-var morgan = require('morgan')
+var morgan = require('morgan');
 
 var config = require('./config');
 var mongoose = require('./libs/mongoose');
@@ -29,14 +29,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 app.use(session({
     secret: config.get('session:secret'),
     key: config.get('session:key'),
     cookie: config.get('session:cookie'),
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({url: config.get("mongoose:uri")})
+    store: require('./libs/sessionsStore')
 }));
 app.use(require('./middleware/sendErrors/sendHttpError'));
 app.use(require('./middleware/sendErrors/sendDbError'));

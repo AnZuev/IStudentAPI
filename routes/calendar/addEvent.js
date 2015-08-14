@@ -1,6 +1,6 @@
 var Event = require('../../models/Events').Event;
-
-
+var calendarAdditionalMethods = require("../../libs/additionalFunctions/calendar");
+var ns = require('../../socket/notificationService/nsInterface').ns;
 var HttpError = require('../../error').HttpError;
 
 
@@ -19,8 +19,10 @@ exports.put = function(req, res, next){
             Event.addEvent(title, startTime, finishTime, period,invites,place, description, type, req.user._id, function(err, event ){
                 if(err) return next(err);
                 else{
+                    calendarAdditionalMethods.createNotificationList(event, function(err, recievers, notification){
+                         if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
+                    })
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
-
                     res.sendStatus(200);
                     res.json(event);
                     res.end();

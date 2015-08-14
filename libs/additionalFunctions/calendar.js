@@ -15,7 +15,6 @@ function modifyCalendarNews(event, oldParticipants){
             async.parallel([
                 function(callback){
                     var errorsArray = [];
-                    var successArray = [];
                     var flag = false;
                     for(var i = 0;  i< peopleToRemove.length; i++){
                         calendarNews.removeNewByEvent(event._id, peopleToRemove[i], function(err){
@@ -118,6 +117,9 @@ function diffSortArr(A,B){
 exports.modifyCalendarNews = modifyCalendarNews;
 
 
+
+
+
 //получить новый массив инвайтов
 // достать из базы старый массив инвайтов
 // отсортировать каждый массив
@@ -125,3 +127,47 @@ exports.modifyCalendarNews = modifyCalendarNews;
 // высчитать разницу для получения списка добавления
 // добавить/удалить, ошибки не должны никак влиять на работу с другими уведомлениями
 // на выходе получаем массив юзеров, которым надо отправить нотификации, если они онлайн. Нужно передать notification сервису
+
+
+
+function addCalendarNews(event, callback){
+    User.findById(event.creator).select({_id:0, "personal_information.firstName":1, "personal_information.lastName":1}).exec(function(err, user){
+        if(err) return (err);
+        else{
+            var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
+            var participants = event.participants.invites.sort();
+            var errors = [];
+            var successArray = [];
+            for(var i = 0;  i< participants.length; i++){
+                var notification = {
+                    eventName:  "calendarInvite",
+                    title: title,
+                    message: event.description,
+                    eventId: event._id
+                };
+               var calendarNewItem = {
+                  to: participants[i],
+                  from: event.creator,
+                  notification:notification
+               };
+               calendarNews.addNew(calendarNewItem, function(err, calendarNewItem){
+                  if(err){
+                      errors.push({info: calendarNewItem, err: err});
+                      console.error('Произошла ошибка при добавлении записи в calendarNews ' + err);
+                  }else{
+                      successArray.push(calendarNewItem);
+                  }
+
+                })
+            }
+             if(errors.length > 0){
+                    console.warn('При добавлении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length);
+                }
+                //можно записать в файл все ошибки из массива errors, на процесс далее они никак не должны влиять
+             return callback(null, successArray, notification);
+        }
+
+    })
+}
+
+exports.createNotificationList = addCalendarNews;

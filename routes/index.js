@@ -16,6 +16,10 @@ module.exports = function(app){
     require('./general')(app);
     require('./calendar')(app);
 
+    app.get('/socketIO', function(req, res, next){
+        res.render('socketIO');
+    })
+
 
 
 

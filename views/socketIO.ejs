@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тестирование NotificationService</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+</head>
+<body>
+<script src="/socket.io/socket.io.js"></script>
+
+    <ul class="messages">
+
+    </ul>
+<script>
+    var socket = io('http://localhost:3000/notifications');
+    var socket2 = io('http://localhost:3000/dialogs');
+
+    socket.on('news', function (data) {
+        var news = "<li>"+data.message+"</li>";
+        $(news).appendTo($('.messages'));
+        console.log(data);
+    });
+    socket2.on('dialog', function (data) {
+        var news = "<li>"+data.message+"</li>";
+        $(news).appendTo($('.messages'));
+        console.log(data);
+    });
+</script>
+</body>
+</html>

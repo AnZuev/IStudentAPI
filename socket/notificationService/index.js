@@ -5,7 +5,7 @@ var notificationServiceEE = new EventEmitter();
 
 
 module.exports = function(io){
-    var ns = require('./nsInterFace').ns;
+    var ns = require('./nsInterface').ns;
     ns.startNotificationService(io);
 
     notificationServiceEE.on('start', function(){

@@ -1,4 +1,4 @@
-var authorization = require('./authorization');
+var authorization = require('./common/authorization');
 
 module.exports = function(io){
     io.use(function(socket, next) {

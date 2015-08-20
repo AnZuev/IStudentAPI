@@ -8,5 +8,6 @@ module.exports = function(app){
     app.post('/calendar/:eventId/accept', checkAuth, require('./acceptEvent').post);
     app.post('/calendar/:eventId/decline', checkAuth, require('./declineEvent').post)
     app.get('/calendar', checkAuth, require('./calendar').get);
+    app.get('/calendar/:eventId', checkAuth, require('./getEvent').get);
 
 }

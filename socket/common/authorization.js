@@ -1,10 +1,10 @@
 var async = require('async');
 var cookie = require('cookie');
-var config = require('../config');
+var config = require('../../config');
 var cookieParser = require('cookie-parser');
-var sessionStore = require('../libs/sessionsStore');
-var User = require('../models/User').User;
-var HttpError = require('../error').HttpError;
+var sessionStore = require('../../libs/sessionsStore');
+var User = require('../../models/User').User;
+var HttpError = require('../.').HttpError;
 var listOfOnlineUsers = require('./listOfOnlineUsers').onlineUsers;
 
 

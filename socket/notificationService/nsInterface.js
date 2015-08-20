@@ -1,6 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var notificationServiceEE = new EventEmitter();
-var onlineUsers = require('./../listOfOnlineUsers').onlineUsers;
+var onlineUsers = require('./../common/listOfOnlineUsers').onlineUsers;
 
 
 

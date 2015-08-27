@@ -28,7 +28,7 @@ function notificationService(ee){
                 console.log("Connection lost -> notifications");
             });
         });
-    }
+    };
     this.makeListOfRecievers = function(users, notification){
         for(var i = 0; i< users.length; i++ ){
             var socketId = checkIfUserOnline(users[i]);

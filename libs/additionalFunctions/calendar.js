@@ -132,7 +132,8 @@ exports.modifyCalendarNews = modifyCalendarNews;
 
 function addCalendarNews(event, callback){
     User.findById(event.creator).select({_id:0, "personal_information.firstName":1, "personal_information.lastName":1}).exec(function(err, user){
-        if(err) return (err);
+        if(err) return callback(err);
+        if(!user) return (callback(new DbError(404, "Произошла ошибка при поиске юзера - юзера нет. Как он создал событие  - хрен его знает")));
         else{
             var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
             var participants = event.participants.invites.sort();
@@ -164,6 +165,7 @@ function addCalendarNews(event, callback){
                     console.warn('При добавлении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length);
                 }
                 //можно записать в файл все ошибки из массива errors, на процесс далее они никак не должны влиять
+             console.info('Выполнил функцию для создания списка нотификация, пытаюсь вернуть колбэк с тремя аргументами');
              return callback(null, successArray, notification);
         }
 

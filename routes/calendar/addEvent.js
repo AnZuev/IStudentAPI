@@ -17,15 +17,18 @@ exports.put = function(req, res, next){
         if(!Event.validateData(req.body)) return next(400);
         else{
             Event.addEvent(title, startTime, finishTime, period,invites,place, description, type, req.user._id, function(err, event ){
-                if(err) return next(err);
+                if(err) {
+                    console.error('Произошла ошибка при добавлении события' + err);
+                    return next(err);
+                }
                 else{
                     calendarAdditionalMethods.createNotificationList(event, function(err, recievers, notification){
+                        if(err) throw err;
                          if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
                     })
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
                     res.sendStatus(200);
                     res.json(event);
-                    res.end();
                 }
             })
         }

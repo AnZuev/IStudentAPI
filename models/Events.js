@@ -237,7 +237,7 @@ Event.statics.decline = function(userId, eventId, callback){
 };
 
 Event.statics.validateData = function(event){
-    if(event.title == '' || event.title.length < 5 || event.startTime > event.finishTime || event.place.length < 5){
+    if(event.title.length < 5 || event.startTime > event.finishTime ){
         return false;
     }
     return true;

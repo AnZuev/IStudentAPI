@@ -23,8 +23,11 @@ exports.put = function(req, res, next){
                 }
                 else{
                     calendarAdditionalMethods.createNotificationList(event, function(err, recievers, notification){
-                        if(err) throw err;
-                         if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
+                        if(err) return next();
+                        else{
+                            if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
+                        }
+
                     })
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
                     res.sendStatus(200);

@@ -136,7 +136,11 @@ function addCalendarNews(event, callback){
         if(!user) return (callback(new DbError(404, "Произошла ошибка при поиске юзера - юзера нет. Как он создал событие  - хрен его знает")));
         else{
             var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
-            var participants = event.participants.invites.sort();
+            try{
+                var participants = event.participants.invites.sort();
+            }catch(err){
+                return callback(err)
+            }
             var errors = [];
             var successArray = [];
             for(var i = 0;  i< participants.length; i++){

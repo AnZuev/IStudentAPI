@@ -83,4 +83,4 @@ dialog.statics.addMessage = function(dialogId, sender, message, callback){
 
 
 
-exports.dialogs = mongoose.model('dialogs', dialogs);
+exports.dialogs = mongoose.model('dialogs', dialog);

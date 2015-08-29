@@ -9,13 +9,14 @@ module.exports = function(req, res, next){
     if(typeof keyword != "string") return next(400);
     else{
         var queryDomain = domain.create();
+        console.log('Начинаю поиск юзеров');
         queryDomain.run(function(){
             var query = User.aggregate([{$match:{ $text: { $search: keyword } }},
                     {$project:
-                    {
-                        score: { $meta: "textScore" },
-                        student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
-                    }
+                        {
+                            score: { $meta: "textScore" },
+                            student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+                        }
                     },{$sort:{
                         score: { $meta: "textScore" }
                     }}

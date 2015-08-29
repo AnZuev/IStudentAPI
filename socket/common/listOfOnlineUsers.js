@@ -1,5 +1,7 @@
 var mongoose = require('../../libs/mongoose'),
     Schema = mongoose.Schema;
+var async = require('async');
+
 
 var onlineUser = new Schema({
     userId: {
@@ -10,7 +12,8 @@ var onlineUser = new Schema({
     socketId:{
         require: true,
         type:String
-    }
+    },
+    markers:[String]
 });
 
 onlineUser.statics.addToList = function(userId, socketId, callback){
@@ -24,7 +27,7 @@ onlineUser.statics.addToList = function(userId, socketId, callback){
             callback(null, newOnlineUser);
         }
     })
-}
+};
 
 onlineUser.statics.removeFromList = function(userId, callback){
    this.remove({userId: userId}, function(err){
@@ -44,6 +47,34 @@ onlineUser.statics.checkIfUserOnline = function(userId, callback){
             }else{
                 return callback(null, null);
             }
+        }
+    })
+}
+
+onlineUser.statics.addMarker = function(userId, marker, callback){
+    var onlineUser = this;
+    async.waterfall([
+        function(callback){
+            onlineUser.find({userId:userId}, callback)
+        },
+        function(userItem, callback){
+            if(err) return callback(err);
+            if(!userItem) return callback(new Error('Не могу найти юзера для добавления ему маркера ' + userId));
+            else{
+                if(userItem.markers.indexOf(marker) < 0) userItem.markers.push(marker);
+                else{
+                    console.info('Напрасно добавлял маркер' + marker + " юзеру " + userId);
+                }
+                return callback(null)
+            }
+        }
+    ], function(err){
+        if(err) {
+            console.error("Произошла ошибка при добавлении маркера" + marker + " юзеру " +userId + err);
+            return callback(err)
+        }
+        else{
+            return callback(null);
         }
     })
 }

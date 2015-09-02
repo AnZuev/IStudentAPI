@@ -14,7 +14,8 @@ exports.put = function(req, res, next){
         var period = req.body.period;
         var type = req.body.type;
         var place = req.body.place;
-        if(invites.length == 0 && type == "people" ) type = "private";
+
+        if(type == "people" && invites.length == 0) type = "private";
         if(!Event.validateData(req.body)) return next(400);
         else{
             Event.addEvent(title, startTime, finishTime, period,invites,place, description, type, req.user._id, function(err, event ){

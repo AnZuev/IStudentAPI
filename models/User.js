@@ -52,10 +52,8 @@ var User = new Schema({
             type:String,
             require: true
         }
-    },
-    calendar: {
-        invites: [Schema.Types.ObjectId]
     }
+
 });
 
 
@@ -152,6 +150,16 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
 
 };
 
+User.statics.getPeopleByGroupNumber = function(groupNumber, callback){
+    this.find({"personal_information.groupNumber": groupNumber}).select({_id:1}).exec(function(err, users){
+        if(err) return callback(new DbError(500, "Произошла ошибка при поиске юзеров для группы " + groupNumber));
+        if(users.length == 0) return callback(new DbError(404, "Не нашел юзеров для группы " + groupNumber));
+        else{
+            return callback(null, users);
+        }
+    })
+}
+
 User.methods.acceptOrDeclineEvent = function(userId,eventId, callback){
     User.update({_id: userId}, {$pull:{"calendar.invites": eventId }}, function(err){
         if(err) return callback(new DbError("Не получилось удилать элемент из массива calendar.invites " + eventId));
@@ -165,6 +173,8 @@ User.methods.recieveInviteToEvent = function(userId,eventId, callback){
         else return callback(null);
     });
 }
+
+
 
 
 exports.User = mongoose.model('User', User);

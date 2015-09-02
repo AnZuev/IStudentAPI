@@ -52,6 +52,7 @@ require('./routes')(app);
 
 app.use(function(err, req, res, next) {
     if(err){
+        console.error(err);
         if(typeof err == "number"){
             err = new HttpError(err);
         }

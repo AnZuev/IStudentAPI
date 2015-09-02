@@ -244,9 +244,10 @@ Event.statics.validateData = function(event){
 }
 
 Event.statics.getEventById = function(userId, eventId, callback){
+    var Events = this;
     async.waterfall([
         function(callback){
-            this.findById(eventId, callback)
+            Events.findById(eventId, callback)
         },
         function(event, callback){
             if(!event) return callback(new DbError(404, 'Ничего не найдено'));

@@ -58,7 +58,6 @@ onlineUser.statics.addMarker = function(userId, marker, callback){
             onlineUser.find({userId:userId}, callback)
         },
         function(userItem, callback){
-            if(err) return callback(err);
             if(!userItem) return callback(new Error('Не могу найти юзера для добавления ему маркера ' + userId));
             else{
                 if(userItem.markers.indexOf(marker) < 0) userItem.markers.push(marker);
@@ -77,6 +76,30 @@ onlineUser.statics.addMarker = function(userId, marker, callback){
             return callback(null);
         }
     })
+}
+
+onlineUser.statics.removeMarker = function(userId, marker, callback){
+    var onlineUser = this;
+    async.waterfall([
+        function(callback){
+            onlineUser.find({userId: userId, marker: marker}, callback)
+        },
+        function(onlineUserItem, callback){
+            if(!onlineUserItem) {
+                console.warn('Пытаюсь удалить маркер у юзерИтема, у которого этого маркера нет или неверный юзерИтем');
+                return callback(null);
+            }else{
+                try{
+                    onlineUserItem.marker.remove(marker);
+
+                }catch(err){
+                    console.error(err);
+                    return callback(err);
+                }
+                return callback(null);
+            }
+        }
+    ], callback)
 }
 
 exports.onlineUsers = mongoose.model('onlineUser', onlineUser);

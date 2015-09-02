@@ -39,7 +39,7 @@ for(var i = 0; i< 25; i++){
 /*
 
 */
-
+/*
 var userId = "55c05ed72631f5d19fc0b0ds";
 var startTime = '2004-12-30T22:00:00Z';
 var finishTime = "2004-12-31T22:00:00Z";
@@ -68,5 +68,31 @@ var keyword = "Имя 2 Фамилия";
 var options = {
     lean:true
 }
+*/
 
 
+var firstName = 'Георгий';
+var lastName = 'Попов';
+var group = 4304;
+var faculty = 'KTI';
+var year = 1;
+var studNumber = 430410;
+var password = 'qwerty1234';
+/*
+for(var i = 0; i < 10; i++){
+    User.signUp(firstName, lastName, group, faculty, year, studNumber+i+1, password, function(err, user){
+        if(err) throw err;
+        else{
+            console.log(user);
+        }
+    })
+}
+
+*/
+
+User.getPeopleByGroupNumber(group, function(err, users){
+    if(err) throw err;
+    else{
+        console.log(users);
+    }
+})

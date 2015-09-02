@@ -14,6 +14,7 @@ exports.put = function(req, res, next){
         var period = req.body.period;
         var type = req.body.type;
         var place = req.body.place;
+        if(invites.length == 0 && type == "people" ) type = "private";
         if(!Event.validateData(req.body)) return next(400);
         else{
             Event.addEvent(title, startTime, finishTime, period,invites,place, description, type, req.user._id, function(err, event ){
@@ -22,13 +23,14 @@ exports.put = function(req, res, next){
                     return next(err);
                 }
                 else{
-                    calendarAdditionalMethods.createNotificationList(event, function(err, recievers, notification){
-                        if(err) return next();
-                        else{
-                            if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
-                        }
-
-                    })
+                    if(type != "private") {
+                        calendarAdditionalMethods.createNotificationList(event, function(err, recievers, notification){
+                            if(err) return next();
+                            else{
+                                if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
+                            }
+                        })
+                    }
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
                     res.sendStatus(200);
                     res.json(event);

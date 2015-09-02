@@ -177,3 +177,34 @@ function addCalendarNews(event, callback){
 }
 
 exports.createNotificationList = addCalendarNews;
+
+
+// личное - type = string
+// на группу в универе  - string
+// на проект -  object
+// на людей - string
+function makeInvitesList (groupNumber, type, invites, callback){
+    if(typeof type == "string"){
+        switch(type){
+            case "group":
+                User.getPeopleByGroupNumber(groupNumber, callback); // TODO возврат только id без полей auth и тд
+                // загрузить людей для группы
+                break;
+            case "people":
+                if(invites.length == 0){
+                    type='private';
+                }
+                break;
+            case "private":
+                break;
+            default:
+                console.warn('Пытаемся создать событие с неизвестным типом ' + type);
+                type = 'private';
+                invites = [];
+                break;
+        }
+    }else if(typeof type == "object"){
+
+        // загрузить лиюдей из проектов
+    }
+}

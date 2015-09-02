@@ -33,7 +33,7 @@ exports.put = function(req, res, next){
                         })
                     }
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
-                    res.sendStatus(200);
+                   
                     res.json(event);
                 }
             })

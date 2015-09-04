@@ -252,7 +252,7 @@ Event.statics.getEventById = function(userId, eventId, callback){
         },
         function(event, callback){
             if(!event) return callback(new DbError(404, 'Ничего не найдено'));
-            if(event.participants.accepted.indexOf(userId) < 0 && event.creator  != userId){
+            if(!(event.participants.accepted.indexOf(userId) > 0 || event.creator  == userId)){
                 return callback(new DbError(403, 'Запрещено'));
             }else{
                 return callback(null, event)

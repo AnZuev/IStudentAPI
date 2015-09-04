@@ -57,6 +57,7 @@ var Event = new Schema({
 
 
 Event.statics.addEvent = function(title, startTime, finishTime, period, invites, place, description, type, creator, callback){
+    console.log(arguments);
     var Event = this;
     var event = new Event({
         title: title,

@@ -6,11 +6,13 @@ module.exports = function(req, res, next){
     var length = keyword.length;
     var name, surname, groupNumber=0, i;
     var searchMethod;
+    console.log(keyword);
     switch (length){
         case 1:
             if(/[0-9]/.test(keyword[0])) groupNumber = parseInt(keyword[0]);
             else name = keyword[0];
             searchMethod = "getPeopleByGroup";
+            console.log(searchMethod);
 
             break;
         case 2:
@@ -24,6 +26,8 @@ module.exports = function(req, res, next){
             }
             if(groupNumber) searchMethod = "getPeopleByGroupAndName";
             else searchMethod = "getPeopleByNameAndSurname";
+            console.log(searchMethod);
+
             break;
         case 3:
             for(i = 0; i< 3; i++){
@@ -36,6 +40,8 @@ module.exports = function(req, res, next){
 
                 if(groupNumber) searchMethod = 'getPeopleByNameAndSurnameAndGroup';
                 else searchMethod = "getPeopleByNameAndSurname";
+                console.log(searchMethod);
+
                 break;
             }
     }

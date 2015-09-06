@@ -52,6 +52,10 @@ var User = new Schema({
             type:String,
             require: true
         }
+    },
+    searchString:{
+        type:String,
+        require: true
     }
 
 });
@@ -135,10 +139,11 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
                         auth:{
                             studNumber: studNumber,
                             password: password
-                        }
+                        },
+                        searchString: first_name + " " + last_name + " " + groupNumber
                     });
                     new_user.save(function(err){
-                        if(err) throw err;//return callback(err);
+                        if(err) return callback(err);
                         else return callback(null, new_user);
 
                     });
@@ -151,6 +156,22 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
 };
 
 User.statics.getPeopleByGroupNumber = function(groupNumber, callback){
+    var query = this.aggregate([{$match:{ "personal_information.groupNumber": groupNumber }},
+            {$project:
+            {
+                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+            }
+            },{$sort:{student: 1}}
+        ])
+        .limit(5).exec();
+    query.then(function(users){
+        if(users.length == 0) return callback(new DbError(404, "Не нашел юзеров для группы " + groupNumber));
+        else{
+            return callback(null, users);
+        }
+    });
+
+   /*
     this.find({"personal_information.groupNumber": groupNumber}).select({_id:1}).exec(function(err, users){
         if(err) return callback(new DbError(500, "Произошла ошибка при поиске юзеров для группы " + groupNumber));
         if(users.length == 0) return callback(new DbError(404, "Не нашел юзеров для группы " + groupNumber));
@@ -158,7 +179,81 @@ User.statics.getPeopleByGroupNumber = function(groupNumber, callback){
             return callback(null, users);
         }
     })
+    */
 }
+
+User.statics.getPeopleByName = function(name, callback){
+    var query = this.aggregate([{$match: {searchString:{$regex: name}}},
+            {$project:
+                {
+                    student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+                }
+            },{$sort:{student: 1}}
+        ])
+        .limit(5).exec();
+    query.then(function(users){
+        if(users.length == 0){
+            return callback(new DbError(204, 'No users found'));
+        }else{
+            return callback(null, users);
+        }
+    });
+}
+
+User.statics.getPeopleByNameAndGroup = function(name, groupNumber, callback){
+    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: name}}, {"personal_information.groupNumber": groupNumber}]}},
+            {$project:
+                {
+                    student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+                }
+            },{$sort:{student: 1}}
+        ])
+        .limit(5).exec();
+    query.then(function(users){
+        if(users.length == 0){
+            return callback(new DbError(204, 'No users found'));
+        }else{
+            return callback(null, users);
+        }
+    });
+};
+
+User.statics.getPeopleByNameAndSurnameAndGroup = function(name, surname, groupNumber, callback){
+    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: name}}, {searchString:{$regex: surname}}, {"personal_information.groupNumber": groupNumber}]}},
+            {$project:
+            {
+                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+            }
+            },{$sort:{student: 1}}
+        ])
+        .limit(5).exec();
+    query.then(function(users){
+        if(users.length == 0){
+            return callback(new DbError(204, 'No users found'));
+        }else{
+            return callback(null, users);
+        }
+    });
+};
+
+
+User.statics.getPeopleByNameAndSurname = function(name, surname, callback){
+    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: name}}, {searchString:{$regex: surname}}]}},
+            {$project:
+            {
+                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+            }
+            },{$sort:{student: 1}}
+        ])
+        .limit(5).exec();
+    query.then(function(users){
+        if(users.length == 0){
+            return callback(new DbError(204, 'No users found'));
+        }else{
+            return callback(null, users);
+        }
+    });
+};
 
 User.methods.acceptOrDeclineEvent = function(userId,eventId, callback){
     User.update({_id: userId}, {$pull:{"calendar.invites": eventId }}, function(err){

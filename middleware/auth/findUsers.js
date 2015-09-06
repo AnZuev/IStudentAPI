@@ -1,17 +1,96 @@
 var User = require('../../models/User').User;
-var counter = 0;
 var mongoose = require("../../libs/mongoose");
-var db = mongoose.connection.db;
 var domain = require('domain');
 module.exports = function(req, res, next){
-    var keyword = req.query.q;
-    keyword = keyword.toString();
-    if(typeof keyword != "string") return next(400);
+    var keyword = req.query.q.split(' ');
+    var length = keyword.length;
+    var name, surname, groupNumber=0, i;
+    var searchMethod;
+    switch (length){
+        case 1:
+            if(/[0-9]/.test(keyword[0])) groupNumber = parseInt(keyword[0]);
+            else name = keyword[0];
+            searchMethod = "getPeopleByGroup";
+
+            break;
+        case 2:
+            for(i = 0; i< 2; i++){
+                if(/[0-9]/.test(keyword[i])){
+                    groupNumber = parseInt(keyword[i]);
+                }else{
+                    if(!name) name = keyword[i];
+                    else surname = keyword[i];
+                }
+            }
+            if(groupNumber) searchMethod = "getPeopleByGroupAndName";
+            else searchMethod = "getPeopleByNameAndSurname";
+            break;
+        case 3:
+            for(i = 0; i< 3; i++){
+                if(/[0-9]/.test(keyword[i])){
+                    groupNumber = parseInt(keyword[i]);
+                }else{
+                    if(!name) name = keyword[i];
+                    else surname = keyword[i];
+                }
+
+                if(groupNumber) searchMethod = 'getPeopleByNameAndSurnameAndGroup';
+                else searchMethod = "getPeopleByNameAndSurname";
+                break;
+            }
+    }
+
+
+    switch (searchMethod){
+        case "getPeopleByGroup":
+            User.getPeopleByGroupNumber(groupNumber, function(err, users){
+                if(err) return next(err);
+                else{
+                    res.json(users);
+                }
+            })
+
+            break;
+
+        case "getPeopleByGroupAndName":
+            User.getPeopleByNameAndGroup(name, groupNumber, function(err, users){
+                if(err) return next(err);
+                else{
+                    res.json(users);
+                }
+            })
+
+            break;
+        case "getPeopleByNameAndSurnameAndGroup":
+            User.getPeopleByNameAndSurnameAndGroup(name, surname, groupNumber, function(err, users){
+                if(err) return next(err);
+                else{
+                    res.json(users);
+                }
+            })
+            break;
+        case "getPeopleByNameAndSurname":
+            User.getPeopleByNameAndSurname(name, surname, function(err, users){
+                if(err) return next(err);
+                else{
+                    res.json(users);
+                }
+            });
+            break;
+
+    }
+
+
+
+   /*
+    if(1==0) {}
     else{
         var queryDomain = domain.create();
         console.log('Начинаю поиск юзеров');
+
+
         queryDomain.run(function(){
-            var query = User.aggregate([{$match:{ $text: { $search: keyword } }},
+            var query = User.aggregate([{$match:{ searchString: { $regex:  }}},
                     {$project:
                         {
                             score: { $meta: "textScore" },
@@ -27,14 +106,7 @@ module.exports = function(req, res, next){
             query1.then(
                 function(result){
 
-                    /*
-                     if(res.headersSent) {
-                     console.warn("FindUsers.js: headers already sent");
-                     return next();
-                     }
-                     */
                     if(result.length == 0){
-                        //res.statusCode = 204;
                         res.end();
 
                     }else{
@@ -54,6 +126,9 @@ module.exports = function(req, res, next){
         })
 
     }
+    */
+
+
 
 
 };

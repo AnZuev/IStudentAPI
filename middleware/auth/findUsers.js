@@ -9,9 +9,17 @@ module.exports = function(req, res, next){
     console.log(keyword);
     switch (length){
         case 1:
-            if(/[0-9]/.test(keyword[0])) groupNumber = parseInt(keyword[0]);
-            else name = keyword[0];
-            searchMethod = "getPeopleByGroup";
+
+            if(/[0-9]/.test(keyword[0])){
+                searchMethod = "getPeopleByGroup";
+                groupNumber = parseInt(keyword[0]);
+            }
+            else {
+                name = keyword[0];
+                searchMethod = "getPeopleByName";
+
+            }
+
             console.log(searchMethod);
 
             break;
@@ -57,7 +65,15 @@ module.exports = function(req, res, next){
             })
 
             break;
+        case "getPeopleByName":
+            User.getPeopleByName(name, function(err, users){
+                if(err) return next(err);
+                else{
+                    res.json(users);
+                }
+            })
 
+            break;
         case "getPeopleByGroupAndName":
             User.getPeopleByNameAndGroup(name, groupNumber, function(err, users){
                 if(err) return next(err);

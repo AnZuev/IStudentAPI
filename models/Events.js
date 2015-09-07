@@ -256,6 +256,7 @@ Event.statics.getEventById = function(userId, eventId, callback){
                 return callback(null, event);
             }else{
                 console.log(event.creator + " " + userId);
+                console.log(event.participants.accepted.indexOf(userId) > 0 )
                 return callback(new DbError(403, 'Запрещено'));
             }
         }

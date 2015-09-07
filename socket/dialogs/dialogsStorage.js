@@ -25,6 +25,10 @@ var dialog = new Schema({
             },
             sender:{
                 type: Schema.Types.ObjectId
+            },
+            created: {
+                type: Date,
+                default:Date.now()
             }
         }
     ],
@@ -47,6 +51,7 @@ dialog.statics.createDialog = function(creator, participants, title, callback){
         else return callback(null, dialog);
     })
 }
+
 dialog.statics.addMessage = function(dialogId, sender, message, callback){
     var Dialog = this;
     async.waterfall([
@@ -70,12 +75,9 @@ dialog.statics.addMessage = function(dialogId, sender, message, callback){
                 sender:sender
             };
             dialog.messages.push(messageItem);
-            dialog.save(function(err){
-                if(err) return callback(new DbError());
-                else{
-                    return callback(null, messageItem)
-                }
-            })
+            var errCounter = 0;
+            addMessageToDialog(messageItem, errCounter, callback);
+
 
         }
     ],callback)
@@ -83,4 +85,29 @@ dialog.statics.addMessage = function(dialogId, sender, message, callback){
 
 
 
+
 exports.dialogs = mongoose.model('dialogs', dialog);
+
+
+
+
+//----------functions
+
+function addMessageToDialog(messageItem, errCounter, callback){
+    dialog.save(function(err){
+        if(err) {
+            if(errCounter > 5) {
+                return callback(new DbError(500, "Произошла ошибка при отправке сообщения"));
+            }else{
+                errCounter++;
+                addMessageToDialog(messageItem, errCounter, callback)
+            }
+
+        }
+        else{
+            return callback(null, messageItem)
+        }
+    })
+}
+
+

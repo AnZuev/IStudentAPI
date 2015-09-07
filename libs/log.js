@@ -11,6 +11,7 @@ function getLogger(module){
                 level: ENV=='development'? 'debug' : 'error',
                 label: path
             })
+
         ]
     })
 }

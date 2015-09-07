@@ -4,13 +4,14 @@ var AuthError = require('../../error').AuthError;
 
 exports.post = function(req, res, next){
 
-    var first_name = req.body.firstName;
-    var last_name = req.body.lastName;
+    var first_name = req.body.firstName.capitilizeFirstLetter();
+    var last_name = req.body.lastName.capitilizeFirstLetter();
     var password = req.body.password;
     var studNumber = req.body.studNumber;
     var year = req.body.year;
-    var faculty = req.body.faculty;
+    var faculty = req.body.faculty.toUpperCase();
     var groupNumber = req.body.groupNumber;
+
 
     User.signUp(first_name, last_name, groupNumber, faculty, year, studNumber, password, function(err, user){
       if(err){
@@ -38,4 +39,8 @@ exports.post = function(req, res, next){
     });
 };
 
+
+String.prototype.capitilizeFirstLetter = function(){
+    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+}
 

@@ -7,6 +7,8 @@ module.exports = function(io){
         socket.on('disconnect', function () {
             console.log("Connection lost -> dialogs");
         });
+
+
     });
 
 }

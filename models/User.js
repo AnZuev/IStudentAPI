@@ -114,11 +114,6 @@ User.statics.signIn = function(studNumber, password, callback){
 
 User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year, studNumber,  password, callback){
     var User = this;
-    /*if(!User.validateData(first_name, last_name, groupNumber, faculty, year, studNumber, password)) {
-        return callback(new badDataError());
-    }
-    */
-    //else{
         async.waterfall([
             function(callback){
                 User.findOne({"auth.studNumber": studNumber}, callback)
@@ -151,16 +146,16 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
 
             }
         ], callback);
-    //}
+
 
 };
 
 User.statics.getPeopleByGroupNumber = function(groupNumber, callback){
     var query = this.aggregate([{$match:{ "personal_information.groupNumber": groupNumber }},
             {$project:
-            {
-                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
-            }
+                {
+                    _id: _id
+                }
             },{$sort:{student: 1}}
         ])
         .limit(5).exec();

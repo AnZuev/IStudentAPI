@@ -4,103 +4,48 @@ var domain = require('domain');
 module.exports = function(req, res, next){
     var keyword = req.query.q.split(' ');
     var length = keyword.length;
-    var name, surname, groupNumber=0, i;
     var searchMethod;
     console.log(keyword);
     switch (length){
         case 1:
-
-            if(/[0-9]/.test(keyword[0])){
-                searchMethod = "getPeopleByGroup";
-                groupNumber = parseInt(keyword[0]);
-            }
-            else {
-                name = keyword[0];
-                searchMethod = "getPeopleByName";
-
-            }
-
-            console.log(searchMethod);
+            User.getPeopleByOneKey(keyword[0], function(err, users){
+                if(err) return next(err);
+                else{
+                    console.log(users);
+                    res.json(users);
+                }
+            })
 
             break;
         case 2:
-            for(i = 0; i< 2; i++){
-                if(/[0-9]/.test(keyword[i])){
-                    groupNumber = parseInt(keyword[i]);
-                }else{
-                    if(!name) name = keyword[i];
-                    else surname = keyword[i];
+            User.getPeopleByTwoKeys(keyword[0], keyword[1], function(err, users){
+                if(err) return next(err);
+                else{
+                    console.log(users);
+                    res.json(users);
                 }
-            }
-            if(groupNumber) searchMethod = "getPeopleByGroupAndName";
-            else searchMethod = "getPeopleByNameAndSurname";
-            console.log(searchMethod);
-
+            })
             break;
         case 3:
-            for(i = 0; i< 3; i++){
-                if(/[0-9]/.test(keyword[i])){
-                    groupNumber = parseInt(keyword[i]);
-                }else{
-                    if(!name) name = keyword[i];
-                    else surname = keyword[i];
+            User.getPeopleByThreeKeys(keyword[0],keyword[1], keyword[2], function(err, users){
+                if(err) return next(err);
+                else{
+                    console.log(users);
+                    res.json(users);
                 }
-
-                if(groupNumber) searchMethod = 'getPeopleByNameAndSurnameAndGroup';
-                else searchMethod = "getPeopleByNameAndSurname";
-                console.log(searchMethod);
-
-                break;
-            }
+            })
+            break;
+        default:
+            User.getPeopleByOneKey(keyword[0], function(err, users){
+                if(err) return next(err);
+                else{
+                    console.log(users);
+                    res.json(users);
+                }
+            })
     }
 
 
-    switch (searchMethod){
-        case "getPeopleByGroup":
-            User.getPeopleByGroupNumber(groupNumber, function(err, users){
-                if(err) return next(err);
-                else{
-                    res.json(users);
-                }
-            })
-
-            break;
-        case "getPeopleByName":
-            User.getPeopleByName(name, function(err, users){
-                if(err) return next(err);
-                else{
-                    res.json(users);
-                }
-            })
-
-            break;
-        case "getPeopleByGroupAndName":
-            User.getPeopleByNameAndGroup(name, groupNumber, function(err, users){
-                if(err) return next(err);
-                else{
-                    res.json(users);
-                }
-            })
-
-            break;
-        case "getPeopleByNameAndSurnameAndGroup":
-            User.getPeopleByNameAndSurnameAndGroup(name, surname, groupNumber, function(err, users){
-                if(err) return next(err);
-                else{
-                    res.json(users);
-                }
-            })
-            break;
-        case "getPeopleByNameAndSurname":
-            User.getPeopleByNameAndSurname(name, surname, function(err, users){
-                if(err) return next(err);
-                else{
-                    res.json(users);
-                }
-            });
-            break;
-
-    }
 
 
 

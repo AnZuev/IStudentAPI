@@ -182,8 +182,9 @@ User.statics.getPeopleByGroupNumber = function(groupNumber, callback){
     */
 }
 
-User.statics.getPeopleByName = function(name, callback){
-    var query = this.aggregate([{$match: {searchString:{$regex: name}}},
+User.statics.getPeopleByOneKey = function(key, callback){
+
+    var query = this.aggregate([{$match: {searchString:{$regex: key}}},
             {$project:
                 {
                     student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
@@ -200,26 +201,8 @@ User.statics.getPeopleByName = function(name, callback){
     });
 }
 
-User.statics.getPeopleByNameAndGroup = function(name, groupNumber, callback){
-    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: name}}, {"personal_information.groupNumber": groupNumber}]}},
-            {$project:
-                {
-                    student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
-                }
-            },{$sort:{student: 1}}
-        ])
-        .limit(5).exec();
-    query.then(function(users){
-        if(users.length == 0){
-            return callback(new DbError(204, 'No users found'));
-        }else{
-            return callback(null, users);
-        }
-    });
-};
-
-User.statics.getPeopleByNameAndSurnameAndGroup = function(name, surname, groupNumber, callback){
-    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: name}}, {searchString:{$regex: surname}}, {"personal_information.groupNumber": groupNumber}]}},
+User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
+    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}]}},
             {$project:
             {
                 student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
@@ -237,8 +220,8 @@ User.statics.getPeopleByNameAndSurnameAndGroup = function(name, surname, groupNu
 };
 
 
-User.statics.getPeopleByNameAndSurname = function(name, surname, callback){
-    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: name}}, {searchString:{$regex: surname}}]}},
+User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
+    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}, {searchString:{$regex: key3}}]}},
             {$project:
             {
                 student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
@@ -254,6 +237,8 @@ User.statics.getPeopleByNameAndSurname = function(name, surname, callback){
         }
     });
 };
+
+
 
 User.methods.acceptOrDeclineEvent = function(userId,eventId, callback){
     User.update({_id: userId}, {$pull:{"calendar.invites": eventId }}, function(err){

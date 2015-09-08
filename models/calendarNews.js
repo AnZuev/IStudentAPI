@@ -16,9 +16,9 @@ var calendarNew = new Schema({
         type: Schema.Types.ObjectId
     },
     notification:{
-        type:{
-        type:String,
-        require:true
+        eventName:{
+            type:String,
+            require:true
         },
         title:{
             type: String,

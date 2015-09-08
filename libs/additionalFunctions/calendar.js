@@ -137,7 +137,7 @@ function addCalendarNews(event, callback){
         else{
             var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
             var participants = event.participants.invites.sort();
-            console.warn(participants.invites);
+            console.warn(participants);
             var errors = [];
             var successArray = [];
             for(var i = 0;  i< participants.length; i++){

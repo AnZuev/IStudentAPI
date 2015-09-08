@@ -141,7 +141,6 @@ function addCalendarNews(event, callback){
             var errors = [];
             var successArray = [];
             for(var i = 0;  i< participants.length; i++){
-                console.warn(i);
                 var notification = {
                     eventName:  "calendarInvite",
                     title: title,

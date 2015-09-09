@@ -12,9 +12,8 @@ exports.get = function(req, res, next){
             if(err) return next(err);
             else{
                 console.log(event.participants.accepted);
-                var userFindFunction = function(i, callback){
-                    console.log(i);
-                    User.getUserById(event.participants.accepted[i], function(err, user){
+                var userFindFunction = function(userId, callback){
+                    User.getUserById(userId, function(err, user){
                        if(err) throw err;
                        return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);
                     })

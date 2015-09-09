@@ -237,6 +237,7 @@ User.statics.getUserById = function(userId, callback){
     this.find({_id: userId}, {_id:0, "personal_information.firstName":1, "personal_information.lastName":1}, function(err, user){
         if(err) return callback(err);
         else{
+            console.log(user);
             return callback(null, user);
         }
     });

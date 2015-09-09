@@ -222,11 +222,13 @@ Event.statics.decline = function(userId, eventId, callback){
     eventId = new mongoose.Types.ObjectId(eventId);
     async.waterfall([
         function(callback){
-            Event.find({_id: eventId}, {"participants.invites": userId}, callback);
+            Event.find({$or:[{$and:[{_id: eventId}, {"participants.invites": userId}]}, {$and:[{_id: eventId}, {"participants.accepted": userId}]}]}, callback);
         },
         function(event, callback){
-            console.log(typeof userId);
-            if(event.length == 0) return callback(new badDataError(400,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventId));
+            if(event.length == 0) {
+
+                return callback(new badDataError(400,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventId));
+            }
             else{
                 Event.update({_id: eventId}, {$pull :{ "participants.invites": userId}, $push:{"participants.declined": userId}}, function(err, events){
                     if(err) return callback(new DbError("Произошла ошибка при изменении данных поля participants.invites и participants.declined . UserId = " + userId + " , eventId = " + eventid ));

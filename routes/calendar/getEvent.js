@@ -17,9 +17,10 @@ exports.get = function(req, res, next){
                     var newTask = function(callback){
                         User.getUserById(event.participants.accepted[i], function(err, user){
                             if(err) throw err;
-                            console.log(arguments);
+                            console.log("Вывод из поиска юзера по id " + arguments);
                             return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);
                         })
+
                     };
                     arrayOfTasks.push(newTask);
                 };

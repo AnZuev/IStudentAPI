@@ -11,47 +11,40 @@ exports.get = function(req, res, next){
         Event.getEventById(req.user._id, eventId, function(err, event){
             if(err) return next(err);
             else{
-               var arrayOfTasks = [];
                 console.log(event.participants.accepted);
-                for(var i = 0; i< event.participants.accepted.length; i++){
-                    var newTask = makeUsernameFindFunction(i, callback);
-                    arrayOfTasks.push(newTask);
-                };
+                var userFindFunction = function(i, callback){
+                   User.getUserById(event.participants.accepted[i], function(err, user){
+                       if(err) throw err;
+                       console.log("Вывод из поиска юзера по id " + user);
+                       return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);
+                   })
 
-                async.parallel(arrayOfTasks, function(err, results){
-                    console.log(arguments);
-                    if(err) throw err;
-                    else{
-                        for(i = 0; i< results.length; i++){
+                }
 
-                            event.participants.accepted[i] = {
-                                name: results[i],
-                                id: event.participants.accepted[i]._id
-                            }
-                        }
-                        console.log(event);
-                        res.send(JSON.stringify(event));
-                        return next();
-                    }
+            };
 
-                });
+        async.forEach(event.participants.accepted, userFindFunction, function(err,results) {
+           if(err) throw err;
+            else{
+               for(i = 0; i< results.length; i++){
 
-            }
+                   event.participants.accepted[i] = {
+                       name: results[i],
+                       id: event.participants.accepted[i]._id
+                   }
+               }
+               console.log(event);
+               res.send(JSON.stringify(event));
+               return next();
+           }
+        });
+
+
         })
 
     }
 };
 
-function makeUsernameFindFunction(i, callback) {
-    return function(callback){
-        User.getUserById(event.participants.accepted[i], function(err, user){
-            if(err) throw err;
-            console.log("Вывод из поиска юзера по id " + user);
-            return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);
-        })
-
-    }
-}
 
 
 

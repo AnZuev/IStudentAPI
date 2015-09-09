@@ -226,7 +226,6 @@ Event.statics.decline = function(userId, eventId, callback){
         },
         function(event, callback){
             if(event.length == 0) {
-
                 return callback(new badDataError(400,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventId));
             }
             else{

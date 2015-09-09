@@ -233,22 +233,14 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
     });
 };
 
-
-
-User.methods.acceptOrDeclineEvent = function(userId,eventId, callback){
-    User.update({_id: userId}, {$pull:{"calendar.invites": eventId }}, function(err){
-        if(err) return callback(new DbError("Не получилось удилать элемент из массива calendar.invites " + eventId));
-        else return callback(null);
+User.statics.getUserById = function(userId, callback){
+    this.findById(userId, {_id:0, "personal_information.firstName":1, "personal_information.lastName":1}, function(err, user){
+        if(err) return callback(err);
+        else{
+            return callback(null, user);
+        }
     });
 }
-
-User.methods.recieveInviteToEvent = function(userId,eventId, callback){
-    User.update({_id: userId}, {$push:{"calendar.invites": eventId }}, function(err){
-        if(err) return callback(new DbError("Не получилось добавить элемент в массив calendar.invites " + eventId));
-        else return callback(null);
-    });
-}
-
 
 
 

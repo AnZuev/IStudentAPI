@@ -13,11 +13,11 @@ exports.get = function(req, res, next){
             else{
                 console.log(event.participants.accepted);
                 var userFindFunction = function(i, callback){
-                   User.getUserById(event.participants.accepted[i], function(err, user){
+                    console.log(i);
+                    User.getUserById(event.participants.accepted[i], function(err, user){
                        if(err) throw err;
-                       console.log("Вывод из поиска юзера по id " + user);
                        return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);
-                   })
+                    })
 
                 }
 
@@ -27,7 +27,6 @@ exports.get = function(req, res, next){
            if(err) throw err;
             else{
                for(i = 0; i< results.length; i++){
-
                    event.participants.accepted[i] = {
                        name: results[i],
                        id: event.participants.accepted[i]._id

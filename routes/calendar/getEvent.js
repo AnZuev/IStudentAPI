@@ -27,7 +27,7 @@ exports.get = function(req, res, next){
             else{
                for(i = 0; i< results.length; i++){
                    event.participants.accepted[i] = {
-                       name: results[i],
+                       student: results[i],
                        id: event.participants.accepted[i]._id
                    }
                }

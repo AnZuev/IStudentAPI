@@ -15,6 +15,7 @@ exports.get = function(req, res, next){
                 for(var i = 0; i< event.participants.accepted.length; i++){
                     var newTask = function(callback){
                         User.getUserById(event.participants.accepted[i], function(err, user){
+                            if(err) throw err;
                             return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);
                         })
                     };

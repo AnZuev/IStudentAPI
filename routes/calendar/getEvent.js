@@ -15,8 +15,7 @@ exports.get = function(req, res, next){
                 console.log(event.participants.accepted);
                 for(var i = 0; i< event.participants.accepted.length; i++){
                     var newTask = function(callback){
-                        console.log(i);
-                        User.getUserById(event.participants.accepted[i], function(err, user){
+                        User.getUserById(event.participants.accepted[0], function(err, user){
                             if(err) throw err;
                             console.log("Вывод из поиска юзера по id " + user);
                             return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);

@@ -22,7 +22,7 @@ User.getPeopleByNameAndSurnameAndGroup(name, surname, group, function(err, resul
     console.log(arguments);
 })
 */
-
+/*
 var firstNames = ['Георгий', "Георг", "Антон", "Ант", "Кирилл", "Леша", "Сергей", "Паша"];
 var lastNames = ['Попов', "Езеров", "Ильин", "Зуев", "Горбунов", "Павлюк", "Комаров"];
 var group = 4304;
@@ -39,3 +39,8 @@ var password = 'qwerty1234';
  }
  })
  }
+*/
+var userId = "55e56fc406321e46616e5b42";
+User.getUserById(userId, function(err, user){
+    console.log(arguments);
+})

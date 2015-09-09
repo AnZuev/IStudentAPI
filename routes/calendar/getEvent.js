@@ -25,6 +25,7 @@ exports.get = function(req, res, next){
         async.forEach(event.participants.accepted, userFindFunction, function(err,results) {
            if(err) throw err;
             else{
+               console.log(results);
                for(i = 0; i< results.length; i++){
                    event.participants.accepted[i] = {
                        student: results[i],

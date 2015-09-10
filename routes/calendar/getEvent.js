@@ -13,7 +13,7 @@ exports.get = function(req, res, next){
             if(err) return next(err);
             else{
                 for(var i = 0; i < event.participants.accepted.length; i++ ){
-                    var userFindFunction = makeGetUsersNameFunction();
+                    var userFindFunction = makeGetUsersNameFunction(event.participants.accepted[i]);
                     tasks.push(userFindFunction);
                 }
 

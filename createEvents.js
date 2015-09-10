@@ -5,6 +5,11 @@
 var Event = require('./models/Events').Event;
 var User = require('./models/User').User;
 
+
+Event.accept("55c05ed72631f5d19fc0b0df","55c064fb2767c214a06e9291", function(err, result){
+    console.log(arguments);
+})
+
 var ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 /*
@@ -70,7 +75,7 @@ var options = {
 }
 */
 
-
+/*
 var firstName = 'Георгий';
 var lastName = 'Попов';
 var group = 4304;
@@ -88,7 +93,7 @@ for(var i = 0; i < 10; i++){
     })
 }
 
-*/
+
 
 User.getPeopleByGroupNumber(group, function(err, users){
     if(err) throw err;
@@ -96,3 +101,4 @@ User.getPeopleByGroupNumber(group, function(err, users){
         console.log(users);
     }
 })
+*/

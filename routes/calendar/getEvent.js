@@ -8,42 +8,44 @@ var async = require('async');
 exports.get = function(req, res, next){
     if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
         var eventId = req.params.eventId;
+        var tasks = [];
         Event.getEventById(req.user._id, eventId, function(err, event){
             if(err) return next(err);
             else{
-                console.log(event.participants.accepted);
-                var userFindFunction = function(userId, callback){
-                    User.getUserById(userId, function(err, user){
-                       if(err) throw err;
-                       return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);
-                    })
-
+                for(var i = 0; i < event.participants.accepted.length; i++ ){
+                    var userFindFunction = makeGetUsersNameFunction();
+                    tasks.push(userFindFunction);
                 }
 
             };
 
-        async.forEach(event.participants.accepted, userFindFunction, function(err,results) {
-           if(err) throw err;
-            else{
-               console.log(results);
-               for(i = 0; i< results.length; i++){
-                   event.participants.accepted[i] = {
-                       student: results[i],
-                       id: event.participants.accepted[i]._id
-                   }
-               }
-               console.log(event);
-               res.send(JSON.stringify(event));
-               return next();
-           }
-        });
 
-
+            async.parallel(tasks, function(err, results){
+                if(err) throw err;
+                else{
+                    for(i = 0; i< results.length; i++){
+                        event.participants.accepted[i] = {
+                            student: results[i],
+                            id: event.participants.accepted[i]._id
+                        }
+                    }
+                    res.send(JSON.stringify(event));
+                    return next();
+                }
+            });
         })
+
 
     }
 };
 
-
+function makeGetUsersNameFunction(userId){
+    return function(callback){
+        User.getUserById(userId, function(err, user){
+            if(err) throw err;
+            return callback(null, user.personal_information.lastName + " " + user.personal_information.firstName);
+        })
+    }
+}
 
 

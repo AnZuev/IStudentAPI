@@ -29,6 +29,7 @@ exports.get = function(req, res, next){
                             id: event.participants.accepted[i]._id
                         }
                     }
+                    console.log(event);
                     res.send(JSON.stringify(event));
                     return next();
                 }

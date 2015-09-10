@@ -26,7 +26,7 @@ exports.get = function(req, res, next){
                     for(i = 0; i< results.length; i++){
                         event.participants.accepted[i] = {
                             student: results[i],
-                            id: event.participants.accepted[i]._id
+                            id: event.participants.accepted[i]
                         }
                     }
                     console.log(event);

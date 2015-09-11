@@ -11,12 +11,13 @@ exports.put = function(req, res, next){
     if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
         var title = req.body.title;
         var description = req.body.description;
-        var invites =  req.body.invites;
+        var invites =  unique(req.body.invites);
         var startTime = req.body.startTime;
         var finishTime = req.body.finishTime;
         var period = req.body.period;
         var type = req.body.type;
         var place = req.body.place;
+
 
         if(!Event.validateData(req.body)) return next(400);
 
@@ -35,7 +36,8 @@ exports.put = function(req, res, next){
                 }
             },
             function(typeItem, callback){
-                Event.addEvent(title, startTime, finishTime, period,typeItem.invites,place, description, typeItem.type, req.user._id, function(err, event ){
+                console.log(typeItem);
+                Event.addEvent(title, startTime, finishTime, period, typeItem.invites,place, description, typeItem.type, req.user._id, function(err, event ){
                     if(err) {
                         console.error('Произошла ошибка при добавлении события' + err);
                         return callback(err);
@@ -69,4 +71,13 @@ exports.put = function(req, res, next){
     }
 };
 
+function unique(array){
+    var obj = {};
 
+    for (var i = 0; i < array.length; i++) {
+        var str = array[i];
+        obj[str] = true;
+    };
+
+    return Object.keys(obj);
+}

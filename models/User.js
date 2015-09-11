@@ -154,7 +154,7 @@ User.statics.getPeopleByGroupNumber = function(groupNumber, callback){
     var query = this.aggregate([{$match:{ "personal_information.groupNumber": groupNumber }},
             {$project:
                 {
-                    _id: _id
+                    _id: user._id
                 }
             },{$sort:{student: 1}}
         ])

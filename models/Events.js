@@ -194,25 +194,24 @@ Event.statics.findFromDateToDateShort = function(userId, start, finish, callback
 
 }
 
-Event.statics.accept = function(userId, eventid, callback){
+Event.statics.accept = function(userId, eventId, callback){
     var Event = this;
     async.waterfall([
         function(callback){
-            Event.find({$and:[{_id: eventid}, {"participants.invites": userId}]}, callback);
+            Event.find({$and:[{_id: eventId}, {"participants.invites": userId}]}, callback);
         },
         function(event, callback){
-            if(event.length == 0) return callback(new badDataError(403,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventid));
-            else{
-                console.log('Событие нашел, делаю изменения');
-                Event.update({_id: eventid}, {$pull :{ "participants.invites": userId}, $push:{"participants.accepted": userId}}, function(err, events, affected){
-                    if(err) return callback(new DbError(500, "Произошла ошибка при изменении данных поля participants.invites и participants.accepted . UserId = " + userId + " , eventId = " + eventid ));
-                    else return callback(null, events);
-                });
-
+            if(event.length == 0) {
+                return callback(new badDataError(400,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventId));
             }
-
+            else{
+                Event.update({_id: eventId}, {$pull :{ "participants.invites": userId}, $push:{"participants.accepted": userId}}, function(err, events){
+                    if(err) return callback(new DbError("Произошла ошибка при изменении данных поля participants.invites и participants.accepted . UserId = " + userId + " , eventId = " + eventid ));
+                    else return callback(null, events)
+                });
+            }
         }
-    ], callback)
+    ], callback);
 
 }
 

@@ -25,7 +25,14 @@ exports.put = function(req, res, next){
         async.waterfall([
             function(callback){
                 if(type == 'group') {
-                    User.getPeopleByGroupNumber(req.user.personal_information.groupNumber, callback);
+                    User.getPeopleByGroupNumber(req.user.personal_information.groupNumber, function(err, users){
+                        users = users.splice(users.indexof(req.user._id, 1));
+                        var typeItem = {
+                            type: "group",
+                            invites: users
+                        };
+                        return callback(null, typeItem);
+                    });
                 } else if(type == 'private'){
                     return callback(null, {type: "private", invites: []})
 

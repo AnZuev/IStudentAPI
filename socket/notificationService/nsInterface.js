@@ -30,6 +30,7 @@ function notificationService(ee){
         });
     };
     this.makeListOfRecievers = function(users, notification){
+        console.log("Начинаю добавлять нотификацию для юзера" + notification);
         for(var i = 0; i< users.length; i++ ){
             var socketId = checkIfUserOnline(users[i]);
             if(socketId){

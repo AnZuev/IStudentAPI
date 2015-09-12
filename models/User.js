@@ -183,7 +183,7 @@ User.statics.getPeopleByOneKey = function(key, callback){
             {$project:
                 {
                     student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                    groupNumber: "personal_information.groupNumber"
+                    groupNumber: "$personal_information.groupNumber"
                 }
             },{$sort:{student: 1}}
         ])
@@ -202,7 +202,7 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
             {$project:
             {
                 student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                groupNumber: "personal_information.groupNumber"
+                groupNumber: "$personal_information.groupNumber"
 
             }
             },{$sort:{student: 1}}
@@ -223,7 +223,7 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
             {$project:
             {
                 student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                groupNumber: "personal_information.groupNumber"
+                groupNumber: "$personal_information.groupNumber"
             }
             },{$sort:{student: 1}}
         ])

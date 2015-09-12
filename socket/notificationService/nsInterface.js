@@ -17,8 +17,8 @@ function notificationService(ee){
             socket.emit('news', {message:"Новости"});
             socket.on('disconnect', function () {
                 if(socket.request.headers.user.id){
-                    onlineUsers.remove(socket.request.headers.user.id, function(err){
-                        if(err) return callback(err);
+                    onlineUsers.removeFromList(socket.request.headers.user.id, function(err){
+                        if(err) console.error(err);
                         else{
                             console.log('Запись из списка юзеров онлайн успешно удалена');
                         }

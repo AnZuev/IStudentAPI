@@ -26,7 +26,7 @@ exports.put = function(req, res, next){
             function(callback){
                 if(type == 'group') {
                     User.getPeopleByGroupNumber(req.user.personal_information.groupNumber, function(err, users){
-                        users = users.splice(users.indexof(req.user._id, 1));
+                        users = users.splice(users.indexof(req.user._id),1);
                         var typeItem = {
                             type: "group",
                             invites: users
@@ -47,7 +47,7 @@ exports.put = function(req, res, next){
                 }
             },
             function(typeItem, callback){
-                Event.addEvent(title, startTime, finishTime, period, typeItem.invites,place, description, typeItem.type, req.user._id, function(err, event ){
+                Event.addEvent(title, startTime, finishTime, period, typeItem.invites, place, description, typeItem.type, req.user._id, function(err, event ){
                     if(err) {
                         console.error('Произошла ошибка при добавлении события' + err);
                         return callback(err);

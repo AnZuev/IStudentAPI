@@ -25,13 +25,16 @@ exports.put = function(req, res, next){
             function(callback){
                 if(type == 'group') {
                     User.getPeopleByGroupNumber(req.user.personal_information.groupNumber, callback);
+                } else if(type == 'private'){
+                    return callback(null, {type: "private", invites: []})
+
                 } else if(type== "people" && invites.length > 0 ) {
                     var typeItem = {
                         type: type,
                         invites: invites
                     };
                     return callback(null, typeItem);
-                }else{
+                } else{
                     return callback(null, {type: "private", invites: []})
                 }
             },

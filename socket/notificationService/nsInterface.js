@@ -34,18 +34,22 @@ function notificationService(ee){
         for(var i = 0; i< users.length; i++ ){
             checkIfUserOnline(users[i], function(err, socketId){
                 if(socketId){
+                    console.log('сокетNд ' + socketId);
                     var notificationItem = {
                         to: users[i],
                         eventName: notification.eventName,
                         body: notification
                     }
+                    console.log(notificationItem);
                     addNotificationToQueue(notificationItem);
                 }
+                console.log('no socketId');
             });
 
         }
     }
     function checkIfUserOnline (userId, callback){
+        console.log('проверяем онлайн ли юзер');
         onlineUsers.checkIfUserOnline(userId, function(err, socketId){
             if(socketId) return callback(null,socketId);
             return callback(err);

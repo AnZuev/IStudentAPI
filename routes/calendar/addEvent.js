@@ -29,7 +29,7 @@ exports.put = function(req, res, next){
                     var typeItem = {
                         type: type,
                         invites: invites
-                    }
+                    };
                     return callback(null, typeItem);
                 }else{
                     return callback(null, {type: "private", invites: []})

@@ -30,7 +30,7 @@ module.exports = function(socket, callback) {
             },
             function(user, callback){
                 if(!user){
-                    callback(new HttpError(403, "Для подключения по ws сессия должна быть не анонимной"))
+                    return callback(new HttpError(403, "Для подключения по ws сессия должна быть не анонимной"))
                 }else{
                     handshakeData.user =user;
                     listOfOnlineUsers.checkIfUserOnline(user.id, function(err, socketId){
@@ -62,11 +62,11 @@ module.exports = function(socket, callback) {
 }
 
 function loadUser(session, callback){
-    if(2==5){//!session.user){
+    if(!session.user){
         console.warn('Попытка найти юзера для анонимной сессии');
         return callback(null, null);
     }else{
-        /*
+
         User.findById(session.user, function(err, user){
             var student =  {
                 username: user.personal_information.lastName + " " + user.personal_information.firstName,
@@ -79,7 +79,7 @@ function loadUser(session, callback){
                 return callback(null, null);
             }
         })
-        */
+
         var student =  {
             username: "Зуев Антон",
             id: "55c05ed72631f5d19fc0b0df"

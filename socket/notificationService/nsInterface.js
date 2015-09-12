@@ -32,21 +32,23 @@ function notificationService(ee){
     this.makeListOfRecievers = function(users, notification){
         console.log("Начинаю добавлять нотификацию для юзера" + notification);
         for(var i = 0; i< users.length; i++ ){
-            var socketId = checkIfUserOnline(users[i]);
-            if(socketId){
-                var notificationItem = {
-                    to: users[i],
-                    eventName: notification.eventName,
-                    body: notification
+            checkIfUserOnline(users[i], function(err, socketId){
+                if(socketId){
+                    var notificationItem = {
+                        to: users[i],
+                        eventName: notification.eventName,
+                        body: notification
+                    }
+                    addNotificationToQueue(notificationItem);
                 }
-                addNotificationToQueue(notificationItem);
-            }
+            });
+
         }
     }
-    function checkIfUserOnline (userId){
+    function checkIfUserOnline (userId, callback){
         onlineUsers.checkIfUserOnline(userId, function(err, socketId){
-            if(socketId) return socketId;
-            return false;
+            if(socketId) return callback(null,socketId);
+            return callback(err);
         })
     }
 

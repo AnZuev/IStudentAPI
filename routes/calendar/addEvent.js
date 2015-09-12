@@ -40,7 +40,6 @@ exports.put = function(req, res, next){
                 }
             },
             function(typeItem, callback){
-                console.log(typeItem);
                 Event.addEvent(title, startTime, finishTime, period, typeItem.invites,place, description, typeItem.type, req.user._id, function(err, event ){
                     if(err) {
                         console.error('Произошла ошибка при добавлении события' + err);

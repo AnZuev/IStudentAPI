@@ -64,6 +64,7 @@ exports.put = function(req, res, next){
                 res.json(event);
                 if(type != "private") {
                     calendarAdditionalMethods.createNotificationList(event, function(err, recievers, notification){
+                        console.log(arguments);
                         if(err) {
                             console.error(err + " здесь не может быть ошибки!!!");
                         }

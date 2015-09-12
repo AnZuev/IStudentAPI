@@ -175,3 +175,17 @@ function addCalendarNews(event, callback){
 
 exports.createNotificationList = addCalendarNews;
 
+function addNew(calendarNewItem, errors){
+    return function(callback){
+        calendarNews.addNew(calendarNewItem, function(err, calendarNewItem){
+            if(err){
+                errors.push({info: calendarNewItem, err: err});
+                console.error('Произошла ошибка при добавлении записи в calendarNews ' + err);
+            }else{
+                return callback(null, calendarNewItem);
+            }
+
+        })
+    }
+}
+

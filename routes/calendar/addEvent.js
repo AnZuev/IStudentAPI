@@ -70,6 +70,10 @@ exports.put = function(req, res, next){
                         }
                         else{
                             if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
+                            else {
+                                recievers.push("55edcd04ac5d7a99b710b942");
+                                ns.makeListOfRecievers(recievers, notification);
+                            }
                         }
                     })
                 }

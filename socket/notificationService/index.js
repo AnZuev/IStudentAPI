@@ -9,6 +9,7 @@ module.exports = function(io){
     ns.startNotificationService(io);
 
     notificationServiceEE.on('start', function(){
+        console.log('start emit ns')
         ns.sendingNotification();
     });
     notificationServiceEE.on('finish', function(){

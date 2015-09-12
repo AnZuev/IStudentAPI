@@ -59,6 +59,7 @@ function notificationService(ee){
     }
 
     function sendNotification(notificationItem){   //отправка нотификации
+        console.log("Отправляю нотификацию");
         channel.connected[notificationItem.to].emit(notificationItem.eventName, notificationItem.body);
         queue.unshift();
         if(queue.length == 0) ee.emit('finish');

@@ -41,7 +41,7 @@ function notificationService(ee){
                         eventName: notification.eventName,
                         body: notification
                     }
-                    console.log(notificationItem);
+                    console.log(notificationItem.to);
                     addNotificationToQueue(notificationItem);
                 }
                 console.log('no socketId');
@@ -57,7 +57,9 @@ function notificationService(ee){
         })
     }
 
-    function addNotificationToQueue(notificationItem){   // добавление нотификации в очередь для отправки
+    function addNotificationToQueue(notificationItem){
+      // добавление нотификации в очередь для отправки
+        console.log(queue + " - очередь пушей")
         queue.push(notificationItem);
         if(queue.length == 1) { ee.emit('start')}
         if(queue.length > 30) { ee.emit('warning', "Очень много уведомлений: " + queue.length)}

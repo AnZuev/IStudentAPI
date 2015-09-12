@@ -67,7 +67,6 @@ calendarNew.statics.addNew = function(calendarNewObject, callback){
                 calendarNewItem.save(function(err, calendarNewItem){
                     if(err) return callback(new DbError(500, "Ошибка при добавлении новости в calendarNew: " + calendarNewItem + " . Ошибка: " + err));
                     else {
-                        console.warn("Новость для календаря успешно добавлена " + calendarNewItem);
                         return callback(null,calendarNewItem);
                     }
                 })

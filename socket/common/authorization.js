@@ -39,9 +39,10 @@ module.exports = function(socket, callback) {
                             console.warn('Запись о том, что юзер онлайн, не была удалена при разрыве соединения');
                             return callback(null);
                         }else{
-                            listOfOnlineUsers.addToList(user.id, socket.id, function(err){
+                            listOfOnlineUsers.addToList(user.id, socket.id, function(err, user){
                                 if(err) return callback(err);
                                 else{
+                                    console.log('добавил юзера онлайн' + user)
                                     return callback(null)
                                 }
                             })

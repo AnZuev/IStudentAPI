@@ -33,7 +33,7 @@ function notificationService(ee){
         console.log("Начинаю добавлять нотификацию для юзера" + notification);
         for(var i = 0; i< users.length; i++ ){
             console.log(users);
-            checkIfUserOnline(users[i], function(err, socketId){
+            checkIfUserOnline(users[0], function(err, socketId){
                 if(socketId){
                     console.log('сокетNд ' + socketId);
                     var notificationItem = {

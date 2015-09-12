@@ -37,7 +37,7 @@ function notificationService(ee){
                 if(socketId){
                     console.log('сокетNд ' + socketId);
                     var notificationItem = {
-                        to: users[i],
+                        to: users[0],
                         eventName: notification.eventName,
                         body: notification
                     }

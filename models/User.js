@@ -182,7 +182,8 @@ User.statics.getPeopleByOneKey = function(key, callback){
     var query = this.aggregate([{$match: {searchString:{$regex: key}}},
             {$project:
                 {
-                    student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+                    student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
+                    groupNumber: "personal_information.groupNumber"
                 }
             },{$sort:{student: 1}}
         ])
@@ -200,7 +201,9 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
     var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}]}},
             {$project:
             {
-                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
+                groupNumber: "personal_information.groupNumber"
+
             }
             },{$sort:{student: 1}}
         ])
@@ -220,7 +223,7 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
             {$project:
             {
                 student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                groupNumber: "personal_information"
+                groupNumber: "personal_information.groupNumber"
             }
             },{$sort:{student: 1}}
         ])

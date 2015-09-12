@@ -219,7 +219,8 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
     var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}, {searchString:{$regex: key3}}]}},
             {$project:
             {
-                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]}
+                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
+                groupNumber: "personal_information"
             }
             },{$sort:{student: 1}}
         ])

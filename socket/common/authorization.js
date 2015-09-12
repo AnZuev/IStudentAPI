@@ -4,7 +4,7 @@ var config = require('../../config');
 var cookieParser = require('cookie-parser');
 var sessionStore = require('../../libs/sessionsStore');
 var User = require('../../models/User').User;
-var HttpError = require('../.').HttpError;
+var HttpError = require('../../error').HttpError;
 var listOfOnlineUsers = require('./listOfOnlineUsers').onlineUsers;
 
 
@@ -71,7 +71,7 @@ function loadUser(session, callback){
             var student =  {
                 username: user.personal_information.lastName + " " + user.personal_information.firstName,
                 id: user._id
-            }
+            };
             if(err) return callback(err);
             if(user) {
                 return callback(null, student)
@@ -79,13 +79,6 @@ function loadUser(session, callback){
                 return callback(null, null);
             }
         })
-
-        var student =  {
-            username: "Зуев Антон",
-            id: "55c05ed72631f5d19fc0b0df"
-        }
-        return callback(null, student)
-
 
     }
 }
@@ -95,7 +88,6 @@ function loadSession(sid, callback){
         if(arguments.length == 0){
             return callback(null, null)
         }else{
-            //console.log(session);
             return callback(null, session);
         }
     })

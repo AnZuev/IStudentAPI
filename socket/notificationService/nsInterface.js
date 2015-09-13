@@ -32,8 +32,8 @@ function notificationService(ee){
     this.makeListOfRecievers = function(users, notification){
         console.log("Начинаю добавлять нотификацию для юзера" + notification);
         for(var i = 0; i< users.length; i++ ){
-            console.log(users);
-            checkIfUserOnline(users[0], function(err, socketId){
+
+            checkIfUserOnline(users[i], function(err, socketId){
                 if(socketId){
                     console.log('сокетNд ' + socketId);
                     var notificationItem = {
@@ -44,7 +44,6 @@ function notificationService(ee){
                     console.log(notificationItem.to - " кому отправлять");
                     addNotificationToQueue(notificationItem);
                 }
-                console.log('no socketId');
             });
 
         }
@@ -52,7 +51,7 @@ function notificationService(ee){
     function checkIfUserOnline (userId, callback){
         console.log('проверяем онлайн ли юзер');
         onlineUsers.checkIfUserOnline(userId, function(err, socketId){
-            if(socketId) return callback(null,socketId);
+            if(socketId) return callback(null, socketId);
             return callback(err);
         })
     }

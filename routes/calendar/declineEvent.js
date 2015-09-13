@@ -17,10 +17,12 @@ exports.post = function(req, res, next){
                 calendarNews.removeNewByEvent(eventId, req.user._id, callback)
             }
         ], function(err){
-            if(err) return next(err);
+            if(err) {
+                console.log("===================== " + err);
+                return next(err);
+            }
             else {
                 console.log('удаление новости прошло успешно.');
-                res.statusCode = 200;
                 res.end();
                 return next();
             }

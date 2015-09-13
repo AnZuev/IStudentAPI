@@ -137,31 +137,27 @@ function addCalendarNews(event, callback){
         else{
             var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
             var participants = event.participants.invites.sort();
-            console.warn(participants);
             var errors = [];
             var successArray = [];
+            var tasks = [];
+            var notification = {
+                eventName:  "calendarInvite",
+                title: title,
+                message: event.description,
+                eventId: event._id
+            };
             for(var i = 0;  i< participants.length; i++){
-                var notification = {
-                    eventName:  "calendarInvite",
-                    title: title,
-                    message: event.description,
-                    eventId: event._id
-                };
                var calendarNewItem = {
                   to: participants[i],
                   from: event.creator,
                   notification:notification
                };
-               calendarNews.addNew(calendarNewItem, function(err, calendarNewItem){
-                  if(err){
-                      errors.push({info: calendarNewItem, err: err});
-                      console.error('Произошла ошибка при добавлении записи в calendarNews ' + err);
-                  }else{
-                      successArray.push(calendarNewItem);
-                  }
-
-                })
+               tasks.push(addNew(calendarNewItem));
             }
+
+            async.parallel(tasks, function(err, results){
+
+            });
 
              if(errors.length > 0){
                     console.warn('При добавлении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length); //залогировать ошибки в файл
@@ -175,12 +171,12 @@ function addCalendarNews(event, callback){
 
 exports.createNotificationList = addCalendarNews;
 
-function addNew(calendarNewItem, errors){
+function addNew(calendarNewItem){
     return function(callback){
         calendarNews.addNew(calendarNewItem, function(err, calendarNewItem){
             if(err){
-                errors.push({info: calendarNewItem, err: err});
                 console.error('Произошла ошибка при добавлении записи в calendarNews ' + err);
+                return callback(null, err)
             }else{
                 return callback(null, calendarNewItem);
             }

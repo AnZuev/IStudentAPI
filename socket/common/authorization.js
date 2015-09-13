@@ -53,7 +53,7 @@ module.exports = function(socket, callback) {
             }
         ],function(err){
             if(err) {
-                callback(null,false);
+                return callback(null,false);
             }
             else{
                 return callback(null,true);
@@ -66,7 +66,6 @@ function loadUser(session, callback){
         console.warn('Попытка найти юзера для анонимной сессии');
         return callback(null, null);
     }else{
-
         User.findById(session.user, function(err, user){
             var student =  {
                 username: user.personal_information.lastName + " " + user.personal_information.firstName,

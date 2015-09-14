@@ -22,7 +22,7 @@ exports.post = function(req, res, next){
                 return next(err);
             }
             else {
-                console.log('удаление новости прошло успешно.');
+                res.writeHead(200);
                 res.end();
                 return next();
             }

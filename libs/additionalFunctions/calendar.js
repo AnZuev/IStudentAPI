@@ -135,35 +135,48 @@ function addCalendarNews(event, callback){
         if(err) return callback(err);
         if(!user) return (callback(new DbError(404, "Произошла ошибка при поиске юзера - юзера нет. Как он создал событие  - хрен его знает")));
         else{
+
+            var titleNotif =  user.personal_information.lastName + " " + user.personal_information.firstName; //
             var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
             var participants = event.participants.invites.sort();
+            var message = "Приглашаю на событие " + event.title + " " + makeDateStringFromDateObj(event.time.start) + ". Идешь?";
             var errors = [];
             var successArray = [];
             var tasks = [];
-            var notification = {
+            var calendarNew = {
                 eventName:  "calendarInvite",
                 title: title,
                 message: event.description,
                 eventId: event._id
             };
+            var notification = {
+                eventName:  "calendarInvite",
+                title: titleNotif,
+                message: message,
+                eventId: event._id,
+                photoUrl: user.personal_information.photoUrl || "/images/noAvatar.png"
+            }
+
             for(var i = 0;  i< participants.length; i++){
                var calendarNewItem = {
                   to: participants[i],
                   from: event.creator,
-                  notification:notification
+                  notification:calendarNew
                };
                tasks.push(addNew(calendarNewItem));
             }
 
             async.parallel(tasks, function(err, results){
+                if(err) console.error(err);
+                if(errors.length > 0){
+                    console.warn('При добавлении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length); //залогировать ошибки в файл
+                }
+                return callback(null, results, notification);
+
 
             });
 
-             if(errors.length > 0){
-                    console.warn('При добавлении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length); //залогировать ошибки в файл
-             }
-             console.info('Выполнил функцию для создания списка нотификация, пытаюсь вернуть колбэк с тремя аргументами');
-             return callback(null, successArray, notification);
+
         }
 
     })
@@ -178,10 +191,20 @@ function addNew(calendarNewItem){
                 console.error('Произошла ошибка при добавлении записи в calendarNews ' + err);
                 return callback(null, err)
             }else{
-                return callback(null, calendarNewItem);
+                return callback(null, calendarNewItem.to);
             }
 
         })
     }
 }
+
+
+function makeDateStringFromDateObj(date){
+    var months = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+    var year = date.getFullYear();
+    var month = months[date.getMonth()];
+    var day = date.getDay();
+    return (day + ' ' + month + " " + year);
+}
+
 

@@ -1,7 +1,19 @@
 var EventEmitter = require('events').EventEmitter;
 var notificationServiceEE = new EventEmitter();
 var onlineUsers = require('./../common/listOfOnlineUsers').onlineUsers;
+var async = require('async');
 
+notificationServiceEE.on('start', function(){
+    console.log('start emit ns')
+    ns.sendingNotification();
+});
+notificationServiceEE.on('finish', function(){
+    console.log('Отослал все уведомления, новых пока нет');
+});
+
+notificationServiceEE.on('warning', function(message){
+    console.warn(message);
+})
 
 
 function notificationService(ee){
@@ -19,9 +31,7 @@ function notificationService(ee){
                 if(socket.request.headers.user.id){
                     onlineUsers.removeFromList(socket.request.headers.user.id, function(err){
                         if(err) console.error(err);
-                        else{
-                            console.log('Запись из списка юзеров онлайн успешно удалена');
-                        }
+
                     });
                 }
 
@@ -29,60 +39,78 @@ function notificationService(ee){
             });
         });
     };
+
     this.makeListOfRecievers = function(users, notification){
-        console.log("Начинаю добавлять нотификацию для юзера" + notification);
-        for(var i = 0; i< users.length; i++ ){
 
-            checkIfUserOnline(users[i], function(err, socketId){
-                if(socketId){
-                    console.log('сокетNд ' + socketId);
-                    var notificationItem = {
-                        to: users[0],
-                        eventName: notification.eventName,
-                        body: notification
-                    }
-                    console.log(notificationItem.to - " кому отправлять");
-                    addNotificationToQueue(notificationItem);
+        async.waterfall([
+            function(callback){
+                console.log("Начинаю добавлять нотификацию для юзера" + notification);
+                var tasks = [];
+                for(var i = 0; i< users.length; i++ ){
+                    tasks.push(makeCheckUserOnline(users[i]));
                 }
-            });
+                async.series(tasks, callback)
+            },
+            function(results, callback){
+                console.log(results);
+                for(var i = 0; i<results.length; i++){
+                    if(results[i].length > 0){
+                        var notificationItem = {};
+                        for(var y = 0; y< results[i].length; y++){
+                            notificationItem = {
+                                to: results[i][y],
+                                eventName: notification.eventName,
+                                body: notification
+                            }
+                            addNotificationToQueue(notificationItem);
+                        }
+                    }
+                }
+                return callback(null);
 
-        }
+
+            }
+        ])
+
     }
-    function checkIfUserOnline (userId, callback){
-        console.log('проверяем онлайн ли юзер');
-        onlineUsers.checkIfUserOnline(userId, function(err, socketId){
-            if(socketId) return callback(null, socketId);
-            return callback(err);
-        })
-    }
+
 
     function addNotificationToQueue(notificationItem){
       // добавление нотификации в очередь для отправки
         queue.push(notificationItem);
-        console.log(queue + " - очередь пушей");
         if(queue.length == 1) { ee.emit('start')}
         if(queue.length > 30) { ee.emit('warning', "Очень много уведомлений: " + queue.length)}
     }
-
-    function sendNotification(notificationItem){   //отправка нотификации
-        console.log("Отправляю нотификацию");
-        channel.connected[notificationItem.to].emit(notificationItem.eventName, notificationItem.body);
-        queue.unshift();
-        if(queue.length == 0) ee.emit('finish');
-
-    }
-
     this.sendingNotification = function(){
-        while(queue.length >0){
-            setInterval(function(){
-                sendNotification(queue[0])
-            }, 500);
+        console.log("this.sendingNotification");
+        console.log(queue);
+        while(queue.length > 0){
+            var notificationItem = queue[0];
+            channel.connected[notificationItem.to].emit(notificationItem.eventName, notificationItem.body);
+            queue.shift();
+            if(queue.length == 0) ee.emit('finish');
         }
-
     }
 
 
+    function makeCheckUserOnline(user){
+        return function(callback) {
+            onlineUsers.checkIfUserOnline(user, function(err, socketId){
+                if(!socketId){
+                    console.log("Юзер не онлайн");
+                    return callback(new Error('Юзер не онлайн'));
+                }
+                if(socketId.length > 0){
+                    console.log('Добавил нотификации в очередь');
+                    return callback(null, socketId);
+                }
+
+            });
+        }
+    }
 }
 
 var ns = new notificationService(notificationServiceEE);
+
 exports.ns = ns;
+

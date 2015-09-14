@@ -7,18 +7,6 @@ var notificationServiceEE = new EventEmitter();
 module.exports = function(io){
     var ns = require('./nsInterface').ns;
     ns.startNotificationService(io);
-
-    notificationServiceEE.on('start', function(){
-        console.log('start emit ns')
-        ns.sendingNotification();
-    });
-    notificationServiceEE.on('finish', function(){
-        console.log('Отослал все уведомления, новых пока нет');
-    });
-
-    notificationServiceEE.on('warning', function(message){
-        console.warn(message);
-    })
 }
 
 

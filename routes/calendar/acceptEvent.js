@@ -8,7 +8,6 @@ var async = require('async');
 exports.post = function(req, res, next){
     if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
         var eventId = req.params.eventId;
-
         async.waterfall([
             function(callback){
                 Event.accept(req.user._id, eventId, callback);
@@ -17,10 +16,12 @@ exports.post = function(req, res, next){
                 calendarNews.removeNewByEvent(eventId, req.user._id, callback)
             }
         ], function(err){
-            if(err) return next(err);
+            if(err) {
+                throw err;
+                return next(err);
+            }
             else {
-                console.log('удаление новости прошло успешно.');
-                res.statusCode = 200;
+                res.writeHead(200);
                 res.end();
                 return next();
             }

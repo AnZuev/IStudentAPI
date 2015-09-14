@@ -9,14 +9,28 @@ var onlineUser = new Schema({
         type: Schema.Types.ObjectId,
         unique: true
     },
-    socketId:{
+    socketId:[{
         require: true,
         type:String
-    },
+    }],
     markers:[String]
 });
 
 onlineUser.statics.addToList = function(userId, socketId, callback){
+   this.find({userId: userId}, function(err, result){
+       if(err) return callback(err);
+       result = result[0];
+       if(result.socketId.indexOf(socketId) < 0) result.socketId.push(socketId);
+       result.save(function(err, result){
+           if(err) return callback(err);
+           else{
+               return callback(null, {userId: userId, socketId: socketId});
+           }
+       })
+   })
+
+};
+onlineUser.statics.addNewUser = function(userId, socketId, callback){
     var newOnlineUser = new this({
         userId: userId,
         socketId: socketId
@@ -27,7 +41,7 @@ onlineUser.statics.addToList = function(userId, socketId, callback){
             callback(null, newOnlineUser);
         }
     })
-};
+}
 
 onlineUser.statics.removeFromList = function(userId, callback){
    this.remove({userId: userId}, function(err){

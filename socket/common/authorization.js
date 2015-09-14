@@ -33,23 +33,25 @@ module.exports = function(socket, callback) {
                     return callback(new HttpError(403, "Для подключения по ws сессия должна быть не анонимной"))
                 }else{
                     handshakeData.user =user;
+                    console.log(user);
+
                     listOfOnlineUsers.checkIfUserOnline(user.id, function(err, socketId){
-                        if(err) return callback(err);
                         if(socketId){
-                            console.warn('Запись о том, что юзер онлайн, не была удалена при разрыве соединения');
-                            return callback(null);
+                            return callback(null, {userId: user.id, in:true});
                         }else{
-                            listOfOnlineUsers.addToList(user.id, socket.id, function(err, user){
-                                if(err) return callback(err);
-                                else{
-                                    console.log('добавил юзера онлайн' + user)
-                                    return callback(null)
-                                }
-                            })
+                            return callback(null, {userId: user.id, in:false});
                         }
                     });
                 }
 
+            },
+            function(userItem, callback){
+                if(userItem.in) {
+                    console.log(userItem)
+                    listOfOnlineUsers.addToList(userItem.userId, socket.id, callback);
+                }else{
+                    listOfOnlineUsers.addNewUser(userItem.userId, socket.id, callback);
+                }
             }
         ],function(err){
             if(err) {

@@ -1,6 +1,8 @@
 var authorization = require('./common/authorization');
 
+
 module.exports = function(io){
+
     io.use(function(socket, next) {
         authorization(socket, function(err, result){
             if(!result){
@@ -11,17 +13,11 @@ module.exports = function(io){
                 next();
             }
         });
-        // make sure the handshake data looks good as before
-        // if error do this:
-        // next(new Error('not authorized');
-        // else just call next
+
     });
     require('./notificationService')(io);
     require('./dialogs')(io);
 }
-
-
-
 
 
 

@@ -26,8 +26,10 @@
       <file leaf-file-name="addEvent.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/calendar/addEvent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="85" selection-start="1582" selection-end="1582" vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="1335">
-              <folding />
+            <state line="70" column="50" selection-start="2929" selection-end="2929" vertical-scroll-proportion="0.0" vertical-offset="696" max-vertical-offset="1380">
+              <folding>
+                <element signature="n#!!block;n#unique#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,81 +37,36 @@
       <file leaf-file-name="calendar.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libs/additionalFunctions/calendar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="143" column="0" selection-start="5598" selection-end="5598" vertical-scroll-proportion="0.0" vertical-offset="1978" max-vertical-offset="2745">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Events.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Events.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="208" column="142" selection-start="6743" selection-end="6743" vertical-scroll-proportion="0.0" vertical-offset="2400" max-vertical-offset="3600">
+            <state line="167" column="24" selection-start="6560" selection-end="6618" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2970">
               <folding>
-                <element signature="e#4764#5355#0" expanded="false" />
-                <element signature="e#5438#5958#0" expanded="false" />
+                <element signature="n#!!block;n#diffSortArr#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="calendar.ejs" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="calendar.ejs" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/calendar.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="41" selection-start="3972" selection-end="4052" vertical-scroll-proportion="-61.25" vertical-offset="0" max-vertical-offset="1890">
+            <state line="5" column="55" selection-start="357" selection-end="357" vertical-scroll-proportion="0.097363085" vertical-offset="27" max-vertical-offset="1920">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lkLayout.ejs" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/layout/lkLayout.ejs">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/socket/notificationService/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="105" selection-start="900" selection-end="900" vertical-scroll-proportion="0.8015267" vertical-offset="0" max-vertical-offset="555">
+            <state line="8" column="36" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createEvents.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/createEvents.js">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/socket/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="41" selection-start="173" selection-end="197" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1635">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="usersFindTest.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/usersFindTest.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="114" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="217" max-vertical-offset="765">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/User.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="12" selection-start="4708" selection-end="4802" vertical-scroll-proportion="0.0" vertical-offset="1084" max-vertical-offset="2295">
-              <folding>
-                <element signature="e#1875#2185#0" expanded="false" />
-                <element signature="e#2260#2461#0" expanded="false" />
-                <element signature="e#2526#3123#0" expanded="false" />
-                <element signature="e#3240#4528#0" expanded="false" />
-                <element signature="e#6145#6696#0" expanded="false" />
-                <element signature="e#6772#7354#0" expanded="false" />
-                <element signature="e#7410#7651#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="log.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/log.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="14" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+            <state line="15" column="0" selection-start="469" selection-end="470" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
               <folding />
             </state>
           </provider>
@@ -126,7 +83,6 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/routes/calendar/removeEvent.js" />
-        <option value="$PROJECT_DIR$/routes/authorize/signIn.js" />
         <option value="$PROJECT_DIR$/libs/additionalFunctions/addCalendarNewsForArrayOfParticipants.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/routes/calendar/calendar.js" />
@@ -136,7 +92,6 @@
         <option value="$PROJECT_DIR$/config/config.json" />
         <option value="$PROJECT_DIR$/routes/calendar/getEvents.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
-        <option value="$PROJECT_DIR$/views/layout/welcomePage.ejs" />
         <option value="$PROJECT_DIR$/libs/sessionsStore.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/notificationService/autorization.js" />
@@ -146,36 +101,38 @@
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/socket/notificationService/authorization.js" />
         <option value="$PROJECT_DIR$/socket/authorization.js" />
-        <option value="$PROJECT_DIR$/views/socketIO.ejs" />
         <option value="$PROJECT_DIR$/middleware/auth/checkAuth.js" />
-        <option value="$PROJECT_DIR$/socket/notificationService/index.js" />
-        <option value="$PROJECT_DIR$/socket/index.js" />
-        <option value="$PROJECT_DIR$/socket/common/authorization.js" />
         <option value="$PROJECT_DIR$/routes/calendar/index.js" />
-        <option value="$PROJECT_DIR$/socket/notificationService/nsInterface.js" />
-        <option value="$PROJECT_DIR$/socket/common/listOfOnlineUsers.js" />
         <option value="$PROJECT_DIR$/middleware/auth/loadUser.js" />
         <option value="$PROJECT_DIR$/routes/general/feedback.js" />
-        <option value="$PROJECT_DIR$/views/calendar.ejs" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/routes/authorize/index.js" />
         <option value="$PROJECT_DIR$/libs/log.js" />
         <option value="$PROJECT_DIR$/socket/dialogs/dialogsStorage.js" />
         <option value="$PROJECT_DIR$/socket/dialogs/index.js" />
         <option value="$PROJECT_DIR$/middleware/auth/findUsers.js" />
         <option value="$PROJECT_DIR$/routes/authorize/signUp.js" />
-        <option value="$PROJECT_DIR$/models/calendarNews.js" />
-        <option value="$PROJECT_DIR$/libs/additionalFunctions/calendar.js" />
-        <option value="$PROJECT_DIR$/views/partials/calendarModuleConstructor.json" />
-        <option value="$PROJECT_DIR$/routes/calendar/declineEvent.js" />
-        <option value="$PROJECT_DIR$/routes/calendar/acceptEvent.js" />
         <option value="$PROJECT_DIR$/usersFindTest.js" />
         <option value="$PROJECT_DIR$/createEvents.js" />
         <option value="$PROJECT_DIR$/routes/calendar/getEvent.js" />
-        <option value="$PROJECT_DIR$/routes/calendar/addEvent.js" />
-        <option value="$PROJECT_DIR$/models/User.js" />
+        <option value="$PROJECT_DIR$/routes/authorize/signIn.js" />
+        <option value="$PROJECT_DIR$/routes/authorize/index.js" />
         <option value="$PROJECT_DIR$/models/Events.js" />
+        <option value="$PROJECT_DIR$/models/User.js" />
+        <option value="$PROJECT_DIR$/views/partials/calendarModuleConstructor.json" />
         <option value="$PROJECT_DIR$/views/layout/lkLayout.ejs" />
+        <option value="$PROJECT_DIR$/views/socketIO.ejs" />
+        <option value="$PROJECT_DIR$/models/calendarNews.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/acceptEvent.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/declineEvent.js" />
+        <option value="$PROJECT_DIR$/socket/common/listOfOnlineUsers.js" />
+        <option value="$PROJECT_DIR$/socket/common/authorization.js" />
+        <option value="$PROJECT_DIR$/socket/notificationService/index.js" />
+        <option value="$PROJECT_DIR$/socket/notificationService/nsInterface.js" />
+        <option value="$PROJECT_DIR$/routes/calendar/addEvent.js" />
+        <option value="$PROJECT_DIR$/socket/index.js" />
+        <option value="$PROJECT_DIR$/libs/additionalFunctions/calendar.js" />
+        <option value="$PROJECT_DIR$/views/layout/welcomePage.ejs" />
+        <option value="$PROJECT_DIR$/views/calendar.ejs" />
       </list>
     </option>
   </component>
@@ -211,32 +168,31 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -246,11 +202,29 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="partials" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -264,11 +238,61 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="socket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="socket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="notificationService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="socket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -278,11 +302,29 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="general" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -296,11 +338,29 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="authorize" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -310,11 +370,65 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="middleware" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sendErrors" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="middleware" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="calendar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="middleware" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -324,11 +438,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Automu.rf" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AutoMu_v2.0" />
+              <option name="myItemId" value="IStudentAPI" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -340,8 +454,51 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="error" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IStudentAPI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -349,7 +506,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/usersFindTest.js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -381,14 +538,6 @@
       <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -399,15 +548,23 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -526,41 +683,21 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32866243" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32866243" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494577" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18019943" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18293564" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6789809" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33248407" sideWeight="0.2010123" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28712872" sideWeight="0.7989877" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3057325" sideWeight="0.7989877" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32966226" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32866243" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32966226" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6789809" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33248407" sideWeight="0.2010123" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32866243" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494577" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24873464" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2878981" sideWeight="0.7989877" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USERS">
@@ -577,29 +714,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="11" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/cookie-parser/lib/parse.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="0" selection-start="864" selection-end="864" vertical-scroll-proportion="0.3327032" vertical-offset="469" max-vertical-offset="1440" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/social_activity_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.2967863" vertical-offset="1215" max-vertical-offset="2550">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/socket.io/lib/client.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="9" selection-start="41" selection-end="43" vertical-scroll-proportion="-0.41958043" vertical-offset="255" max-vertical-offset="3795" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/socket.io/lib/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="360" column="39" selection-start="8286" selection-end="8290" vertical-scroll-proportion="0.17035398" vertical-offset="5323" max-vertical-offset="5775" />
@@ -610,28 +728,9 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="478" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/sessionsStore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="202" selection-end="202" vertical-scroll-proportion="0.20348836" vertical-offset="0" max-vertical-offset="516" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/mongoose.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="0" selection-end="221" vertical-scroll-proportion="0.31976745" vertical-offset="0" max-vertical-offset="516" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="37" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0" vertical-offset="518" max-vertical-offset="1560" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/calendar/modifyEvent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="22" selection-start="150" selection-end="234" vertical-scroll-proportion="0.08704062" vertical-offset="0" max-vertical-offset="517">
-          <folding>
-            <element signature="e#275#1340#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="3" column="22" selection-start="150" selection-end="234" vertical-scroll-proportion="0.08704062" vertical-offset="0" max-vertical-offset="517" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/socket.io/lib/namespace.js">
@@ -644,11 +743,6 @@
         <state line="0" column="36" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout/welcomePage.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="73" selection-start="68" selection-end="156" vertical-scroll-proportion="0.03125" vertical-offset="60" max-vertical-offset="2460" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/auth/checkAuth.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="18" selection-start="243" selection-end="243" vertical-scroll-proportion="0.116054155" vertical-offset="0" max-vertical-offset="517" />
@@ -659,33 +753,9 @@
         <state line="52" column="7" selection-start="854" selection-end="854" vertical-scroll-proportion="0.3326886" vertical-offset="608" max-vertical-offset="2865" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/socket/common/authorization.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="34" selection-start="96" selection-end="96" vertical-scroll-proportion="-0.08704062" vertical-offset="75" max-vertical-offset="1620">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/general/feedback.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="30" selection-start="881" selection-end="882" vertical-scroll-proportion="0.6673387" vertical-offset="29" max-vertical-offset="525" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/socket/common/listOfOnlineUsers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="18" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1665">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/general/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="26" selection-start="73" selection-end="99" vertical-scroll-proportion="0.0867052" vertical-offset="0" max-vertical-offset="519" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="18" selection-start="433" selection-end="433" vertical-scroll-proportion="0.40462428" vertical-offset="0" max-vertical-offset="519" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/middleware/auth/loadUser.js">
@@ -693,24 +763,9 @@
         <state line="14" column="0" selection-start="361" selection-end="361" vertical-scroll-proportion="0.40462428" vertical-offset="0" max-vertical-offset="519" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/socket/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="31" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/socket/notificationService/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="1" selection-start="388" selection-end="509" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="570" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/calendar/calendar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="38" selection-start="374" selection-end="374" vertical-scroll-proportion="0.21255061" vertical-offset="0" max-vertical-offset="494">
-          <folding>
-            <element signature="e#374#1613#0" expanded="false" />
-            <element signature="n#!!block;n#makeDateInterval#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="7" column="38" selection-start="374" selection-end="374" vertical-scroll-proportion="0.21255061" vertical-offset="0" max-vertical-offset="494" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/error/index.js">
@@ -723,11 +778,6 @@
         <state line="54" column="27" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.0" vertical-offset="428" max-vertical-offset="1215" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/socket/notificationService/nsInterface.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="38" selection-start="1498" selection-end="1510" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1245" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/mongoose/node_modules/mongodb/lib/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="227" column="0" selection-start="8203" selection-end="8203" vertical-scroll-proportion="0.33204633" vertical-offset="3233" max-vertical-offset="6225" />
@@ -738,11 +788,6 @@
         <state line="3" column="36" selection-start="73" selection-end="89" vertical-scroll-proportion="0.09297521" vertical-offset="0" max-vertical-offset="484" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/socketIO.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="7" selection-start="438" selection-end="598" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="540" />
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="68" column="0" selection-start="946" selection-end="946" vertical-scroll-proportion="0.24858756" vertical-offset="888" max-vertical-offset="14055" />
@@ -750,21 +795,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/socket/dialogs/dialogsStorage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="68" selection-start="2555" selection-end="2555" vertical-scroll-proportion="0.68926555" vertical-offset="999" max-vertical-offset="1620">
-          <folding>
-            <element signature="e#900#1179#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/authorize/signUp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="43" selection-start="520" selection-end="520" vertical-scroll-proportion="0.33898306" vertical-offset="0" max-vertical-offset="780" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="48" selection-start="496" selection-end="496" vertical-scroll-proportion="0.1923077" vertical-offset="0" max-vertical-offset="780" />
+        <state line="102" column="68" selection-start="2555" selection-end="2555" vertical-scroll-proportion="0.68926555" vertical-offset="999" max-vertical-offset="1620" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/socket/dialogs/index.js">
@@ -772,131 +803,240 @@
         <state line="10" column="0" selection-start="385" selection-end="385" vertical-scroll-proportion="0.1923077" vertical-offset="0" max-vertical-offset="780" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="84" selection-start="593" selection-end="597" vertical-scroll-proportion="0.15384616" vertical-offset="0" max-vertical-offset="780" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/auth/findUsers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/log.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="14" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/declineEvent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="150" selection-end="250" vertical-scroll-proportion="0.08211679" vertical-offset="0" max-vertical-offset="570">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usersFindTest.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="114" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="217" max-vertical-offset="765">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/calendar/getEvent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="25" selection-start="1159" selection-end="1159" vertical-scroll-proportion="0.79379565" vertical-offset="0" max-vertical-offset="870">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/calendarNews.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="11" selection-start="2877" selection-end="2877" vertical-scroll-proportion="0.4051095" vertical-offset="483" max-vertical-offset="1485">
-          <folding>
-            <element signature="e#834#2352#0" expanded="false" />
-            <element signature="e#2425#2785#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/additionalFunctions/calendar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="0" selection-start="5598" selection-end="5598" vertical-scroll-proportion="0.0" vertical-offset="1978" max-vertical-offset="2745">
-          <folding />
-        </state>
+        <state line="29" column="25" selection-start="1159" selection-end="1159" vertical-scroll-proportion="0.79379565" vertical-offset="0" max-vertical-offset="870" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/createEvents.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="41" selection-start="173" selection-end="197" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1635">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/addEvent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="85" selection-start="1582" selection-end="1582" vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="1335">
-          <folding />
-        </state>
+        <state line="8" column="41" selection-start="173" selection-end="197" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1635" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/suggestions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="780" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="780" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/log.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="14" selection-start="393" selection-end="393" vertical-scroll-proportion="0.23076923" vertical-offset="0" max-vertical-offset="780" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/authorize/signIn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="20" selection-start="1124" selection-end="1124" vertical-scroll-proportion="0.48076922" vertical-offset="0" max-vertical-offset="780" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/authorize/signUp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="43" selection-start="520" selection-end="520" vertical-scroll-proportion="0.23076923" vertical-offset="0" max-vertical-offset="780" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usersFindTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="114" selection-start="967" selection-end="967" vertical-scroll-proportion="0.65384614" vertical-offset="0" max-vertical-offset="780" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/authorize/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="38" selection-start="428" selection-end="428" vertical-scroll-proportion="0.17307693" vertical-offset="0" max-vertical-offset="780" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/authorize/logout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="780">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/calendar/acceptEvent.js">
+    <entry file="file://$PROJECT_DIR$/middleware/auth/findUsers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="28" selection-start="481" selection-end="487" vertical-scroll-proportion="0.34306568" vertical-offset="7" max-vertical-offset="555">
-          <folding />
+        <state line="4" column="0" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="990" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="256" column="18" selection-start="8702" selection-end="8702" vertical-scroll-proportion="2.5700934" vertical-offset="1235" max-vertical-offset="2910">
+          <folding>
+            <element signature="e#4764#5355#0" expanded="false" />
+            <element signature="e#5438#5958#0" expanded="false" />
+            <element signature="e#6018#6919#0" expanded="false" />
+            <element signature="e#6980#8050#0" expanded="false" />
+            <element signature="e#8097#8216#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/User.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="12" selection-start="4708" selection-end="4802" vertical-scroll-proportion="0.0" vertical-offset="1084" max-vertical-offset="2295">
-          <folding>
-            <element signature="e#1875#2185#0" expanded="false" />
-            <element signature="e#2260#2461#0" expanded="false" />
-            <element signature="e#2526#3123#0" expanded="false" />
-            <element signature="e#3240#4528#0" expanded="false" />
-            <element signature="e#6145#6696#0" expanded="false" />
-            <element signature="e#6772#7354#0" expanded="false" />
-            <element signature="e#7410#7651#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/calendarModuleConstructor.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="34" selection-start="1576" selection-end="1601" vertical-scroll-proportion="0.23483366" vertical-offset="0" max-vertical-offset="511">
+        <state line="163" column="13" selection-start="5014" selection-end="5014" vertical-scroll-proportion="0.6728972" vertical-offset="2085" max-vertical-offset="3900">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Events.js">
+    <entry file="file://$PROJECT_DIR$/routes/general/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="208" column="142" selection-start="6743" selection-end="6743" vertical-scroll-proportion="0.0" vertical-offset="2400" max-vertical-offset="3600">
-          <folding>
-            <element signature="e#4764#5355#0" expanded="false" />
-            <element signature="e#5438#5958#0" expanded="false" />
-          </folding>
+        <state line="3" column="26" selection-start="73" selection-end="99" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/calendar.ejs">
+    <entry file="file://$PROJECT_DIR$/routes/calendar/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="41" selection-start="3972" selection-end="4052" vertical-scroll-proportion="-61.25" vertical-offset="0" max-vertical-offset="1890">
+        <state line="3" column="22" selection-start="107" selection-end="115" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="28" selection-start="583" selection-end="591" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="18" selection-start="575" selection-end="581" vertical-scroll-proportion="0.39781022" vertical-offset="382" max-vertical-offset="1560">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/socketIO.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="25" selection-start="343" selection-end="343" vertical-scroll-proportion="0.42938933" vertical-offset="0" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/mongoose.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="0" selection-end="221" vertical-scroll-proportion="0.3010949" vertical-offset="0" max-vertical-offset="548">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/sessionsStore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="202" selection-end="202" vertical-scroll-proportion="0.19160584" vertical-offset="0" max-vertical-offset="548">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/layout/lkLayout.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="105" selection-start="900" selection-end="900" vertical-scroll-proportion="0.8015267" vertical-offset="0" max-vertical-offset="555">
+        <state line="24" column="0" selection-start="448" selection-end="448" vertical-scroll-proportion="0.6870229" vertical-offset="0" max-vertical-offset="585">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/declineEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="26" selection-start="908" selection-end="908" vertical-scroll-proportion="0.68430656" vertical-offset="0" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/acceptEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="810" selection-end="810" vertical-scroll-proportion="0.629562" vertical-offset="0" max-vertical-offset="570">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socket/common/listOfOnlineUsers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="51" selection-start="1597" selection-end="1605" vertical-scroll-proportion="0.4764045" vertical-offset="508" max-vertical-offset="1710">
+          <folding>
+            <element signature="e#879#1141#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socket/common/authorization.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="36" selection-start="2466" selection-end="2503" vertical-scroll-proportion="1.0674157" vertical-offset="545" max-vertical-offset="1530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/calendarNews.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="62" selection-start="2167" selection-end="2167" vertical-scroll-proportion="0.29438204" vertical-offset="904" max-vertical-offset="2160">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socket/notificationService/nsInterface.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="83" column="41" selection-start="2878" selection-end="2878" vertical-scroll-proportion="0.6803069" vertical-offset="649" max-vertical-offset="1155">
+          <folding>
+            <element signature="e#635#1339#0" expanded="false" />
+            <element signature="n#!!block;n#addNotificationToQueue#0;n#!!block;n#notificationService#0" expanded="false" />
+            <element signature="n#!!block;n#makeCheckUserOnline#0;n#!!block;n#notificationService#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/calendar/addEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="50" selection-start="2929" selection-end="2929" vertical-scroll-proportion="0.0" vertical-offset="696" max-vertical-offset="1380">
+          <folding>
+            <element signature="n#!!block;n#unique#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/calendarModuleConstructor.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="131" selection-start="394" selection-end="396" vertical-scroll-proportion="-2.5" vertical-offset="0" max-vertical-offset="390">
+          <folding>
+            <marker date="1442056229000" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1442056229000" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1442056229000" expanded="false" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socket/notificationService/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="36" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socket/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="469" selection-end="470" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/layout/welcomePage.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="405" selection-end="405" vertical-scroll-proportion="0.40625" vertical-offset="0" max-vertical-offset="2475">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/additionalFunctions/calendar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="167" column="24" selection-start="6560" selection-end="6618" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2970">
+          <folding>
+            <element signature="n#!!block;n#diffSortArr#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/calendar.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="55" selection-start="357" selection-end="357" vertical-scroll-proportion="0.097363085" vertical-offset="27" max-vertical-offset="1920">
           <folding />
         </state>
       </provider>

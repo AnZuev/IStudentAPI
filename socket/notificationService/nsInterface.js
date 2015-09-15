@@ -83,13 +83,14 @@ function notificationService(ee){
     }
     this.sendingNotification = function(){
         console.log("this.sendingNotification");
-        console.log(queue);
         while(queue.length > 0){
             var notificationItem = queue[0];
-            channel.connected[notificationItem.to].emit(notificationItem.eventName, notificationItem.body);
             queue.shift();
-            if(queue.length == 0) ee.emit('finish');
+            if(!channel.connected[notificationItem.to]) continue;
+            channel.connected[notificationItem.to].emit(notificationItem.eventName, notificationItem.body);
         }
+        if(queue.length == 0) ee.emit('finish');
+
     }
 
 

@@ -141,7 +141,6 @@ function addCalendarNews(event, callback){
             var participants = event.participants.invites.sort();
             var message = "Приглашаю на событие " + event.title + " " + makeDateStringFromDateObj(event.time.start) + ". Идешь?";
             var errors = [];
-            var successArray = [];
             var tasks = [];
             var calendarNew = {
                 eventName:  "calendarInvite",
@@ -154,7 +153,7 @@ function addCalendarNews(event, callback){
                 title: titleNotif,
                 message: message,
                 eventId: event._id,
-                photoUrl: user.personal_information.photoUrl || "/images/noAvatar.png"
+                photoUrl: user.personal_information.photoUrl || "http://pre-static.istudentapp.ru/images/noAvatar.png"
             }
 
             for(var i = 0;  i< participants.length; i++){

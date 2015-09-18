@@ -3,6 +3,7 @@ var HttpError = require('../../error').HttpError;
 var AuthError = require('../../error').AuthError;
 var calendarNews = require('../../models/calendarNews').calendarNews;
 var async = require('async');
+var mongoose = require('../../libs/mongoose');
 
 
 exports.post = function(req, res, next){
@@ -10,14 +11,18 @@ exports.post = function(req, res, next){
         var eventId = req.params.eventId;
         async.waterfall([
             function(callback){
-                Event.accept(req.user._id, eventId, callback);
+                try{
+                    eventId = new mongoose.Types.ObjectId(eventId);
+                    Event.accept(req.user._id, eventId, callback);
+                }catch(e){
+                    return callback(new HttpError(400, "Неверный id"));
+                }
             },
             function(event, callback){
                 calendarNews.removeNewByEvent(eventId, req.user._id, callback)
             }
         ], function(err){
             if(err) {
-                throw err;
                 return next(err);
             }
             else {

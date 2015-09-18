@@ -83,7 +83,27 @@ dialog.statics.addMessage = function(dialogId, sender, message, callback){
     ],callback)
 }
 
+dialog.statics.addParticipant = function(dialogId, participant, callback){
+    this.find({_id:dialogId}, function(err, dialog){
+        if(err) throw err;
+        else{
+            if(dialog){
+                if(dialog.indexof(participant)<0) {
+                    dialog.participants.push(participant);
+                    dialog.save(function(err, dialog){
+                        if(err) return callback(err);
+                        else{
+                            return callback(dialog);
+                        }
+                    })
+                }else{
+                    return callback(null, new DbError(0, "Пользователь уже есть в диалоге"));
+                }
 
+            }
+        }
+    })
+}
 
 
 exports.dialogs = mongoose.model('dialogs', dialog);
@@ -97,7 +117,7 @@ function addMessageToDialog(messageItem, errCounter, callback){
     dialog.save(function(err){
         if(err) {
             if(errCounter > 5) {
-                return callback(new DbError(500, "Произошла ошибка при отправке сообщения"));
+                return callback(new DbError(500, "Произошла ошибка при сохранении сообщения"));
             }else{
                 errCounter++;
                 addMessageToDialog(messageItem, errCounter, callback)

@@ -33,8 +33,6 @@ module.exports = function(socket, callback) {
                     return callback(new HttpError(403, "Для подключения по ws сессия должна быть не анонимной"))
                 }else{
                     handshakeData.user =user;
-                    console.log(user);
-
                     listOfOnlineUsers.checkIfUserOnline(user.id, function(err, socketId){
                         if(socketId){
                             return callback(null, {userId: user.id, in:true});

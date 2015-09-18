@@ -171,8 +171,6 @@ function addCalendarNews(event, callback){
                     console.warn('При добавлении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length); //залогировать ошибки в файл
                 }
                 return callback(null, results, notification);
-
-
             });
 
 

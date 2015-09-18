@@ -26,6 +26,7 @@ exports.put = function(req, res, next){
             function(callback){
                 if(type == 'group') {
                     User.getPeopleByGroupNumber(req.user.personal_information.groupNumber, function(err, users){
+                        if(err) return callback(err);
                         users = users.splice(users.indexof(req.user._id),1);
                         var typeItem = {
                             type: "group",

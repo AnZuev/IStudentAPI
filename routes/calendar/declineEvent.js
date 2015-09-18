@@ -11,7 +11,12 @@ exports.post = function(req, res, next){
 
         async.waterfall([
             function(callback){
-                Event.decline(req.user._id, eventId, callback);
+                try{
+                    eventId = new mongoose.Types.ObjectId(eventId);
+                    Event.decline(req.user._id, eventId, callback);
+                }catch(e){
+                    return callback(new HttpError(400, "Неверный id"));
+                }
             },
             function(event, callback){
                 calendarNews.removeNewByEvent(eventId, req.user._id, callback)

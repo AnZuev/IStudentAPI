@@ -3,6 +3,8 @@ var HttpError = require('../../error').HttpError;
 var AuthError = require('../../error').AuthError;
 var calendarNews = require('../../models/calendarNews').calendarNews;
 var async = require('async');
+var mongoose = require('../../libs/mongoose');
+
 
 
 exports.post = function(req, res, next){

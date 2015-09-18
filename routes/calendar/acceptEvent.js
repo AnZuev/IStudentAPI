@@ -15,6 +15,7 @@ exports.post = function(req, res, next){
                     eventId = new mongoose.Types.ObjectId(eventId);
                     Event.accept(req.user._id, eventId, callback);
                 }catch(e){
+                    console.error(e);
                     return callback(new HttpError(400, "Неверный id"));
                 }
             },

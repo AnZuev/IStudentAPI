@@ -220,7 +220,7 @@ Event.statics.decline = function(userId, eventId, callback){
     var Event = this;
     async.waterfall([
         function(callback){
-            Event.find({$or:[{$and:[{_id: eventId}, {"participants.invites": userId}]}, {$and:[{_id: eventId}, {"participants.accepted": userId}]}]}, callback);
+            Event.find({$and:[{_id: eventId}, {"participants.invites": userId}]}, callback);
         },
         function(event, callback){
             if(event.length == 0) {

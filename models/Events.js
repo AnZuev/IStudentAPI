@@ -218,8 +218,6 @@ Event.statics.accept = function(userId, eventId, callback){
 
 Event.statics.decline = function(userId, eventId, callback){
     var Event = this;
-    userId = new mongoose.Types.ObjectId(userId);
-    eventId = new mongoose.Types.ObjectId(eventId);
     async.waterfall([
         function(callback){
             Event.find({$or:[{$and:[{_id: eventId}, {"participants.invites": userId}]}, {$and:[{_id: eventId}, {"participants.accepted": userId}]}]}, callback);

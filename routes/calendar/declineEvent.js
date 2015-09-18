@@ -8,7 +8,6 @@ var async = require('async');
 exports.post = function(req, res, next){
     if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
         var eventId = req.params.eventId;
-
         async.waterfall([
             function(callback){
                 try{

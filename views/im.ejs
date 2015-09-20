@@ -2,116 +2,319 @@
 <% block('title', 'Диалоги') -%>
 <% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/dialogs.css"/>')%>
 <% block('script', '<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/dialogs.js"></script>')%>
+<% block('smoothEverythingContent', '<div id="createConversation"><p class="nameOfDialog">Создание беседы</p><input type="text" placeholder="Название беседы..." name="titleOfDialog"><p class="nameOfDialog">Участники:</p><input type="text" placeholder="Начните вводить имя, фамилию или номер группы" name="participants"><ul id="listOfParticipants" class="hide"></ul><ul id="listOfAddedParticipant"></ul><div class="buttonGreen" id="createDialog">Создать</div></div>') %>
 
-<script> window.host = 'http://localhost:3000'</script>
-<section id='calendarModule'>
-    <p class="lkPageHeader">Календарь</p>
-    <table style='border-spacing:30px 0px;'>
-        <tr>
-            <td id='calendarBlock'>
 
-                <table class="calendarPageTableHeader" cellspacing='0'>
+<script> window.host = <%-JSON.stringify(host)%></script>
+<p class="lkPageHeader">Диалоги</p>
+<table cellspacing='30px;' style='margin:-30px;'>
+<tr>
+<td id="listOfDialogs">
+    <div id='searchContact'>
+        <input type="search"  placeholder='Введите имя'>
+    </div>
+    <div id="wrapListOfDialogs">
+
+        <div id="noResultsOfSearch" >Поиск не дал результатов</div>
+        <ul class='hide'>
+            <li class="choosen contact">
+                <table>
                     <tr>
-                        <th>Понедельник</th>
-                        <th>Вторник</th>
-                        <th>Среда</th>
-                        <th>Четверг</th>
-                        <th>Пятница</th>
-                        <th>Суббота</th>
-                        <th>Воскресенье</th>
+                        <td rowspan="2">
+                            <img class="avatar" src="/images/noAvatar.png" >
+                        </td>
+                        <td>
+                            <p class="nameOfDialog">Старосты</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Дурень
+                        </td>
                     </tr>
                 </table>
-
-                <table id='calendar' cellspacing = '0px;' >
-
+            </li>
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">Старосты</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Дурень
+                        </td>
+                    </tr>
                 </table>
-            </td>
+            </li>
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">Старосты</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Дурень
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">Старосты</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Дурень
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">Старосты</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Дурень
+                        </td>
+                    </tr>
+                </table>
+            </li>
 
-        </tr>
-    </table>
-    <div class="calendarCellRightClick hide">
-        <ul>
-            <li id="createEventButton">Создать событие</li>
-            <li id="showEventsButton">Показать события</li>
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">Старосты</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Дурень
+                        </td>
+                    </tr>
+                </table>
+            </li>
+
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">Старосты</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Дурень
+                        </td>
+                    </tr>
+                </table>
+            </li>
+
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">Профорги</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Привет всем!
+                        </td>
+                    </tr>
+                </table>
+            </li>
+
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">Старосты</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            Дурень
+                        </td>
+                    </tr>
+                </table>
+            </li>
+
+            <li class="contact">
+                <table>
+                    <tr>
+                        <td rowspan="2">
+                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                        </td>
+                        <td>
+                            <p class="nameOfDialog ">3404</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='lastMessage'>
+                            С 1 сентября, бичи!
+                        </td>
+                    </tr>
+                </table>
+            </li>
         </ul>
     </div>
-</section>
+</td>
+
+<td id="layoutForDialog">
+    <p class="nameOfDialog" id='titleOfCurrentDialog'>Старосты</p>
+
+    <div id="buttonForCreateConversation"> Создать беседу</div>
+
+    <p id="noMessages" class='hide'>Здесь будет выводиться Ваша переписка</p>
+
+    <div id="wrapLayoutForDialog">
+        <div>
+            <div class="blockForMessage fromCompanion">
+                <p class="nameOfDialog"> Александр Братчиков</p>
+
+                Всем всем всем быть завтра в 3404 потому что бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла блабла бла бла блаблабла бла бла бла бла бла бла блабла бла бла блабла
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
 
 
-<section class='' id='notificationsModule'>
-    <p class="lkPageHeader">Новости</p>
-    <ul id='ListOfComingEvents'>
+        <div>
+            <div class="blockForMessage fromMe">
+                <p class="nameOfDialog">Антон Зуев</p>
 
-    </ul>
-</section>
+                Это и для ФКТИ?
 
-<section id='addEvent'class='hide'>
-    <p class="lkPageHeader">Добавление события</p>
-    <div id='AddNewEvent' class="">
-        <form action="#">
-            <table style='border-spacing:20px 0px'>
-                <col width='600'>
-                <col width='*' valign='top'>
-                <tr>
-                    <td>
-                        <ul>
-                            <li>
-                                <input type="text" name='title' placeholder='Название...'>
-                            </li>
-                            <li>
-                                <ul id='layoutForDateOfAddedEvent'>
-                                    <li >
-                                        C
-                                    </li>
-                                    <li >
-                                        <input type="time" name='startTime' value='09:00'>
-                                    </li>
-                                    <li >
-                                        до
-                                    </li>
-                                    <li >
-                                        <input type="time" name='finishTime' value='10:00'>
-                                    </li>
-                                    <li >
-                                        <input type="date" name = 'date' placeholder='9 сентября 2015'>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <input type="text" name='place' placeholder='Место...'>
-                            </li>
+            </div>
+            <div class="clearfix"></div>
+        </div>
 
-                            <li class='RepeatOfAddedEvent'>
-                                <span > Повтор: </span>
-                                <span >Каждый месяц</span>
-                                <input type="checkbox" value='everyMonth'>
-                                <span >Каждую неделю</span>
-                                <input type="checkbox" value='everyWeek'>
-                                <span >Каждый день</span>
-                                <input type="checkbox" value='everyday'>
-                            </li>
-                            <li>
-                                <textarea name="description" id="" placeholder='Описание...' rows="5"></textarea>
-                            </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <select id='eventType' name='type'>
-                            <option value="private">Личное</option>
-                            <option value="group" >На студентов группы</option>
-                            <option value="people">Выбрать людей</option>
-                        </select>
-                        <input name='query' type='text' placeholder='Введите имя и фамилию...' style='width:240px;' disabled autocomplete="off"/>
-                        <ul id='listOfPeople' class='hide'></ul>
-                        <ul id="listofParticipants"></ul>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <p id='createNewEvent' class='button'> Создать</p>
+
+        <div>
+            <div class="blockForMessage fromCompanion">
+                <p class="nameOfDialog"> Александр Братчиков</p>
+
+                Нет, только для ФЭА
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div>
+            <div class="blockForMessage fromMe">
+                <p class="nameOfDialog">Антон Зуев</p>
+
+                Тогда зачем ты это тут пишешь?
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div>
+            <div class="blockForMessage fromMe">
+                <p class="nameOfDialog">Антон Зуев</p>
+
+                Дурень
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div>
+            <div class="blockForMessage fromMe">
+                <p class="nameOfDialog">Антон Зуев</p>
+
+                Дурень
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div>
+            <div class="blockForMessage fromMe">
+                <p class="nameOfDialog">Антон Зуев</p>
+
+                Дурень
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div>
+            <div class="blockForMessage fromMe">
+                <p class="nameOfDialog">Антон Зуев</p>
+
+                Привет! Что делать будешь?
+
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
     </div>
-    <hr id='indicatorOfAdding' class="hide">
-    <div class="clearfix"></div>
-</section>
+
+    <form id='formForAnswer'action="">
+        <table style="vertical-align: top; margin-left:auto; margin-right:auto;">
+            <col width='15%'>
+            <col width='70%'>
+            <col width='15%'>
+            <tr>
+                <td>
+                    <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                </td>
+                <td>
+                    <textarea name="fieldForAnswer" id="fieldForAnswer" cols="30"></textarea>
+                </td>
+                <td>
+                    <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
+                </td>
+            </tr>
+        </table>
 
 
+
+        <div style=" margin-left:88px;">
+            <span class="button" id='addDocument'>Прикрепить</span>
+            <span id='numberOfAddedDocments'> Добавлено Х документов</span>
+        </div>
+    </form>
+</td>
+</tr>
+</table>

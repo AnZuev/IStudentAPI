@@ -1,0 +1,6 @@
+{
+    "contact": "<table><tr><td rowspan=\"2\"><img class=\"avatar\" src=\"%s\" ></td><td><p class=\"nameOfDialog\">%s</p></td></tr><tr><td class=\'lastMessage\'>%s</td></tr>",
+    "messageToMe": "<div><div class=\"blockForMessage fromCompanion\"><p class=\"nameOfDialog\"> Александр Братчиков</p>Всем всем всем быть завтра в 3404 потому что бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла блабла бла бла блаблабла бла бла бла бла бла бла блабла бла бла блабла</div><div class=\"clearfix\"></div></div>"
+
+}
+

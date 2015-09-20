@@ -1,4 +1,5 @@
-
+var config = require('../config');
+var host = config.get('general:host');
 module.exports = function(app){
 
     app.all('*', function(req, res, next) {
@@ -9,7 +10,9 @@ module.exports = function(app){
     });
 
     app.get('/', function(req, res, next){
-        res.render('welcomePage');
+        res.render('welcomePage', {
+            host: host
+        });
         next();
     })
     require('./authorize')(app);

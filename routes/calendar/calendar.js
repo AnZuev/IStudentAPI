@@ -4,6 +4,8 @@ var calendarNew = require("../../models/calendarNews").calendarNews;
 var Event = require('../../models/Events').Event;
 var calendarConstructor = require('../../views/partials/calendarModuleConstructor.json');
 var async = require('async');
+var config = require('../../config');
+var host = config.get('general:host');
 
 exports.get = function(req, res, next){
     async.parallel([
@@ -33,9 +35,11 @@ exports.get = function(req, res, next){
             res.render('calendar',{
                 calendarNews: results[1],
                 jsonCalendarModuleConstructor: calendarConstructor,
-                shortEventsDescription: results[0]
+                shortEventsDescription: results[0],
+                host: host
             });
             return next();
+
         }
     })
 

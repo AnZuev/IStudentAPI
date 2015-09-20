@@ -1,5 +1,6 @@
 var checkAuth = require('../../middleware/auth/checkAuth');
 
+
 module.exports = function(app){
     app.put('/calendar/event', checkAuth, require('./addEvent').put); // create
     app.post('/calendar/:eventId', checkAuth, require('./modifyEvent').post); // modify

@@ -13,7 +13,8 @@
         }
     },
     "general":{
-        "version": "0.0.1(5)"
+        "version": "0.0.1(5)",
+        "host": "http://pre-api.istudentapp.ru"
     },
     "multer":{
         "dest": "../users photos/"

@@ -14,7 +14,6 @@ imServiceEE.on('warning', function(message){
 
 function imService(ee){
 
-    var queue = [];
     var channel;
     var self = this;
 
@@ -23,6 +22,7 @@ function imService(ee){
         channel = dialogServiceTransport;
         dialogServiceTransport.on('connection', function (socket) {
             socket.emit('dialog', {message: "Диалоги"});
+            console.log('Connection enabled -> dialogs')
             socket.on('disconnect', function () {
                 console.log("Connection lost -> dialogs");
             });
@@ -37,10 +37,8 @@ function imService(ee){
             else{
                 if(dialog) {
                     self.subscribeTo(dialog._id, socket);
-
-                    var message = socket.user.username + "создал диалог.";
-
-                    //channel.to(dialog._id).emit('joinDialog', )
+                    var message = socket.user.username + " создал диалог.";
+                    channel.to(dialog._id).emit('joinDialog', {msg: message});
                 }else{
                     ee.emit('warning', "После создания диалога диалог из бд не вернулся " + creator);
                 }
@@ -57,6 +55,7 @@ function imService(ee){
     }
 
     this.addParticipantsToDialog = function(participants, dialogId, callback){
+
     }
 
 
@@ -108,9 +107,18 @@ exports.im = im;
 function makeTasksForAddindParticipants(newParticipant, dialogId){
     var errorsCounter = 0;
     var task = function(participant, dialogId, callback){
-
         dialogStorage.addParticipant(dialogId, participant, function(err, dialog){
-            if(err) task(participant, dialogId)
+            if(err) {
+                errorsCounter++;
+                if(errorsCounter < 5) task(participant, dialogId);
+                else{
+                    return callback(new Error('Не удалось добавить участника в диалог'))
+                }
+
+            }
+            else{
+                return callback(null, dialog);
+            }
         })
     }
     return task;

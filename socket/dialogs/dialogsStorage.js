@@ -83,23 +83,22 @@ dialog.statics.addMessage = function(dialogId, sender, message, callback){
     ],callback)
 }
 
-dialog.statics.addParticipant = function(dialogId, participant, callback){
+dialog.statics.addParticipants = function(dialogId, participantsArray, callback){
     this.find({_id:dialogId}, function(err, dialog){
         if(err) throw err;
         else{
             if(dialog){
-                if(dialog.indexof(participant)<0) {
-                    dialog.participants.push(participant);
-                    dialog.save(function(err, dialog){
-                        if(err) return callback(err);
-                        else{
-                            return callback(dialog);
-                        }
-                    })
-                }else{
-                    return callback(null, new DbError(0, "Пользователь уже есть в диалоге"));
+                for(var i = 0; i< participantsArray.length; i++){
+                    if(dialog.indexof(participantsArray[i])<0) {
+                        dialog.participants.push(participantsArray[i]);
+                    }
                 }
-
+                dialog.save(function(err, createdDialog){
+                    if(err) return callback(err);
+                    else{
+                        return callback(createdDialog);
+                    }
+                })
             }
         }
     })

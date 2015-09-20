@@ -14,19 +14,17 @@ exports.post = function(req, res, next){
         var period = req.body.period;
         var place = req.body.place;
         var eventId = req.params.eventId;
-
-        if(!Event.validateData(req.body)) return next(400);
-        else{
-            Event.modifyEvent(eventId, title, startTime, finishTime, period,invites,place, description, req.user._id, function(err, event, participants){
-                if(err) return next(err);
-                else{
-                    var usersForNotify = calendarAdditionalMethods.modifyCalendarNews(event, participants);
+        console.log(req.body);
+        Event.modifyEvent(eventId, title, startTime, finishTime, period,invites,place, description, req.user._id, function(err, event, participants){
+            if(err) return next(err);
+            else{
+               var usersForNotify = calendarAdditionalMethods.modifyCalendarNews(event, participants);
                     //разослать нотификации юзерам о событие(актуально только если поле  invites не пустое)
-                    res.sendStatus(200);
-                    res.send(event);
+               res.sendStatus(200);
+               res.send(event);
                 }
-            })
-        }
+         })
+
     }else{
         next(403);
     }

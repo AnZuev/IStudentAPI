@@ -15,7 +15,11 @@ module.exports = function(app){
     require('./authorize')(app);
     require('./general')(app);
     require('./calendar')(app);
+    require('./im')(app);
 
+
+
+    //test
     app.get('/socketIO', function(req, res, next){
         res.render('socketIO');
     })

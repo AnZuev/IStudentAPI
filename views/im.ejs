@@ -1,7 +1,7 @@
 <% layout('/layout/lkLayout') -%>
-<% block('title', 'Календарь') -%>
-<% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/calendar.css"/>')%>
-<% block('script', '<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/calendar.js"></script>')%>
+<% block('title', 'Диалоги') -%>
+<% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/dialogs.css"/>')%>
+<% block('script', '<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/dialogs.js"></script>')%>
 
 <script> window.host = 'http://localhost:3000'</script>
 <section id='calendarModule'>
@@ -115,9 +115,3 @@
 </section>
 
 
-<script>
-   var calendarNews = <%-JSON.stringify(calendarNews)%>;
-   var jsonCalendarModuleConstructor = <%-JSON.stringify(jsonCalendarModuleConstructor)%>;
-   var shortEventsDescription = <%-JSON.stringify(shortEventsDescription)%>;
-
-</script>

@@ -8,13 +8,12 @@
     "notificationModule":{
         "notifTemplateWithoutCross": "<li _id = '%s'>%s<p>%s</p><div><p class='conflictBetweenEvents %s'>Имеется конфликт с другим мероприятием <span class='ShowConflict'>Показать</span></p><p class='denyEvent %s'> Отклонить</p><p class='acceptEvent %s'> Принять</p><div class='clearfix'></div></div></li>",
         "notifTemplateWithCross": "<li _id = '%s'><span class='calendarPageCross'>&#x2715</span>%s<p>%s</p></li>",
-        "notificationIncoming": " <div class='incoming notification' _id='%s'><div>%s<span>&#x2715</span> </div><table style='margin-top:10px;'><tr style='vertical-align:top;'><td ><img src='%s' alt=''></td><td colspan='3'>%s</td></tr><tr ><td></td><td> <p style='margin-top:-20px;'> Идешь? </p> </td><td> <p id=\"acceptNotification\">Принять </p> </td><td> <p id=\"denyNotification\">Отклонить </p> </td></tr></table></div>",
+        "notificationIncoming": " <div class='incoming notification' _id='%s'><div>%s<span>&#x2715</span> </div><table style='margin-top:10px;'><tr style='vertical-align:top;'><td rowspan='2'><img src='%s' alt=''></td><td colspan='3'>%s</td></tr><tr><td style=\"width:70px\"></td><td> <p id=\"acceptNotification\">Принять </p> </td><td> <p id=\"denyNotification\">Отклонить </p> </td></tr></table></div>",
         "notificationAccepted": " <div class='accepted notification' _id='%s'><div>%s<span>&#x2715</span> </div><table style='margin-top:10px;'><tr style='vertical-align:top;'><td ><img src='%s' alt=''></td><td colspan='3'>%s</td></tr></table></div>",
         "notificationDeclined": " <div class='denyed notification' _id='%s'><div>%s<span>&#x2715</span> </div><table style='margin-top:10px;'><tr style='vertical-align:top;'><td ><img src='%s' alt=''></td><td colspan='3'>%s</td></tr></table></div>"
     },
     "addEventModule":{
         "listOfParticipantsListItem": "<li _id='%s'><span>%s</span><span class='closeButton'>&#x2715</span></li>"
     }
-
 }
 

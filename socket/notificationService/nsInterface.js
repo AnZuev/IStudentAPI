@@ -56,6 +56,7 @@ function notificationService(ee){
                 for(var i = 0; i<results.length; i++){
                     if(results[i].length > 0){
                         var notificationItem = {};
+
                         for(var y = 0; y< results[i].length; y++){
                             notificationItem = {
                                 to: results[i][y],

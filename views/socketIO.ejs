@@ -14,13 +14,14 @@
     </ul>
 <script>
     var socket = io('ws://localhost:3000/notifications');
-    var socket2 = io('ws://localhost:3000/dialogs');
+    var socket2 = io('ws://localhost:3000/im');
 
     socket.on('news', function (data) {
         var news = "<li>"+data.message+"</li>";
         $(news).appendTo($('.messages'));
         console.log(data);
     });
+
     socket2.on('dialog', function (data) {
         var news = "<li>"+data.message+"</li>";
         $(news).appendTo($('.messages'));

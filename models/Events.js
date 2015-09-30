@@ -94,12 +94,12 @@ Event.statics.modifyEvent = function(eventId, title, startTime, finishTime, peri
                     var participants = event.participants.invites.concat(event.participants.accepted).sort();
                     event = event[0];
                     event.title = title;
-                    event.time.start = startTime;
-                    event.time.finish = finishTime;
-                    event.period = period;
-                    event.participants.invites = invites;
+                    //event.time.start = startTime;
+                    //event.time.finish = finishTime;
+                    if(invites){
+                        event.participants.invites = invites;
+                    }
                     event.place = place;
-                    event.type = type;
                     event.save(function(err, modifiedEvent){
                         if(err) return callback(new DbError("Ошибка при обновления события с  id " + eventId + " и данными: /n" + event + "./n Ошибка " + err ));
                         else return callback(null, modifiedEvent, participants);
@@ -208,7 +208,7 @@ Event.statics.accept = function(userId, eventId, callback){
             else{
                 Event.update({_id: eventId}, {$pull :{ "participants.invites": userId}, $push:{"participants.accepted": userId}}, function(err, events){
                     if(err) return callback(new DbError("Произошла ошибка при изменении данных поля participants.invites и participants.accepted . UserId = " + userId + " , eventId = " + eventid ));
-                    else return callback(null, events)
+                    else return callback(null, event)
                 });
             }
         }

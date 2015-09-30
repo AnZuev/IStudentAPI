@@ -44,7 +44,8 @@ dialog.statics.createDialog = function(creator, participants, title, callback){
     var newDialog = new Dialog({
         creator:creator,
         participants:participants,
-        title: title
+        title: title,
+        enable:true
     });
     newDialog.save(function(err, dialog){
         if(err) return callback(err);

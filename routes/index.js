@@ -19,6 +19,7 @@ module.exports = function(app){
     require('./general')(app);
     require('./calendar')(app);
     require('./im')(app);
+    require('./download')(app);
 
 
 

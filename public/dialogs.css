@@ -1,0 +1,315 @@
+textarea{
+	font-size: 9.5pt;
+	border: solid 1px rgba(0,0,0,0.3);
+	border-radius: 2px;
+	padding: 5px;
+}
+
+img{
+	cursor: pointer;
+}
+
+table{
+	width:;
+}
+
+.nameOfDialog{
+	margin:5px;
+	color:#4a90e2;
+	font-weight: bold;
+}
+
+.blockForMessage{
+	border-radius: 7px;
+	padding: 10px;
+	margin:4px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 2px;
+	color:#4A4A4A;
+	padding-top: 5px;
+	max-width:580px;
+	min-width: 250px;
+	font-size: 0.8em;
+	text-align:justify;
+}
+
+
+
+
+.fromMe{
+	
+	background-color: rgba(155,155,155,0.1);
+	float:right;
+	
+}
+
+.fromCompanion{	
+	background-color: rgba(0,255,3,0.17);
+	float:left;
+}
+
+.contact{
+	margin: 2px;
+	margin-bottom: 0px;
+	border-bottom: 1px solid #eee;
+	padding: 5px;
+	cursor: pointer;
+}
+
+.contact:hover{
+	background-color: rgba(74, 144, 226, 0.15);
+}
+
+.choosen{
+	background-color: rgba(74, 144, 226, 0.15);
+}
+
+.contact >*{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.contact table tr td p{
+	padding-left: 10px;
+	margin: 0px;
+
+}
+
+
+
+.avatar{
+	margin-top: 6px;
+	width:40px;
+	height:40px;
+}
+
+.lastMessage{
+	padding-left: 10px;
+	font-size: 0.8em;
+	color:#4A4A4A;
+}
+
+.addedParticipant{
+	display: list-item;
+	margin: 5px;
+	font-size: 13px;
+}
+.addedParticipant span{
+	color: #4a4a4a;
+
+}
+
+
+#listOfDialogs{
+	width:290px;
+	border:1px solid #ccc;
+	margin-left:30px;
+	background: #fafafa;
+	vertical-align: top;
+	overflow: hidden;
+	height: 550px;
+}
+
+#wrapListOfDialogs{
+	overflow-y: scroll;
+	margin-right: -18px;
+	height:510px;
+}
+
+
+#layoutForDialog{
+	width: 70%;
+	border: 1px solid #ccc;
+	margin:10px;
+	background: #fafafa;
+	overflow: hidden;
+	height:550px;
+	padding: 0px;
+	vertical-align: top;
+}
+
+#wrapLayoutForDialog{
+	overflow-y: scroll;
+	margin-right: -18px;
+	height: 418px;
+	margin-top: -40px;
+	padding-top: 40px;
+	padding-bottom: 5px;
+
+}
+
+#layoutForDialog >.NameOfDialog{
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 4px;
+	margin-left: 10px;
+}
+
+#titleOfCurrentDialog{
+	padding:10px;
+	margin:0px;
+	background-color: rgba(244,244,244,0.8);
+	z-index: 10;
+	position: relative;
+}
+
+#formForAnswer{
+	background-color: rgba(216,216,216,0.15);
+}
+
+#formForAnswer >*{
+	margin-left:10px;
+	margin-right: 10px;
+}
+
+#fieldForAnswer{
+	width:500px;
+	min-height:30px;
+	background-color: #fdfdfd;
+	resize:none;
+	margin-top: 5px;
+}
+
+#addDocument{
+	margin:10px;
+	border:none;
+	margin-top: 0px;
+	font-size: 0.8em;
+	display: inline-block;
+}
+
+#numberOfAddedDocments{
+	font-size: 0.8em;
+	cursor:pointer;	
+}
+
+#searchContact{
+	background-color: rgba(216,216,216,0.15);
+}
+
+#searchContact input{
+	width:275px;
+	height:30px;
+	border-radius: 2px;	
+	margin:5px;
+	font-size: 9.5pt;
+ 	border: solid 1px rgba(0,0,0,0.3);
+  	padding: 5px;
+  	background-color: #fafafa;
+}
+
+#noMessages{
+	
+	color:#4a4a4a;
+	margin-top: 20px;
+	text-align: center;
+	font-size: 0.8em;
+}
+
+#noResultsOfSearch{
+	
+	color:#4a4a4a;
+	margin-top: 20px;
+	text-align: center;
+	font-size: 0.8em;
+}
+
+#createConversation{
+	width:300px;
+	margin: 0px auto;
+	margin-top: 50px;
+	background-color: #fafafa;
+	border-radius: 7px;
+	padding:10px;
+	border: solid 2px rgba(0,0,0,0.5);
+}
+
+#createConversation input{
+	font-size: 9.5pt;
+ 	border: solid 1px rgba(0,0,0,0.3);
+ 	background-color: #fafafa;
+ 	border-radius: 2px;
+ 	height: 18px;
+ 	padding: 5px;
+ 	margin:5px;
+ 	margin-left: 15px;
+ 	width:260px;
+}
+
+#createConversation p{
+	font-size: 0.9em;
+}
+
+#listOfParticipants{
+	position:absolute;
+	width:268px;
+	border: solid 2px rgba(0,0,0,0.3);
+	margin-left:15px;
+	margin-top: -6px;
+	border-radius: 2px;
+	background-color: #fafafa;
+}
+
+#listOfParticipants li{
+	padding: 4px;
+	font-size: 10pt;
+	color:#4a4a4a;
+	cursor: pointer;
+}
+
+#listOfParticipants li:hover{
+	background-color: rgba(74, 144, 226, 0.15);
+}
+
+#nameOfConversation{
+	margin-left:5px;
+	margin-top: 10px;
+}
+
+#addParticipant{
+	margin:5px;
+	width: 182px;
+	margin-left:auto;
+	margin-right: auto;
+}
+
+#listOfDocuments{
+	position: absolute;
+	background-color: #fafafa;
+	width:160px;
+	left: 625px;
+	bottom:65px;
+	border: #999 1px solid;
+	border-radius: 3px;
+	padding: 5px;
+}
+
+#listOfDocuments li{
+	font-size: 0.8em;
+	border-bottom: #aaa 1px solid;
+	padding: 4px;
+	cursor: pointer;
+
+}
+
+#listOfDocuments li span{
+	float:right;
+	color: #4a4a4a;
+	padding-bottom: 2px;
+}
+
+#listOfDocuments li:hover{
+	background-color: rgba(74, 144, 226, 0.15);
+}
+
+#buttonForCreateConversation{
+	float:right;
+	margin-top:-26px;
+	z-index: 20;
+	position: relative;
+	margin-right: 10px;
+	font-size: 0.8em;
+	cursor: pointer;
+	font-weight: bold;
+	background: none;
+}

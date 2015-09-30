@@ -1,6 +1,6 @@
 <% layout('/layout/lkLayout') -%>
 <% block('title', 'Диалоги') -%>
-<% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/dialogs.css"/>')%>
+<% block('style', '<link rel="stylesheet" href="/dialogs.css"/>')%>
 <% block('script', '<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/dialogs.js"></script>')%>
 <% block('smoothEverythingContent', '<div id="createConversation"><p class="nameOfDialog">Создание беседы</p><input type="text" placeholder="Название беседы..." name="titleOfDialog"><p class="nameOfDialog">Участники:</p><input type="text" placeholder="Начните вводить имя, фамилию или номер группы" name="participants"><ul id="listOfParticipants" class="hide"></ul><ul id="listOfAddedParticipant"></ul><div class="buttonGreen" id="createDialog">Создать</div></div>') %>
 
@@ -11,187 +11,12 @@
 <tr>
 <td id="listOfDialogs">
     <div id='searchContact'>
-        <input type="search"  placeholder='Введите имя'>
+        <input type="search"  placeholder='Начните вводить имя, фамилию или группу'>
     </div>
     <div id="wrapListOfDialogs">
+        <div id="noResultsOfSearch" class="hide" >Поиск не дал результатов</div>
+        <ul class='dialogsItemList'>
 
-        <div id="noResultsOfSearch" >Поиск не дал результатов</div>
-        <ul class='hide'>
-            <li class="choosen contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="/images/noAvatar.png" >
-                        </td>
-                        <td>
-                            <p class="nameOfDialog">Старосты</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Дурень
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">Старосты</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Дурень
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">Старосты</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Дурень
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">Старосты</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Дурень
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">Старосты</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Дурень
-                        </td>
-                    </tr>
-                </table>
-            </li>
-
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">Старосты</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Дурень
-                        </td>
-                    </tr>
-                </table>
-            </li>
-
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">Старосты</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Дурень
-                        </td>
-                    </tr>
-                </table>
-            </li>
-
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">Профорги</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Привет всем!
-                        </td>
-                    </tr>
-                </table>
-            </li>
-
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">Старосты</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            Дурень
-                        </td>
-                    </tr>
-                </table>
-            </li>
-
-            <li class="contact">
-                <table>
-                    <tr>
-                        <td rowspan="2">
-                            <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                        </td>
-                        <td>
-                            <p class="nameOfDialog ">3404</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='lastMessage'>
-                            С 1 сентября, бичи!
-                        </td>
-                    </tr>
-                </table>
-            </li>
         </ul>
     </div>
 </td>
@@ -204,115 +29,14 @@
     <p id="noMessages" class='hide'>Здесь будет выводиться Ваша переписка</p>
 
     <div id="wrapLayoutForDialog">
-        <div>
-            <div class="blockForMessage fromCompanion">
-                <p class="nameOfDialog"> Александр Братчиков</p>
 
-                Всем всем всем быть завтра в 3404 потому что бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла блабла бла бла блаблабла бла бла бла бла бла бла блабла бла бла блабла
-
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
-
-        <div>
-            <div class="blockForMessage fromMe">
-                <p class="nameOfDialog">Антон Зуев</p>
-
-                Это и для ФКТИ?
-
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
-
-        <div>
-            <div class="blockForMessage fromCompanion">
-                <p class="nameOfDialog"> Александр Братчиков</p>
-
-                Нет, только для ФЭА
-
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
-
-        <div>
-            <div class="blockForMessage fromMe">
-                <p class="nameOfDialog">Антон Зуев</p>
-
-                Тогда зачем ты это тут пишешь?
-
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
-
-        <div>
-            <div class="blockForMessage fromMe">
-                <p class="nameOfDialog">Антон Зуев</p>
-
-                Дурень
-
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
-        <div>
-            <div class="blockForMessage fromMe">
-                <p class="nameOfDialog">Антон Зуев</p>
-
-                Дурень
-
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
-        <div>
-            <div class="blockForMessage fromMe">
-                <p class="nameOfDialog">Антон Зуев</p>
-
-                Дурень
-
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
-        <div>
-            <div class="blockForMessage fromMe">
-                <p class="nameOfDialog">Антон Зуев</p>
-
-                Привет! Что делать будешь?
-
-            </div>
-            <div class="clearfix"></div>
-
-        </div>
     </div>
 
     <form id='formForAnswer'action="">
-        <table style="vertical-align: top; margin-left:auto; margin-right:auto;">
-            <col width='15%'>
-            <col width='70%'>
-            <col width='15%'>
-            <tr>
-                <td>
-                    <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                </td>
-                <td>
-                    <textarea name="fieldForAnswer" id="fieldForAnswer" cols="30"></textarea>
-                </td>
-                <td>
-                    <img class="avatar" src="images/noAvatar.png" alt="images/noAvatar.png">
-                </td>
-            </tr>
-        </table>
-
-
 
         <div style=" margin-left:88px;">
             <span class="button" id='addDocument'>Прикрепить</span>
-            <span id='numberOfAddedDocments'> Добавлено Х документов</span>
+
         </div>
     </form>
 </td>

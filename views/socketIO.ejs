@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Тестирование NotificationService</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
+    <script src="/jquery-2.1.1.min.js"></script>
 
 </head>
 <body>
@@ -14,7 +15,7 @@
     </ul>
 <script>
     var socket = io('ws://localhost:3000/notifications');
-    var socket2 = io('ws://localhost:3000/im');
+    var im= io('ws://localhost:3000/im');
 
     socket.on('news', function (data) {
         var news = "<li>"+data.message+"</li>";
@@ -22,11 +23,19 @@
         console.log(data);
     });
 
-    socket2.on('dialog', function (data) {
+    im.on('dialog', function (data) {
         var news = "<li>"+data.message+"</li>";
         $(news).appendTo($('.messages'));
         console.log(data);
     });
+    var imItem = {
+        title: "Диалог 2",
+        participants: [ "5611659632ede0011018e974"]
+    }
+    im.emit('createDialog', imItem, function(data){
+        console.log(data);
+    });
+
 </script>
 </body>
 </html>

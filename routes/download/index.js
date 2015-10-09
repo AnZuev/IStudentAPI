@@ -11,12 +11,11 @@ var privateKey = fs.readFileSync(config.get('staticServerAuth:privateKey')).toSt
 module.exports = function(app){
     app.get('/download/:id', function(req, res, next) {
         var id = req.params.id;
-        var data = id + ">?" + req.user._id;
-        data = data + '.' + crypto.createSign('RSA-SHA256').update(data).sign(privateKey, 'hex');
-        res.redirect(staticHost + '/download?surl='+ data);
+        var data = id + req.user._id;
+        var sData = crypto.createSign('RSA-SHA256').update(data).sign(privateKey, 'hex');
+        res.redirect(staticHost + '/download/'+ data + '?surl='+ sData);
         next();
     });
-
 }
 
 

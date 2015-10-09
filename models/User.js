@@ -56,6 +56,10 @@ var User = new Schema({
     searchString:{
         type:String,
         require: true
+    },
+    contacts:[Schema.Types.ObjectId],
+    projects:{
+
     }
 
 });
@@ -150,6 +154,8 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
 
 };
 
+// глобальный поиск
+
 User.statics.getPeopleByGroupNumber = function(groupNumber, callback){
     var query = this.aggregate([{$match:{ "personal_information.groupNumber": groupNumber }},
             {$project:
@@ -203,7 +209,6 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
             {
                 student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
                 groupNumber: "$personal_information.groupNumber"
-
             }
             },{$sort:{student: 1}}
         ])
@@ -216,7 +221,6 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
         }
     });
 };
-
 
 User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
     var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}, {searchString:{$regex: key3}}]}},
@@ -237,18 +241,164 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
     });
 };
 
+
+//поиск по контактам
+
 User.statics.getUserById = function(userId, callback){
-    this.findById(userId, {_id:0, "personal_information.firstName":1, "personal_information.lastName":1}, function(err, user){
+    this.findById(userId, function(err, user){
         if(err) return callback(err);
         else{
-            return callback(null, user);
+            if(user) return callback(null, user);
+            else return callback(null, false);
+
         }
+    });
+};
+
+User.statics.getFriendsByOneKey = function (userId,key, callback){
+    var User = this;
+    async.waterfall([
+        function(callback){
+            User.findById(userId, callback);
+        },
+        function(user, callback){
+            if(user){
+                User.aggregate([
+                        {
+                            $match: {"searchString":{$regex: key}, _id: { $in: user.contacts}}
+                        },
+                        {
+                            $project:
+                                {
+                                    student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
+                                    groupNumber: "$personal_information.groupNumber",
+                                    photo: "$personal_information.photoUrl"
+                                }
+                        },
+                        {
+                            $sort:
+                                {
+                                    student: 1
+                                }
+                        }
+                    ])
+                    .limit(5).exec(function(err, users){
+                        if(users.length == 0){
+                            return callback(new DbError(5304, 'No users found', err));
+                        }else{
+                            return callback(null, users);
+                        }
+                    });
+
+            }
+        }
+    ], callback);
+};
+
+User.statics.getFriendsByTwoKeys = function(userId, key1, key2, callback){
+    var User = this;
+    async.waterfall([
+        function(callback){
+            User.findById(userId, callback);
+        },
+        function(user, callback){
+            if(user){
+                 User.aggregate([
+                        {
+                            $match: {
+                                $or:[
+                                    {"searchString":{$regex: key1}},
+                                    {"searchString": {$regex: key2}}
+                                ],
+                                _id: { $in: user.contacts}
+                            }
+                        },
+                        {
+                            $project:
+                            {
+                                student: {$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
+                                groupNumber: "$personal_information.groupNumber",
+                                photo: "$personal_information.photoUrl"
+                            }
+                        },
+                        {
+                            $sort:
+                            {
+                                student: 1
+                            }
+                        }
+                    ])
+                    .limit(5).exec(function(err, users){
+                        if(err) return callback(err);
+                        if(users.length == 0){
+                            return callback(new DbError(5304, 'No users found', err));
+                        }else{
+                            return callback(null, users);
+                        }
+                    });
+
+            }
+        }
+    ], callback);
+};
+
+
+// добавление контактов
+User.statics.addContacts = function(userId, contacts, callback){
+    var User = this;
+    async.waterfall([
+        function(callback){
+            User.getUserById(userId, function(err, user){
+                if(err) throw err;//return callback(err);
+                else{
+                    return callback(null, user);
+                }
+            });
+        },
+        function(user, callback){
+            if(user){
+                for(var i = 0; i < contacts.length; i++){
+                    if(user.contacts.indexOf(contacts[i]) < 0){
+                        user.contacts.push(contacts[i]);
+                    }
+                }
+                user.save(callback);
+            }else{
+                callback(new DbError(53100, 'Не найден юзер по id ' + userId));
+            }
+
+        }
+
+    ], function(err, user){
+       if(err) {
+           throw err;
+       }
+       else{
+           console.log(arguments);
+           console.log('Добавления списка контактом произошло успешно');
+           return callback(null, user);
+       }
     });
 }
 
 
 
+
+
+
+
+
+
+
+// =================================testing
+User.statics.removeContacts = function(userId, callback){
+
+   this.getUserById(userId, function(err, user){
+        if(user){
+            user.contacts = [];
+            user.save();
+            return callback(null, user);
+        }
+    })
+}
 exports.User = mongoose.model('User', User);
-
-
-

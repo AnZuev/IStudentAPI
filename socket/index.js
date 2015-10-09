@@ -25,6 +25,7 @@ module.exports = function(io){
         });
 
     });
+
     require('./notificationService')(io);
     require('./dialogs')(io);
 }

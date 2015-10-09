@@ -67,12 +67,14 @@ function loadUser(session, callback){
         return callback(null, null);
     }else{
         User.findById(session.user, function(err, user){
-            var student =  {
-                username: user.personal_information.lastName + " " + user.personal_information.firstName,
-                id: user._id
-            };
+
             if(err) return callback(err);
             if(user) {
+                var student =  {
+                    username: user.personal_information.lastName + " " + user.personal_information.firstName,
+                    id: user._id,
+                    photo: user.personal_information.photoUrl
+                };
                 return callback(null, student)
             }else{
                 return callback(null, null);

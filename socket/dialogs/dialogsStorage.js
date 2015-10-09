@@ -6,8 +6,7 @@ var DbError = require('../../error').DbError;
 var dialog = new Schema({
     creator: {
         require: true,
-        type: Schema.Types.ObjectId,
-        unique: true
+        type: Schema.Types.ObjectId
     },
     enable:{
         type: Boolean
@@ -48,8 +47,16 @@ dialog.statics.createDialog = function(creator, participants, title, callback){
         enable:true
     });
     newDialog.save(function(err, dialog){
-        if(err) return callback(err);
-        else return callback(null, dialog);
+        if(err) return callback(new DbError(5300, "При создании диалога произошла ошибка",  err));
+
+        else {
+            var imInstance = {
+                title: dialog.title,
+                participants: dialog.participants,
+                id: dialog._id
+            };
+            return callback(null, imInstance);
+        }
     })
 }
 
@@ -57,7 +64,7 @@ dialog.statics.addMessage = function(dialogId, sender, message, callback){
     var Dialog = this;
     async.waterfall([
         function(callback){
-            Dialog.findById(dialogId, callback)
+            Dialog.findById(dialogId, callback);
         },
         function(dialog, callback){
             if(!dialog || !dialog.enable) return callback(new DbError(404, "Диалог не найден"));

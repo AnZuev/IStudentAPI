@@ -40,7 +40,19 @@ var password = 'qwerty1234';
  })
  }
 */
-var userId = "55e56fc406321e46616e5b42";
-User.getUserById(userId, function(err, user){
+var userId = ["5611659632ede0011018e974", "561163f932ede0011018e96f"]
+User.getFriendsByOneKey(userId, "Парень", function(err, result){
+    //console.log(arguments);
+});
+User.getFriendsByTwoKeys(userId, "Парень", "Тест", function(err, result){
     console.log(arguments);
+});
+/*User.getUserById(userId, function(err, user){
+    console.log(user);
 })
+*/
+for(var i = 0; i<userId.length; i++){
+    User.removeContacts(userId[i], function(err, user){
+        console.log(arguments);
+    })
+}

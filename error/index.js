@@ -29,11 +29,12 @@ AuthError.prototype.name = 'AuthError';
 
 exports.AuthError = AuthError;
 
-function DbError(status, message){
+function DbError(status, message, err){
     Error.apply(this, arguments);
     Error.captureStackTrace(this, DbError);
     this.status = status || 500;
     this.message = message || "Ошибка базы данных";
+    this.err = err || null;
 
 }
 

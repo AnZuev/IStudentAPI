@@ -10,52 +10,58 @@ function modifyCalendarNews(event, oldParticipants){
     User.findById(event.creator).select({_id:0, "personal_information.firstName":1, "personal_information.lastName":1}).exec(function(err, user){
         if(err) return (err);
         else{
-            var newParticipants = event.participants.invites.concat(event.participants.accepted).sort();
-            oldParticipants = oldParticipants.sort();
-            var peopleToRemove = diffSortArr(oldParticipants,newParticipants); // получаем массив с id людей для удаления
-            var peopleToAdd = diffSortArr(newParticipants, oldParticipants);
+            try{
+                var newParticipants = event.participants.invites.concat(event.participants.accepted).sort();
+                oldParticipants = oldParticipants.sort();
+                var peopleToRemove = diffSortArr(oldParticipants,newParticipants); // получаем массив с id людей для удаления
+                var peopleToAdd = diffSortArr(newParticipants, oldParticipants);
 
-            var titleNotif =  user.personal_information.lastName + " " + user.personal_information.firstName; //
-            var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
-            var message = "Приглашаю на событие '" + event.title + "' " + makeDateStringFromDateObj(event.time.start) + ". Идешь?";
-            var tasks = [];
+                var titleNotif =  user.personal_information.lastName + " " + user.personal_information.firstName; //
+                var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
+                var message = "Приглашаю на событие '" + event.title + "' " + makeDateStringFromDateObj(event.time.start) + ". Идешь?";
+                var tasks = [];
 
-            var calendarNew = {
-                eventName:  "calendarInvite",
-                title: title,
-                message: event.description,
-                eventId: event._id
-            };
-            var notification = {
-                eventName:  "calendarInvite",
-                title: titleNotif,
-                message: message,
-                eventId: event._id,
-                photoUrl: user.personal_information.photoUrl || "http://pre-static.istudentapp.ru/images/noAvatar.png"
-            };
-            for(var i = 0;  i< peopleToRemove.length; i++){
-                tasks.push(removeNew(peopleToRemove[i]));
-            }
-            for(i = 0;  i< peopleToAdd.length; i++){
-                var calendarNewItem = {
-                    to: peopleToAdd[i],
-                    from: event.creator,
-                    notification:calendarNew
+                var calendarNew = {
+                    eventName:  "calendarInvite",
+                    title: title,
+                    message: event.description,
+                    eventId: event._id
                 };
-                tasks.push(addNew(calendarNewItem));
+                var notification = {
+                    eventName:  "calendarInvite",
+                    title: titleNotif,
+                    message: message,
+                    eventId: event._id,
+                    photoUrl: user.personal_information.photoUrl || "http://pre-static.istudentapp.ru/images/noAvatar.png"
+                };
+                for(var i = 0;  i< peopleToRemove.length; i++){
+                    tasks.push(removeNew(peopleToRemove[i]));
+                }
+                for(i = 0;  i< peopleToAdd.length; i++){
+                    var calendarNewItem = {
+                        to: peopleToAdd[i],
+                        from: event.creator,
+                        notification:calendarNew
+                    };
+                    tasks.push(addNew(calendarNewItem));
+                }
+                async.parallel(tasks, function(err, results){
+                    if(err) {
+                        console.error("Произошла необработанная ошибка " + err);
+                        throw err;
+                    }
+                    if(errors.length > 0){
+                        console.warn('При добавлении/удалении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length); //залогировать ошибки в файл
+                    }
+                    return callback(null, results, notification);
+                });
+            }catch(e){
+                re
             }
 
 
-            async.parallel(tasks, function(err, results){
-                if(err) {
-                    console.error("Произошла необработанная ошибка " + err);
-                    throw err;
-                }
-                if(errors.length > 0){
-                    console.warn('При добавлении/удалении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length); //залогировать ошибки в файл
-                }
-                return callback(null, results, notification);
-            });
+
+
 
         }
     })

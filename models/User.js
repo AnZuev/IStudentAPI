@@ -246,7 +246,7 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
 
 User.statics.getUserById = function(userId, callback){
     this.findById(userId, function(err, user){
-        if(err) return callback(err);
+        if(err) throw err//return callback(err);
         else{
             if(user) return callback(null, user);
             else return callback(null, false);
@@ -346,8 +346,16 @@ User.statics.getFriendsByTwoKeys = function(userId, key1, key2, callback){
 // добавление контактов
 User.statics.addContacts = function(userId, contacts, callback){
     var User = this;
+    console.log("Добавление контактов ----------------------");
+    console.log(contacts);
+    console.log("Добавление контактов ----------------------")
+
     async.waterfall([
         function(callback){
+
+            userId = userId.toString();
+            console.log(typeof userId);
+
             User.getUserById(userId, function(err, user){
                 if(err) throw err;//return callback(err);
                 else{
@@ -360,9 +368,12 @@ User.statics.addContacts = function(userId, contacts, callback){
                 for(var i = 0; i < contacts.length; i++){
                     if(user.contacts.indexOf(contacts[i]) < 0){
                         user.contacts.push(contacts[i]);
+
                     }
                 }
-                user.save(callback);
+                user.save(function(err, user){
+                    console.log(arguments);
+                });
             }else{
                 callback(new DbError(53100, 'Не найден юзер по id ' + userId));
             }
@@ -374,8 +385,8 @@ User.statics.addContacts = function(userId, contacts, callback){
            throw err;
        }
        else{
-           console.log(arguments);
-           console.log('Добавления списка контактом произошло успешно');
+           //console.log(arguments);
+           //console.log('Добавления списка контактом произошло успешно');
            return callback(null, user);
        }
     });

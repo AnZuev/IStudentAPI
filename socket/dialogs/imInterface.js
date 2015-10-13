@@ -113,11 +113,13 @@ function imService(ee){
                                 sender: handshakeData.user.id,
                                 photoUrl: handshakeData.user.photoUrl
                             };
+                            sendMessage()
                             subscribeToArray(dialog._id, dialog.participants, function(err){
                                 if(err) {
                                     throw err;
                                 }
                                 else {
+
                                     channel.to(dialog._id).emit('dialogCreated', messageItem);
                                     return callback(null, dialog);
                                 }
@@ -134,23 +136,19 @@ function imService(ee){
             },
             function(callback){
                 var tasks = [];
-
+                var task;
                 var length = participants.length;
                 while(length > 0){
-                    console.log("Step %d : ", length);
                     var currentUser = participants.pop();
-
-                    tasks.push(createTaskToAddContacts(currentUser, participants));
+                    task = createTaskToAddContacts(currentUser, participants);
+                    tasks.push(task);
+                    console.log(task);
                     participants.unshift(currentUser);
                     length--;
-                    console.log("================")
                 }
                 async.parallel(tasks, function(err, results){
-                    if(err) throw err;//return callback(err);
+                    if(err) return callback(err);
                     else {
-                        console.log('------------------------------------ async parallel add contacts');
-                        console.log(arguments);
-                        console.log('------------------------------------ async parallel add contacts');
 
                         return callback(null, true)
                     }
@@ -159,7 +157,6 @@ function imService(ee){
         ], function(err,result){
             if(err) throw err;
             else{
-                console.log(arguments);
                 console.log("Создание диалога завершилось без ошибок");
                 return callback(null, true);
             }
@@ -234,12 +231,15 @@ exports.im = im;
 
 
 function createTaskToAddContacts (userTo, participants){
-    console.log("!!!!" + participants);
+    var contacts = participants.slice();
     return function(callback){
-        console.log("_------" + participants);
-        User.addContacts(userTo, participants, callback);
+        console.log("_------" + contacts);
+        User.addContacts(userTo, contacts, callback);
     }
 }
+
+
+//---------------
 
 function addContacts (creator, participants, callback){
     var tasks = [];

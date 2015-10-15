@@ -57,7 +57,6 @@ var Event = new Schema({
 
 
 Event.statics.addEvent = function(title, startTime, finishTime, period, invites, place, description, type, creator, callback){
-    console.log(arguments);
     var Event = this;
     var event = new Event({
         title: title,
@@ -81,25 +80,29 @@ Event.statics.addEvent = function(title, startTime, finishTime, period, invites,
 
 }
 
-Event.statics.modifyEvent = function(eventId, title, startTime, finishTime, period, invites, place, descriotion, userId, callback){
+Event.statics.modifyEvent = function(eventId, title, startTime, finishTime, period, invites, place, description, userId, callback){
     var Event = this;
     async.waterfall([
             function(callback){
-                Event.find({_id:eventId},{creator: userId}, callback);
+                Event.find({_id:eventId, creator: userId}, callback);
             },
             function(event, callback){
                 if(event.length == 0){
                     return callback(new DbError(403, "Событие не найдено: " + eventId));
                 }else{
-                    var participants = event.participants.invites.concat(event.participants.accepted).sort();
                     event = event[0];
-                    event.title = title;
-                    //event.time.start = startTime;
-                    //event.time.finish = finishTime;
+                    var participants = event.participants.invites || [];
+                    participants.concat(event.participants.accepted).sort();
+                    event.title = title || event.title;
+                    event.time.start = startTime || event.time.start;
+                    event.time.finish = finishTime || event.time.finish;
                     if(invites){
                         event.participants.invites = invites;
+                        event.type = "people";
                     }
-                    event.place = place;
+                    event.place = place || event.place;
+                    event.description = description || event.description;
+
                     event.save(function(err, modifiedEvent){
                         if(err) return callback(new DbError("Ошибка при обновления события с  id " + eventId + " и данными: /n" + event + "./n Ошибка " + err ));
                         else return callback(null, modifiedEvent, participants);

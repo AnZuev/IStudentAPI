@@ -177,14 +177,12 @@ function imService(ee){
         })
     }
 
-
     function subscribeToArray(dialogId, users, callback){  // нужен для подписки массива юзеров на подключение к комнате
         var tasks = [];
         for (var y = 0; y< users.length; y++){
             var task = createFunctionToSubscribe(dialogId, users[y]);
             tasks.push(task);
         }
-        //console.log(tasks);
         async.parallel(tasks, function(err){
             if(err) return callback(err);
             else{
@@ -239,63 +237,3 @@ function createTaskToAddContacts (userTo, participants){
 }
 
 
-//---------------
-
-function addContacts (creator, participants, callback){
-    var tasks = [];
-    var newContacts = [];
-    newContacts.push(creator);
-    while(participants.length > 0){
-        newContacts.push(participants.pop());
-    }
-    var length = participants.length;
-    while(length > 0){
-        var currentUser = participants.pop();
-        tasks.push(createTaskToAddContacts(currentUser, participants));
-        participants.unshift(currentUser);
-        length--;
-    }
-    async.parallel(tasks, function(err, results){
-        if(err) throw err//return callback(err);
-        else return callback(null, true)
-    });
-}
-
-
-// пока не используются
-function makeTasksForAddindParticipants(newParticipant, dialogId){
-    var errorsCounter = 0;
-    var task = function(participant, dialogId, callback){
-        dialogStorage.addParticipant(dialogId, participant, function(err, dialog){
-            if(err) {
-                errorsCounter++;
-                if(errorsCounter < 5) task(participant, dialogId);
-                else{
-                    return callback(new Error('Не удалось добавить участника в диалог'))
-                }
-
-            }
-            else{
-                return callback(null, dialog);
-            }
-        })
-    }
-    return task;
-}
-
-function subscribeTo(dialogid, userId){
-    onlineUsers.checkIfUserOnline(userId, function(err, sockets){
-        if(err) throw err;
-        else{
-            if(sockets){
-                console.log(sockets);
-                for(var i = 0; i< sockets.length; i++){
-                    channel.connected[sockets[i]].join(dialogid);
-                }
-            }else{
-
-            }
-
-        }
-    })
-} // нужен для подписки юзера на подключение к комнате

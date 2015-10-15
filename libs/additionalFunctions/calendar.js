@@ -5,14 +5,15 @@ var async = require('async');
 var errors = [];
 
 
-function modifyCalendarNews(event, oldParticipants){
-
-    User.findById(event.creator).select({_id:0, "personal_information.firstName":1, "personal_information.lastName":1}).exec(function(err, user){
-        if(err) return (err);
-        else{
+function modifyCalendarNews(event, oldParticipants, callback){
+    async.waterfall([
+        function(callback){
+            User.findById(event.creator).select({_id:0, "personal_information.firstName":1, "personal_information.lastName":1}).exec(callback);
+        },
+        function(user, callback){
             try{
-                var newParticipants = event.participants.invites.concat(event.participants.accepted).sort();
-                oldParticipants = oldParticipants.sort();
+                var newParticipants = event.participants.invites || [];
+                newParticipants.concat(event.participants.accepted || []).sort();
                 var peopleToRemove = diffSortArr(oldParticipants,newParticipants); // получаем массив с id людей для удаления
                 var peopleToAdd = diffSortArr(newParticipants, oldParticipants);
 
@@ -55,16 +56,12 @@ function modifyCalendarNews(event, oldParticipants){
                     }
                     return callback(null, results, notification);
                 });
-            }catch(e){
-                re
+            }catch(err){
+                console.log(err);
+                return callback(err);
             }
-
-
-
-
-
         }
-    })
+    ],callback);
 }
 
 function intersecSortArr(A,B){
@@ -210,6 +207,7 @@ function createNotificationListForEventParticipants(userId, event, notifType, ca
 }
 
 exports.createNotificationListForEventParticipants = createNotificationListForEventParticipants;
+
 function addNew(calendarNewItem){
     return function(callback){
         calendarNews.addNew(calendarNewItem, function(err, calendarNewItem){

@@ -2,6 +2,7 @@ var Event = require('../../models/Events').Event;
 var HttpError = require('../../error').HttpError;
 var AuthError = require('../../error').AuthError;
 var calendarAdditionalMethods = require("../../libs/additionalFunctions/calendar");
+var ns = require('../../socket/notificationService/nsInterface').ns;
 
 
 exports.post = function(req, res, next){
@@ -17,12 +18,11 @@ exports.post = function(req, res, next){
         Event.modifyEvent(eventId, title, startTime, finishTime, period,invites,place, description, req.user._id, function(err, event, participants){
             if(err) return next(err);
             else{
-               var usersForNotifyAndNotification = calendarAdditionalMethods.modifyCalendarNews(event, participants, function(err, users, notifications){
-                   console.log(arguments)
+                res.send(event);
+                calendarAdditionalMethods.modifyCalendarNews(event, participants, function(err, recievers, notifications){
+                  if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
+                  console.log(arguments);
                });
-               res.send(event);
-
-
             }
          })
 

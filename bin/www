@@ -5,9 +5,10 @@
  */
 
 var app = require('../app');
-var http = require('http');
+var https = require('https');
 var config = require('../config');
 var log = require('../libs/log')(module);
+var fs = require('fs');
 
 
 /**
@@ -15,14 +16,17 @@ var log = require('../libs/log')(module);
  */
 
 var port = config.get('port');
-
+var credentials = {
+  key: fs.readFileSync(config.get('apiServerAuth:privateKey')).toString(),
+  cert:  fs.readFileSync(config.get('apiServerAuth:publicKey')).toString()
+};
 
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = https.createServer(credentials, app);
 
 
 

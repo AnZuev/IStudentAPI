@@ -3,6 +3,8 @@ var calendarNews = require('../../models/calendarNews').calendarNews;
 var DbError = require('../../error').DbError;
 var async = require('async');
 var errors = [];
+require('./arrays.js');
+
 
 
 function modifyCalendarNews(event, oldParticipants, callback){
@@ -14,8 +16,8 @@ function modifyCalendarNews(event, oldParticipants, callback){
             try{
                 var newParticipants = event.participants.invites || [];
                 newParticipants.concat(event.participants.accepted || []).sort();
-                var peopleToRemove = diffSortArr(oldParticipants,newParticipants); // получаем массив с id людей для удаления
-                var peopleToAdd = diffSortArr(newParticipants, oldParticipants);
+                var peopleToAdd = newParticipants.diffSortArr(oldParticipants);
+                var peopleToRemove = oldParticipants.diffSortArr(newParticipants); // получаем массив с id людей для удаления
 
                 var titleNotif =  user.personal_information.lastName + " " + user.personal_information.firstName; //
                 var title = 'Пользоваетель ' + user.personal_information.firstName +" "+ user.personal_information.lastName + " приглашает Вас на событие '"+ event.title + "'";
@@ -64,57 +66,7 @@ function modifyCalendarNews(event, oldParticipants, callback){
     ],callback);
 }
 
-function intersecSortArr(A,B){
-    var M = A.length, N = B.length, C = [],
-        m = 1, n = 1, k = 0, a = 0, b = 0;
-    for (var i = 1, t = A[0]; i < M; i++)
-    {
-        if (A[i] !== t)
-        {
-            A[m++] = A[i]; t = A[i];
-        }
-    }
-
-    for ( i = 1, t = B[0]; i < N; i++)
-    {
-        if (B[i] !== t){
-            B[n++] = B[i]; t = B[i];
-        }
-    }
-
-    while (a < m && b < n)
-    {
-        if (A[a] < B[b]) ++a;
-        else if (A[a] > B[b]) ++b;
-        else C[k++] = A[a++];
-    }
-    return C;
-}
-
-function diffSortArr(A,B){
-    var C = intersecSortArr(A,B),
-        M = A.length,
-        N = C.length;
-
-    for (var i=0, k=0, a=0, c=0; i<M+N; i++)
-    {
-        if (A[a] === C[c]){
-            ++a; ++c;
-        }
-        else{
-            A[k] = A[i];
-            k++; a++;
-        }
-    }
-    A.length = k;
-    return A;
-}
-
 exports.modifyCalendarNews = modifyCalendarNews;
-
-
-
-
 
 //получить новый массив инвайтов
 // достать из базы старый массив инвайтов
@@ -123,7 +75,6 @@ exports.modifyCalendarNews = modifyCalendarNews;
 // высчитать разницу для получения списка добавления
 // добавить/удалить, ошибки не должны никак влиять на работу с другими уведомлениями
 // на выходе получаем массив юзеров, которым надо отправить нотификации, если они онлайн. Нужно передать notification сервису
-
 
 
 function addCalendarNews(event, callback){

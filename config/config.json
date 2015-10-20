@@ -16,7 +16,10 @@
         "privateKey": "/Users/anton/WebstormProjects/IStudentAPI/libs/certificate/cert.key",
         "publicKey": "/Users/anton/WebstormProjects/IStudentAPI/libs/certificate/cert.crt"
     },
-
+    "apiServerAuth":{
+        "privateKey": "/Users/anton/WebstormProjects/IStudentAPI/libs/certificate/cert.key",
+        "publicKey": "/Users/anton/WebstormProjects/IStudentAPI/libs/certificate/cert.crt"
+    },
     "general":{
         "version": "0.0.1(5)",
         "host": "http://pre-api.istudentapp.ru",

@@ -1,11 +1,11 @@
-Array.prototype.intersectSortArr = function (A,B){
-    var M = A.length, N = B.length, C = [],
+Array.prototype.intersecSortArr = function (B){
+    var M = this.length, N = B.length, C = [],
         m = 1, n = 1, k = 0, a = 0, b = 0;
-    for (var i = 1, t = A[0]; i < M; i++)
+    for (var i = 1, t = this[0]; i < M; i++)
     {
-        if (A[i] !== t)
+        if (this[i] !== t)
         {
-            A[m++] = A[i]; t = A[i];
+            this[m++] = this[i]; t = this[i];
         }
     }
 
@@ -18,30 +18,30 @@ Array.prototype.intersectSortArr = function (A,B){
 
     while (a < m && b < n)
     {
-        if (A[a] < B[b]) ++a;
-        else if (A[a] > B[b]) ++b;
-        else C[k++] = A[a++];
+        if (this[a] < B[b]) ++a;
+        else if (this[a] > B[b]) ++b;
+        else C[k++] = this[a++];
     }
     return C;
 }
 
-Array.prototype.diffSortArr = function (A,B){
-    var C = intersecSortArr(A,B),
-        M = A.length,
+Array.prototype.diffSortArr = function (B){
+    var C = this.intersecSortArr(B),
+        M = this.length,
         N = C.length;
 
     for (var i=0, k=0, a=0, c=0; i<M+N; i++)
     {
-        if (A[a] === C[c]){
+        if (this[a] === C[c]){
             ++a; ++c;
         }
         else{
-            A[k] = A[i];
+            this[k] = this[i];
             k++; a++;
         }
     }
-    A.length = k;
-    return A;
+    this.length = k;
+    return this;
 }
 
 exports.Array = Array;

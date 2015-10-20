@@ -14,10 +14,12 @@ var listOfOnlineUsers = require('./listOfOnlineUsers').onlineUsers;
 
 module.exports = function(socket, callback) {
         var handshakeData = socket.request.headers;
+        var socketId;
         async.waterfall([
             function(callback){
                 handshakeData.cookies = cookie.parse((handshakeData.cookie || ""));
                 var sidCookie = handshakeData.cookies[config.get("session:key")];
+                socketId = handshakeData.cookies["io"];
                 loadSession(cookieParser.signedCookie(sidCookie, config.get('session:secret')), callback)
             },
             function(session, callback){
@@ -30,14 +32,14 @@ module.exports = function(socket, callback) {
             },
             function(user, callback){
                 if(!user){
-                    return callback(new HttpError(403, "Для подключения по ws сессия должна быть не анонимной"))
+                     callback(new HttpError(403, "Для подключения по ws сессия должна быть не анонимной"))
                 }else{
                     handshakeData.user =user;
                     listOfOnlineUsers.checkIfUserOnline(user.id, function(err, socketId){
                         if(socketId){
-                            return callback(null, {userId: user.id, in:true});
+                            callback(null, {userId: user.id, in:true});
                         }else{
-                            return callback(null, {userId: user.id, in:false});
+                            callback(null, {userId: user.id, in:false});
                         }
                     });
                 }
@@ -45,15 +47,15 @@ module.exports = function(socket, callback) {
             },
             function(userItem, callback){
                 if(userItem.in) {
-                    console.log(userItem)
-                    listOfOnlineUsers.addToList(userItem.userId, socket.id, callback);
+                    listOfOnlineUsers.addToList(userItem.userId, socketId, callback);
                 }else{
-                    listOfOnlineUsers.addNewUser(userItem.userId, socket.id, callback);
+                    listOfOnlineUsers.addNewUser(userItem.userId, socketId, callback);
                 }
             }
         ],function(err){
+            console.error(err);
             if(err) {
-                return callback(null,false);
+                return callback(null, false);
             }
             else{
                 return callback(null,true);
@@ -64,10 +66,9 @@ module.exports = function(socket, callback) {
 function loadUser(session, callback){
     if(!session.user){
         console.warn('Попытка найти юзера для анонимной сессии');
-        return callback(null, null);
+        callback(null, null);
     }else{
         User.findById(session.user, function(err, user){
-
             if(err) return callback(err);
             if(user) {
                 var student =  {
@@ -80,7 +81,6 @@ function loadUser(session, callback){
                 return callback(null, null);
             }
         })
-
     }
 }
 

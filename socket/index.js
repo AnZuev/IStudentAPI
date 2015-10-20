@@ -13,21 +13,21 @@ mongodbNative.dropCollection("onlineusers", function(err, result){
 });
 
 module.exports = function(io){
-    io.use(function(socket, next) {
-        authorization(socket, function(err, result){
-            if(!result){
-                console.warn('Произошла ошибка при установке соединения ws');
-                next(new Error('Отказано в доступе'));
-            }else{
-                console.log("Авторизация прошла без ошибок:)");
-                next();
-            }
-        });
+   // io.use(require('./common/authorization'));
+   io.use(function(socket, next){
+       authorization(socket, function(err, result,callback){
+           //if(!result) socket.close();
 
-    });
+       })
+   });
 
-    require('./notificationService')(io);
-    require('./dialogs')(io);
+   io.use(require('./notificationService')(io));
+   io.use(require('./dialogs')(io));
+   io.use(function(err, socket, next){
+       console.log(arguments);
+   })
+
+
 }
 
 

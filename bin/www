@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var https = require('https');
+var http = require('http');
 var config = require('../config');
 var log = require('../libs/log')(module);
 var fs = require('fs');
@@ -26,7 +26,7 @@ var credentials = {
  * Create HTTP server.
  */
 
-var server = https.createServer(credentials, app);
+var server = http.createServer(app);
 
 
 

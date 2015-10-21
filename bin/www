@@ -8,7 +8,6 @@ var app = require('../app');
 var http = require('http');
 var config = require('../config');
 var log = require('../libs/log')(module);
-var fs = require('fs');
 
 
 /**
@@ -16,10 +15,7 @@ var fs = require('fs');
  */
 
 var port = config.get('port');
-var credentials = {
-  key: fs.readFileSync(config.get('apiServerAuth:privateKey')).toString(),
-  cert:  fs.readFileSync(config.get('apiServerAuth:publicKey')).toString()
-};
+
 
 
 /**

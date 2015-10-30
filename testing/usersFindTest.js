@@ -2,7 +2,7 @@
  * Created by anton on 03/08/15.
  */
 
-var User = require('./models/User').User;
+var User = require('./../models/User').User;
 
 var group = 4304;
 var name = 'А';

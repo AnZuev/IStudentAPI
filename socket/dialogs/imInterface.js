@@ -2,7 +2,7 @@ var EventEmitter = require('events').EventEmitter;
 var imServiceEE = new EventEmitter();
 var onlineUsers = require('../common/listOfOnlineUsers').onlineUsers;
 var async = require('async');
-var dialogStorage = require('./dialogsStorage').dialogs;
+var dialogStorage = require('./../../models/dialogsStorage').dialogs;
 var User = require('../../models/User').User;
 var DbError = require('../../error').DbError;
 
@@ -39,8 +39,6 @@ function imService(ee){
             });
 
             socket.on('createDialog', function(data, cb){
-                console.log('=================== createDialog =============');
-
                 createDialog(socket, socket.request.headers.user.id, data.participants, data.title, function(err, result){
                     if(err) {
                         var errorInstance = {
@@ -69,7 +67,27 @@ function imService(ee){
                 };
                 socket.broadcast.to(data.dialogId).emit('stopTyping', stopTypingInstance);
             });
-
+            socket.on('getDialog', function(data, cb){
+               dialogStorage.getDialogById(data.dialogId, socket.request.headers.user.id, function(err, imItem){
+                   if(imItem) cb(imItem);
+                   else{
+                       if(err){
+                           cb({exception: true, reason: err.code});
+                       }else{
+                           cb({exception: true, reason: "No dialogs found"});
+                       }
+                   }
+               })
+            });
+            socket.on('getMessages', function(data, cb){
+               dialogStorage.getMessagesForDialog(data.imId, socket.request.headers.user.id, data.skip, function(err, messages){
+                   if(err) cb({exception: true, reason: "No dialogs found"});
+                   else{
+                       messages.skip = data.skip;
+                       cb(messages);
+                   }
+               })
+            });
             socket.on('findContacts', function(data, cb){
                 findFriends(data.key1, data.key2, function(err, users){
                     if(err){

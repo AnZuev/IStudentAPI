@@ -1,7 +1,7 @@
-var mongoose = require('../../libs/mongoose'),
+var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
 var async = require('async');
-var DbError = require('../../error').DbError;
+var DbError = require('../error/index').DbError;
 
 var dialog = new Schema({
     creator: {
@@ -58,7 +58,7 @@ dialog.statics.createDialog = function(creator, participants, title, callback){
             return callback(null, imInstance);
         }
     })
-}
+};
 
 dialog.statics.addMessage = function(dialogId, sender, message, callback){
     var Dialog = this;
@@ -84,12 +84,12 @@ dialog.statics.addMessage = function(dialogId, sender, message, callback){
             };
             dialog.messages.push(messageItem);
             var errCounter = 0;
-            addMessageToDialog(messageItem, errCounter, callback);
+            addMessageToDialog(dialog,messageItem, errCounter, callback);
 
 
         }
     ],callback)
-}
+};
 
 dialog.statics.addParticipants = function(dialogId, participantsArray, callback){
     this.find({_id:dialogId}, function(err, dialog){
@@ -112,6 +112,37 @@ dialog.statics.addParticipants = function(dialogId, participantsArray, callback)
     })
 }
 
+dialog.statics.getDialogsTitleByUser = function(userId, callback){
+    this.find({enabled: true, participants:userId}, {enable:0, _id:1, title:1, messages: { "$slice": -1 }, limit:10}, function(err, dialogs){
+        if(err) throw err;
+        else{
+            return callback(null, dialogs);
+        }
+    })
+};
+dialog.statics.getDialogById = function(imId, userId, callback){
+    this.find({enable: true, _id:imId, participants:userId}, {_id:1, title:1, messages: { "$slice": -10 }, participants: 1}, function(err, imItem){
+        if(err) throw err;
+        else{
+            if(imItem.length > 0) return callback(null, imItem[0]);
+            else{
+                return callback(null, null);
+            }
+
+        }
+    })
+};
+dialog.statics.getMessagesForDialog = function(imId, userId, skip, callback){
+    this.find({enable: true, _id:imId, participants:userId}, {_id:1, messages: { "$slice": [-skip,10]}}, function(err, imItem){
+        if(err) throw err;
+        else{
+            if(imItem.length > 0) return callback(null, imItem[0]);
+            else{
+                return callback(null, null);
+            }
+        }
+    })
+};
 
 exports.dialogs = mongoose.model('dialogs', dialog);
 
@@ -120,14 +151,14 @@ exports.dialogs = mongoose.model('dialogs', dialog);
 
 //----------functions
 
-function addMessageToDialog(messageItem, errCounter, callback){
+function addMessageToDialog(dialog,messageItem, errCounter, callback){
     dialog.save(function(err){
         if(err) {
             if(errCounter > 5) {
                 return callback(new DbError(500, "Произошла ошибка при сохранении сообщения"));
             }else{
                 errCounter++;
-                addMessageToDialog(messageItem, errCounter, callback)
+                addMessageToDialog(dialog,messageItem, errCounter, callback)
             }
 
         }

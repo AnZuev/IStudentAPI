@@ -2,8 +2,8 @@
  * Created by anton on 03/08/15.
  */
 
-var Event = require('./models/Events').Event;
-var User = require('./models/User').User;
+var Event = require('./../models/Events').Event;
+var User = require('./../models/User').User;
 
 
 Event.accept("55c05ed72631f5d19fc0b0df","55c064fb2767c214a06e9291", function(err, result){

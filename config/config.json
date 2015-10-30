@@ -13,12 +13,12 @@
         }
     },
     "staticServerAuth":{
-        "privateKey": "/Users/anton/WebstormProjects/IStudentAPI/libs/certificate/cert.key",
-        "publicKey": "/Users/anton/WebstormProjects/IStudentAPI/libs/certificate/cert.crt"
+        "privateKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.key",
+        "publicKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.crt"
     },
     "apiServerAuth":{
-        "privateKey": "/Users/anton/WebstormProjects/IStudentAPI/libs/certificate/cert.key",
-        "publicKey": "/Users/anton/WebstormProjects/IStudentAPI/libs/certificate/cert.crt"
+        "privateKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.key",
+        "publicKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.crt"
     },
     "general":{
         "version": "0.0.1(5)",

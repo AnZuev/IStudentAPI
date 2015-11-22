@@ -3,19 +3,19 @@ var calendarNews = require('../../models/calendarNews').calendarNews;
 var DbError = require('../../error').DbError;
 var async = require('async');
 var errors = [];
+var nsItem = require('../../socket/notificationService/nsInterface').nsItem;
 require('./arrays.js');
 
 
 
-function modifyCalendarNews(event, oldParticipants, callback){
+function modifyEventCreateCalendarNewsAndNotifications(event, oldParticipants){
     async.waterfall([
         function(callback){
             User.findById(event.creator).select({_id:0, "personal_information.firstName":1, "personal_information.lastName":1}).exec(callback);
         },
         function(user, callback){
             try{
-                var newParticipants = event.participants.invites || [];
-                newParticipants.concat(event.participants.accepted || []).sort();
+                var newParticipants = (event.participants.invites || []).concat(event.participants.accepted || []).sort();
                 var peopleToAdd = newParticipants.diffSortArr(oldParticipants);
                 var peopleToRemove = oldParticipants.diffSortArr(newParticipants); // получаем массив с id людей для удаления
 
@@ -30,13 +30,6 @@ function modifyCalendarNews(event, oldParticipants, callback){
                     message: event.description,
                     eventId: event._id
                 };
-                var notification = {
-                    eventName:  "calendarInvite",
-                    title: titleNotif,
-                    message: message,
-                    eventId: event._id,
-                    photoUrl: user.personal_information.photoUrl || "http://pre-static.istudentapp.ru/images/noAvatar.png"
-                };
                 for(var i = 0;  i< peopleToRemove.length; i++){
                     tasks.push(removeNew(peopleToRemove[i]));
                 }
@@ -48,7 +41,7 @@ function modifyCalendarNews(event, oldParticipants, callback){
                     };
                     tasks.push(addNew(calendarNewItem));
                 }
-                async.parallel(tasks, function(err, results){
+                async.parallel(tasks, function(err, recievers){
                     if(err) {
                         console.error("Произошла необработанная ошибка " + err);
                         throw err;
@@ -56,17 +49,21 @@ function modifyCalendarNews(event, oldParticipants, callback){
                     if(errors.length > 0){
                         console.warn('При добавлении/удалении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length); //залогировать ошибки в файл
                     }
-                    return callback(null, results, notification);
+                    var options = {
+                        eventId: event._id
+                    };
+                    var ns = new nsItem("calendarInvite", titleNotif, message, user.personal_information.photoUrl, options);
+                    ns.send(recievers);
                 });
             }catch(err){
                 console.log(err);
                 return callback(err);
             }
         }
-    ],callback);
+    ]);
 }
 
-exports.modifyCalendarNews = modifyCalendarNews;
+exports.changeCalendarNewAndSendNotifications = modifyEventCreateCalendarNewsAndNotifications;
 
 //получить новый массив инвайтов
 // достать из базы старый массив инвайтов
@@ -77,7 +74,7 @@ exports.modifyCalendarNews = modifyCalendarNews;
 // на выходе получаем массив юзеров, которым надо отправить нотификации, если они онлайн. Нужно передать notification сервису
 
 
-function addCalendarNews(event, callback){
+function createCalendarNewsAndNotifications(event, callback){
     User.findById(event.creator).select({_id:0, "personal_information.firstName":1, "personal_information.lastName":1}).exec(function(err, user){
         if(err) return callback(err);
         if(!user) return (callback(new DbError(404, "Произошла ошибка при поиске юзера - юзера нет. Как он создал событие  - хрен его знает")));
@@ -93,14 +90,6 @@ function addCalendarNews(event, callback){
                 message: event.description,
                 eventId: event._id
             };
-            var notification = {
-                eventName:  "calendarInvite",
-                title: titleNotif,
-                message: message,
-                eventId: event._id,
-                photoUrl: user.personal_information.photoUrl || "http://pre-static.istudentapp.ru/images/noAvatar.png"
-            };
-
             for(var i = 0;  i< participants.length; i++){
                var calendarNewItem = {
                   to: participants[i],
@@ -109,8 +98,7 @@ function addCalendarNews(event, callback){
                };
                tasks.push(addNew(calendarNewItem));
             }
-
-            async.parallel(tasks, function(err, results){
+            async.parallel(tasks, function(err, recievers){
                 if(err) {
                     console.error(err);
                     throw err;
@@ -118,46 +106,46 @@ function addCalendarNews(event, callback){
                 if(errors.length > 0){
                     console.warn('При добавлении в calendarNews возникали ошибки. Количество ошибок - ' + errors.length); //залогировать ошибки в файл
                 }
-                return callback(null, results, notification);
+                var options = {
+                    eventId: event._id
+                };
+                var ns = new nsItem("calendarInvite", titleNotif, message, user.personal_information.photoUrl, options);
+                ns.send(recievers);
             });
-
-
         }
 
     })
 }
 
-exports.createNotificationList = addCalendarNews;
+exports.createCalendarNewsAndNotifications = createCalendarNewsAndNotifications;
 
 
-function createNotificationListForEventParticipants(userId, event, notifType, callback){
+
+
+
+function sendNotificationForAcceptDecline(userId, event, notifType){
     User.findById(userId).select({_id:0, "personal_information.firstName":1, "personal_information.lastName":1}).exec(function(err, user){
         if(err) return callback(err);
         if(!user) return (callback(new DbError(404, "Произошла ошибка при поиске юзера - юзера нет. Как его умудрились пригласить - непонятно")));
         else{
-            var titleNotif =  user.personal_information.lastName + " " + user.personal_information.firstName; //
+            var title =  user.personal_information.lastName + " " + user.personal_information.firstName; //
             var message = "Я иду на '" + event.title + "' " + makeDateStringFromDateObj(event.time.start) + ".";
-
-            var notification = {
-                eventName:  "calendarNotify",
-                type: notifType,
-                title: titleNotif,
-                message: message,
+            options = {
                 eventId: event._id,
-                photoUrl: user.personal_information.photoUrl || "http://pre-static.istudentapp.ru/images/noAvatar.png"
+                type: notifType
             };
             var recievers =  event.participants.accepted.concat(event.participants.invites);
             recievers.push(event.creator);
-            console.log(recievers);
             recievers.splice(recievers.indexOf(userId)-1, 1);
-            console.log(recievers);
-            return callback(null,recievers, notification);
+            var ns = new nsItem("calendarNotify", title, message, user.personal_information.photoUrl, options);
+            ns.send(recievers);
         }
     })
-
 }
 
-exports.createNotificationListForEventParticipants = createNotificationListForEventParticipants;
+exports.sendNotificationForAcceptDecline = sendNotificationForAcceptDecline;
+
+
 
 function addNew(calendarNewItem){
     return function(callback){
@@ -187,7 +175,6 @@ function removeNew(eventId, userId){
         })
     }
 }
-
 
 function makeDateStringFromDateObj(date){
     var months = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];

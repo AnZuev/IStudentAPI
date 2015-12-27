@@ -30,15 +30,12 @@ exports.post = function(req, res, next){
                     else{
                         res.writeHead(200);
                         res.end();
+                        console.log(event);
                         event = event[0];
-                        calendarAdditionalMethods.createNotificationListForEventParticipants(req.user._id, event, "declineEvent", function(err, recievers, notification){
+                        calendarAdditionalMethods.sendNotificationForAcceptDecline(req.user._id, event, "declineEvent", function(err){
                             if(err) {
                                 console.error(err + " здесь не может быть ошибки!!!");
                                 return next();
-                            }
-                            else{
-                                if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
-
                             }
                         });
                         return next();

@@ -64,14 +64,12 @@ exports.put = function(req, res, next){
             else{
                 res.json(event);
                 if(type != "private") {
-                    calendarAdditionalMethods.createNotificationList(event, function(err, recievers, notification){
+                    calendarAdditionalMethods.createCalendarNewsAndNotifications(event, function(err, recievers, notification){
                         if(err) {
                             console.error(err + " здесь не может быть ошибки!!!");
                         }
                         else{
-                            console.log(recievers);
-                            if(recievers.length > 0) ns.makeListOfRecievers(recievers, notification);
-
+                            console.log(arguments);
                         }
                     })
                 }

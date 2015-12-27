@@ -2,8 +2,8 @@ var EventEmitter = require('events').EventEmitter;
 var notificationServiceEE = new EventEmitter();
 var onlineUsers = require('./../common/listOfOnlineUsers').onlineUsers;
 var taskToGetUserSockets = require('./../common/libs').taskToGetUserSockets;
-
 var async = require('async');
+var addSocketToDB = require('../common/libs').addSocketToDB;
 
 notificationServiceEE.on('start', function(){
     console.log('start emit ns');
@@ -31,12 +31,13 @@ function nsItem(eventName, title, message, photoUrl, adds){
             function (callback) {
                 var tasks = [];
                 for (var i = 0; i < users.length; i++) {
-                    tasks.push(taskToGetUserSockets(users[i]));
+                    tasks.push(taskToGetUserSockets(users[i], "ns"));
                 }
                 async.parallel(tasks, callback);
             },
             function (results, callback) {
                 for (var i = 0; i < results.length; i++) {
+                    if(!results[i]) continue;
                     if (results[i].length > 0) {
                         var notificationItem = {};
                         for (var y = 0; y < results[i].length; y++) {
@@ -78,6 +79,10 @@ function NotificationService(ee){
         channel = notificationServiceTransport;
         notificationServiceTransport.on('connection', function (socket) {
             console.log('Соединение установлено -> notifications');
+           addSocketToDB(socket.id, socket.handshake.headers.user.id, function(err){
+               if(err) throw err;
+           });
+            console.log(socket.handshake.headers);
             socket.on('disconnect', function () {
                 if(socket.request.headers.user.id){
                     onlineUsers.removeFromList(socket.request.headers.user.id, function(err){
@@ -91,8 +96,8 @@ function NotificationService(ee){
 
     this.startSending = function(){
         while(queue.length > 0){
-            var notificationItem = queue[0];
-            queue.shift();
+            var notificationItem = queue.shift();
+
             if(!channel.connected[notificationItem.to]) continue;
             channel.connected[notificationItem.to].emit(notificationItem.eventName, notificationItem.body);
         }
@@ -107,47 +112,7 @@ function NotificationService(ee){
         if (queue.length > 30) {
             ee.emit('warning', "Очень много уведомлений: " + queue.length)
         }
-    }
-
-    /* this.sendNotifications = function(recievers, notification){
-     async.waterfall([
-     function (callback) {
-     var tasks = [];
-     for (var i = 0; i < users.length; i++) {
-     tasks.push(taskToGetUserSockets(users[i]));
-     }
-     async.parallel(tasks, callback);
-     },
-     function (results, callback) {
-     for (var i = 0; i < results.length; i++) {
-     if (results[i].length > 0) {
-     var notificationItem = {};
-     for (var y = 0; y < results[i].length; y++) {
-     notificationItem = {
-     to: results[i][y],
-     eventName: notification.eventName,
-     body: notification
-     };
-     queue.push(notificationItem);
-     if (queue.length == 1) {
-     ee.emit('start')
-     }
-     if (queue.length > 30) {
-     ee.emit('warning', "Очень много уведомлений: " + queue.length)
-     }
-     }
-     }
-     }
-     return callback(null);
-     }
-     ],function(err){
-     if(err) throw err;
-     console.log("Нотификации переданы в очередь на отправку ");
-     });
-     return 0;
-     }
-     */
-
+    };
 }
 
 var ns = new NotificationService(notificationServiceEE);

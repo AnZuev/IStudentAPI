@@ -201,7 +201,7 @@ User.statics.getPeopleByOneKey = function(key, callback){
             return callback(null, users);
         }
     });
-}
+};
 
 User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
     var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}]}},
@@ -342,7 +342,6 @@ User.statics.getFriendsByTwoKeys = function(userId, key1, key2, callback){
     ], callback);
 };
 
-
 // добавление контактов
 User.statics.addContacts = function(userId, contacts, callback){
     var User = this;
@@ -393,14 +392,6 @@ User.statics.addContacts = function(userId, contacts, callback){
 }
 
 
-
-
-
-
-
-
-
-
 // =================================testing
 User.statics.removeContacts = function(userId, callback){
 
@@ -411,5 +402,7 @@ User.statics.removeContacts = function(userId, callback){
             return callback(null, user);
         }
     })
-}
+};
+
+User.statics.getSockets
 exports.User = mongoose.model('User', User);

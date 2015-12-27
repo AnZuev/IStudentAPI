@@ -209,7 +209,7 @@ Event.statics.accept = function(userId, eventId, callback){
                 return callback(new badDataError(400,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventId));
             }
             else{
-                Event.update({_id: eventId}, {$pull :{ "participants.invites": userId}, $push:{"participants.accepted": userId}}, function(err, events){
+                Event.update({_id: eventId}, {$pull :{ "participants.invites": userId}, $push:{"participants.accepted": userId}}, function(err){
                     if(err) return callback(new DbError("Произошла ошибка при изменении данных поля participants.invites и participants.accepted . UserId = " + userId + " , eventId = " + eventid ));
                     else return callback(null, event)
                 });
@@ -230,9 +230,12 @@ Event.statics.decline = function(userId, eventId, callback){
                 return callback(new badDataError(400,"Не могу найти событие с юзером в приглашениях. User = " + userId + ", EventId = " + eventId));
             }
             else{
-                Event.update({_id: eventId}, {$pull :{ "participants.invites": userId}, $push:{"participants.declined": userId}}, function(err, events){
+                Event.update({_id: eventId}, {$pull :{ "participants.invites": userId}, $push:{"participants.declined": userId}}, function(err){
                     if(err) return callback(new DbError("Произошла ошибка при изменении данных поля participants.invites и participants.declined . UserId = " + userId + " , eventId = " + eventid ));
-                    else return callback(null, events)
+                    else{
+                        console.dir(arguments);
+                        return callback(null, event)
+                    }
                 });
             }
         }

@@ -15,9 +15,9 @@ mongodbNative.dropCollection("onlineusers", function(err, result){
 module.exports = function(io){
    // io.use(require('./common/authorization'));
    io.use(function(socket, next){
-       authorization(socket, function(err, result,callback){
-           //if(!result) socket.close();
-
+       authorization(socket, function(err){
+            if(err) return next(err);
+            else return next();
        })
    });
 

@@ -63,7 +63,7 @@ function modifyEventCreateCalendarNewsAndNotifications(event, oldParticipants){
     ]);
 }
 
-exports.changeCalendarNewAndSendNotifications = modifyEventCreateCalendarNewsAndNotifications;
+exports.modifySendNotifications = modifyEventCreateCalendarNewsAndNotifications;
 
 //получить новый массив инвайтов
 // достать из базы старый массив инвайтов

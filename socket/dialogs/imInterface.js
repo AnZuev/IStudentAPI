@@ -5,13 +5,14 @@ var async = require('async');
 var dialogStorage = require('./../../models/dialogsStorage').dialogs;
 var User = require('../../models/User').User;
 var DbError = require('../../error').DbError;
+var addSocketToDB = require('../common/libs').addSocketToDB;
 
 
 
 
 imServiceEE.on('warning', function(message){
     console.warn(message);
-})
+});
 
 
 function imService(ee){
@@ -23,91 +24,100 @@ function imService(ee){
         channel = dialogServiceTransport;
         dialogServiceTransport.on('connection', function (socket) {
             console.log('Соединение установлено -> im');
-            socket.emit('dialog', {message: socket.request.headers.user});
-            //обработчики событий
-            socket.on('newMessage', function(data, cb){
-                sendMessage(socket, data.message, data.dialogId, function(err, result){
-                    if(err) {
-                        cb(false);
-                        throw err;
-                    }
-                    else{
-                        console.log(result);
-                        cb(true)
-                    }
+            setTimeout(function(){
+                addSocketToDB(socket.id, socket.handshake.headers.user.id, "im", function(err){
+                    if(err) throw err;
                 });
-            });
-
-            socket.on('createDialog', function(data, cb){
-                createDialog(socket, socket.request.headers.user.id, data.participants, data.title, function(err, result){
-                    if(err) {
-                        var errorInstance = {
-                            description:err.message,
-                            code: err.status,
-                            exception: true
-                        };
-                        return cb(errorInstance);
-                    }
-                    else{
-                        return cb(result)
-                    }
-                })
-            });
-            socket.on('startTyping', function(data){
-                var startTypingInstance = {
-                    dialogId: data.dialogId,
-                    username: socket.user.username
-                };
-                socket.broadcast.to(data.dialogId).emit('startTyping', startTypingInstance);
-            });
-            socket.on('stopTyping', function(data){
-                var stopTypingInstance = {
-                    dialogId: data.dialogId,
-                    username: socket.user.username
-                };
-                socket.broadcast.to(data.dialogId).emit('stopTyping', stopTypingInstance);
-            });
-            socket.on('getDialog', function(data, cb){
-               dialogStorage.getDialogById(data.dialogId, socket.request.headers.user.id, function(err, imItem){
-                   if(imItem) cb(imItem);
-                   else{
-                       if(err){
-                           cb({exception: true, reason: err.code});
-                       }else{
-                           cb({exception: true, reason: "No dialogs found"});
-                       }
-                   }
-               })
-            });
-            socket.on('getMessages', function(data, cb){
-               dialogStorage.getMessagesForDialog(data.imId, socket.request.headers.user.id, data.skip, function(err, messages){
-                   if(err) cb({exception: true, reason: "No dialogs found"});
-                   else{
-                       messages.skip = data.skip;
-                       cb(messages);
-                   }
-               })
-            });
-            socket.on('findContacts', function(data, cb){
-                findFriends(data.key1, data.key2, function(err, users){
-                    if(err){
-                        if(err instanceof DbError){
-                            console.log(err);
+                socket.emit('dialog', {message: socket.request.headers.user});
+                //обработчики событий
+                socket.on('newMessage', function(data, cb){
+                    sendMessage(socket, data.message, data.dialogId, function(err, result){
+                        if(err) {
                             cb(false);
-                        }
-                        else{
-                            cb(false)
                             throw err;
                         }
-                    }else{
-                        cb(users);
-                    }
-                })
-            })
-            socket.on('disconnect', function () {
-                console.log("Connection lost -> dialogs");
-            });
+                        else{
+                            console.log(result);
+                            cb(true)
+                        }
+                    });
+                });
 
+                socket.on('createDialog', function(data, cb){
+                    createDialog(socket, socket.request.headers.user.id, data.participants, data.title, function(err, result){
+                        if(err) {
+                            var errorInstance = {
+                                description:err.message,
+                                code: err.status,
+                                exception: true
+                            };
+                            return cb(errorInstance);
+                        }
+                        else{
+                            return cb(result)
+                        }
+                    })
+                });
+                socket.on('startTyping', function(data){
+                    var startTypingInstance = {
+                        dialogId: data.dialogId,
+                        username: socket.user.username
+                    };
+                    socket.broadcast.to(data.dialogId).emit('startTyping', startTypingInstance);
+                });
+                socket.on('stopTyping', function(data){
+                    var stopTypingInstance = {
+                        dialogId: data.dialogId,
+                        username: socket.user.username
+                    };
+                    socket.broadcast.to(data.dialogId).emit('stopTyping', stopTypingInstance);
+                });
+                socket.on('getDialog', function(data, cb){
+                    dialogStorage.getDialogById(data.dialogId, socket.request.headers.user.id, function(err, imItem){
+                        if(imItem) cb(imItem);
+                        else{
+                            if(err){
+                                cb({exception: true, reason: err.code});
+                            }else{
+                                cb({exception: true, reason: "No dialogs found"});
+                            }
+                        }
+                    })
+                });
+                socket.on('getMessages', function(data, cb){
+                    dialogStorage.getMessagesForDialog(data.imId, socket.request.headers.user.id, data.skip, function(err, messages){
+                        if(err) cb({exception: true, reason: "No dialogs found"});
+                        else{
+                            messages.skip = data.skip;
+                            cb(messages);
+                        }
+                    })
+                });
+                socket.on('findContacts', function(data, cb){
+                    findFriends(data.key1, data.key2, function(err, users){
+                        if(err){
+                            if(err instanceof DbError){
+                                console.log(err);
+                                cb(false);
+                            }
+                            else{
+                                cb(false)
+                                throw err;
+                            }
+                        }else{
+                            cb(users);
+                        }
+                    })
+                })
+                socket.on('disconnect', function () {
+                    onlineUsers.removeSocketTypeFromSocket(socket.request.headers.user.id, socket.id, "im", function(err, imItem){
+                        if(err) throw err;
+                        console.log("Connection lost -> dialogs");
+
+                    })
+                });
+
+            },1000); // подумать из-за чего без этой задержки все валится
 
         });
 
@@ -131,7 +141,7 @@ function imService(ee){
                                 sender: handshakeData.user.id,
                                 photoUrl: handshakeData.user.photoUrl
                             };
-                            sendMessage()
+                            //sendMessage()
                             subscribeToArray(dialog._id, dialog.participants, function(err){
                                 if(err) {
                                     throw err;
@@ -188,7 +198,6 @@ function imService(ee){
                 messageItem.dialogId = dialogId;
                 messageItem.sender.id = messageItem.sender;
                 messageItem.sender.photo = socket.request.headers.user.photo;
-
                 socket.broadcast.to(dialogId).emit('newMessage', messageItem);
                 return callback(null, true);
             }
@@ -216,7 +225,9 @@ function imService(ee){
                 else{
                     if(sockets){
                         for(var i = 0; i< sockets.length; i++){
-                            channel.connected[sockets[i]].join(dialogId);
+                            console.log(channel.connected[sockets[i].id]);
+
+                            channel.connected[sockets[i].id].join(dialogId);
                         }
                     }
                     return callback(null, true);

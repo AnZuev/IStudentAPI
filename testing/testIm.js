@@ -4,6 +4,7 @@ var im = require('../models/dialogsStorage').dialogs;
 var dialogId = "56215c0284e2731dc7c849b7";
 var sender = "5611659632ede0011018e974";
 var message = "Cообщение юзера ";
+var onlineUser = require('../socket/common/listOfOnlineUsers').onlineUsers;
 /*
 for(var i = 0; i<60; i++){
     im.addMessage(dialogId, sender, message + i, function(err, message){
@@ -17,6 +18,11 @@ im.getDialogById(dialogId, sender, function(err, imItem){
 });
 */
 
-im.getMessagesForDialog(dialogId, sender, 10,function(err, messages){
-    console.log(arguments);
+//im.getMessagesForDialog(dialogId, sender, 10,function(err, messages){
+  //  console.log(arguments);
+//});
+
+onlineUser.getSocketsByUserIdAndType("5611659632ede0011018e974", "ns", function(err, result){
+    console.log(result);
 });
+

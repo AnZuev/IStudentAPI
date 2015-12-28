@@ -10,8 +10,7 @@ function taskToGetUserSockets(userId, socketType){
         listOfOnlineUsers.getSocketsByUserIdAndType(userId, socketType, function(err, result){
 
             if(err) return callback(null, []);
-            console.log(result);
-            return callback(null, result.sockets[0].sockets);
+            return callback(null, result.sockets[0]);
         })
     }
 }
@@ -19,7 +18,7 @@ function taskToGetUserSockets(userId, socketType){
 exports.taskToGetUserSockets = taskToGetUserSockets;
 
 
-function addSocketToDB(socketId, userId, callback){
+function addSocketToDB(socketId, userId, socketType, callback){
     async.waterfall([
         function( callback){
             listOfOnlineUsers.checkIfUserOnline(userId, function(err, sockets){
@@ -32,9 +31,11 @@ function addSocketToDB(socketId, userId, callback){
         },
         function(userItem, callback){
             if(userItem.in) {
-                listOfOnlineUsers.addToList(userItem.userId, {type:"ns", sockets: socketId}, callback);
+                console.log("socket/common/libs:: Add to list");
+                listOfOnlineUsers.addToList(userItem.userId, {cType:socketType, id: socketId}, callback);
             }else{
-                listOfOnlineUsers.addNewUser(userItem.userId, {type:"ns", sockets:[socketId]}, callback);
+                console.log("socket/common/libs:: Add new user " + socketType);
+                listOfOnlineUsers.addNewUser(userItem.userId, {cType:socketType, id: socketId}, callback);
             }
         }
     ], function(err){

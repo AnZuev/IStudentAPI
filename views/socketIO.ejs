@@ -15,7 +15,9 @@
     </ul>
 <script>
     var socket = io('ws://localhost:3000/notifications');
-    //var im= io('ws://localhost:3000/im');
+    var im = io('ws://localhost:3000/im');
+
+
     //var socketGlobal = io('ws://localhost:3000/');
     socket.on('news', function (data) {
         var news = "<li>"+data.message+"</li>";
@@ -32,10 +34,11 @@
         title: "Диалог 2",
         participants: [ "5611659632ede0011018e974"]
     }
+    /*
     im.emit('createDialog', imItem, function(data){
         console.log(data);
     });
-
+    */
 
 </script>
 </body>

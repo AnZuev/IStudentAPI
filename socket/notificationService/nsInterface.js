@@ -79,13 +79,12 @@ function NotificationService(ee){
         channel = notificationServiceTransport;
         notificationServiceTransport.on('connection', function (socket) {
             console.log('Соединение установлено -> notifications');
-           addSocketToDB(socket.id, socket.handshake.headers.user.id, function(err){
+            addSocketToDB(socket.id, socket.handshake.headers.user.id, "ns", function(err){
                if(err) throw err;
-           });
-            console.log(socket.handshake.headers);
+            });
             socket.on('disconnect', function () {
                 if(socket.request.headers.user.id){
-                    onlineUsers.removeFromList(socket.request.headers.user.id, function(err){
+                    onlineUsers.removeSocketFromList(socket.request.headers.user.id, socket.id, function(err){
                         if(err) console.error(err);
                     });
                 }

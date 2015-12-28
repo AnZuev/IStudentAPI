@@ -24,7 +24,7 @@ module.exports = function(io){
    io.use(require('./notificationService')(io));
    io.use(require('./dialogs')(io));
    io.use(function(err, socket, next){
-       console.log(arguments);
+       //console.log(arguments);
    })
 
 

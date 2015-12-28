@@ -10,7 +10,11 @@ function taskToGetUserSockets(userId, socketType){
         listOfOnlineUsers.getSocketsByUserIdAndType(userId, socketType, function(err, result){
 
             if(err) return callback(null, []);
-            return callback(null, result.sockets[0]);
+            if(result > 0){
+                return callback(null, result);
+            }else{
+                return callback(null, []);
+            }
         })
     }
 }

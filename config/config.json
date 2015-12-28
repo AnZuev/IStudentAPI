@@ -21,8 +21,8 @@
         "publicKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.crt"
     },
     "general":{
-        "version": "0.0.1(6)",
-        "host": "http://localhost:3000",
+        "version": "0.0.1(7)",
+        "host": "http://pre-api.istudentapp.ru"//"http://localhost:3000",
         "staticHost": "http://localhost:4000"
     },
     "multer":{

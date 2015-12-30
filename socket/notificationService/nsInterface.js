@@ -36,6 +36,7 @@ function nsItem(eventName, title, message, photoUrl, adds){
                 async.parallel(tasks, callback);
             },
             function (results, callback) {
+                console.log(results);
                 for (var i = 0; i < results.length; i++) {
                     if(!results[i]) continue;
                     if (results[i].length > 0) {

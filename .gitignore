@@ -15,3 +15,7 @@ node_modules/async/CHANGELOG.md
 *.h
 
 node_modules/mongodb/node_modules/mongodb-core/node_modules/kerberos/node_modules/nan/nan_new.h
+
+*.xml
+
+.idea/workspace.xml

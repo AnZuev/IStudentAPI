@@ -35,7 +35,6 @@ var dialog = new Schema({
         type: Date,
         default: Date.now()
     }
-
 });
 
 dialog.statics.createDialog = function(creator, participants, title, callback){

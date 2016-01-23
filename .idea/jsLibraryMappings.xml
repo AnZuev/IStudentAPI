@@ -3,7 +3,12 @@
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{Node.js Dependencies for AutoMu_v2.0}" />
     <file url="file://$PROJECT_DIR$/bin/www" libraries="{Node.js Globals, Node.js v0.10.26 Core Modules}" />
+    <file url="file://$PROJECT_DIR$/config/index.js" libraries="{Node.js Globals}" />
     <file url="file://$PROJECT_DIR$/error/index.js" libraries="{Node.js Globals, Node.js v0.10.26 Core Modules}" />
+    <file url="file://$PROJECT_DIR$/middleware/auth/loadUser.js" libraries="{Node.js Globals}" />
+    <file url="file://$PROJECT_DIR$/models/User.js" libraries="{Node.js Globals}" />
+    <file url="file://$PROJECT_DIR$/routes/authorize/signUp.js" libraries="{Node.js Globals}" />
+    <file url="file://$PROJECT_DIR$/routes/searhUsers/findContact.js" libraries="{Node.js Globals}" />
     <file url="file://$PROJECT_DIR$/socket/notificationService/index.js" libraries="{Node.js Globals, Node.js v0.10.26 Core Modules}" />
   </component>
 </project>

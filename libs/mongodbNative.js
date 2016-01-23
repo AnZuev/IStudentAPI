@@ -7,7 +7,6 @@ exports.dropCollection = function(collectionName, callback){
     MongoClient.connect(config.get('mongoose:uri'), function(err, db) {
         assert.equal(null, err);
         db.collection(collectionName).drop(function(err, results){
-            console.log(arguments);
             db.close();
             return callback(null, true);
         })

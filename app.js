@@ -4,7 +4,7 @@ var log = require('./libs/log')(module);
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var HttpError = require('./error').HttpError;
-var DbError = require('./error').DbError;
+var dbError = require('./error').dbError;
 var morgan = require('morgan');
 
 var config = require('./config');
@@ -21,6 +21,7 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(morgan('dev'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -41,6 +42,7 @@ app.use(require('./middleware/sendErrors/sendDbError'));
 app.use(require('./middleware/auth/loadUser'));
 
 
+
 // development error handler
 require('./routes')(app);
 
@@ -51,13 +53,13 @@ require('./routes')(app);
 
 app.use(function(err, req, res, next) {
     if(err){
-        console.error(err);
+        throw err;
         if(typeof err == "number"){
             err = new HttpError(err);
         }
         if(err instanceof HttpError){
             res.sendHttpError(err);
-        }else if(err instanceof DbError){
+        }else if(err instanceof dbError){
             res.sendDBError(err);
         }else{
             res.statusCode = (err.status || 500);

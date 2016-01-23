@@ -3,45 +3,19 @@ var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
 
 var async = require('async');
-var AuthError = require('../error').AuthError;
-var badDataError = require('../error').badDataError;
-var DbError = require('../error').DbError;
+var authError = require('../error').authError;
+var dbError = require('../error').dbError;
+var log = require('../libs/log')(module);
+
+
 
 
 
 var User = new Schema({
-    personal_information:{
-        firstName:{
-            type:String,
-            require: true
-        },
-        lastName:{
-            type:String,
-            require: true
-        },
-
-        photoUrl:{
-            type: String,
-            require: false,
-            default: ''
-        },
-        faculty:{
-          type: String,
-          require:true
-        },
-        groupNumber:{
-            type: Number,
-            require: true
-        },
-        year:{
-            type: Number,
-            require:true
-        }
-    },
     auth: {
         studNumber:{
             require: true,
-            type:Number,
+            type: String,
             unique: true
         },
         hashed_password:{
@@ -53,15 +27,60 @@ var User = new Schema({
             require: true
         }
     },
+
+    pubInform:{
+        name:{
+            type:String,
+            require: true
+        },
+        surname:{
+            type:String,
+            require: true
+        },
+        photo:{
+            type: String,
+            require: false,
+            default: ''
+        },
+        university:{
+            type: Number,
+            require: true
+        },
+        faculty:{
+          type: String,
+          require:true
+        },
+        group:{
+            type: String,
+            require: true
+        },
+        year:{
+            type: Number,
+            require:true
+        }
+    },
+
+    prInform:{
+        mail:{
+            type: String
+        },
+        phone:{
+            type: String
+        }
+    },
+
+    privacy:{
+        blockedUsers:[Schema.Types.ObjectId]
+    },
+
+    contacts:[Schema.Types.ObjectId],
+
+    projects:[{}],
+
     searchString:{
         type:String,
         require: true
-    },
-    contacts:[Schema.Types.ObjectId],
-    projects:{
-
     }
-
 });
 
 
@@ -82,18 +101,6 @@ User.methods.checkPassword = function(password){
     return (this.encryptPassword(password) === this.auth.hashed_password);
 };
 
-User.statics.validateData = function(first_name, last_name, groupNumber, faculty, year, studNumber, password){
-    return (((typeof first_name == "string") && (typeof last_name == "string") && (typeof faculty =="string") && (typeof year == "number") && (typeof studNumber == "number") && (first_name.length >= 2) && (last_name.length >= 3) && (year > 1) && (year < 6) && (faculty.length >= 2) && studNumber > 10000));
-};
-
-User.statics.changePhotoUrl = function(user_id, new_photo_url, callback){
-    var User = this;
-    User.findByIdAndUpdate(user_id, {"personal_information.photoUrl": new_photo_url}, function(err){
-        if(err) return callback(err);
-        return callback(null);
-    })
-};
-
 User.statics.signIn = function(studNumber, password, callback){
     var User=this;
     async.waterfall([
@@ -104,19 +111,27 @@ User.statics.signIn = function(studNumber, password, callback){
             if(user){
                 if(user.checkPassword(password)){
                     callback(null, user);
-                    console.log("авторизация прошла успешно");
+                    log.info("Авторизация прошла успешно");
                 }else{
-                    callback(new AuthError("Неверный пароль"));
-                    // неверный пароль
+                    callback(new authError("Неверный пароль"));
                 }
             }else{
-                callback(401);
+                callback(new authError("Не найден юзер"));
             }
         }
-    ],callback);
+    ],function(err, user){
+        if(err){
+            if(err instanceof dbError || err instanceof authError){
+                return callback(err);
+            }else{
+                return callback(new dbError(err, null, null));
+            }
+        }
+        callback(null,user);
+    });
 };
 
-User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year, studNumber,  password, callback){
+User.statics.signUp = function(name, surname, group, faculty, university, year, studNumber,  password, callback){
     var User = this;
         async.waterfall([
             function(callback){
@@ -124,79 +139,94 @@ User.statics.signUp = function(first_name, last_name, groupNumber, faculty, year
             },
             function(user, callback){
                 if(user){
-                    return callback(new AuthError("Пользователь с таким номером студака уже есть"));
+                    return callback(new authError("Пользователь с номером студенческого " + studNumber +" уже есть"));
                 }else{
-                    console.log('Сохраняю пользователя');
-                    var new_user = new User({
-                        personal_information:{
-                            firstName: first_name,
-                            lastName: last_name,
-                            groupNumber:groupNumber,
+                    var newUser = new User({
+                        pubInform:{
+                            name: name,
+                            surname: surname,
+                            group:group,
                             faculty: faculty,
-                            year: year
+                            year: year,
+                            university: university
                         },
                         auth:{
                             studNumber: studNumber,
                             password: password
                         },
-                        searchString: first_name + " " + last_name + " " + groupNumber
+                        searchString: name + " " + surname + " " + group + " " + university
                     });
-                    new_user.save(function(err){
-                        if(err) return callback(err);
-                        else return callback(null, new_user);
-
+                    newUser.save(function(err, user){
+                        if(err) {
+                            return callback(new dbError(err, null, null));
+                        }
+                        else {
+                            return callback(null, user);
+                        }
                     });
                 }
-
             }
-        ], callback);
-
-
+        ], function(err, user){
+            if(err){
+                if(err instanceof dbError || err instanceof authError){
+                    callback(err);
+                }else{
+                    throw err;
+                    callback(new dbError(err, null, null));
+                }
+            };
+            callback(null, user);
+        });
 };
 
-// глобальный поиск
 
-User.statics.getPeopleByGroupNumber = function(groupNumber, callback){
-    var query = this.aggregate([{$match:{ "personal_information.groupNumber": groupNumber }},
-            {$project:
-                {
-                    _id: "$_id"
-                }
-            },{$sort:{student: 1}}
+
+
+/*
+ * Поиск по пользователям
+ *
+ */
+
+
+User.statics.getPeopleByGroupNumber = function(group, callback){
+    var query = this.aggregate([{$match:{ "pubInform.group": group }},
+            {
+                $project:
+                    {
+                        _id: "$_id"
+                    }
+            }
         ])
         .limit(5).exec();
     query.then(function(users){
-        if(users.length == 0) return callback(new DbError(404, "Не нашел юзеров для группы " + groupNumber));
+        if(users.length == 0) return callback(new dbError(null, 204, null));
         else{
             return callback(null, users);
         }
     });
-
-   /*
-    this.find({"personal_information.groupNumber": groupNumber}).select({_id:1}).exec(function(err, users){
-        if(err) return callback(new DbError(500, "Произошла ошибка при поиске юзеров для группы " + groupNumber));
-        if(users.length == 0) return callback(new DbError(404, "Не нашел юзеров для группы " + groupNumber));
-        else{
-            return callback(null, users);
-        }
-    })
-    */
-}
+};
 
 User.statics.getPeopleByOneKey = function(key, callback){
 
     var query = this.aggregate([{$match: {searchString:{$regex: key}}},
-            {$project:
+            {
+                $project:
                 {
-                    student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                    groupNumber: "$personal_information.groupNumber"
+                    student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+                    group: "$pubInform.group",
+                    description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+                    photo: "$pubInform.photo"
+
                 }
-            },{$sort:{student: 1}}
+            },
+            {
+                $sort:{student: 1}
+            }
         ])
         .limit(5).exec();
     query.then(function(users){
         if(users.length == 0){
-            return callback(new DbError(204, 'No users found'));
+            return callback(new dbError(null, 204, null));
         }else{
             return callback(null, users);
         }
@@ -205,17 +235,23 @@ User.statics.getPeopleByOneKey = function(key, callback){
 
 User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
     var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}]}},
-            {$project:
+        {
+            $project:
             {
-                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                groupNumber: "$personal_information.groupNumber"
+                student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+                group: "$pubInform.group",
+                description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+                photo: "$pubInform.photo"
             }
-            },{$sort:{student: 1}}
+        },
+        {
+            $sort:{student: 1}
+        }
         ])
         .limit(5).exec();
     query.then(function(users){
         if(users.length == 0){
-            return callback(new DbError(204, 'No users found'));
+            return callback(new dbError(null, 204, null));
         }else{
             return callback(null, users);
         }
@@ -224,17 +260,24 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 
 User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
     var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}, {searchString:{$regex: key3}}]}},
-            {$project:
+        {
+            $project:
             {
-                student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                groupNumber: "$personal_information.groupNumber"
+                student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+                group: "$pubInform.group",
+                description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+                photo: "$pubInform.photo"
+
             }
-            },{$sort:{student: 1}}
+        },
+        {
+            $sort:{student: 1}
+        }
         ])
         .limit(5).exec();
     query.then(function(users){
         if(users.length == 0){
-            return callback(new DbError(204, 'No users found'));
+            return callback(new dbError(204, 'No users found'));
         }else{
             return callback(null, users);
         }
@@ -242,11 +285,13 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
 };
 
 
-//поиск по контактам
+/*
+    Поиск по контактам. (по 1-ому, 2-ум или 3-ем ключам)
+ */
 
 User.statics.getUserById = function(userId, callback){
     this.findById(userId, function(err, user){
-        if(err) throw err//return callback(err);
+        if(err) return callback(new dbError(err, null, null));
         else{
             if(user) return callback(null, user);
             else return callback(null, false);
@@ -255,47 +300,50 @@ User.statics.getUserById = function(userId, callback){
     });
 };
 
-User.statics.getFriendsByOneKey = function (userId,key, callback){
+User.statics.getContactsByOneKey = function (userId, key, callback){
     var User = this;
     async.waterfall([
         function(callback){
             User.findById(userId, callback);
         },
         function(user, callback){
-            if(user){
-                User.aggregate([
-                        {
-                            $match: {"searchString":{$regex: key}, _id: { $in: user.contacts}}
-                        },
-                        {
-                            $project:
-                                {
-                                    student:{$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                                    groupNumber: "$personal_information.groupNumber",
-                                    photo: "$personal_information.photoUrl"
-                                }
-                        },
-                        {
-                            $sort:
-                                {
-                                    student: 1
-                                }
-                        }
-                    ])
-                    .limit(5).exec(function(err, users){
+           if(!user) return callback(new dbError(null, 400, "Incorrect userId"));
+            User.aggregate([
+                {
+                    $match: {"searchString":{$regex: key}, _id: { $in: user.contacts}}
+                },
+                {
+                    $project:
+                    {
+                        student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+                        group: "$pubInform.group",
+                        description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+                        photo: "$pubInform.photo"
+                    }
+
+                },
+                {
+                    $sort:
+                    {
+                        student: 1
+                    }
+                }
+                ])
+                .limit(5)
+                .exec(function(err, users){
                         if(users.length == 0){
-                            return callback(new DbError(5304, 'No users found', err));
+                            return callback(new dbError(null, 204, null));
                         }else{
                             return callback(null, users);
                         }
                     });
 
-            }
+
         }
     ], callback);
 };
 
-User.statics.getFriendsByTwoKeys = function(userId, key1, key2, callback){
+User.statics.getContactsByTwoKeys = function(userId, key1, key2, callback){
     var User = this;
     async.waterfall([
         function(callback){
@@ -306,7 +354,7 @@ User.statics.getFriendsByTwoKeys = function(userId, key1, key2, callback){
                  User.aggregate([
                         {
                             $match: {
-                                $or:[
+                                $and:[
                                     {"searchString":{$regex: key1}},
                                     {"searchString": {$regex: key2}}
                                 ],
@@ -316,9 +364,10 @@ User.statics.getFriendsByTwoKeys = function(userId, key1, key2, callback){
                         {
                             $project:
                             {
-                                student: {$concat:["$personal_information.lastName", " ", "$personal_information.firstName"]},
-                                groupNumber: "$personal_information.groupNumber",
-                                photo: "$personal_information.photoUrl"
+                                student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+                                group: "$pubInform.group",
+                                description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+                                photo: "$pubInform.photo"
                             }
                         },
                         {
@@ -331,7 +380,7 @@ User.statics.getFriendsByTwoKeys = function(userId, key1, key2, callback){
                     .limit(5).exec(function(err, users){
                         if(err) return callback(err);
                         if(users.length == 0){
-                            return callback(new DbError(5304, 'No users found', err));
+                            return callback(new dbError(null, 204, null));
                         }else{
                             return callback(null, users);
                         }
@@ -342,21 +391,67 @@ User.statics.getFriendsByTwoKeys = function(userId, key1, key2, callback){
     ], callback);
 };
 
-// добавление контактов
+User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callback){
+    var User = this;
+    async.waterfall([
+        function(callback){
+            User.findById(userId, callback);
+        },
+        function(user, callback){
+            if(user){
+                User.aggregate([
+                    {
+                        $match: {
+                            $and:[
+                                {"searchString": {$regex: key1}},
+                                {"searchString": {$regex: key2}},
+                                {"searchString": {$regex: key3}}
+                            ],
+                            _id: { $in: user.contacts}
+                        }
+                    },
+                    {
+                        $project:
+                        {
+                            student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+                            group: "$pubInform.group",
+                            description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+                            photo: "$pubInform.photo"
+                        }
+                    },
+                    {
+                        $sort:
+                        {
+                            student: 1
+                        }
+                    }
+                ])
+                    .limit(5).exec(function(err, users){
+                        if(err) return callback(err);
+                        if(users.length == 0){
+                            return callback(new dbError(null, 204, null));
+                        }else{
+                            return callback(null, users);
+                        }
+                    });
+
+            }
+        }
+    ], callback);
+};
+
+
+
+/*
+    Добавление контактов
+ */
 User.statics.addContacts = function(userId, contacts, callback){
     var User = this;
-    console.log("Добавление контактов ----------------------");
-    console.log(contacts);
-    console.log("Добавление контактов ----------------------")
 
     async.waterfall([
         function(callback){
-
-            userId = userId.toString();
-            console.log(typeof userId);
-
-            User.getUserById(userId, function(err, user){
-                if(err) throw err;//return callback(err);
+           User.findById(userId, function(err, user){
+                if(err) return callback(new dbError(err, null, null));
                 else{
                     return callback(null, user);
                 }
@@ -367,29 +462,84 @@ User.statics.addContacts = function(userId, contacts, callback){
                 for(var i = 0; i < contacts.length; i++){
                     if(user.contacts.indexOf(contacts[i]) < 0){
                         user.contacts.push(contacts[i]);
-
                     }
                 }
-                user.save(function(err, user){
-                    console.log(arguments);
-                });
+                user.save(callback)
             }else{
-                callback(new DbError(53100, 'Не найден юзер по id ' + userId));
+                callback(new dbError(null, 400, 'Не найден юзер по id = ' + userId));
             }
-
         }
-
-    ], function(err, user){
+    ],  function(err){
        if(err) {
-           throw err;
+           if(err instanceof dbError){
+               return callback(err);
+           }else{
+               return callback(new dbError(err, null, null));
+           }
        }
        else{
-           //console.log(arguments);
-           //console.log('Добавления списка контактом произошло успешно');
-           return callback(null, user);
+           console.debug('Добавления списка контактом произошло успешно');
+           return callback(null, true);
        }
     });
-}
+};
+
+/*
+    обновление фотографии
+ */
+
+User.statics.updatePhoto = function(userId, newPhoto, callback){
+    var User = this;
+    User.findByIdAndUpdate(userId, {"pubInform.photo": newPhoto}, function(err, result){
+        if(result.nModified == 0){
+            return callback(new dbError(null, 404, null));
+        }
+        if(err) return callback(new dbError(err, null, null));
+        return callback(null, true);
+    })
+};
+
+
+
+/*
+    Заблокировать юзера
+ */
+
+User.statics.addContacts = function(userId, blockedUser, callback){
+    var User = this;
+
+    async.waterfall([
+        function(callback){
+            User.findById(userId, function(err, user){
+                if(err) return callback(new dbError(err, null, null));
+                else{
+                    return callback(null, user);
+                }
+            });
+        },
+        function(user, callback){
+            if(user){
+                if(user.privacy.blockedUsers.indexOf(blockedUser) < 0) user.privacy.blockedUsers.push(blockedUser);
+                user.save(callback)
+            }else{
+                callback(new dbError(null, 400, 'Не найден юзер по id = ' + userId));
+            }
+        }
+    ],  function(err){
+        if(err) {
+            if(err instanceof dbError){
+                return callback(err);
+            }else{
+                return callback(new dbError(err, null, null));
+            }
+        }
+        else{
+            console.debug("Юзер с id = " + blockedUser + " добавлен в список заблокированных для юзера с id = " + userId);
+            return callback(null, true);
+        }
+    });
+};
+
 
 
 // =================================testing
@@ -404,5 +554,5 @@ User.statics.removeContacts = function(userId, callback){
     })
 };
 
-User.statics.getSockets
+
 exports.User = mongoose.model('User', User);

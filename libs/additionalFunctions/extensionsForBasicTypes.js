@@ -55,3 +55,9 @@ Array.prototype.unique = function(){
 }
 
 exports.Array = Array;
+
+
+String.prototype.capitilizeFirstLetter = function(){
+    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+};
+exports.String = String;

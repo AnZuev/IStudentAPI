@@ -7,7 +7,7 @@
 var app = require('../app');
 var http = require('http');
 var config = require('../config');
-var log = require('../libs/log')(module);
+var console = require('../libs/log')(module);
 
 
 /**
@@ -33,7 +33,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, "127.0.0.1");
+server.listen(port, "0.0.0.0");
 server.on('error', onError);
 server.on('listening', onListening);
 var io = require('socket.io')(server);
@@ -95,6 +95,7 @@ function onError(error) {
  */
 
 function onListening() {
-    console.log("Сервер запущен, текущая версия: " + config.get("general:version"));
+
+    console.info("Сервер запущен, текущая версия: " + config.get("general:version"));
 }
 

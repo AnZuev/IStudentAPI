@@ -1,42 +1,52 @@
 var User = require('../../models/User').User;
-var HttpError = require('../../error').HttpError;
-var AuthError = require('../../error').AuthError;
+var httpError = require('../../error').HttpError;
+var authError = require('../../error').authError;
+var universityFile = require('../../data/university');
 
 exports.post = function(req, res, next){
 
-    var first_name = req.body.firstName.capitilizeFirstLetter();
-    var last_name = req.body.lastName.capitilizeFirstLetter();
+    var name = req.body.firstName.capitilizeFirstLetter();
+    var surname = req.body.lastName.capitilizeFirstLetter();
     var password = req.body.password;
     var studNumber = req.body.studNumber;
     var year = req.body.year;
-    var faculty = req.body.faculty.toUpperCase();
-    var groupNumber = req.body.groupNumber;
+    var faculty = req.body.faculty;
+    var group = req.body.group;
+    var university = req.body.university;
+    if(universityFile[university] && universityFile[university].faculty[faculty]){
+        User.signUp(name, surname, group, faculty, university, year, studNumber, password, function(err, user){
+            if(err){
+                if(err instanceof authError){
+                    return next(new httpError(400,  err.message))
+                }else{
+                    return next(err);
+                }
+            }else{
+                req.session.user = user.id;
+
+                var userToReturn = {
+                    name: user.pubInform.name,
+                    surname: user.pubInform.surname,
+                    photo:user.pubInform.photo,
+                    year: user.pubInform.year,
+                    faculty: universityFile[university].faculty[user.pubInform.faculty],
+                    university: universityFile[user.pubInform.university].title,
+                    group: user.pubInform.group,
+                    id: user._id
+                };
+
+                res.json(userToReturn);
+                res.end();
+                return next();
+            }
+
+        });
+    }
+    else{
+        next(400)
+    }
 
 
-    User.signUp(first_name, last_name, groupNumber, faculty, year, studNumber, password, function(err, user){
-      if(err){
-          if(err instanceof AuthError){
-              return next(new HttpError(400,  err.message))
-          }else{
-              return next(err);
-          }
-      }else{
-          req.session.user = user._id;
-          var data = {
-              firstName: user.personal_information.firstName,
-              lastName: user.personal_information.lastName,
-              groupNumber: user.personal_information.groupNumber,
-              faculty: user.personal_information.faculty,
-              year: user.personal_information.year,
-              photoUrl: user.personal_information.photoUrl,
-              id: user._id
-          };
-          res.json(data);
-          res.end();
-          return next();
-      }
-
-    });
 };
 
 

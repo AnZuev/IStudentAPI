@@ -22,7 +22,7 @@
     },
     "general":{
         "version": "0.0.1(7)",
-        "host": "http://pre-api.istudentapp.ru",
+        "host": "http://192.168.100.7:3000",
         "staticHost": "http://localhost:4000"
     },
     "multer":{

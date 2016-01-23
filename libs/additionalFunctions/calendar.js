@@ -4,7 +4,7 @@ var DbError = require('../../error').DbError;
 var async = require('async');
 var errors = [];
 var nsItem = require('../../socket/notificationService/nsInterface').nsItem;
-require('./arrays.js');
+require('./extensionsForBasicTypes.js');
 
 
 

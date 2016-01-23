@@ -1,19 +1,20 @@
 var authorization = require('./common/authorization');
 var mongodbNative = require('../libs/mongodbNative');
+var console = require('../libs/log')(module);
+
 
 mongodbNative.dropCollection("onlineusers", function(err, result){
         if(err) throw err;
         else{
             if(result) {
-                console.log("Коллекция onlineusers успешно удалена");
+                console.info("Коллекция onlineusers успешно удалена");
             }else{
-                console.log('Коллекция onlineusers не была удалена');
+                console.warn('Коллекция onlineusers не была удалена');
             }
         }
 });
 
 module.exports = function(io){
-   // io.use(require('./common/authorization'));
    io.use(function(socket, next){
        authorization(socket, function(err){
             if(err) return next(err);

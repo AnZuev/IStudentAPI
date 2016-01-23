@@ -16,45 +16,32 @@ HttpError.prototype.name = 'HttpError';
 
 exports.HttpError = HttpError;
 
-function AuthError(message){
+function authError(message){
     Error.apply(this, arguments);
-    Error.captureStackTrace(this, AuthError);
+    Error.captureStackTrace(this, authError);
 
     this.message = message;
 
 }
 
-util.inherits(AuthError, Error);
-AuthError.prototype.name = 'AuthError';
+util.inherits(authError, Error);
+authError.prototype.name = 'authError';
 
-exports.AuthError = AuthError;
+exports.authError = authError;
 
-function DbError(status, message, err){
+function dbError(err, code, message){
     Error.apply(this, arguments);
-    Error.captureStackTrace(this, DbError);
-    this.status = status || 500;
+    Error.captureStackTrace(this, dbError);
+    this.code = code || 500;
     this.message = message || "Ошибка базы данных";
     this.err = err || null;
 
 }
 
-util.inherits(DbError, Error);
-DbError.prototype.name = 'DbError';
+util.inherits(dbError, Error);
+dbError.prototype.name = 'dbError';
 
-exports.DbError = DbError;
+exports.dbError = dbError;
 
-
-function badDataError(status, message){
-    Error.apply(this, arguments);
-    Error.captureStackTrace(this, DbError);
-    this.status = status || 400;
-    this.message = message || "Плохие данные";
-
-}
-
-util.inherits(DbError, Error);
-badDataError.prototype.name = 'badDataError';
-
-exports.badDataError = badDataError;
 
 

@@ -1,5 +1,7 @@
 var config = require('../config');
 var host = config.get('general:host');
+var log = require('../libs/log')(module);
+
 module.exports = function(app){
 
     app.all('*', function(req, res, next) {
@@ -14,7 +16,7 @@ module.exports = function(app){
             host: host
         });
         next();
-    })
+    });
     require('./authorize')(app);
     require('./general')(app);
     require('./calendar')(app);

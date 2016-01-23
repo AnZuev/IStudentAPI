@@ -1,0 +1,10 @@
+{
+  "1":{
+    "title": "СПБГЭТУ, ЛЭТИ",
+    "faculty":[
+      "ФКТИ",
+      "ФРТ"
+    ],
+    "rulesForStudNumber": "path/to/script"
+  }
+}

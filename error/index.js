@@ -45,3 +45,35 @@ exports.dbError = dbError;
 
 
 
+
+function conversationError(code, message){
+    Error.apply(this, arguments);
+    this.code = code || 500;
+    this.message = message || "conversationError";
+}
+
+util.inherits(conversationError, Error);
+conversationError.prototype.name = 'conversationError';
+
+exports.conversationError = conversationError;
+
+
+function wsError(code, message){
+    Error.apply(this, arguments);
+    this.code = code || 500;
+    this.description = message || "Ошибка при работе по ws";
+    this.sendError = function(){
+        return {
+            code: this.code,
+            description: this.description,
+            exception: true
+        }
+    }
+}
+
+util.inherits(wsError, Error);
+wsError.prototype.name = 'wsError';
+
+exports.wsError = wsError;
+
+

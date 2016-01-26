@@ -1,17 +1,22 @@
 var EventEmitter = require('events').EventEmitter;
 var imServiceEE = new EventEmitter();
-var onlineUsers = require('../common/listOfOnlineUsers').onlineUsers;
+var sockets = require('../common/sockets').sockets;
 var async = require('async');
-var dialogStorage = require('./../../models/dialogsStorage').dialogs;
+var dialogStorage = require('./../../models/conversation').conversation;
 var User = require('../../models/User').User;
-var DbError = require('../../error').DbError;
+var dbError = require('../../error').dbError;
 var addSocketToDB = require('../common/libs').addSocketToDB;
+var log = require('../../libs/log')(module);
+
+var taskToGetUserSockets = require('./../common/libs').taskToGetUserSockets;
+
+
 
 
 
 
 imServiceEE.on('warning', function(message){
-    console.warn(message);
+   log.warn(message);
 });
 
 
@@ -23,101 +28,83 @@ function imService(ee){
         var dialogServiceTransport = io.of('/im');
         channel = dialogServiceTransport;
         dialogServiceTransport.on('connection', function (socket) {
-            console.log('Соединение установлено -> im');
-            setTimeout(function(){
-                addSocketToDB(socket.id, socket.handshake.headers.user.id, "im", function(err){
-                    if(err) throw err;
-                });
-                socket.emit('dialog', {message: socket.request.headers.user});
-                //обработчики событий
-                socket.on('newMessage', function(data, cb){
-                    sendMessage(socket, data.message, data.dialogId, function(err, result){
-                        if(err) {
-                            cb(false);
-                            throw err;
-                        }
-                        else{
-                            console.log(result);
-                            cb(true)
-                        }
-                    });
-                });
+            log.debug('Начинаю установку соединения ws::im');
 
-                socket.on('createDialog', function(data, cb){
-                    createDialog(socket, socket.request.headers.user.id, data.participants, data.title, function(err, result){
-                        if(err) {
-                            var errorInstance = {
-                                description:err.message,
-                                code: err.status,
-                                exception: true
-                            };
-                            return cb(errorInstance);
-                        }
-                        else{
-                            return cb(result)
-                        }
-                    })
-                });
-                socket.on('startTyping', function(data){
+
+            socket.on('createPrivateConversation', function(data, cb){
+                require('./handlers/createPrivateConversation')(socket, data, cb);
+            });
+
+
+            socket.on('createGroupConversation', function(data, cb){
+                require('./handlers/createGroupConversation')(socket, data, cb);
+            });
+
+            socket.on('sendMessage', function(data, cb){
+                require('./handlers/sendMessageToOneConversation')(socket, data, cb);
+            });
+
+            socket.on('getMessages', function(data, cb){
+                require('./handlers/getMessages')(socket, data, cb);
+            });
+
+            socket.on('loadConv', function(data, cb){
+                require('./handlers/loadConv')(socket, data, cb);
+            });
+
+
+            socket.on('startTyping', function(data){
                     var startTypingInstance = {
                         dialogId: data.dialogId,
                         username: socket.user.username
                     };
                     socket.broadcast.to(data.dialogId).emit('startTyping', startTypingInstance);
                 });
-                socket.on('stopTyping', function(data){
-                    var stopTypingInstance = {
-                        dialogId: data.dialogId,
-                        username: socket.user.username
-                    };
-                    socket.broadcast.to(data.dialogId).emit('stopTyping', stopTypingInstance);
-                });
-                socket.on('getDialog', function(data, cb){
-                    dialogStorage.getDialogById(data.dialogId, socket.request.headers.user.id, function(err, imItem){
-                        if(imItem) cb(imItem);
-                        else{
-                            if(err){
-                                cb({exception: true, reason: err.code});
-                            }else{
-                                cb({exception: true, reason: "No dialogs found"});
-                            }
-                        }
-                    })
-                });
-                socket.on('getMessages', function(data, cb){
-                    dialogStorage.getMessagesForDialog(data.imId, socket.request.headers.user.id, data.skip, function(err, messages){
-                        if(err) cb({exception: true, reason: "No dialogs found"});
-                        else{
-                            messages.skip = data.skip;
-                            cb(messages);
-                        }
-                    })
-                });
-                socket.on('findContacts', function(data, cb){
-                    findFriends(data.key1, data.key2, function(err, users){
+            socket.on('stopTyping', function(data){
+                var stopTypingInstance = {
+                    dialogId: data.dialogId,
+                    username: socket.user.username
+                };
+                socket.broadcast.to(data.dialogId).emit('stopTyping', stopTypingInstance);
+            });
+            socket.on('getDialog', function(data, cb){
+                dialogStorage.getDialogById(data.dialogId, socket.request.headers.user.id, function(err, imItem){
+                    if(imItem) cb(imItem);
+                    else{
                         if(err){
-                            if(err instanceof DbError){
-                                console.log(err);
-                                cb(false);
-                            }
-                            else{
-                                cb(false)
-                                throw err;
-                            }
+                            cb({exception: true, reason: err.code});
                         }else{
-                            cb(users);
+                            cb({exception: true, reason: "No dialogs found"});
                         }
-                    })
+                    }
                 })
-                socket.on('disconnect', function () {
-                    onlineUsers.removeSocketTypeFromSocket(socket.request.headers.user.id, socket.id, "im", function(err, imItem){
-                        if(err) throw err;
-                        console.log("Connection lost -> dialogs");
-
-                    })
                 });
 
-            },1000); // подумать из-за чего без этой задержки все валится
+            socket.on('findContacts', function(data, cb){
+                findFriends(data.key1, data.key2, function(err, users){
+                    if(err){
+                        if(err instanceof DbError){
+                            console.log(err);
+                            cb(false);
+                        }
+                        else{
+                            cb(false)
+                            throw err;
+                        }
+                    }else{
+                        cb(users);
+                    }
+                })
+            });
+
+            socket.on('connection:accepted', function(){
+                log.debug('Событие connection:accepted сработало');
+                addSocketToDB(socket.id, socket.handshake.headers.user.id, "im", function(err){
+                    if(err) throw err;
+                    log.debug('Соединение установлено -> im. Socket успешно добавлен');
+                });
+            });
+
 
         });
 
@@ -249,8 +236,55 @@ function imService(ee){
         }
     }  // поиск по контактам(по диалогам)
 
-}
 
+    function mmws(convId, sender, message, eventName, options){
+        this.title = sender.name + " " + sender.surname;
+        this.photo = sender.photo;
+        this.text = message.text;
+        this.convId = convId;
+        this.options = options;
+        this.eventName = eventName;
+        var self = this;
+
+        this.sendToGroup = function(recievers){
+            async.waterfall([
+                function (callback) {
+                    var tasks = [];
+                    for (var i = 0; i < recievers.length; i++) {
+                        tasks.push(taskToGetUserSockets(recievers[i], "im"));
+                    }
+                    async.parallel(tasks, callback);
+                },
+                function (results, callback) {
+                    for (var i = 0; i < results.length; i++) {
+                        if(!results[i]) continue;
+                        if (results[i].length > 0) {
+                            var mmwsItem = {};
+                            for (var y = 0; y < results[i].length; y++) {
+                                mmwsItem = {
+                                    eventName: self.eventName,
+                                    convId: self.convId,
+                                    title: self.title,
+                                    photo: self.photo,
+                                    text: self.text,
+                                    options: options,
+                                    senderId: sender.id
+                                };
+                                channel.connected[results[i][y].id].emit(mmwsItem.eventName, mmwsItem);
+                            }
+                        }
+                    }
+                    return callback(null);
+                }
+            ],function(err){
+                if(err) throw err;
+            });
+            return 0;
+        }
+    }
+    exports.mmws = mmws;
+
+}
 var im = new imService(imServiceEE);
 
 exports.im = im;
@@ -264,5 +298,4 @@ function createTaskToAddContacts (userTo, participants){
         User.addContacts(userTo, contacts, callback);
     }
 }
-
 

@@ -171,11 +171,12 @@ User.statics.signUp = function(name, surname, group, faculty, university, year, 
                 if(err instanceof dbError || err instanceof authError){
                     callback(err);
                 }else{
-                    throw err;
                     callback(new dbError(err, null, null));
                 }
-            };
-            callback(null, user);
+            }
+            else{
+                callback(null, user);
+            }
         });
 };
 

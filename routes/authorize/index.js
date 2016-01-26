@@ -12,8 +12,6 @@ module.exports = function(app){
     * Непонятно насколько нужен этот метод. Пусть пока будет
     * */
     app.get('/auth/checkAuth', checkAuth, function(req, res, next){
-        req.user.pubInform._id = req.user._id;
-        res.send(req.user.pubInform);
         res.end();
     });
 

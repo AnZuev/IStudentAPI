@@ -1,20 +1,21 @@
 var EventEmitter = require('events').EventEmitter;
 var notificationServiceEE = new EventEmitter();
-var onlineUsers = require('./../common/listOfOnlineUsers').onlineUsers;
+var sockets = require('./../common/sockets').sockets;
 var taskToGetUserSockets = require('./../common/libs').taskToGetUserSockets;
 var async = require('async');
 var addSocketToDB = require('../common/libs').addSocketToDB;
+var log = require('../../libs/log')(module);
 
 notificationServiceEE.on('start', function(){
-    console.log('start emit ns');
+    log.debug('start emit ns');
     ns.startSending();
 });
 notificationServiceEE.on('finish', function(){
-    console.log('Отослал все уведомления, новых пока нет');
+    log.debug('Отослал все уведомления, новых пока нет');
 });
 
 notificationServiceEE.on('warning', function(message){
-    console.warn(message);
+    log.warn(message);
 });
 
 function nsItem(eventName, title, message, photoUrl, adds){
@@ -36,24 +37,21 @@ function nsItem(eventName, title, message, photoUrl, adds){
                 async.parallel(tasks, callback);
             },
             function (results, callback) {
-                console.log(results);
                 for (var i = 0; i < results.length; i++) {
                     if(!results[i]) continue;
                     if (results[i].length > 0) {
                         var notificationItem = {};
                         for (var y = 0; y < results[i].length; y++) {
                             notificationItem = {
-                                to: results[i][y],
+                                to: results[i][y].id,
                                 eventName: self.eventName,
                                 body: {
 
                                 }
                             };
                             for(var key in self) {
-                                if (!notificationItem.hasOwnProperty(key)&& key!='send') notificationItem.body[key] = self[key];
+                                if (!notificationItem.hasOwnProperty(key)&& key!='send' && key!="intersecSortArr"&& key!="diffSortArr" && key!="unique" ) notificationItem.body[key] = self[key];
                             }
-
-                            console.log(notificationItem);
                             ns.addToQueue(notificationItem);
                         }
                     }
@@ -62,7 +60,7 @@ function nsItem(eventName, title, message, photoUrl, adds){
             }
         ],function(err){
             if(err) throw err;
-            console.log("Нотификации переданы в очередь на отправку ");
+            log.debug("Нотификации переданы в очередь на отправку ");
         });
         return 0;
     }
@@ -79,18 +77,11 @@ function NotificationService(ee){
         var notificationServiceTransport = io.of('/notifications');
         channel = notificationServiceTransport;
         notificationServiceTransport.on('connection', function (socket) {
-            console.log('Соединение установлено -> notifications');
+            log.debug('Соединение установлено -> notifications');
             addSocketToDB(socket.id, socket.handshake.headers.user.id, "ns", function(err){
                if(err) throw err;
             });
-            socket.on('disconnect', function () {
-                if(socket.request.headers.user.id){
-                    onlineUsers.removeSocketFromList(socket.request.headers.user.id, socket.id, function(err){
-                        if(err) console.error(err);
-                    });
-                }
-                console.log("Connection lost -> notifications");
-            });
+
         });
     };
 

@@ -11,10 +11,12 @@ var mongoose = require('../../libs/mongoose'),
     Schema = mongoose.Schema;
 var async = require('async');
 var User = require('../../models/User').User;
-var DbError = require('../../error').DbError;
+var dbError = require('../../error').dbError;
+var log = require('../../libs/log')(module);
 
 
-var onlineUser = new Schema({
+
+var sockets = new Schema({
     userId: {
         require: true,
         type: Schema.Types.ObjectId,
@@ -42,12 +44,29 @@ var onlineUser = new Schema({
 * В случаем успешного выполнения возвращает массив идентификаторов
 * В случаем ошибки передает в callback ошибку (true)
  */
-onlineUser.statics.getSocketsByUserIdAndType = function(userId, socketsType, callback){
-    this.findOne({userId:userId, "sockets.cType": socketsType}, {"sockets.$.id": 1, _id:0}, function(err, onlineUserItem){
-        if(err) throw err;//return callback(err);
+sockets.statics.getSocketsByUserIdAndType = function(userId, socketsType, callback){
+    this.findOne(
+        {
+            userId:userId,
+            $and:[
+                {
+                    "sockets.cType":socketsType
+                },
+                {
+                    "sockets.cType":{ $size: 1 }
+                }
+            ]
+        },
+        {
+            "sockets.$.id": 1,
+            _id:0
+        },
+
+        function(err, userItem){
+        if(err) return callback(new dbError(err));
         else{
-            if(!onlineUserItem) return callback(null, null);
-            return callback(null, onlineUserItem.sockets);
+            if(!userItem) return callback(null, null);
+            return callback(null, userItem.sockets);
         }
     })
 };
@@ -60,15 +79,15 @@ onlineUser.statics.getSocketsByUserIdAndType = function(userId, socketsType, cal
  *  В случае ошибки кидает ошибку
  *
  */
-onlineUser.statics.getSocketByUserIdAndId = function(userId, socketId, callback){
-    this.findOne({userId:userId, "sockets.id":socketId}, {"sockets.$": 1, _id:0}, function(err, onlineUserItem){
+sockets.statics.getSocketByUserIdAndId = function(userId, socketId, callback){
+    this.findOne({userId:userId, "sockets.id":socketId}, {"sockets.$": 1, _id:0}, function(err, userItem){
         if(err) throw err;//return callback(err);
         else{
-            if(!onlineUserItem) return callback(null, null);
-            return callback(null, onlineUserItem.sockets[0]);
+            if(!userItem) return callback(null, null);
+            return callback(null, userItem.sockets[0]);
         }
     })
-}
+};
 
 
 /*
@@ -77,11 +96,11 @@ onlineUser.statics.getSocketByUserIdAndId = function(userId, socketId, callback)
 * Если такой сокет есть или добавление произошло успешно - передает в callback(null)
 * Если ошибка  - передает ошибку в callback(err)
  */
-onlineUser.statics.addToList = function(userId, socketItem, callback){
-    var onlineUserSchema = this;
+sockets.statics.addToList = function(userId, socketItem, callback){
+    var sockets = this;
    async.waterfall([
        function(callback){
-           onlineUserSchema.getSocketByUserIdAndId(userId, socketItem.id, callback);
+           sockets.getSocketByUserIdAndId(userId, socketItem.id, callback);
        },
        function(socket, callback){
            /*
@@ -92,7 +111,6 @@ onlineUser.statics.addToList = function(userId, socketItem, callback){
 
             */
 
-           console.log('onlineUsers/AddToList:: ' + socket);
            if(socket){
                //сокет есть, 2 или 3 кейс
                if(socket.cType.indexOf(socketItem.cType) > 0){
@@ -100,7 +118,7 @@ onlineUser.statics.addToList = function(userId, socketItem, callback){
                     callback(null);
                }else{
                    //типа нет, кейс 2
-                   onlineUserSchema.findOneAndUpdate(
+                   sockets.findOneAndUpdate(
                        {
                            userId:userId, "sockets.id": socketItem.id
                        },
@@ -113,7 +131,7 @@ onlineUser.statics.addToList = function(userId, socketItem, callback){
                    )
                }
            }else{
-               onlineUserSchema.findOneAndUpdate(
+               sockets.findOneAndUpdate(
                    {
                        userId:userId
                    },
@@ -131,7 +149,7 @@ onlineUser.statics.addToList = function(userId, socketItem, callback){
        }
    ], function(err){
 
-       if(err) return callback(err);
+       if(err) return callback(new dbError(err));
        else{
            return callback(null);
        }
@@ -146,17 +164,17 @@ onlineUser.statics.addToList = function(userId, socketItem, callback){
  * В случае успешного выполнения передает в callback только что добавленный объект callback(null, newOnlineUser).
  * В случае ошибки передает err в callback(err)
  */
-onlineUser.statics.addNewUser = function(userId, socketItem, callback){
+sockets.statics.addNewUser = function(userId, socketItem, callback){
     var newOnlineUser = new this({
         userId: userId,
         sockets: [socketItem]
     });
     newOnlineUser.save(function(err, newOnlineUser){
-        if(err) return callback(err);
+        if(err) return callback(new dbError(err));
         else{
             callback(null, newOnlineUser);
         }
-    })
+    });
 };
 
 
@@ -166,9 +184,9 @@ onlineUser.statics.addNewUser = function(userId, socketItem, callback){
  * В случае успешного выполнения передает в callback(null)
  * В случае ошибки передает в callback(err)
  */
-onlineUser.statics.removeUserItem = function(userId, callback){
+sockets.statics.removeUserItem = function(userId, callback){
    this.remove({userId: userId}, function(err){
-       if(err) return callback(err);
+       if(err) return callback(new dbError(err));
        else{
            return callback(null);
        }
@@ -179,12 +197,11 @@ onlineUser.statics.removeUserItem = function(userId, callback){
  * Удаляет конкретный сокет из списка sockets
  * на вход получает имя пользователя и идентификатор сокета
  * В случае успешного выпонения передает в callback(null)
- * В случае ошибки передает callback(false) - по сути не важно какая ошибка произошла
+ * В случае ошибки передает callback(err)
 
  */
-onlineUser.statics.removeSocketFromList = function(userId, socketId, callback){
-
-   this.findOneAndUpdate(
+sockets.statics.removeSocketFromList = function(userId, socketId, callback){
+   this.update(
         {
             userId: userId,
             "sockets.id":socketId
@@ -195,7 +212,7 @@ onlineUser.statics.removeSocketFromList = function(userId, socketId, callback){
             }
         },
         function(err){
-            if(err) return callback(false);
+            if(err) return callback(new dbError(err));
             else{
                 return callback(null);
             }
@@ -207,23 +224,23 @@ onlineUser.statics.removeSocketFromList = function(userId, socketId, callback){
 
 /*
  * Удаляет конкретный socketType у конкретного сокета из списка sockets
- * на вход получает имя пользователя, идентификатор сокета и тип
+ * на вход получает идентификатор пользователя, идентификатор сокета и тип
  * В случае успешного выпонения передает в callback(null)
- * В случае ошибки передает callback(false) - по сути не важно какая ошибка произошла
+ * В случае ошибки передает callback(err)
  */
-onlineUser.statics.removeSocketTypeFromSocket = function(userId, socketId, socketType, callback){
-    this.findOneAndUpdate(
+sockets.statics.removeSocketTypeFromSocket = function(userId, socketId, socketType, callback){
+    this.update(
         {
             userId:userId,
             "sockets.id":socketId
         },
         {
-            $pullAll:{
-                "sockets.cType": socketType
+            $pull:{
+                "sockets.$.cType": socketType
             }
         },
         function(err){
-            if(err) return callback(false);
+            if(err) return callback(new dbError(err));
             else{
                 return callback(null);
             }
@@ -231,14 +248,21 @@ onlineUser.statics.removeSocketTypeFromSocket = function(userId, socketId, socke
     )
 };
 
-onlineUser.statics.checkIfUserOnline = function(userId, callback){
+
+/*
+ * Проверяет наличие сокетов для юзера
+ * на вход получает идентификатор пользователя
+ * В случае успешного выпонения передает в callback(null,true/false)
+ * В случае ошибки передает callback(err)
+ */
+sockets.statics.checkIfUserOnline = function(userId, callback){
     this.findOne({userId: userId}, function(err, user){
-        if(err) return callback(err);
+        if(err) return callback(new dbError(err));
         else{
             if(user){
-                return callback(null, user.sockets);
+                return callback(null, true);
             }else{
-                return callback(null, null);
+                return callback(null, false);
             }
         }
     })
@@ -246,4 +270,4 @@ onlineUser.statics.checkIfUserOnline = function(userId, callback){
 
 
 
-exports.onlineUsers = mongoose.model('onlineUser', onlineUser);
+exports.sockets = mongoose.model('sockets', sockets);

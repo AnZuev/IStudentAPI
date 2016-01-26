@@ -14,31 +14,44 @@
 
     </ul>
 <script>
-    var socket = io('ws://localhost:3000/notifications');
-    var im = io('ws://localhost:3000/im');
+    var im = io("ws://192.168.100.7:3000/im");
 
+    im.on('connect', function(){
+        im.emit("connection:accepted");
+/*
+        var imItem = {
+            participants: ["56a39f9e0e5d3cd81d876f98","56a37f4ebff41af71b54c752"],
+            message:{
+                attachments: [],
+                text: "Первое сообщение"
+            },
+            title: "Название первой групповой беседы."
+        }
+        im.emit('createGroupConversation', imItem, function(data){
+            console.log(data);
+        });
 
-    //var socketGlobal = io('ws://localhost:3000/');
-    socket.on('news', function (data) {
-        var news = "<li>"+data.message+"</li>";
-        $(news).appendTo($('.messages'));
-        console.log(data);
+        var messageItem = {
+            text:"Сообщение в групповую беседу",
+            attachments: [],
+            convId:"56a4e44ae603174732ee74f7"
+        }
+        im.emit('sendMessage', messageItem, function(data){
+            console.log(data);
+        });
+        */
+        var data = {
+            userId:"56a37f4ebff41af71b54c752"
+        };
+        im.emit('loadConv', data, function(data){
+            console.log(data);
+        })
     });
 
-    im.on('dialog', function (data) {
-        var news = "<li>"+data.message+"</li>";
-        $(news).appendTo($('.messages'));
-        console.log(data);
-    });
-    var imItem = {
-        title: "Диалог 2",
-        participants: [ "5611659632ede0011018e974"]
-    }
-    /*
-    im.emit('createDialog', imItem, function(data){
-        console.log(data);
-    });
-    */
+
+
+
+
 
 </script>
 </body>

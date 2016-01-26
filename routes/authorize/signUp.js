@@ -22,14 +22,14 @@ exports.post = function(req, res, next){
                     return next(err);
                 }
             }else{
-                req.session.user = user.id;
+                req.session.user = user._id;
 
                 var userToReturn = {
                     name: user.pubInform.name,
                     surname: user.pubInform.surname,
                     photo:user.pubInform.photo,
                     year: user.pubInform.year,
-                    faculty: universityFile[university].faculty[user.pubInform.faculty],
+                    faculty: universityFile[user.pubInform.university].faculty[user.pubInform.faculty],
                     university: universityFile[user.pubInform.university].title,
                     group: user.pubInform.group,
                     id: user._id

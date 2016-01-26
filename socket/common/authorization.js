@@ -5,7 +5,11 @@ var cookieParser = require('cookie-parser');
 var sessionStore = require('../../libs/sessionsStore');
 var User = require('../../models/User').User;
 var HttpError = require('../../error').HttpError;
-var listOfOnlineUsers = require('./listOfOnlineUsers').onlineUsers;
+var sockets = require('./sockets').sockets;
+var universityFile = require('../../data/university');
+var log = require('../../libs/log')(module);
+
+
 
 
 
@@ -49,17 +53,23 @@ module.exports = function(socket, callback) {
 
 function loadUser(session, callback){
     if(!session.user){
-        console.warn('Попытка найти юзера для анонимной сессии');
+        log.warn('Попытка найти юзера для анонимной сессии');
         callback(null, null);
     }else{
         User.findById(session.user, function(err, user){
             if(err) return callback(err);
             if(user) {
-                var student =  {
-                    username: user.personal_information.lastName + " " + user.personal_information.firstName,
-                    id: user._id,
-                    photo: user.personal_information.photoUrl
+                var student = {
+                    name: user.pubInform.name,
+                    surname: user.pubInform.surname,
+                    photo:user.pubInform.photo,
+                    year: user.pubInform.year,
+                    faculty: universityFile[user.pubInform.university].faculty[user.pubInform.faculty],
+                    university: universityFile[user.pubInform.university].title,
+                    group: user.pubInform.group,
+                    id: user._id
                 };
+
                 return callback(null, student)
             }else{
                 return callback(null, null);

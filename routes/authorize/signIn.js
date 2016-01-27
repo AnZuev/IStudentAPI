@@ -1,7 +1,6 @@
 var User = require('../../models/User').User;
 var authError = require('../../error').authError;
-var universityFile = require('../../data/university');
-
+var universityInterface = require('../../data/index').universityInfoLoader;
 
 
 exports.post = function(req, res, next){
@@ -22,8 +21,8 @@ exports.post = function(req, res, next){
                     surname: user.pubInform.surname,
                     photo:user.pubInform.photo,
                     year: user.pubInform.year,
-                    faculty: universityFile[user.pubInform.university].faculty[user.pubInform.faculty],
-                    university: universityFile[user.pubInform.university].title,
+                    faculty: universityInterface.getFacultyName(user.pubInform.university, user.pubInform.faculty),
+                    university: universityInterface.getUniversityName(user.pubInform.university),
                     group: user.pubInform.group,
                     id: user._id
                 };

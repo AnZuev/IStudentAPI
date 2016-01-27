@@ -47,11 +47,13 @@ module.exports = function(socket, data, cb){
                 conversation.getPrivateConvByParticipants(data.userId, socket.request.headers.user.id, callback);
             },
             function(conv, callback){
-                console.log(conv);
                 libs.loadPrivateConvInfo(conv,socket.request.headers.user.id, callback);
             }
         ],function(err, conv){
-            if(err) return cb(new wsError(500).sendError());
+            if(err){
+                if(err instanceof dbError) return cb(new wsError(err.code, err.message).sendError());
+                return cb(new wsError(500).sendError());
+            }
             cb(conv);
         })
     }else{

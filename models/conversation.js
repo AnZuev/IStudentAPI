@@ -4,6 +4,8 @@ var async = require('async');
 var dbError = require('../error/index').dbError;
 var conversationError = require('../error/index').conversationError;
 
+var User = require('../models/User').User;
+
 require('../libs/additionalFunctions/extensionsForBasicTypes');
 
 
@@ -35,7 +37,7 @@ var Message = new Schema({
         content: {}
     }
 
-});
+}, {_id: 0});
 
 var conversation = new Schema({
     participants:[Schema.Types.ObjectId],
@@ -44,7 +46,11 @@ var conversation = new Schema({
         photo: String,
         owner: Schema.Types.ObjectId
     },
-    messages:[Message]
+    messages:[Message],
+    updated: {
+	    type:Date,
+	    default:Date.now()
+    }
 });
 
 
@@ -62,14 +68,25 @@ conversation.statics.createPrivateConversation = function(userId1, userId2, call
     var conversation = this;
     async.waterfall([
         function(callback){
-
-            conversation.getConvByParticipants([userId1, userId2], callback)
+            conversation.getPrivateConvByParticipants(userId1, userId2, function(err, conv){
+	            if(err){
+		            if(err instanceof dbError && err.code == 404){
+			            return callback(null, null);
+		            }
+	            }else{
+		            return callback(null, conv);
+	            }
+            })
         },
         function(conv, callback) {
             if (conv) return callback(null,conv);
             else {
+
+	            var users = [];
+	            users.push(userId1);
+	            users.push(userId2);
                 var newConv = new conversation({
-                    participants: [userId1, userId2]
+                    participants: users
                 });
                 newConv.save(function (err, conv) {
                     if (err) return callback(new dbError(err, null, null));
@@ -127,9 +144,19 @@ conversation.statics.addMessage = function(convId, userId, rawMessage, callback)
                     unread: participants,
                     attachments: rawMessage.attachments //TODO сделать проверку для прикрепленных документов дабы избежать возможности атак
                 };
+                conv.updated = Date.now();
                 conv.messages.push(messageItem);
                 var errCounter = 0;
                 addMessageToDialog(conv, messageItem, errCounter,callback);
+
+	            if(conv.participants.length == 2){
+		            var tasks = [];
+		            tasks.push(taskToAddContact(conv.participants[0], conv.participants[1]));
+		            tasks.push(taskToAddContact(conv.participants[1], conv.participants[0]));
+					async.parallel(tasks, function(){
+						return;
+					})
+	            }
             }
         }
     ],callback)
@@ -150,7 +177,7 @@ conversation.statics.removeParticipant = function(convId, userId, removedUser, c
         },
         function(conv, callback){
             if(conv){
-                if(userId == conv.group.owner){
+                if(userId == conv.group.owner.toString()){
                     if(userId == removedUser){
                         callback(new conversationError(400, "Нельзя удалить создателя беседы"));
                     }else{
@@ -185,7 +212,7 @@ conversation.statics.removeParticipant = function(convId, userId, removedUser, c
         }
     ],callback);
 
-}
+};
 
 conversation.statics.addParticipants = function(convId, userId, invited, callback){
     this.findOneAndUpdate(
@@ -198,7 +225,7 @@ conversation.statics.addParticipants = function(convId, userId, invited, callbac
                 participants: { $each: invited }
             }
         }, function(err, conv){
-            if(err) throw err;
+            if(err) return callback(err);
             else{
                 if(!conv){
                     callback(null, false);
@@ -207,7 +234,7 @@ conversation.statics.addParticipants = function(convId, userId, invited, callbac
                 }
             }
         })
-}
+};
 
 conversation.statics.readMessages = function(convId, userId, callback){
     var conversation = this;
@@ -263,33 +290,36 @@ conversation.statics.getMessages = function(convId, userId, skipFromEnd, callbac
 
 conversation.statics.getConvsByTitle = function(title, userId, callback){
     this.aggregate([
-        { $limit : 5 },
+        { $limit : 15 },
         {
             $match:
             {
-                "group.title":{$regex: title}
+                "group.title": {$regex: "пов"},
+	            participants: userId
             }
         },
         {
             $project:
             {
                 title: "$group.title",
-                photo: "$group.photo"
+                photo: "$group.photo",
+	            type: {$concat:["group"]}
 
             }
         },
         {
-            $sort:{title:1}
+            $sort:{updated:1}
 
         }
     ], function(err, convs){
+	    if(err) throw err;
         if(convs.length == 0){
             return callback(new dbError(null, 204, null));
         }else{
             return callback(null, convs);
         }
     })
-}
+};
 
 conversation.statics.getConvById = function(convId, userId,callback){
     this.findOne(
@@ -324,10 +354,13 @@ conversation.statics.getConvById = function(convId, userId,callback){
     )
 };
 
-conversation.statics.getPrivateConvByParticipants = function(userId1, userId2,callback){
-    this.findOne(
+conversation.statics.getPrivateConvByParticipants = function(userId1, userId2, callback){
+
+
+
+	this.findOne(
         {
-            participants:{$all:[userId1, userId2], $size:2}
+            participants:{$all:[userId1, userId2], $size: 2}
         },
         {
             messages:{
@@ -335,6 +368,7 @@ conversation.statics.getPrivateConvByParticipants = function(userId1, userId2,ca
             }
         },
         function(err, conv){
+
             if(err) return callback(new dbError(err));
             else{
                 var data;
@@ -418,4 +452,11 @@ function addMessageToDialog(conv, messageItem, errCounter, callback){
     })
 }
 
+function taskToAddContact(userId, contact){
+    return function(callback){
+        User.addContacts(userId, contact, function(){
+            return callback(null);
+        })
+    }
+}
 

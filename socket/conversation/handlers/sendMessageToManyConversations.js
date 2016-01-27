@@ -12,6 +12,8 @@ var dbError = require('../../../error').dbError;
 var async = require('async');
 
 
+//TODO проверить данный обработчик когда будет необходимость в нем
+
 /*
  1) Проверяем существует ли пользователь
  2) Если не существует - посылаем
@@ -26,7 +28,6 @@ module.exports = function(socket, data, cb){
         if(rawMessage.length == 0) cb(false);
         rawMessage.attachments = data.attachments;
 
-
     }catch(e){
         var wsEr = new wsError(400);
         return cb(wsEr.sendError());
@@ -34,41 +35,59 @@ module.exports = function(socket, data, cb){
 
    async.waterfall([
        function(callback){
-           conversation.addMessage(data.convId, socket.request.headers.user.id, rawMessage, callback);
+           var tasks = [];
+	       try{
+		       data.convsId.forEach(function(element){
+			       tasks.push(createTaskToSendMessage(element, socket.request.headers.user.id, data.message));
+		       });
+	       }catch(e){
+		       return cb(new wsError(400, "Некорректный запрос"));
+	       }
+			async.parallel(tasks, callback);
        },
 
-       function(messageItem, callback){
-           if(!messageItem){
-               callback(new dbError(null, 500, "После добавления сообщение сообщение не вернулось"));
-           }else{
-               var options ={
-                   attachments: messageItem.attachments,
-                   convId: data.convId
-               };
-               var mmwsItem = new mmws( data.convId, socket.request.headers.user.id, messageItem, "newMessage", options);
+       function(results, callback){
+	       results.forEach(function(messageItem, index){
 
-               var ns = new nsItem("imNewMessage", socket.request.headers.user.name + " " + socket.request.headers.user.surname, messageItem.text, socket.request.headers.photo, options);
+		       if(messageItem){
+			       var options ={
+				       attachments: messageItem.attachments,
+				       convId: data.convsId[index]
+			       };
+			       var mmwsItem = new mmws(data.convsId[index], socket.request.headers.user.id, messageItem, "newMessage", options);
 
-               ns.send(messageItem.unread);
-               mmwsItem.sendToGroup(messageItem.unread);
-               return callback(null, messageItem);
-           }
+			       var ns = new nsItem("imNewMessage", socket.request.headers.user.name + " " + socket.request.headers.user.surname, messageItem.text, socket.request.headers.photo, options);
+
+			       ns.send(messageItem.unread);
+			       mmwsItem.sendToGroup(messageItem.unread);
+			       return callback(null, messageItem);
+		       }
+	       })
+
        }
    ],function(err, messageItem){
         if(err){
             var wsEr;
             if(err instanceof dbError){
                 wsEr = new wsError(err.code, err.message);
-                cb(wsEr.sendError());
+                return cb(wsEr.sendError());
             }else if(err instanceof wsError){
-                cb(err.sendError());
+               return cb(err.sendError());
             }else{
                 wsEr = new wsError();
-                cb(wsEr.sendError());
+               return cb(wsEr.sendError());
             }
         }else{
-
-            cb(messageItem);
+            return cb(messageItem);
         }
    })
 };
+
+
+
+function createTaskToSendMessage(convId, sender, rawMessage){
+	return function(callback){
+		conversation.addMessage(convId, sender, rawMessage, callback);
+	}
+
+}

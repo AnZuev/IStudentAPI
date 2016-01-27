@@ -2,11 +2,11 @@ var crypto  = require('crypto');
 var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
 
+
 var async = require('async');
 var authError = require('../error').authError;
 var dbError = require('../error').dbError;
 var log = require('../libs/log')(module);
-
 
 
 
@@ -73,7 +73,14 @@ var User = new Schema({
         blockedUsers:[Schema.Types.ObjectId]
     },
 
-    contacts:[Schema.Types.ObjectId],
+    contacts:[{
+	    id:Schema.Types.ObjectId,
+	    updated: {
+		    type:Date,
+		    default:Date.now()
+	    },
+	    _id:0
+    }],
 
     projects:[{}],
 
@@ -305,39 +312,47 @@ User.statics.getContactsByOneKey = function (userId, key, callback){
     var User = this;
     async.waterfall([
         function(callback){
-            User.findById(userId, callback);
+	        User.findOne({_id:userId}, callback);
         },
         function(user, callback){
            if(!user) return callback(new dbError(null, 400, "Incorrect userId"));
+			else{
+	           var contacts = [];
+	           user.contacts.forEach(function(item){
+		           contacts.push(item.id);
+	           })
+           }
             User.aggregate([
+                { $limit : 5 },
                 {
-                    $match: {"searchString":{$regex: key}, _id: { $in: user.contacts}}
+                    $match:
+                    {
+                        "searchString":{$regex: key}, _id: { $in: contacts}
+                    }
                 },
                 {
                     $project:
                     {
                         student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
                         group: "$pubInform.group",
-                        description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-                        photo: "$pubInform.photo"
+	                    university: "$pubInform.university",
+	                    faculty: "$pubInform.faculty",
+                        photo: "$pubInform.photo",
+	                    year: "$pubInform.year"
                     }
-
                 },
                 {
-                    $sort:
-                    {
-                        student: 1
-                    }
+                    $sort:{"contacts.updated":1}
                 }
-                ])
-                .limit(5)
-                .exec(function(err, users){
-                        if(users.length == 0){
-                            return callback(new dbError(null, 204, null));
-                        }else{
-                            return callback(null, users);
-                        }
-                    });
+            ], function(err, users){
+	            if(err) throw err;
+                if(users.length == 0){
+                    return callback(new dbError(null, 204, null));
+                }else{
+                    return callback(null, users);
+                }
+            });
+
 
 
         }
@@ -352,40 +367,38 @@ User.statics.getContactsByTwoKeys = function(userId, key1, key2, callback){
         },
         function(user, callback){
             if(user){
-                 User.aggregate([
-                        {
-                            $match: {
-                                $and:[
-                                    {"searchString":{$regex: key1}},
-                                    {"searchString": {$regex: key2}}
-                                ],
-                                _id: { $in: user.contacts}
-                            }
-                        },
-                        {
-                            $project:
-                            {
-                                student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
-                                group: "$pubInform.group",
-                                description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-                                photo: "$pubInform.photo"
-                            }
-                        },
-                        {
-                            $sort:
-                            {
-                                student: 1
-                            }
-                        }
-                    ])
-                    .limit(5).exec(function(err, users){
-                        if(err) return callback(err);
-                        if(users.length == 0){
-                            return callback(new dbError(null, 204, null));
-                        }else{
-                            return callback(null, users);
-                        }
-                    });
+	            User.aggregate([
+		            { $limit : 5 },
+		            {
+			            $match: {
+				            $and:[
+					            {"searchString":{$regex: key1}},
+					            {"searchString": {$regex: key2}}
+				            ],
+				            _id: { $in: user.contacts.id}
+			            }
+		            },
+		            {
+			            $project:
+			            {
+				            student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+				            group: "$pubInform.group",
+				            description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+				            photo: "$pubInform.photo"
+			            }
+		            },
+		            {
+                        $sort:{"contacts.updated":1}
+		            }
+	            ], function(err, users){
+		            if(err) throw err;
+		            if(users.length == 0){
+			            return callback(new dbError(null, 204, null));
+		            }else{
+			            return callback(null, users);
+		            }
+	            });
+
 
             }
         }
@@ -400,41 +413,38 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
         },
         function(user, callback){
             if(user){
-                User.aggregate([
-                    {
-                        $match: {
-                            $and:[
-                                {"searchString": {$regex: key1}},
-                                {"searchString": {$regex: key2}},
-                                {"searchString": {$regex: key3}}
-                            ],
-                            _id: { $in: user.contacts}
-                        }
-                    },
-                    {
-                        $project:
-                        {
-                            student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
-                            group: "$pubInform.group",
-                            description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-                            photo: "$pubInform.photo"
-                        }
-                    },
-                    {
-                        $sort:
-                        {
-                            student: 1
-                        }
-                    }
-                ])
-                    .limit(5).exec(function(err, users){
-                        if(err) return callback(err);
-                        if(users.length == 0){
-                            return callback(new dbError(null, 204, null));
-                        }else{
-                            return callback(null, users);
-                        }
-                    });
+	            User.aggregate([
+		            { $limit : 5 },
+		            {
+			            $match: {
+				            $and:[
+					            {"searchString": {$regex: key1}},
+					            {"searchString": {$regex: key2}},
+					            {"searchString": {$regex: key3}}
+				            ],
+				            _id: { $in: user.contacts}
+			            }
+		            },
+		            {
+			            $project:
+			            {
+				            student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+				            group: "$pubInform.group",
+				            description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+				            photo: "$pubInform.photo"
+			            }
+		            },
+		            {
+			            $sort:{"contacts.updated":1}
+		            }
+	            ], function(err, users){
+		            if(err) throw err;
+		            if(users.length == 0){
+			            return callback(new dbError(null, 204, null));
+		            }else{
+			            return callback(null, users);
+		            }
+	            });
 
             }
         }
@@ -446,7 +456,7 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
 /*
     Добавление контактов
  */
-User.statics.addContacts = function(userId, contacts, callback){
+User.statics.addContacts = function(userId, contact, callback){
     var User = this;
 
     async.waterfall([
@@ -460,12 +470,16 @@ User.statics.addContacts = function(userId, contacts, callback){
         },
         function(user, callback){
             if(user){
-                for(var i = 0; i < contacts.length; i++){
-                    if(user.contacts.indexOf(contacts[i]) < 0){
-                        user.contacts.push(contacts[i]);
+	            var tmp = false;
+                for(var i = 0; i < user.contacts.length; i++){
+                    if(user.contacts[i].id.toString() == contact.toString()){
+	                    user.contacts[i].updated = Date.now();
+	                    tmp = true;
+                       break;
                     }
                 }
-                user.save(callback)
+	            if(!tmp) user.contacts.push({id: contact});
+	            user.save(callback)
             }else{
                 callback(new dbError(null, 400, 'Не найден юзер по id = ' + userId));
             }
@@ -479,10 +493,10 @@ User.statics.addContacts = function(userId, contacts, callback){
            }
        }
        else{
-           console.debug('Добавления списка контактом произошло успешно');
            return callback(null, true);
        }
     });
+
 };
 
 /*
@@ -506,7 +520,7 @@ User.statics.updatePhoto = function(userId, newPhoto, callback){
     Заблокировать юзера
  */
 
-User.statics.addContacts = function(userId, blockedUser, callback){
+User.statics.blockContacts = function(userId, blockedUser, callback){
     var User = this;
 
     async.waterfall([

@@ -30,22 +30,48 @@
         im.emit('createGroupConversation', imItem, function(data){
             console.log(data);
         });
-
+*/
         var messageItem = {
-            text:"Сообщение в групповую беседу",
+            text:"Сообщение в private беседу",
             attachments: [],
-            convId:"56a4e44ae603174732ee74f7"
+            convId:"56a8eeaedc88281bbc9ff623"
         }
         im.emit('sendMessage', messageItem, function(data){
             console.log(data);
         });
-        */
+
         var data = {
-            userId:"56a37f4ebff41af71b54c752"
+            userId:"56a39f9e0e5d3cd81d876f98",
+            title: "Попов"
+
         };
-        im.emit('loadConv', data, function(data){
+        im.emit('getConvsByTitle', data, function(data){
             console.log(data);
         })
+
+        data = {
+            convId: "56a8eeaedc88281bbc9ff623"
+        }
+        im.emit('stopTyping', data);
+
+	    im.on('stopTyping', function(data){
+		    console.log(data);
+	    })
+
+	    data = {
+		    convId:"56a8e20a6a829d09bb40ce04",
+		    newParticipants: ["56a39f9e0e5d3cd81d876f98", "56a39d30fa3a61d11de5d36a"]
+	    }
+	    im.emit('addParticipants', data,function(data){
+		    console.log(data);
+	    })
+	    data = {
+		    convId:"56a8e20a6a829d09bb40ce04",
+		    userId: "56a39f9e0e5d3cd81d876f98"
+	    }
+	    im.emit('removeParticipant',data,function(data){
+		    console.log(data);
+	    } )
     });
 
 

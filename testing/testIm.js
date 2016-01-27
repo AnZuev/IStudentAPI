@@ -27,12 +27,12 @@ im.getDialogById(dialogId, sender, function(err, imItem){
   //  console.log(arguments);
 //});
 
-/*
+
 conversation.createPrivateConversation(userA, userG, function(err, conv){
     console.log(arguments);
 });
-
-conversation.createGroupConversation("Групповая беседа Ильи, Антона и Георгия", userG, "none", [userA, userG, userP, userPloskov], function(err, conv){
+/*
+conversation.createGroupConversation("Попов Георгий", userG, "none", [userA, userG, userP, userPloskov], function(err, conv){
     console.log(arguments);
     var messageItem = {
         attachments:[],
@@ -55,7 +55,7 @@ var messageItem = {
     text:"Первое сообщение"
 };
 
-*/
+
 for(var i = 0; i<-1; i++){
     var messageItem = {
         attachments:[],
@@ -96,7 +96,20 @@ conversation.getConvsByTitle(title, userG, function(err, res){
     console.log(arguments);
 });
 
-    */
+
 sockets.getSocketsByUserIdAndType(userPloskov, "ns", function(err, res){
     console.log(arguments);
+});
+
+
+var contacts = [];
+
+contacts.push(userP);
+User.addContacts(userA, contacts, function(err, res){
+	console.log(arguments);
+});
+*/
+User.getContactsByOneKey(userA, "Гео", function(err, result){
+	//console.log(arguments);
 })
+

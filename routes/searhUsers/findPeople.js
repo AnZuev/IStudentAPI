@@ -1,5 +1,6 @@
 var User = require('../../models/User').User;
 var mongoose = require("../../libs/mongoose");
+require('../../libs/additionalFunctions/extensionsForBasicTypes');
 
 module.exports = function(req, res, next){
     var keyword = req.query.q.split(' ');
@@ -52,6 +53,3 @@ module.exports = function(req, res, next){
 };
 
 
-String.prototype.capitilizeFirstLetter = function(){
-    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
-}

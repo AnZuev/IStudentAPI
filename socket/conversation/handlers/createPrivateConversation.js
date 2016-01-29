@@ -8,9 +8,10 @@ var mmws = require('../../conversation/imInterface').mmws;
 var wsError = require('../../../error').wsError;
 var dbError = require('../../../error').dbError;
 
-
 var async = require('async');
 
+
+var libs = require('../libs');
 
 /*
  1) Проверяем существует ли пользователь
@@ -20,14 +21,9 @@ var async = require('async');
 
  */
 module.exports = function(socket, data, cb){
-    try{
-        var x = data.message.text.length;
-    }catch(e){
-        var wsEr = new wsError();
-        return cb(wsEr.sendError());
-    }
    async.waterfall([
        function(callback){
+	       if(!data.userId) return cb(new wsError(400, "Недостаточно данных для создания беседы"));
            User.getUserById(data.userId, callback);
        },
        function(user, callback){
@@ -37,37 +33,48 @@ module.exports = function(socket, data, cb){
                conversation.createPrivateConversation(data.userId, socket.request.headers.user.id, function(err, conv){
                    if(err) return callback(err);
                    else{
-
                        return callback(null, conv, user)
                    }
                });
            }
        },
        function(conv, user, callback){
-           if(!conv){
-               callback(new dbError(null, 500, "После добавления не вернулась беседа"));
-           }else{
-               if(data.message.text.length > 0){
+           if(!conv) callback(new dbError(null, 500, "После добавления не вернулась беседа"));
+
+           libs.loadPrivateConvInfo(conv, socket.request.headers.user.id, function(err, conv){
+               if(err) return callback(err);
+               else{ return callback(null, conv, user)}
+           })
+       },
+       function(conv, user, callback){
+           var messageItem = {};
+           if(data.message){
+               if(!(data.message.text || data.message.attachments)){
+                   return callback(null, conv, null, user);
+               }
+               if(data.message.attachments){
                    if(data.message.attachments.length > 5){
                        data.message.attachments = data.message.attachments.slice(0, 5);
                    }
-                   var messageItem = {
-                       attachments:data.message.attachments,
-                       text: data.message.text
-                   };
-                   conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err){
-                       if(err) callback(err);
-                       else{
-                           conv.messages.push(messageItem);
-                           callback(null, conv, messageItem, user);
-                       }
-                   });
+                   messageItem.attachments = data.message.attachments;
                }
+               if(data.message.text){
+                   messageItem.text = data.message.text;
+               }
+               conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err){
+                   if(err) callback(err);
+                   else{
+                       conv.messages.push(messageItem);
+                       callback(null, conv, messageItem, user);
+                   }
+               });
+           }else{
+               callback(null, conv, null, user);
            }
        },
        function(conv, messageItem, user, callback){
-
-           var options ={
+           if(!messageItem) return callback(null, conv);
+	       var options ={
                attachments: messageItem.attachments,
                convId: conv._id
            };

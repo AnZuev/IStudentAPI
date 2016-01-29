@@ -2,6 +2,7 @@ var User = require('../../models/User').User;
 var httpError = require('../../error').HttpError;
 var authError = require('../../error').authError;
 var universityInterface = require('../../data/index').universityInfoLoader;
+var dataJson = require('../../data/university.json');
 
 exports.post = function(req, res, next){
 
@@ -13,7 +14,7 @@ exports.post = function(req, res, next){
     var faculty = req.body.faculty;
     var group = req.body.group;
     var university = req.body.university;
-    if(universityInterface[university] && universityInterface[university].faculty[faculty]){
+    if(dataJson[university] && dataJson[university].faculty[faculty]){
         User.signUp(name, surname, group, faculty, university, year, studNumber, password, function(err, user){
             if(err){
                 if(err instanceof authError){

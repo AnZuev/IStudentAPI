@@ -32,6 +32,7 @@ module.exports = function(socket, data, cb){
                 conversation.getConvById(data.convId, socket.request.headers.user.id, callback);
             },
             function(conv, callback){
+
                 if(conv.participants.length == 2) libs.loadPrivateConvInfo(conv,socket.request.headers.user.id, callback);
                 else if(conv.participants.length > 2){
                     libs.loadGroupConvInfo(conv, socket.request.headers.user.id, callback);

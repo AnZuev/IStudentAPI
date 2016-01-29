@@ -153,9 +153,7 @@ conversation.statics.addMessage = function(convId, userId, rawMessage, callback)
 		            var tasks = [];
 		            tasks.push(taskToAddContact(conv.participants[0], conv.participants[1]));
 		            tasks.push(taskToAddContact(conv.participants[1], conv.participants[0]));
-					async.parallel(tasks, function(){
-						return;
-					})
+					async.parallel(tasks, function(){})
 	            }
             }
         }
@@ -248,20 +246,21 @@ conversation.statics.readMessages = function(convId, userId, callback){
         },
         function(conv, callback){
             if(!conv) return callback(null, false);
-            if(conv.messages.length > 0){
-                conv.messages.forEach(function(element){
-                    element.unread.splice(element.unread.indexOf(userId), 1);   /* TODO подумать насчет того, что эта операция может блокировать поток выполенения ноды*/
-                });
-                conv.save(function(err){
-                    if(err){
-                        return callback(new dbError(err, null, null));
-                    }else{
-                        return callback(null, true);
-                    }
-                })
-            }else{
-                return callback(null, true);
-            }
+	        try{
+		        conv.messages.forEach(function(element){
+			        element.unread.splice(element.unread.indexOf(userId), 1);   /* TODO подумать насчет того, что эта операция может блокировать поток выполенения ноды*/
+		        });
+		        conv.save(function(err){
+			        if(err){
+				        return callback(new dbError(err, null, null));
+			        }else{
+				        return callback(null, true, conv);
+			        }
+		        })
+	        }catch(e){
+		        return callback(null, false);
+	        }
+
         }
     ], callback);
 };

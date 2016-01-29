@@ -76,6 +76,15 @@ function imService(ee){
 		        require('./handlers/sendMessageToManyConversations')(socket, data, cb);
 	        });
 
+	        socket.on('readMessages', function(data, cb){
+		        require('./handlers/readMessages')(socket, data, cb);
+	        });
+
+            socket.on('settings', function(data, cb){
+                require('./handlers/settings')(socket, data, cb);
+            });
+
+
             socket.on('connection:accepted', function(){
                 log.debug('Событие connection:accepted сработало');
                 addSocketToDB(socket.id, socket.handshake.headers.user.id, "im", function(err){

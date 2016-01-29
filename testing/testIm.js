@@ -10,6 +10,7 @@ var userA = "56a362eb992f388418145f12";
 var userG = "56a37f4ebff41af71b54c752";
 var userP2 = "56a39d30fa3a61d11de5d36a";
 var userPloskov = "56a39f9e0e5d3cd81d876f98";
+var userKomarov = "56aa68c50bb8719ac3560e1b";
 /*
 for(var i = 0; i<60; i++){
     im.addMessage(dialogId, sender, message + i, function(err, message){
@@ -27,7 +28,7 @@ im.getDialogById(dialogId, sender, function(err, imItem){
   //  console.log(arguments);
 //});
 
-
+/*
 conversation.createPrivateConversation(userA, userG, function(err, conv){
     console.log(arguments);
 });
@@ -108,8 +109,26 @@ contacts.push(userP);
 User.addContacts(userA, contacts, function(err, res){
 	console.log(arguments);
 });
-*/
+
 User.getContactsByOneKey(userA, "Гео", function(err, result){
 	//console.log(arguments);
-})
+});
+var settings = {
+	convId: convId,
+	notification1:true,
+    tag:{
+        color:"#aabbcc",
+        title1:"great"
+    }
+};
+
+User.addImSettings(userKomarov, convId, settings, function(err, result){
+	console.log(arguments);
+});
+*/
+User.getImSettingsByUserAndConvId(userKomarov, convId, function(err, result){
+    console.log(arguments);
+});
+
+
 

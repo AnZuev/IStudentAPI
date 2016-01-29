@@ -14,6 +14,9 @@ var dbError = require('../../../error').dbError;
 
 var async = require('async');
 
+var libs = require('../libs');
+
+
 
 /*
  1) Проверяем существуют ли пользователи
@@ -28,11 +31,9 @@ module.exports = function(socket, data, cb){
         participants = data.participants;
         participants.unique();
         if(participants.indexOf(socket.request.headers.user.id) < 0) participants.push(socket.request.headers.user.id);
-
     }catch(e){
         throw e;
-        var wsEr = new wsError(400);
-        return cb(wsEr.sendError());
+        return cb(new wsError(400).sendError());
     }
     async.waterfall([
         function(callback){
@@ -49,10 +50,9 @@ module.exports = function(socket, data, cb){
                 }
             });
 
-            if(!users.length){
-                return callback(new wsError(400, "Нельзя создать беседу"));
+            if(users.length < 3){
+                return callback(new wsError(400, "Not enough users for group conversation"));
             }else{
-
                 conversation.createGroupConversation(title, socket.request.headers.user.id, "", users, function(err, conv){
                     if(err) return callback(err);
                     else{
@@ -61,27 +61,31 @@ module.exports = function(socket, data, cb){
                 });
             }
         },
+	    function(conv, users, callback){
+		    if(!conv) callback(new dbError(null, 500, "После добавления не вернулась беседа"));
+		    libs.loadGroupConvInfo(conv, socket.request.headers.user.id, function(err, convWithParts){
+			    if(err) return callback(err);
+			    else return callback(null, convWithParts, users);
+
+		    })
+	    },
         function(conv, users, callback){
-            if(!conv){
-                callback(new dbError(null, 500, "После добавления не вернулась беседа"));
-            }else{
-                if(data.message.text.length > 0){
-                    if(data.message.attachments.length > 5){
-                        data.message.attachments = data.message.attachments.slice(0, 5);
-                    }
-                    var messageItem = {
-                        attachments:data.message.attachments,
-                        text: data.message.text
-                    };
-                    conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err){
-                        if(err) callback(err);
-                        else{
-                            conv.messages.push(messageItem);
-                            callback(null, conv, messageItem, users);
-                        }
-                    });
-                }
-            }
+	        if(data.message.text.length > 0){
+		        if(data.message.attachments.length > 5){
+			        data.message.attachments = data.message.attachments.slice(0, 5);
+		        }
+		        var messageItem = {
+			        attachments:data.message.attachments,
+			        text: data.message.text
+		        };
+		        conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err){
+			        if(err) callback(err);
+			        else{
+				        conv.messages.push(messageItem);
+				        callback(null, conv, messageItem, users);
+			        }
+		        });
+	        }
         },
         function(conv, messageItem, users, callback){
 

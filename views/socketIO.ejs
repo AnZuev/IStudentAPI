@@ -18,24 +18,26 @@
 
     im.on('connect', function(){
         im.emit("connection:accepted");
-/*
+
         var imItem = {
             participants: ["56a39f9e0e5d3cd81d876f98","56a37f4ebff41af71b54c752"],
             message:{
                 attachments: [],
                 text: "Первое сообщение"
             },
-            title: "Название первой групповой беседы."
+			userId: "56a39f9e0e5d3cd81d876f98",
+            title: "Название 49 групповой беседы."
         }
-        im.emit('createGroupConversation', imItem, function(data){
+        im.emit('createPrivateConversation', imItem, function(data){
             console.log(data);
         });
-*/
+
         var messageItem = {
             text:"Сообщение в private беседу",
             attachments: [],
             convId:"56a8eeaedc88281bbc9ff623"
         }
+		/*
         im.emit('sendMessage', messageItem, function(data){
             console.log(data);
         });
@@ -72,6 +74,11 @@
 	    im.emit('removeParticipant',data,function(data){
 		    console.log(data);
 	    } )
+	    */
+
+		im.emit("loadConv", {convId: "56ab3a55152b83310534ca6c"}, function(data){
+			console.log(data);
+		})
     });
 
 

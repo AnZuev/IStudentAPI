@@ -84,6 +84,20 @@ var User = new Schema({
 
     projects:[{}],
 
+	settings:{
+		im:[
+			{
+				convId: Schema.Types.ObjectId,
+				notification: Boolean,
+				tag:{
+					title:String,
+					color: String
+				},
+				_id:0
+			}
+		]
+	},
+
     searchString:{
         type:String,
         require: true
@@ -216,23 +230,28 @@ User.statics.getPeopleByGroupNumber = function(group, callback){
 
 User.statics.getPeopleByOneKey = function(key, callback){
 
-    var query = this.aggregate([{$match: {searchString:{$regex: key}}},
+    User.aggregate([
+        { $limit : 5 },
+        {
+            $match: {
+                $and:[
+                    {"searchString":{$regex: key}}
+                ]}
+        },
+        {
+            $project:
             {
-                $project:
-                {
-                    student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
-                    group: "$pubInform.group",
-                    description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-                    photo: "$pubInform.photo"
-
-                }
-            },
-            {
-                $sort:{student: 1}
+                student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+                group: "$pubInform.group",
+                description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+                photo: "$pubInform.photo"
             }
-        ])
-        .limit(5).exec();
-    query.then(function(users){
+        },
+        {
+            $sort:{"student":1}
+        }
+    ], function(err, users){
+        if(err) throw err;
         if(users.length == 0){
             return callback(new dbError(null, 204, null));
         }else{
@@ -242,32 +261,48 @@ User.statics.getPeopleByOneKey = function(key, callback){
 };
 
 User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
-    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}]}},
-        {
-            $project:
-            {
-                student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
-                group: "$pubInform.group",
-                description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-                photo: "$pubInform.photo"
-            }
-        },
-        {
-            $sort:{student: 1}
-        }
-        ])
-        .limit(5).exec();
-    query.then(function(users){
-        if(users.length == 0){
-            return callback(new dbError(null, 204, null));
-        }else{
-            return callback(null, users);
-        }
-    });
+	User.aggregate([
+		{ $limit : 5 },
+		{
+			$match: {
+				$and:[
+					{"searchString":{$regex: key1}},
+					{"searchString":{$regex: key2}}
+				]}
+		},
+		{
+			$project:
+			{
+				student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+				group: "$pubInform.group",
+				description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
+				photo: "$pubInform.photo"
+			}
+		},
+		{
+			$sort:{"student":1}
+		}
+	], function(err, users){
+		if(err) throw err;
+		if(users.length == 0){
+			return callback(new dbError(null, 204, null));
+		}else{
+			return callback(null, users);
+		}
+	});
 };
 
 User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
-    var query = this.aggregate([{$match: {$and:[{searchString:{$regex: key1}}, {searchString:{$regex: key2}}, {searchString:{$regex: key3}}]}},
+    User.aggregate([
+        { $limit : 5 },
+        {
+            $match: {
+                $and:[
+                    {"searchString":{$regex: key1}},
+                    {"searchString":{$regex: key2}},
+	                {"searchString":{$regex: key3}}
+                ]}
+        },
         {
             $project:
             {
@@ -275,17 +310,15 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
                 group: "$pubInform.group",
                 description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
                 photo: "$pubInform.photo"
-
             }
         },
         {
-            $sort:{student: 1}
+            $sort:{"student":1}
         }
-        ])
-        .limit(5).exec();
-    query.then(function(users){
+    ], function(err, users){
+        if(err) throw err;
         if(users.length == 0){
-            return callback(new dbError(204, 'No users found'));
+            return callback(new dbError(null, 204, null));
         }else{
             return callback(null, users);
         }
@@ -557,17 +590,119 @@ User.statics.blockContacts = function(userId, blockedUser, callback){
 
 
 
+User.statics.getImSettingsByUserAndConvId = function(userId, convId, callback){
+	this.findOne(
+		{
+			_id: userId,
+			"settings.im.convId": convId
+		},
+		{
+			"settings.im.$":1,
+			_id:0
+		},
+		function(err, result){
+			if(err) {
+
+                //TODO сделать глобальный логгер ошибок в файл
+                return callback(null, null);
+            }
+			else{
+				try{
+					return callback(null, result.settings.im[0]);
+				}catch(e){
+					return callback(null, null);
+				}
+
+			}
+		}
+	)
+};
+
+User.statics.addImSettings = function(userId, convId, settings, callback){
+	var User = this;
+	async.waterfall([
+		function(callback){
+			User.findOne(
+				{
+					_id: userId,
+					"settings.im.convId": convId
+				},
+				{
+					"settings.im": 1,
+					_id:0
+				},
+				callback
+			)
+		},
+		function(setItemRaw, callback){
+            var setItem = setItemRaw.settings.im[0];
+			if(setItem){
+                for( var key in settings){
+                    if(key.toString() == "tag"){
+                        if(setItem.tag.title != settings.tag.title && settings.tag.hasOwnProperty("title")) setItem.tag.title = settings.tag.title;
+                        if(setItem.tag.color != settings.tag.color && settings.tag.hasOwnProperty("color")) setItem.tag.color = settings.tag.color;
+                    }
+                    else if(setItem[key] != settings[key]) {
+                        setItem[key] = settings[key];
+                    }
+                }
+                User.update(
+                    {
+                        _id: userId,
+                        "settings.im.convId": convId
+
+                    },
+                    {
+                        $set: {
+                            "settings.im.$.tag.title": setItem.tag.title,
+                            "settings.im.$.tag.color": setItem.tag.color,
+                            "settings.im.$.notification": setItem.notification
+                        }
+                    },
+                    callback
+                )
+			}else{
+				User.update(
+					{
+						_id: userId
+					},
+					{
+						$push:{
+							"settings.im": settings
+						}
+					},
+					callback
+				)
+			}
+		}
+	], function(err){
+		if(err) return callback(new dbError(err, 500, null));
+        return callback(null, true);
+	})
+};
+
+
 // =================================testing
 User.statics.removeContacts = function(userId, callback){
 
-   this.getUserById(userId, function(err, user){
-        if(user){
-            user.contacts = [];
-            user.save();
-            return callback(null, user);
-        }
-    })
+	this.getUserById(userId, function(err, user){
+		if(user){
+			user.contacts = [];
+			user.save();
+			return callback(null, user);
+		}
+	})
 };
+
+
+User.statics.removeSettings = function(userId, callback){
+	this.remove(
+		{
+			_id: userId
+		},
+		callback
+	)
+}
 
 
 exports.User = mongoose.model('User', User);

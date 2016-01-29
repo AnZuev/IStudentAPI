@@ -1,0 +1,35 @@
+{
+	"contactModule":{
+		"<tr  class='contact'>
+                  <td style='width:50px'>
+                    <img class='avatar' src='%s' alt=''>
+                  </td>
+                  <td>
+                    <p class='nameOfDialog fontBlueColor'>%s</p>
+                    <p class='lastMessage'>%s</p>
+                  </td>
+                </tr>"
+	},
+
+	"messageModule":{
+		"senderNameTemp": "<p class='senderName fontBlueColor'> %s </p>",
+		"messageTemp": "<div> <div class='blockForMessage fromCompanion'> %s <div class='time'>%s</div> </div> <div class='clear'> </div> </div>",
+		"messageDateTemp": "<div class='date> %s </div>"
+	},
+
+	"documentsModule":{
+		"addedDocumentTemp": "<li><ins class='addedDocument fontBlueColor'>%s</ins> <div class='indicatorOfLoad blueBorders'><div style='width:0%'></div></div> <span></span></li>"
+	},
+
+	"creatingConversationModule":{
+		"addedParticipant": "<span class=''>%s</span>",
+	},
+
+	"cleverSearchModule":{
+		"itemOfSearchMenu": "<li class=''><img src='%s'> <p>%s</p> </li>",
+	}
+
+
+
+
+}

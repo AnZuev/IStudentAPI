@@ -1,44 +1,101 @@
 <% layout('/layout/lkLayout') -%>
 <% block('title', 'Диалоги') -%>
-<% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/dialogs.css"/>')%>
+<% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/im.css"/>')%>
 <% block('script', '<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/dialogs.js"></script>')%>
-<% block('smoothEverythingContent', '<div id="createConversation"><p class="nameOfDialog">Создание беседы</p><input type="text" placeholder="Название беседы..." name="titleOfDialog"><p class="nameOfDialog">Участники:</p><input type="text" placeholder="Начните вводить имя, фамилию или номер группы" name="participants"><ul id="listOfParticipants" class="hide"></ul><ul id="listOfAddedParticipant"></ul><div class="buttonGreen" id="createDialog">Создать</div></div>') %>
+<% block('smoothEverythingContent', '') %>
 
 
 <script> window.host = <%-JSON.stringify(host)%></script>
-<p class="lkPageHeader">Диалоги</p>
-<table cellspacing='30px;' style='margin:-30px;'>
-<tr>
-<td id="listOfDialogs">
-    <div id='searchContact'>
-        <input type="search"  placeholder='Начните вводить имя, фамилию или группу'>
-    </div>
-    <div id="wrapListOfDialogs">
-        <div id="noResultsOfSearch" class="hide" >Поиск не дал результатов</div>
-        <ul class='dialogsItemList'>
 
-        </ul>
-    </div>
-</td>
 
-<td id="layoutForDialog">
-    <p class="nameOfDialog" id='titleOfCurrentDialog'>Старосты</p>
+<div id="spaceForMessages">
+        
+        <div id="spaceForMessagesHeader">
+          <div id="leftPartOfMessagesHeader">
+            <input id="searchOfContactsField" type="text" placeholder="Поиск">
+            <img id="createConversation"src="assets/imCreateDialogButton.png" alt="">
+          </div>
 
-    <div id="buttonForCreateConversation"> Создать беседу</div>
+          <div id="rightPartOfMessagesHeader" class="dialogName fontBlueColor">
+             
+          </div>
 
-    <p id="noMessages" class='hide'>Здесь будет выводиться Ваша переписка</p>
-
-    <div id="wrapLayoutForDialog">
-
-    </div>
-
-    <form id='formForAnswer'action="">
-
-        <div style=" margin-left:88px;">
-            <span class="button" id='addDocument'>Прикрепить</span>
-
+          <div class="clear"></div>
         </div>
-    </form>
-</td>
-</tr>
-</table>
+
+        <div>
+
+          <div id="wrapperOfLayoutForContact">
+            <div id="layoutForContact">
+              <p id="waitingResult" class="hide">здесь будут выводиться результаты</p>
+              <p id="noResultsContacts" class="hide">ничего не найдено</p>
+
+              
+              <table style="width:100%">            
+
+                <!--Сюда вставляются контакты-->
+                  
+              </table>
+            </div>
+          </div>
+
+
+          <div id="wrapperOfLayoutMessages" class="">
+            <div id="layoutForMessages">
+              <p id="noMessages" class='hide'>Привет username. Выберите диалог</p>
+
+                <!--Сюда вставляются сообщения-->
+
+            </div>            
+              
+          </div>
+
+            <form action="" id="formForMessage" class="">
+              <textarea name="" id="enteringMessageForm" rows="3"></textarea>
+              <img src="assets/imAttachButton.png" alt="">
+               
+               <ul id="menuOfAddingDocument" class="">
+                  <li><img src="assets/imAddPhotoIcon.svg" alt=""> <p class="fontBlueColor">Фотография</p> </li>
+                  <li><img src="assets/imAddDocumentIcon.svg" alt=""> <p class="fontBlueColor">Документ</p> </li>
+                  <li><img src="assets/imAddEventIcon.svg" alt=""> <p class="fontBlueColor">Событие</p> </li>
+              </ul>
+
+              
+              <ul id="listOfAddedDocuments">
+                <!--Сюда вставляются добавленый документы-->
+              </ul>
+
+
+            </form>
+
+            <div id="layoutForCreatingConversation" class="hide">
+              
+              <input id="inputNameOfCreatingConversation" class="wrongField" placeholder="Название..." type="text">
+
+              <div id="areaForAddingParticipantsInConversation">
+                <!--место для добавленных в беседу участников-->
+              </div>
+
+              <p class="fontBlueColor" id="tipsForCreatingConversation">Начните вводить критерии для поиска людей(имя, фамилия или номер группы), в начале написав
+                “@“, например @Илья Горбунов для поиска людей с таким именем или @4304 для поиска всех
+                студентов группы 4304. Критерии можно комбинировать между собой. Участников следует
+                разделять между собой запятой.</p>
+
+              <textarea name="" id="areaForFirstMessageInConversation" placeholder="Текст сообщение..." rows="3"></textarea>
+
+              <div class="blueButton1 fontBlueColor" id="createConversationLastAccept">Создать</div>
+
+              <ul id="listForAddedParticipants" class="backgroundGray1">
+      
+                <p id="noResultsParticipants" class="hide">ничего не найдено</p>
+
+                <!--место для вывода результатов поиска-->
+      
+              </ul>
+              
+
+            </div>
+              <div class="clear"></div>
+        </div>
+            
+      </div>

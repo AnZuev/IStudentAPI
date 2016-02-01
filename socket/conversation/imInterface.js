@@ -84,6 +84,9 @@ function imService(ee){
                 require('./handlers/settings')(socket, data, cb);
             });
 
+	        socket.on('findContacts', function(data, cb){
+		        require('./handlers/findContacts')(socket, data, cb);
+	        });
 
             socket.on('connection:accepted', function(){
                 log.debug('Событие connection:accepted сработало');

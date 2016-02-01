@@ -79,6 +79,13 @@
 		im.emit("loadConv", {convId: "56ab3a55152b83310534ca6c"}, function(data){
 			console.log(data);
 		})
+
+		var data = {
+			query: "Плосков"
+		};
+		im.emit('findContacts', data, function(data){
+			console.log(data);
+		} )
     });
 
 

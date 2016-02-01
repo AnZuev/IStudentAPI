@@ -21,6 +21,15 @@ function userAboutType(){
         return res;
     };
 
+	this.makeContact = function(user){
+		user.about = self.getFacultyName(user.university, user.faculty) + ", " + user.year + " курс, группа " + user.group;
+		user.university = self.getUniversityName(user.university);
+		delete user.faculty;
+		delete user.group;
+		delete user.year;
+		return user;
+	}
+
 }
 var universityInfoLoader = new userAboutType();
 exports.universityInfoLoader = universityInfoLoader;

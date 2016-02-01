@@ -98,20 +98,20 @@ exports.loadGroupConvInfo = loadGroupConvInfo;
 
 
 function taskToGetUserInfo(userId){
-    return function(callback){
-        User.getUserById(userId, function(err, user){
-            if(err) return callback(err);
-            else{
-                var data = {
-                    id: user._id,
-                    photo: user.pubInform.photo,
-                    about: universityInterface.getFacultyName(user.pubInform.university, user.pubInform.faculty) + ", " + user.pubInform.year + " курс, группа " + user.pubInform.group,
-                    university: universityInterface.getUniversityName(user.pubInform.university),
-                    username: user.pubInform.name + " " + user.pubInform.surname
-                };
+	return function(callback){
+		User.getUserById(userId, function(err, user){
+			if(err) return callback(err);
+			else{
+				var data = {
+					id: user._id,
+					photo: user.pubInform.photo,
+					about: universityInterface.getFacultyName(user.pubInform.university, user.pubInform.faculty) + ", " + user.pubInform.year + " курс, группа " + user.pubInform.group,
+					university: universityInterface.getUniversityName(user.pubInform.university),
+					username: user.pubInform.name + " " + user.pubInform.surname
+				};
 
-                return callback(null, data);
-            }
-        })
-    }
+				return callback(null, data);
+			}
+		})
+	}
 }

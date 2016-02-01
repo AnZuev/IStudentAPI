@@ -366,7 +366,7 @@ User.statics.getContactsByOneKey = function (userId, key, callback){
                 {
                     $project:
                     {
-                        student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+                        username:{$concat:["$pubInform.name", " ", "$pubInform.surname"]},
                         group: "$pubInform.group",
 	                    university: "$pubInform.university",
 	                    faculty: "$pubInform.faculty",
@@ -414,10 +414,12 @@ User.statics.getContactsByTwoKeys = function(userId, key1, key2, callback){
 		            {
 			            $project:
 			            {
-				            student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+				            username:{$concat:["$pubInform.name", " ", "$pubInform.surname"]},
 				            group: "$pubInform.group",
-				            description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-				            photo: "$pubInform.photo"
+				            university: "$pubInform.university",
+				            faculty: "$pubInform.faculty",
+				            photo: "$pubInform.photo",
+				            year: "$pubInform.year"
 			            }
 		            },
 		            {
@@ -461,10 +463,12 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
 		            {
 			            $project:
 			            {
-				            student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+				            username:{$concat:["$pubInform.name", " ", "$pubInform.surname"]},
 				            group: "$pubInform.group",
-				            description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-				            photo: "$pubInform.photo"
+				            university: "$pubInform.university",
+				            faculty: "$pubInform.faculty",
+				            photo: "$pubInform.photo",
+				            year: "$pubInform.year"
 			            }
 		            },
 		            {
@@ -706,3 +710,7 @@ User.statics.removeSettings = function(userId, callback){
 
 
 exports.User = mongoose.model('User', User);
+
+
+
+

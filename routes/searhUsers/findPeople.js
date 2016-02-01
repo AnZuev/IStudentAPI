@@ -8,7 +8,6 @@ module.exports = function(req, res, next){
        keyword[i] = keyword[i].toLowerCase();
        keyword[i] = keyword[i].capitilizeFirstLetter();
     }
-
     switch (keyword.length){
         case 1:
             User.getPeopleByOneKey(keyword[0], function(err, users){

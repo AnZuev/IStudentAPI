@@ -7,6 +7,9 @@ var async = require('async');
 var config = require('../../config');
 var host = config.get('general:host');
 
+var publicStaticServer =config.get('general:publicStaticServer');
+
+
 exports.get = function(req, res, next){
     async.parallel([
         function(callback){
@@ -36,7 +39,8 @@ exports.get = function(req, res, next){
                 calendarNews: results[1],
                 jsonCalendarModuleConstructor: calendarConstructor,
                 shortEventsDescription: results[0],
-                host: host
+                host: host,
+	            publicStaticServer:publicStaticServer
             });
             return next();
 

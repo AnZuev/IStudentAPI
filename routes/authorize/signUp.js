@@ -6,14 +6,19 @@ var dataJson = require('../../data/university.json');
 
 exports.post = function(req, res, next){
 
-    var name = req.body.firstName.capitilizeFirstLetter();
-    var surname = req.body.lastName.capitilizeFirstLetter();
-    var password = req.body.password;
-    var studNumber = req.body.studNumber;
-    var year = req.body.year;
-    var faculty = req.body.faculty;
-    var group = req.body.group;
-    var university = req.body.university;
+	try{
+		var name = req.body.firstName.capitilizeFirstLetter();
+		var surname = req.body.lastName.capitilizeFirstLetter();
+		var password = req.body.password;
+		var studNumber = req.body.studNumber;
+		var year = req.body.year;
+		var faculty = req.body.faculty;
+		var group = req.body.group;
+		var university = req.body.university;
+	}catch(e){
+		next(400);
+	}
+
     if(dataJson[university] && dataJson[university].faculty[faculty]){
         User.signUp(name, surname, group, faculty, university, year, studNumber, password, function(err, user){
             if(err){

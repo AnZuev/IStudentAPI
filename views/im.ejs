@@ -1,7 +1,7 @@
 <% layout('/layout/lkLayout') -%>
 <% block('title', 'Диалоги') -%>
-<% block('style', '<link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/im.css"/>')%>
-<% block('script', '<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/dialogs.js"></script>')%>
+<% block('style', '<link rel="stylesheet" href="<%=publicStaticServer%>/styles/im.css"/>')%>
+<% block('script', '<script type="text/javascript" src="<%=publicStaticServer%>/scripts/dialogs.js"></script>')%>
 <% block('smoothEverythingContent', '') %>
 
 
@@ -21,7 +21,7 @@
         <div id="spaceForMessagesHeader">
           <div id="leftPartOfMessagesHeader">
             <input id="searchOfContactsField" type="text" placeholder="Поиск">
-            <img id="createConversation"src="<%=publicStaticServer%>/assets/imCreateDialogButton.png" alt="">
+            <img id="createConversation"src="<%=publicStaticServer%>/images/imCreateDialogButton.png" alt="">
           </div>
 
           <div id="rightPartOfMessagesHeader" class="dialogName fontBlueColor">
@@ -60,12 +60,12 @@
 
             <form action="" id="formForMessage" class="">
               <textarea name="" id="enteringMessageForm" rows="3"></textarea>
-              <img src="assets/imAttachButton.png" alt="">
+              <img src="<%=publicStaticServer%>/images/imAttachButton.png" alt="">
                
                <ul id="menuOfAddingDocument" class="">
-                  <li><img src="assets/imAddPhotoIcon.svg" alt=""> <p class="fontBlueColor">Фотография</p> </li>
-                  <li><img src="assets/imAddDocumentIcon.svg" alt=""> <p class="fontBlueColor">Документ</p> </li>
-                  <li><img src="assets/imAddEventIcon.svg" alt=""> <p class="fontBlueColor">Событие</p> </li>
+                  <li><img src="<%=publicStaticServer%>/images/imAddPhotoIcon.svg" alt=""> <p class="fontBlueColor">Фотография</p> </li>
+                  <li><img src="<%=publicStaticServer%>/images/imAddDocumentIcon.svg" alt=""> <p class="fontBlueColor">Документ</p> </li>
+                  <li><img src="<%=publicStaticServer%>/images/imAddEventIcon.svg" alt=""> <p class="fontBlueColor">Событие</p> </li>
               </ul>
 
               

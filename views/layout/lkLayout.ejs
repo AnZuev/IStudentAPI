@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/reset.css"/>
-    <link rel="stylesheet" href="http://pre-static.istudentapp.ru/styles/main.css">
+    <link rel="stylesheet" href="<%=publicStaticServer%>/styles/reset.css"/>
+    <link rel="stylesheet" href="<%=publicStaticServer%>/styles/main.css">
 
     <%-blocks.style%>
 
@@ -21,7 +21,7 @@
         <div class="topRightCorner">
             <span class="headerUserName fontBlueColor "> </span>
             <div class="blueBorders globalAdditionalMenu ">
-                <img src="assets/testImages/avatar1.png" alt="">
+                <img src="<%=publicStaticServer%>/images/testImages/avatar1.png" alt="">
                 <div>
                     <ul>
                         <li class='globalAdditionalMenuIM'>
@@ -47,31 +47,31 @@
         </div>
         
         <div class="topLeftCorner">
-            <img src="assets/global/menuButton.png" alt="" class="menuButton">
+            <img src="<%=publicStaticServer%>/images/global/menuButton.png" alt="" class="menuButton">
             <div class="globalMenu blueBorders">
                 <ul>
                     <li>
                         <div>
-                            <img src="assets/global/calendarIcon.png" alt="" style='height:20px;'>
+                            <img src="<%=publicStaticServer%>/images/global/calendarIcon.png" alt="" style='height:20px;'>
                         </div>
                         <span>Календарь</span>
                     </li>
                     <li>
                         <div>
-                            <img src="assets/global/imIcon.png" alt="">
+                            <img src="<%=publicStaticServer%>/images/global/imIcon.png" alt="">
                         </div>
             
                         <span>Диалоги</span>
                     </li>
                     <li>
                         <div>
-                            <img src="assets/global/bzIcon.png" alt="">
+                            <img src="<%=publicStaticServer%>/images/global/bzIcon.png" alt="">
                         </div>
                         <span>База знаний</span>
                     </li>
                     <li>
                         <div>
-                            <img src="assets/global/projectsIcon.png" alt="">
+                            <img src="<%=publicStaticServer%>/images/global/projectsIcon.png" alt="">
                         </div>
                         <span>Проекты</span>
                     </li>
@@ -99,10 +99,10 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/Error.js"></script>
-<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/UserClass.js"></script>
-<script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/additionalMethods.js" ></script>
-<script type="text/javascript" src = "http://pre-static.istudentapp.ru/scripts/notifications.js"></script>
+<script type="text/javascript" src="<%=publicStaticServer%>/scripts/Error.js"></script>
+<script type="text/javascript" src="<%=publicStaticServer%>/scripts/UserClass.js"></script>
+<script type="text/javascript" src="<%=publicStaticServer%>/scripts/additionalMethods.js" ></script>
+<script type="text/javascript" src = "<%=publicStaticServer%>/scripts/notifications.js"></script>
 <%-blocks.script%>
 
 </body>

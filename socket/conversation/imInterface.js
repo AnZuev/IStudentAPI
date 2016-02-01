@@ -84,7 +84,6 @@ function imService(ee){
                 require('./handlers/settings')(socket, data, cb);
             });
 
-
             socket.on('connection:accepted', function(){
                 log.debug('Событие connection:accepted сработало');
                 addSocketToDB(socket.id, socket.handshake.headers.user.id, "im", function(err){
@@ -92,8 +91,6 @@ function imService(ee){
                     log.debug('Соединение установлено -> im. Socket успешно добавлен');
                 });
             });
-
-
         });
 
 

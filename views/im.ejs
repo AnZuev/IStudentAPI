@@ -5,6 +5,14 @@
 <% block('smoothEverythingContent', '') %>
 
 
+<!--
+ 	Кирилл, теперь хост статики доступен вот таким образом: <%=publicStaticServer%>
+	Он задается в файле config/config.json(general.publicStaticServer) и передается сюда для рендеринга.
+	Так как планируется еще и изменение самого домена, поэтому этот вариант пока будем использовать.
+	Иначе потом придется руками менять хост везде.
+	Пример <%=publicStaticServer%>/assets/imCreateDialogButton.png, где <%=publicStaticServer%> - наш хост
+-->
+
 <script> window.host = <%-JSON.stringify(host)%></script>
 
 
@@ -13,7 +21,7 @@
         <div id="spaceForMessagesHeader">
           <div id="leftPartOfMessagesHeader">
             <input id="searchOfContactsField" type="text" placeholder="Поиск">
-            <img id="createConversation"src="assets/imCreateDialogButton.png" alt="">
+            <img id="createConversation"src="<%=publicStaticServer%>/assets/imCreateDialogButton.png" alt="">
           </div>
 
           <div id="rightPartOfMessagesHeader" class="dialogName fontBlueColor">

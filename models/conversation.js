@@ -22,7 +22,6 @@ var Message = new Schema({
         type: Date,
         default: Date.now()
     },
-
     unread:[Schema.Types.ObjectId],
     mType: Number,
     attachments: {

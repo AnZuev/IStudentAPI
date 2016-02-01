@@ -1,16 +1,5 @@
 {
-	"contactModule":{
-		"<tr  class='contact'>
-                  <td style='width:50px'>
-                    <img class='avatar' src='%s' alt=''>
-                  </td>
-                  <td>
-                    <p class='nameOfDialog fontBlueColor'>%s</p>
-                    <p class='lastMessage'>%s</p>
-                  </td>
-                </tr>"
-	},
-
+	"contactModule": "<tr  class='contact'><td style='width:50px'><img class='avatar' src='%s' alt=''></td><td><p class='nameOfDialog fontBlueColor'>%s</p><p class='lastMessage'>%s</p></td></tr>",
 	"messageModule":{
 		"senderNameTemp": "<p class='senderName fontBlueColor'> %s </p>",
 		"messageTemp": "<div> <div class='blockForMessage fromCompanion'> %s <div class='time'>%s</div> </div> <div class='clear'> </div> </div>",
@@ -22,14 +11,9 @@
 	},
 
 	"creatingConversationModule":{
-		"addedParticipant": "<span class=''>%s</span>",
+		"addedParticipant": "<span class=''>%s</span>"
 	},
-
 	"cleverSearchModule":{
-		"itemOfSearchMenu": "<li class=''><img src='%s'> <p>%s</p> </li>",
+		"itemOfSearchMenu": "<li class=''><img src='%s'> <p>%s</p> </li>"
 	}
-
-
-
-
 }

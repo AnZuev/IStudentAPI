@@ -19,7 +19,7 @@
     <header class='blueBorders backgroundGray1 fontBlueColor'>
 
         <div class="topRightCorner">
-            <span class="headerUserName fontBlueColor "> </span>
+            <span class="headerUserName fontBlueColor "> <%=(user.name + " " + user.surname)%></span>
             <div class="blueBorders globalAdditionalMenu ">
                 <img src="<%=publicStaticServer%>/images/testImages/avatar1.png" alt="">
                 <div>
@@ -50,26 +50,26 @@
             <img src="<%=publicStaticServer%>/images/global/menuButton.png" alt="" class="menuButton">
             <div class="globalMenu blueBorders">
                 <ul>
-                    <li>
+                    <li id="topLeftCornerCalendarLink">
                         <div>
                             <img src="<%=publicStaticServer%>/images/global/calendarIcon.png" alt="" style='height:20px;'>
                         </div>
                         <span>Календарь</span>
                     </li>
-                    <li>
+                    <li id = "topLeftCornerImLink">
                         <div>
                             <img src="<%=publicStaticServer%>/images/global/imIcon.png" alt="">
                         </div>
             
                         <span>Диалоги</span>
                     </li>
-                    <li>
+                    <li id = "topLeftCornerBZLink" >
                         <div>
                             <img src="<%=publicStaticServer%>/images/global/bzIcon.png" alt="">
                         </div>
                         <span>База знаний</span>
                     </li>
-                    <li>
+                    <li id = "topLeftCornerProjectLink">
                         <div>
                             <img src="<%=publicStaticServer%>/images/global/projectsIcon.png" alt="">
                         </div>

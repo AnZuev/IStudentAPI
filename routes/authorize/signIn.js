@@ -29,7 +29,6 @@ exports.post = function(req, res, next){
                 res.json(userToReturn);
                 res.end();
                 return next();
-
             }
 
         });

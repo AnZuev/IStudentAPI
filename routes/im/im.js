@@ -12,7 +12,8 @@ exports.get = function(req, res, next){
         host: host,
         notifications: 5,
 	    publicStaticServer: publicStaticServer,
-	    templates: templates
+	    templates: templates,
+	    user: req.user
     });
     next();
 };

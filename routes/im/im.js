@@ -10,10 +10,11 @@ exports.get = function(req, res, next){
 
     res.render("im", {
         host: host,
-        notifications: 5,
 	    publicStaticServer: publicStaticServer,
 	    templates: templates,
-	    user: req.user
+	    user: req.user,
+	    convs: req.convs,
+	    notifications: req.notifications
     });
     next();
 };

@@ -592,7 +592,10 @@ User.statics.blockContacts = function(userId, blockedUser, callback){
     });
 };
 
+/*
 
+	Забрать настройки для конкретной беседы для конкретного юзера
+ */
 
 User.statics.getImSettingsByUserAndConvId = function(userId, convId, callback){
 	this.findOne(
@@ -622,6 +625,11 @@ User.statics.getImSettingsByUserAndConvId = function(userId, convId, callback){
 	)
 };
 
+
+/*
+	Добавить/обновить настройки для конкретной беседы конкретного юзера
+
+ */
 User.statics.addImSettings = function(userId, convId, settings, callback){
 	var User = this;
 	async.waterfall([

@@ -14,7 +14,12 @@
 -->
 
 <script> window.host = <%-JSON.stringify(host)%></script>
-<script> window.imTemplates = <%-JSON.stringify(templates)%></script>
+<script>
+	window.imTemplates = <%-JSON.stringify(templates)%>
+	window.convs = <%-JSON.stringify(convs)%>
+	console.log(window.convs);
+
+</script>
 
 
 

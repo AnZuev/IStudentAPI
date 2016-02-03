@@ -127,8 +127,15 @@ User.addImSettings(userKomarov, convId, settings, function(err, result){
 });
 */
 User.getImSettingsByUserAndConvId(userKomarov, convId, function(err, result){
-    console.log(arguments);
+    //console.log(arguments);
 });
+
+conversation.getLastConversations(userA, 20, function(err, result){
+	//console.log(arguments);
+})
+conversation.getUnreadMessagesForUser(userPloskov, function(err, results){
+	console.log(arguments);
+})
 
 
 

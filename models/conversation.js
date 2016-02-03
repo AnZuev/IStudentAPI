@@ -99,7 +99,6 @@ conversation.statics.createPrivateConversation = function(userId1, userId2, call
 
 };
 
-
 /*
  * Создание группового диалога между 3 и более людей
  */
@@ -292,7 +291,7 @@ conversation.statics.getConvsByTitle = function(title, userId, callback){
         {
             $match:
             {
-                "group.title": {$regex: "пов"},
+                "group.title": {$regex: title},
 	            participants: userId
             }
         },
@@ -387,7 +386,50 @@ conversation.statics.getPrivateConvByParticipants = function(userId1, userId2, c
 
 };
 
+
+conversation.statics.getLastConversations = function(userId, number, callback){
+	this.find(
+		{
+			"participants":userId
+		},
+		{
+			messages:{
+				$slice:-20
+			},
+			__v: 0,
+			updated:0
+		},
+		{
+			$sort: {updated:1},
+			$limit: number
+		},
+		function(err, convs){
+			if(err) return callback(new dbError(err, 500));
+			else{
+				if(convs) return callback(null, convs);
+				else{
+					return callback(new dbError(null, 404, null));
+				}
+			}
+		}
+	)
+};
+
+conversation.statics.getUnreadMessagesForUser = function(userId, callback){
+	this.count({
+			"participants":userId,
+			"messages.unread": userId
+		},
+		function(err, count){
+			if(err) return callback(null, 0);
+			else{
+				return callback(null, count);
+			}
+		}
+	)
+};
 /*
+
 dialog.statics.getDialogsTitleByUser = function(userId, callback){
     this.find({enabled: true, participants:userId}, {enable:0, _id:1, title:1, messages: { "$slice": -1 }, limit:10}, function(err, dialogs){
         if(err) throw err;

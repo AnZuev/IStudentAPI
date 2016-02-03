@@ -14,6 +14,6 @@
 		"addedParticipant": "<span class=''>%s</span>"
 	},
 	"cleverSearchModule":{
-		"itemOfSearchMenu": "<li class=''><img src='%s'> <p>%s</p> </li>"
+		"itemOfSearchMenu": "<li><img src='%s,%s'> <p>%s</p> </li>"
 	}
 }

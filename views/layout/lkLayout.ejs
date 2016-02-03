@@ -21,20 +21,38 @@
         <div class="topRightCorner">
             <span class="headerUserName fontBlueColor "> <%=(user.name + " " + user.surname)%></span>
             <div class="blueBorders globalAdditionalMenu ">
-                <img src="<%=publicStaticServer%>/images/testImages/avatar1.png" alt="">
+				<% if(user.photo.length > 0) {%>
+				<img src="<%=publicStaticServer%><%=user.photo%>" alt="">
+
+				<% } else {%>
+				<img src="<%=publicStaticServer%>/images/testImages/avatar1.png" alt="">
+
+				<% } %>
                 <div>
                     <ul>
                         <li class='globalAdditionalMenuIM'>
                             <span class="globalAdditionalMenuLiTitle">Сообщения</span>
-                            <span class="globalAdditionalMenuLiNotification"><%=notifications.newMessages%></span>
+							<% if(notifications.newMessages > 0) {%>
+							<span class="globalAdditionalMenuLiNotification"><%=notifications.newMessages%></span>
+							<%}else{%>
+							<span class="globalAdditionalMenuLiNotification" style="display: none"></span>
+							<%}%>
                         </li>
                         <li class='globalAdditionalMenuEvents'>
                             <span class="globalAdditionalMenuLiTitle">События</span>
-                            <span class="globalAdditionalMenuLiNotification"> </span>
+							<% if(notifications.newEvents > 0) {%>
+							<span class="globalAdditionalMenuLiNotification"><%=notifications.newEvents%></span>
+							<%}else{%>
+							<span class="globalAdditionalMenuLiNotification" style="display: none"></span>
+							<%}%>
                         </li>
                         <li>
                             <span class="globalAdditionalMenuLiTitle">База знаний</span>
-                            <span class="globalAdditionalMenuLiNotification " style='display:none'> </span>
+							<% if(notifications.newBZn > 0) {%>
+							<span class="globalAdditionalMenuLiNotification"><%=notifications.newBZn%></span>
+							<%}else{%>
+							<span class="globalAdditionalMenuLiNotification" style="display: none"></span>
+							<%}%>
                         </li>
                     </ul>
                 </div>

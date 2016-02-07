@@ -13,17 +13,18 @@
         }
     },
     "staticServerAuth":{
-        "privateKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.key",
-        "publicKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.crt"
+        "privateKey": "/libs/certificate/cert.key",
+        "publicKey": "/libs/certificate/cert.crt"
     },
     "apiServerAuth":{
-        "privateKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.key",
-        "publicKey": "/www/pre-api/IStudentAPI/libs/certificate/cert.crt"
+        "privateKey": "/libs/certificate/cert.key",
+        "publicKey": "/libs/certificate/cert.crt"
     },
     "general":{
         "version": "0.0.1(10)",
-        "host": "http://pre-api.istudentapp.ru",
-        "privateStaticServer": "http://localhost:4000",
+        "host": "http://192.168.100.7:3000",
+        "privateStaticServer": "192.168.100.7",
+        "privateStaticServerPort": 4000,
         "publicStaticServer": "http://pre-static.istudentapp.ru"
     },
     "multer":{

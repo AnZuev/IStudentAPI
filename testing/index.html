@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка файлов. Тест</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body>
+
+<script>
+    function checkPermissionForUpload(formId){
+
+        $.ajax({
+            url:  "/uploadAvatar",
+            type: "POST",
+            statusCode: {
+                201: function(key){
+                    console.log(key);
+                    uploadFile(key, formId);
+                },
+                231: function(msg){
+                    err.alert("Ошибка авторизации: " + msg.responseText);
+                },
+                232: function(msg){
+                    err.alert("Ошибка сервера: " + msg);
+                }
+            }
+        });
+    }
+    function uploadFile(key, formId){
+        console.log("start");
+        var form = document.forms.uploadForm;
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+        var path = "http://192.168.100.7:4000/upload/"+key;
+        console.log(path);
+        xhr.open("POST", path, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if(xhr.status == 200) {
+                    var data = xhr.responseText;
+                    if(data == "true") {
+                        $(".sending").replaceWith("<p>Принято!<p>");
+                    } else {
+                        $(".sending").replaceWith("<p >Ошибка! Обновите страницу...<p>");
+                    }
+                }
+            }
+        };
+        xhr.send(formData);
+
+
+
+
+    }
+
+
+</script>
+    <form name        =  "uploadForm"
+          enctype   =  "multipart/form-data",
+          onsubmit  = "checkPermissionForUpload('userPhoto'); return false;"
+          method    =  "POST"
+            >
+        <input type="file" name="userPhoto" id="userPhoto" />
+        <input type="submit" value="Upload Image" name="submit" >
+    </form>
+</body>
+</html>

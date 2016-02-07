@@ -1,4 +1,6 @@
 var checkAuth = require('../../middleware/auth/checkAuth');
+var loadDataForIm = require('../../middleware/auth/loadDataForConversation');
+
 
 
 module.exports = function(app){
@@ -8,7 +10,6 @@ module.exports = function(app){
     app.get('/calendar/events', checkAuth, require('./getEvents').get);
     app.post('/calendar/:eventId/accept', checkAuth, require('./acceptEvent').post);
     app.post('/calendar/:eventId/decline', checkAuth, require('./declineEvent').post)
-    app.get('/calendar', checkAuth, require('./calendar').get);
+    app.get('/calendar', checkAuth, loadDataForIm, require('./calendar').get);
     app.get('/calendar/:eventId', checkAuth, require('./getEvent').get);
-
-}
+};

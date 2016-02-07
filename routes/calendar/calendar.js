@@ -40,7 +40,9 @@ exports.get = function(req, res, next){
                 jsonCalendarModuleConstructor: calendarConstructor,
                 shortEventsDescription: results[0],
                 host: host,
-	            publicStaticServer:publicStaticServer
+	            publicStaticServer:publicStaticServer,
+	            user: req.user,
+	            notifications: req.notifications
             });
             return next();
 

@@ -21,8 +21,9 @@ module.exports = function(socket, callback) {
         async.waterfall([
             function(callback){
                 handshakeData.cookies = cookie.parse((handshakeData.cookie || ""));
-                var sidCookie = handshakeData.cookies[config.get("session:key")];
-                loadSession(cookieParser.signedCookie(sidCookie, config.get('session:secret')), callback)
+	            var sidCookie = handshakeData.cookies[config.get("session:key")];
+	            if(sidCookie) loadSession(cookieParser.signedCookie(sidCookie, config.get('session:secret')), callback)
+				else callback(null, null);
             },
             function(session, callback){
                 if(!session){

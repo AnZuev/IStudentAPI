@@ -250,9 +250,10 @@ User.statics.getPeopleByOneKey = function(key, callback){
 	        }
         },
         {
-            $sort:{"student":1}
+            $sort:{"username":1}
         }
     ], function(err, users){
+		console.log(arguments);
         if(err) throw err;
         if(users.length == 0){
             return callback(new dbError(null, 204, null));
@@ -284,7 +285,7 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 			}
 		},
 		{
-			$sort:{"student":1}
+			$sort:{"username":1}
 		}
 	], function(err, users){
 		if(err) throw err;
@@ -319,7 +320,7 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
 	        }
         },
         {
-            $sort:{"student":1}
+	        $sort:{"username":1}
         }
     ], function(err, users){
         if(err) throw err;

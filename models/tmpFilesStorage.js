@@ -45,9 +45,12 @@ tmpFile.statics.getActionBykey = function(key, callback){
 exports.tmpFile = mongoose.model('tmpFile', tmpFile);
 
 
-function addTmpFile(file,callback){
+function addTmpFile(file, errCounter, callback){
 	file.save(function(err, result){
-		if(err) addTmpFile(file, callback);
+		if(err) {
+			if(errCounter > 5) return callback(err);
+			addTmpFile(file, ++errCounter, callback);
+		}
 		else{
 			return callback(null, result);
 		}

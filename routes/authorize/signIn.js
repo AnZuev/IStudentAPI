@@ -1,6 +1,7 @@
 var User = require('../../models/User').User;
 var authError = require('../../error').authError;
 var universityInterface = require('../../data/index').universityInfoLoader;
+var log = require('../../libs/log')(module);
 
 
 exports.post = function(req, res, next){
@@ -12,6 +13,7 @@ exports.post = function(req, res, next){
                 if(err instanceof authError){
                     return next(401)
                 }else{
+	                log.error(err);
                     return next(err);
                 }
             }else{

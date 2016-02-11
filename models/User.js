@@ -230,22 +230,23 @@ User.statics.getPeopleByGroupNumber = function(group, callback){
 
 User.statics.getPeopleByOneKey = function(key, callback){
 
-    User.aggregate([
+	this.aggregate([
         { $limit : 5 },
         {
             $match: {
-                $and:[
-                    {"searchString":{$regex: key}}
-                ]}
+	            "searchString": {$regex: key}
+            }
         },
         {
-            $project:
-            {
-                student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
-                group: "$pubInform.group",
-                description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-                photo: "$pubInform.photo"
-            }
+	        $project:
+	        {
+		        username:{$concat:["$pubInform.name", " ", "$pubInform.surname"]},
+		        group: "$pubInform.group",
+		        university: "$pubInform.university",
+		        faculty: "$pubInform.faculty",
+		        photo: "$pubInform.photo",
+		        year: "$pubInform.year"
+	        }
         },
         {
             $sort:{"student":1}
@@ -261,7 +262,7 @@ User.statics.getPeopleByOneKey = function(key, callback){
 };
 
 User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
-	User.aggregate([
+	this.aggregate([
 		{ $limit : 5 },
 		{
 			$match: {
@@ -273,10 +274,12 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 		{
 			$project:
 			{
-				student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
+				username:{$concat:["$pubInform.name", " ", "$pubInform.surname"]},
 				group: "$pubInform.group",
-				description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-				photo: "$pubInform.photo"
+				university: "$pubInform.university",
+				faculty: "$pubInform.faculty",
+				photo: "$pubInform.photo",
+				year: "$pubInform.year"
 			}
 		},
 		{
@@ -293,7 +296,7 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 };
 
 User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
-    User.aggregate([
+    this.aggregate([
         { $limit : 5 },
         {
             $match: {
@@ -304,13 +307,15 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
                 ]}
         },
         {
-            $project:
-            {
-                student:{$concat:["$pubInform.surname", " ", "$pubInform.name"]},
-                group: "$pubInform.group",
-                description: {$concat:["$pubInform.university",", ","$pubInform.faculty", ", ", "$pubInform.group", " курс"]},
-                photo: "$pubInform.photo"
-            }
+	        $project:
+	        {
+		        username:{$concat:["$pubInform.name", " ", "$pubInform.surname"]},
+		        group: "$pubInform.group",
+		        university: "$pubInform.university",
+		        faculty: "$pubInform.faculty",
+		        photo: "$pubInform.photo",
+		        year: "$pubInform.year"
+	        }
         },
         {
             $sort:{"student":1}

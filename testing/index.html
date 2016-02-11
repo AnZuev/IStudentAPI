@@ -32,7 +32,7 @@
         var form = document.forms.uploadForm;
         var formData = new FormData(form);
         var xhr = new XMLHttpRequest();
-        var path = "http://192.168.100.7:4000/upload/"+key;
+        var path = "http://192.168.137.111:4000/upload/"+key;
         console.log(path);
         xhr.open("POST", path, true);
         xhr.onreadystatechange = function() {

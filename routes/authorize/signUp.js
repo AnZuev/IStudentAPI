@@ -7,8 +7,8 @@ var dataJson = require('../../data/university.json');
 exports.post = function(req, res, next){
 
 	try{
-		var name = req.body.firstName.capitilizeFirstLetter();
-		var surname = req.body.lastName.capitilizeFirstLetter();
+		var name = req.body.name.capitilizeFirstLetter();
+		var surname = req.body.surname.capitilizeFirstLetter();
 		var password = req.body.password;
 		var studNumber = req.body.studNumber;
 		var year = req.body.year;

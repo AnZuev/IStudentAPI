@@ -12,7 +12,7 @@ module.exports = function(req, res, next){
     var keyword = req.query.q.split(' ');
     for(var i = 0; i< keyword.length; i++){
        keyword[i] = keyword[i].toLowerCase();
-       keyword[i] = keyword[i].capitilizeFirstLetter();
+       keyword[i] = new RegExp(keyword[i].capitilizeFirstLetter(), 'i');
     }
     switch (keyword.length){
         case 1:

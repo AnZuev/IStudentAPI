@@ -41,11 +41,8 @@ var password = 'qwerty1234';
  }
 */
 var userId = ["5611659632ede0011018e974", "561163f932ede0011018e96f"]
-User.getFriendsByOneKey(userId, "Парень", function(err, result){
-    //console.log(arguments);
-});
-User.getFriendsByTwoKeys(userId, "Парень", "Тест", function(err, result){
-    console.log(arguments);
+User.getPeopleByOneKey(new RegExp("4303", "i"), function(err, callback){
+	console.log(arguments);
 });
 /*User.getUserById(userId, function(err, user){
     console.log(user);

@@ -11,7 +11,7 @@
 	},
 
 	"creatingConversationModule":{
-		"addedParticipant": "<span class=''>%s</span>"
+		"addedParticipant": "<span class='addedParticipant'>%s</span>"
 	},
 	"cleverSearchModule":{
 		"itemOfSearchMenu": "<li><img src='%s,%s'> <p>%s</p> </li>"

@@ -100,7 +100,8 @@ var User = new Schema({
 
     searchString:{
         type:String,
-        require: true
+        require: true,
+
     }
 });
 

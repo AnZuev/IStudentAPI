@@ -17,7 +17,8 @@ module.exports = function(req, res, next){
     switch (keyword.length){
         case 1:
             User.getPeopleByOneKey(keyword[0], function(err, users){
-                if(err) {
+                console.log(arguments);
+	            if(err) {
 	                if((err instanceof dbError) && (err.code == 204)) {
 		                res.statusCode = 204;
 		                res.json([]);
@@ -38,6 +39,8 @@ module.exports = function(req, res, next){
             break;
         case 2:
             User.getPeopleByTwoKeys(keyword[0], keyword[1], function(err, users){
+	            console.log(arguments);
+
 	            if(err) {
 		            if((err instanceof dbError) && (err.code == 204)) {
 			            res.statusCode = 204;
@@ -59,6 +62,8 @@ module.exports = function(req, res, next){
             break;
         case 3:
             User.getPeopleByThreeKeys(keyword[0],keyword[1], keyword[2], function(err, users){
+	            console.log(arguments);
+
 	            if(err) {
 		            if((err instanceof dbError) && (err.code == 204)) {
 			            res.statusCode = 204;

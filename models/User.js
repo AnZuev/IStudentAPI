@@ -175,7 +175,7 @@ User.statics.signUp = function(name, surname, group, faculty, university, year, 
                             studNumber: studNumber,
                             password: password
                         },
-                        searchString: name + " " + surname + " " + group + " " + university
+                        searchString: name + " " + surname + " " + group + " "
                     });
                     newUser.save(function(err, user){
                         if(err) {
@@ -234,7 +234,7 @@ User.statics.getPeopleByOneKey = function(key, callback){
         { $limit : 5 },
         {
             $match: {
-	            "searchString": {$regex: key}
+	            "searchString": key
             }
         },
         {
@@ -268,9 +268,10 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 		{
 			$match: {
 				$and:[
-					{"searchString":{$regex: key1}},
-					{"searchString":{$regex: key2}}
-				]}
+					{"searchString": key1},
+					{"searchString": key2},
+				]
+			}
 		},
 		{
 			$project:
@@ -302,9 +303,9 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
         {
             $match: {
                 $and:[
-                    {"searchString":{$regex: key1}},
-                    {"searchString":{$regex: key2}},
-	                {"searchString":{$regex: key3}}
+                    {"searchString": key1},
+                    {"searchString": key2},
+	                {"searchString":key3}
                 ]}
         },
         {

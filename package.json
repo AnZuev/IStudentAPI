@@ -18,7 +18,7 @@
      "ejs-locals": "*",
      "express-session": "*",
      "connect-mongo": "*",
-     "mongodb":"*",
+     "mongodb":"3.2.1",
      "node-mongodb-native":"*",
       "async":"*",
      "socket.io": "~1.3.6",

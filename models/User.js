@@ -231,12 +231,13 @@ User.statics.getPeopleByGroupNumber = function(group, callback){
 User.statics.getPeopleByOneKey = function(key, callback){
 
 	this.aggregate([
-        { $limit : 5 },
+
         {
             $match: {
 	            "searchString": key
             }
         },
+
         {
 	        $project:
 	        {
@@ -248,6 +249,7 @@ User.statics.getPeopleByOneKey = function(key, callback){
 		        year: "$pubInform.year"
 	        }
         },
+		{ $limit : 5 },
         {
             $sort:{"username":1}
         }
@@ -264,7 +266,6 @@ User.statics.getPeopleByOneKey = function(key, callback){
 
 User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 	this.aggregate([
-		{ $limit : 5 },
 		{
 			$match: {
 				$and:[
@@ -284,6 +285,7 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 				year: "$pubInform.year"
 			}
 		},
+		{ $limit : 5 },
 		{
 			$sort:{"username":1}
 		}
@@ -319,6 +321,7 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
 		        year: "$pubInform.year"
 	        }
         },
+	    { $limit : 5 },
         {
 	        $sort:{"username":1}
         }

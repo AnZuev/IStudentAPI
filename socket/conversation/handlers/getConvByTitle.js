@@ -123,8 +123,9 @@ module.exports = function(socket, data, cb){
 		if(err) throw err;
 		else{
 			var conversations = [];
-			conversations.concat(results[0]).concat(results[1]);
-			if(conversations.length > 0) return cb();
+			conversations = conversations.concat(results[0]);
+			conversations = conversations.concat(results[1]);
+			if(conversations.length > 0) return cb(conversations);
 			else{
 				return cb(new wsError(204, "Ничего не найдено").sendError());
 			}

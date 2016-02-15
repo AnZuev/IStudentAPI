@@ -286,30 +286,31 @@ conversation.statics.getMessages = function(convId, userId, skipFromEnd, callbac
 };
 
 conversation.statics.getConvsByTitle = function(title, userId, callback){
+	console.log(title + " " + userId);
     this.aggregate([
-
         {
             $match:
             {
                 "group.title": {$regex: title},
-	            participants: userId
+	            "participants": userId
             }
         },
-        {
-            $project:
-            {
-                title: "$group.title",
-                photo: "$group.photo",
-	            type: {$concat:["group"]}
+	    {
+		    $project:
+		    {
+			    title: "$group.title",
+			    photo: "$group.photo",
+			    type: {$concat:["group"]}
 
-            }
-        },
+		    }
+	    },
 	    { $limit : 15 },
-        {
-            $sort:{updated:1}
-        }
+	    {
+		    $sort:{updated:1}
+	    }
     ], function(err, convs){
 	    if(err) throw err;
+	    console.log(convs);
         if(convs.length == 0){
             return callback(new dbError(null, 204, null));
         }else{

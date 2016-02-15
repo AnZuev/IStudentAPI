@@ -37,7 +37,6 @@ module.exports = function(socket, data, cb){
 		function(callback){
 			switch (keyword.length){
 				case 1:
-
 					User.getContactsByOneKey(socket.request.headers.user.id, keyword[0], function(err, users){
 
 						if(err) {

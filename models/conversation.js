@@ -287,7 +287,7 @@ conversation.statics.getMessages = function(convId, userId, skipFromEnd, callbac
 
 conversation.statics.getConvsByTitle = function(title, userId, callback){
     this.aggregate([
-        { $limit : 15 },
+
         {
             $match:
             {
@@ -304,9 +304,9 @@ conversation.statics.getConvsByTitle = function(title, userId, callback){
 
             }
         },
+	    { $limit : 15 },
         {
             $sort:{updated:1}
-
         }
     ], function(err, convs){
 	    if(err) throw err;

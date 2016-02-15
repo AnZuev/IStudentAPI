@@ -32,8 +32,9 @@ module.exports = function(socket, data, cb){
         participants.unique();
         if(participants.indexOf(socket.request.headers.user.id) < 0) participants.push(socket.request.headers.user.id);
     }catch(e){
-        throw e;
-        return cb(new wsError(400).sendError());
+	    var err = new wsError(400);
+        cb(err.sendError());
+	    return;
     }
     async.waterfall([
         function(callback){

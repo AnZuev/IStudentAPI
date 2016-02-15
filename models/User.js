@@ -366,7 +366,6 @@ User.statics.getContactsByOneKey = function (userId, key, callback){
 	           })
            }
             User.aggregate([
-                { $limit : 5 },
                 {
                     $match:
                     {
@@ -384,7 +383,8 @@ User.statics.getContactsByOneKey = function (userId, key, callback){
 	                    year: "$pubInform.year"
                     }
                 },
-                {
+	            { $limit : 5 },
+	            {
                     $sort:{"contacts.updated":1}
                 }
             ], function(err, users){
@@ -411,7 +411,6 @@ User.statics.getContactsByTwoKeys = function(userId, key1, key2, callback){
         function(user, callback){
             if(user){
 	            User.aggregate([
-		            { $limit : 5 },
 		            {
 			            $match: {
 				            $and:[
@@ -432,6 +431,7 @@ User.statics.getContactsByTwoKeys = function(userId, key1, key2, callback){
 				            year: "$pubInform.year"
 			            }
 		            },
+		            { $limit : 5 },
 		            {
                         $sort:{"contacts.updated":1}
 		            }
@@ -459,7 +459,6 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
         function(user, callback){
             if(user){
 	            User.aggregate([
-		            { $limit : 5 },
 		            {
 			            $match: {
 				            $and:[
@@ -481,6 +480,7 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
 				            year: "$pubInform.year"
 			            }
 		            },
+		            { $limit : 5 },
 		            {
 			            $sort:{"contacts.updated":1}
 		            }

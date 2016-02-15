@@ -22,7 +22,7 @@ exports.post = function(req, res, next){
 		function(tmpFile, callback){
 			var userId = req.session.user;
 			var date = Date.now().toString();
-			var data = [tmpFile._id, date, userId, "uploadAvatar"];
+			var data = [tmpFile._id, date, userId, 1, "uploadAvatar"];
 			data = data.join("/");
 			var sign = crypto.createSign('RSA-SHA256').update(data).sign(privateKey, 'hex');
 			data = data.split("/");

@@ -11,10 +11,15 @@ var universityData = require('../../data/index').universityInfoLoader;
 module.exports = function(req, res, next){
     var keywords = req.query.q.split(' ');
 	var keyword = [];
-    for(var i = 0; i< keywords.length; i++){
-       keyword[i] = keywords[i].toLowerCase();
-       keyword[i] = new RegExp(keyword[i].capitilizeFirstLetter(), 'i');
-    }
+	try{
+		for(var i = 0; i< keywords.length; i++){
+			keyword[i] = keywords[i].toLowerCase();
+			keyword[i] = new RegExp(keyword[i].capitilizeFirstLetter().toString());
+		}
+	}catch(e){
+		return next(400);
+	}
+
 	console.log(keyword);
     switch (keyword.length){
         case 1:

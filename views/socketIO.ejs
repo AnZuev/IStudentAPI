@@ -25,10 +25,9 @@
                 attachments: [],
                 text: "Первое сообщение"
             },
-			userId: "56a39f9e0e5d3cd81d876f98",
-            title: "Название 49 групповой беседы."
+            title: "Название 76 групповой беседы."
         }
-        im.emit('createPrivateConversation', imItem, function(data){
+        im.emit('createGroupConversation', imItem, function(data){
             console.log(data);
         });
 

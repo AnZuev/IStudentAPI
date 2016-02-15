@@ -15,6 +15,7 @@ var dbError = require('../../../error').dbError;
 var async = require('async');
 
 var libs = require('../libs');
+require('../../../libs/additionalFunctions/extensionsForBasicTypes');
 
 
 
@@ -24,6 +25,7 @@ var libs = require('../libs');
  4) Создаем беседу, потом пишем туда сообщение, потом отправляем юзерам
 
  */
+
 module.exports = function(socket, data, cb){
     var title,participants;
     try{
@@ -71,14 +73,17 @@ module.exports = function(socket, data, cb){
 		    })
 	    },
         function(conv, users, callback){
-	        if(data.message.text.length > 0){
-		        if(data.message.attachments.length > 5){
-			        data.message.attachments = data.message.attachments.slice(0, 5);
+	        var messageItem = {};
+	        try{
+		        if(data.message.text.length > 0){
+			        messageItem = {
+				        text: data.message.text
+			        };
 		        }
-		        var messageItem = {
-			        attachments:data.message.attachments,
-			        text: data.message.text
-		        };
+	        }catch(e){
+
+	        }
+	        if(messageItem){
 		        conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err){
 			        if(err) callback(err);
 			        else{
@@ -86,21 +91,24 @@ module.exports = function(socket, data, cb){
 				        callback(null, conv, messageItem, users);
 			        }
 		        });
+	        }else{
+		        return callback(null, conv,  null, users);
 	        }
         },
         function(conv, messageItem, users, callback){
+	        if(messageItem){
+		        var options ={
+			        convId: conv._id
+		        };
+		        var mmwsItem = new mmws(conv._id, socket.request.headers.user.id, messageItem, "newMessage", options);
 
-            var options ={
-                attachments: messageItem.attachments,
-                convId: conv._id
-            };
-            var mmwsItem = new mmws(conv._id, socket.request.headers.user.id, messageItem, "newMessage", options);
+		        var ns = new nsItem("imNewMessage", socket.request.headers.user.name + " " + socket.request.headers.user.surname, messageItem.text, socket.request.headers.photo, options);
+		        users.splice(users.indexOf(socket.request.headers.user.id), 1);
+		        ns.send(users);
+		        mmwsItem.sendToGroup(users);
+		        return callback(null, conv)
+	        }
 
-            var ns = new nsItem("imNewMessage", socket.request.headers.user.name + " " + socket.request.headers.user.surname, messageItem.text, socket.request.headers.photo, options);
-            users.splice(users.indexOf(socket.request.headers.user.id), 1);
-            ns.send(users);
-            mmwsItem.sendToGroup(users);
-            return callback(null, conv)
         }
     ],function(err, conv){
         if(err){
@@ -111,7 +119,7 @@ module.exports = function(socket, data, cb){
             }else if(err instanceof wsError){
                 cb(err.sendError());
             }else{
-                wsEr = new wsError();
+                wsEr = new wsError(500);
                 cb(wsEr.sendError());
             }
         }else{

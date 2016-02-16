@@ -72,7 +72,7 @@
 	},
 
 	"creatingConversationModule":{
-		"addedParticipant": "<span class='addedParticipant'>%s</span>"
+		"addedParticipant": "<span class='addedParticipant' contenteditable='false'>%s</span>"
 	},
 	"cleverSearchModule":{
 		"itemOfSearchMenu": "<li id='%s' class='%s'><img src='%s'> <p>%s</p> <p class='group'>%s </p> </li>"

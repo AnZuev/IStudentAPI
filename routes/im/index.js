@@ -1,4 +1,4 @@
-var checkAuth = require('../../middleware/auth/checkAuth');
+var checkAuth = require('../../middleware/auth/checkAuth').checkAuthAndRedirect;
 var loadDataForIm = require('../../middleware/auth/loadDataForConversation');
 
 

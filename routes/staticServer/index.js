@@ -10,7 +10,7 @@ var path = require("path");
 //var privateKey = fs.readFileSync(config.get('staticServerAuth:privateKey')).toString('ascii');
 
 
-var checkAuth = require('../../middleware/auth/checkAuth');
+var checkAuth = require('../../middleware/auth/checkAuth').checkAuth;
 module.exports = function(app){
 	app.get('/uploadForm', function(req, res, next){
 		res.sendFile(path.join(__dirname, "../../testing/index.html"));

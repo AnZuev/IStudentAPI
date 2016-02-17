@@ -54,7 +54,8 @@ require('./routes')(app);
 app.use(function(err, req, res, next) {
     if(err){
         if(typeof err == "number"){
-            err = new HttpError(err);
+	        if(err == 401) res.redirect("/");
+            else err = new HttpError(err);
         }
         if(err instanceof HttpError){
             res.sendHttpError(err);

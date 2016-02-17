@@ -269,8 +269,8 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 		{
 			$match: {
 				$and:[
-					{"searchString": key1},
-					{"searchString": key2},
+					{"searchString": {$regex: key1}},
+					{"searchString":{$regex: key2}}
 				]
 			}
 		},
@@ -305,9 +305,9 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
         {
             $match: {
                 $and:[
-                    {"searchString": key1},
-                    {"searchString": key2},
-	                {"searchString":key3}
+                    {"searchString": {$regex: key1}},
+                    {"searchString":{$regex: key2}},
+	                {"searchString": {$regex: key3}}
                 ]}
         },
         {

@@ -109,7 +109,6 @@ module.exports = function(socket, data, cb){
 			}
 		},
 		function(callback){
-
 			conversation.getConvsByTitle(data.title, socket.request.headers.user.id, function(err, convs){
 				if(err) {
 					if(err instanceof dbError) return callback(null, []);

@@ -14,13 +14,12 @@ module.exports = function(req, res, next){
 	try{
 		for(var i = 0; i< keywords.length; i++){
 			keyword[i] = keywords[i].toLowerCase();
-			keyword[i] = new RegExp(keyword[i].capitilizeFirstLetter().toString());
+			keyword[i] = keyword[i].capitilizeFirstLetter();
 		}
 	}catch(e){
 		return next(400);
 	}
 
-	console.log(keyword);
     switch (keyword.length){
         case 1:
             User.getPeopleByOneKey(keyword[0], function(err, users){

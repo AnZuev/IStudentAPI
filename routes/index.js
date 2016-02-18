@@ -25,10 +25,12 @@ module.exports = function(app){
     require('./calendar')(app);
     require('./im')(app);
     require('./staticServer')(app);
+	require('./service')(app);
 
 
 
-    //test
+
+	//test
     app.get('/socketIO', function(req, res, next){
         res.render('socketIO');
     })

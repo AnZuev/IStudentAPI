@@ -13,6 +13,7 @@ module.exports = function(app){
     * */
     app.get('/auth/checkAuth', checkAuth, function(req, res, next){
 	    next(200);
+
     });
 
     app.get('/user/find', findUsers);

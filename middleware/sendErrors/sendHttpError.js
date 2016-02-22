@@ -1,12 +1,12 @@
 module.exports = function(req, res, next){
 
     res.sendHttpError = function(error){
-        res.status(error.status);
-        if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
-            res.send(error.message);
+        if(res.req.headers['x-requested-with'] === 'XMLHttpRequest'){
+	        res.statusCode = error.status || 500;
+            res.json({exception: true, reason: error.message, code: error.status || 500});
         }else{
-            //res.render("error", {error: error});
-            res.send(error.message);
+	        res.statusCode = error.status || 500;
+	        res.json({exception: true, reason: error.message, code: error.status || 500});
         }
         res.end();
     };

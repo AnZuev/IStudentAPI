@@ -16,11 +16,12 @@ HttpError.prototype.name = 'HttpError';
 
 exports.HttpError = HttpError;
 
-function authError(message){
+function authError(message, code){
     Error.apply(this, arguments);
     Error.captureStackTrace(this, authError);
 
     this.message = message;
+	this.code = code || 0;
 
 }
 

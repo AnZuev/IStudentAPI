@@ -39,7 +39,7 @@ var password = 'qwerty1234';
  }
  })
  }
-*/
+
 var userId = ["5611659632ede0011018e974", "561163f932ede0011018e96f"]
 User.getPeopleByOneKey(new RegExp("4303", "i"), function(err, callback){
 	console.log(arguments);
@@ -47,9 +47,14 @@ User.getPeopleByOneKey(new RegExp("4303", "i"), function(err, callback){
 /*User.getUserById(userId, function(err, user){
     console.log(user);
 })
-*/
+
 for(var i = 0; i<userId.length; i++){
     User.removeContacts(userId[i], function(err, user){
         console.log(arguments);
     })
 }
+*/
+
+User.activate("anzuev@bk.ru", "44a1f39b454a0df16639a9d0c98f51481ffe68a5", function(err, res){
+	console.log(arguments);
+})

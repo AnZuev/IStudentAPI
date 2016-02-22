@@ -32,7 +32,7 @@ tmpFile.statics.addTmpFile = function(action, userId, callback){
 		action: action,
 		userId: userId
 	});
-	addTmpFile(file, callback);
+	addTmpFile(file,5, callback);
 };
 
 tmpFile.statics.getActionBykey = function(key, callback){

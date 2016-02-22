@@ -1,13 +1,15 @@
 var async = require('async');
 var cookie = require('cookie');
-var config = require('../../config');
 var cookieParser = require('cookie-parser');
 var sessionStore = require('../../libs/sessionsStore');
+
+var config = require('../../config');
 var User = require('../../models/User').User;
 var HttpError = require('../../error').HttpError;
 var sockets = require('./sockets').sockets;
 var universityFile = require('../../data/university');
 var log = require('../../libs/log')(module);
+var UI = require('../../models/university').university;
 
 
 
@@ -60,18 +62,28 @@ function loadUser(session, callback){
         User.findById(session.user, function(err, user){
             if(err) return callback(err);
             if(user) {
-                var student = {
-                    name: user.pubInform.name,
-                    surname: user.pubInform.surname,
-                    photo:user.pubInform.photo,
-                    year: user.pubInform.year,
-                    faculty: universityFile[user.pubInform.university].faculty[user.pubInform.faculty],
-                    university: universityFile[user.pubInform.university].title,
-                    group: user.pubInform.group,
-                    id: user._id
-                };
+	            async.parallel([
+		            function(callback){
+			            UI.getFacultyName(user.pubInform.university, user.pubInform.faculty, callback);
+		            },
+		            function(callback){
+			            UI.getUniversityName(user.pubInform.university, callback);
+		            }
+	            ], function(err, results){
+		            var student = {
+			            name: user.pubInform.name,
+			            surname: user.pubInform.surname,
+			            photo:user.pubInform.photo,
+			            year: user.pubInform.year,
+			            faculty: results[0].title,
+			            university: results[1].title,
+			            group: user.pubInform.group,
+			            id: user._id
+		            };
 
-                return callback(null, student)
+		            return callback(null, student)
+	            });
+
             }else{
                 return callback(null, null);
             }

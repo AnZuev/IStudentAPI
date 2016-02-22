@@ -3,6 +3,13 @@ var httpError = require('../../error').HttpError;
 var authError = require('../../error').authError;
 var universityInterface = require('../../data/index').universityInfoLoader;
 var dataJson = require('../../data/university.json');
+var UI = require('../../models/university').university;
+var FI = require('../../models/university').faculty;
+var mailNS = require('../../notifications/mail').mailNS;
+var config = require('../../config');
+
+var async = require('async');
+var util = require('util');
 
 exports.post = function(req, res, next){
 
@@ -15,42 +22,40 @@ exports.post = function(req, res, next){
 		var faculty = req.body.faculty;
 		var group = req.body.group;
 		var university = req.body.university;
+		var mail = req.body.mail;
 	}catch(e){
 		next(400);
 	}
 
-    if(dataJson[university] && dataJson[university].faculty[faculty]){
-        User.signUp(name, surname, group, faculty, university, year, studNumber, password, function(err, user){
-            if(err){
-                if(err instanceof authError){
-                    return next(new httpError(400,  err.message))
-                }else{
-                    return next(err);
-                }
-            }else{
-                req.session.user = user._id;
+    async.waterfall([
+	    function(callback){
+		    UI.validateUI(university, faculty, callback);
+	    },
+	    function(validated, callback){
+		    if(!validated) return callback(new httpError(400, "Данные не прошли валидацию"));
+		    User.signUp(name, surname, group, faculty, university, year, studNumber, mail, password,callback);
+	    }
+    ], function(err, user){
+	    if(err){
+		    if(err instanceof httpError ){
+			    return next(err);
+		    }else if(err instanceof authError){
+			    return next(new httpError(400,  err.message))
+		    }else{
+			    return next(err);
+		    }
+	    }else{
+		    var link = config.get('general:host') + "/auth/activate?mail=%s&key=%s";
+		    link = util.format(link, user.mail,user.key);
+		    var message = util.format("<p>%s, вот ссылка для подтверждения почты - <a href='%s'>Подтвердить</a>",user.name, link);
+	        var ns = new mailNS("Confirm password on istudentapp.ru", "", "auth", message, message);
+		    ns.send(user.mail, function(err, result){});
+		    res.json(user);
+		    res.end();
+		    return next();
+	    }
+    })
 
-                var userToReturn = {
-                    name: user.pubInform.name,
-                    surname: user.pubInform.surname,
-                    photo:user.pubInform.photo,
-                    year: user.pubInform.year,
-                    faculty: universityInterface.getFacultyName(user.pubInform.university, user.pubInform.faculty),
-                    university: universityInterface.getUniversityName(user.pubInform.university),
-                    group: user.pubInform.group,
-                    id: user._id
-                };
-
-                res.json(userToReturn);
-                res.end();
-                return next();
-            }
-
-        });
-    }
-    else{
-        next(400)
-    }
 };
 
 

@@ -1,6 +1,7 @@
 var crypto  = require('crypto');
 var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
+var util = require('util');
 
 
 var async = require('async');
@@ -11,9 +12,10 @@ var log = require('../libs/log')(module);
 
 
 
+
 var User = new Schema({
     auth: {
-        studNumber:{
+        mail:{
             require: true,
             type: String,
             unique: true
@@ -43,15 +45,15 @@ var User = new Schema({
             default: ''
         },
         university:{
-            type: Number,
+            type: Schema.Types.ObjectId,
             require: true
         },
         faculty:{
-          type: String,
-          require:true
+	        type: Schema.Types.ObjectId,
+            require:true
         },
         group:{
-            type: String,
+            type: Number,
             require: true
         },
         year:{
@@ -101,7 +103,16 @@ var User = new Schema({
     searchString:{
         type:String,
         require: true
-    }
+    },
+	activation:{
+		activated: {
+			type: Boolean,
+			default: false
+		},
+		key:{
+			type: String
+		}
+	}
 });
 
 
@@ -122,14 +133,17 @@ User.methods.checkPassword = function(password){
     return (this.encryptPassword(password) === this.auth.hashed_password);
 };
 
-User.statics.signIn = function(studNumber, password, callback){
+User.statics.signIn = function(mail, password, callback){
     var User=this;
     async.waterfall([
         function(callback){
-            User.findOne({"auth.studNumber": studNumber}, callback)
+            User.findOne({"auth.mail": mail}, callback)
         },
         function(user, callback){
             if(user){
+	            if(!user.activation.activated){
+		            callback(new authError('Необходимо подтвердить почтовый адрес', 110001));
+	            }
                 if(user.checkPassword(password)){
                     callback(null, user);
                     log.info("Авторизация прошла успешно");
@@ -148,20 +162,21 @@ User.statics.signIn = function(studNumber, password, callback){
                 return callback(new dbError(err, null, null));
             }
         }
-        callback(null,user);
+        return callback(null,user);
     });
 };
 
-User.statics.signUp = function(name, surname, group, faculty, university, year, studNumber,  password, callback){
+User.statics.signUp = function(name, surname, group, faculty, university, year, studNumber, mail, password, callback){
     var User = this;
         async.waterfall([
             function(callback){
-                User.findOne({"auth.studNumber": studNumber}, callback)
+                User.findOne({"auth.mail": mail}, callback)
             },
             function(user, callback){
                 if(user){
-                    return callback(new authError("Пользователь с номером студенческого " + studNumber +" уже есть"));
+                    return callback(new authError(util.format("mail %s already in use", mail)));
                 }else{
+	                var key = crypto.createHmac('sha1', Math.random() + "").update(mail).digest("hex").toString();
                     var newUser = new User({
                         pubInform:{
                             name: name,
@@ -169,20 +184,25 @@ User.statics.signUp = function(name, surname, group, faculty, university, year, 
                             group:group,
                             faculty: faculty,
                             year: year,
-                            university: university
+                            university: university,
+	                        studNumber: studNumber
                         },
                         auth:{
-                            studNumber: studNumber,
+                            mail: mail,
                             password: password
                         },
-                        searchString: name + " " + surname + " " + group + " "
+                        searchString: name + " " + surname + " " + group + " ",
+	                    activation:{
+		                    key: key
+	                    }
                     });
                     newUser.save(function(err, user){
                         if(err) {
+	                        throw err;
                             return callback(new dbError(err, null, null));
                         }
                         else {
-                            return callback(null, user);
+                            return callback(null, {mail: user.auth.mail, name: user.pubInform.name, key: user.activation.key});
                         }
                     });
                 }
@@ -201,9 +221,51 @@ User.statics.signUp = function(name, surname, group, faculty, university, year, 
         });
 };
 
+User.statics.activate = function(mail, key, callback){
+	this.update(
+		{
+			"auth.mail": mail,
+			"activation.key": key
+		},
+		{
+			"activation.activated":true,
+			"activation.key": null
+		},
+		function(err, result){
+			if( err || result.nModified == 0 ) return callback(null, false);
+			return callback(null, true);
+		}
+	)
+};
 
+User.statics.getActivatedUserByMail = function(mail, callback){
+	this.findOne({"auth.mail": mail, "activation.activated": true}, callback);
+};
+User.statics.getNoactivatedUserByMail = function(mail, callback){
+	this.findOne({"auth.mail": mail, "activation.activated": false}, callback);
+};
 
+User.statics.checkActivation = function(id, callback){
+	this.findOne({_id: id}, function(err, user){
+		if(err) return callback(err);
+		else if(!user){
+			return callback(new dbError(404));
+		}else{
+			return callback(null, user.activation.activated);
+		}
+	})
+};
 
+User.statics.checkActivationByMail = function(mail, callback){
+	this.findOne({"auth.mail": mail}, function(err, user){
+		if(err) return callback(err);
+		else if(!user){
+			return callback(new dbError(404));
+		}else{
+			return callback(null, user.activation.activated);
+		}
+	})
+};
 /*
  * Поиск по пользователям
  *
@@ -234,7 +296,7 @@ User.statics.getPeopleByOneKey = function(key, callback){
 
         {
             $match: {
-	            "searchString": key
+	            "searchString": {$regex:key}
             }
         },
 
@@ -301,7 +363,7 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 
 User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
     this.aggregate([
-        { $limit : 5 },
+
         {
             $match: {
                 $and:[

@@ -70,6 +70,7 @@ function loadUser(session, callback){
 			            UI.getUniversityName(user.pubInform.university, callback);
 		            }
 	            ], function(err, results){
+		            if(err || results.length != 2) return callback(new Error("Ошибка при попытке получить информацию по универу и факультету"));
 		            var student = {
 			            name: user.pubInform.name,
 			            surname: user.pubInform.surname,

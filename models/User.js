@@ -293,10 +293,12 @@ User.statics.getPeopleByGroupNumber = function(group, callback){
 User.statics.getPeopleByOneKey = function(key, callback){
 
 	this.aggregate([
-
         {
             $match: {
-	            "searchString": {$regex:key}
+	            $or:[
+		            {"pubInform.name": {$regex:key}},
+		            {"pubInform.surname": {$regex:key}}
+				]
             }
         },
 
@@ -316,7 +318,6 @@ User.statics.getPeopleByOneKey = function(key, callback){
             $sort:{"username":1}
         }
     ], function(err, users){
-		console.log(arguments);
         if(err) throw err;
         if(users.length == 0){
             return callback(new dbError(null, 204, null));
@@ -330,10 +331,22 @@ User.statics.getPeopleByTwoKeys = function(key1, key2, callback){
 	this.aggregate([
 		{
 			$match: {
-				$and:[
-					{"searchString": {$regex: key1}},
-					{"searchString":{$regex: key2}}
+				$or:[
+					{
+						$and:[
+							{"pubInform.name": {$regex:key1}},
+							{"pubInform.surname": {$regex:key2}}
+						]
+					},
+					{
+						$and:[
+							{"pubInform.name": {$regex:key2}},
+							{"pubInform.surname": {$regex:key1}}
+						]
+					}
+
 				]
+
 			}
 		},
 		{
@@ -366,11 +379,51 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
 
         {
             $match: {
-                $and:[
-                    {"searchString": {$regex: key1}},
-                    {"searchString":{$regex: key2}},
-	                {"searchString": {$regex: key3}}
-                ]}
+	            $or:[
+		            {
+			            $and:[
+				            {"pubInform.name": {$regex:key1}},
+				            {"pubInform.surname": {$regex:key2}},
+				            {"pubInform.group": {$regex:key3}}
+			            ]
+		            },
+		            {
+			            $and:[
+				            {"pubInform.name": {$regex:key2}},
+				            {"pubInform.surname": {$regex:key1}},
+				            {"pubInform.group": {$regex:key3}}
+			            ]
+		            },
+		            {
+			            $and:[
+				            {"pubInform.name": {$regex:key1}},
+				            {"pubInform.surname": {$regex:key3}},
+				            {"pubInform.group": {$regex:key2}}
+			            ]
+		            },
+		            {
+			            $and:[
+				            {"pubInform.name": {$regex:key2}},
+				            {"pubInform.surname": {$regex:key3}},
+				            {"pubInform.group": {$regex:key1}}
+			            ]
+		            },
+		            {
+			            $and:[
+				            {"pubInform.name": {$regex:key3}},
+				            {"pubInform.surname": {$regex:key1}},
+				            {"pubInform.group": {$regex:key2}}
+			            ]
+		            },
+		            {
+			            $and:[
+				            {"pubInform.name": {$regex:key3}},
+				            {"pubInform.surname": {$regex:key2}},
+				            {"pubInform.group": {$regex:key1}}
+			            ]
+		            }
+	            ]
+            }
         },
         {
 	        $project:
@@ -428,12 +481,15 @@ User.statics.getContactsByOneKey = function (userId, key, callback){
 	           })
            }
             User.aggregate([
-                {
-                    $match:
-                    {
-                        "searchString":{$regex: key}, _id: { $in: contacts}
-                    }
-                },
+	            {
+		            $match: {
+			            $or:[
+				            {"pubInform.name": {$regex:key}},
+				            {"pubInform.surname": {$regex:key}}
+			            ],
+			            _id: { $in: contacts}
+		            }
+	            },
                 {
                     $project:
                     {
@@ -475,9 +531,20 @@ User.statics.getContactsByTwoKeys = function(userId, key1, key2, callback){
 	            User.aggregate([
 		            {
 			            $match: {
-				            $and:[
-					            {"searchString":{$regex: key1}},
-					            {"searchString": {$regex: key2}}
+				            $or:[
+					            {
+						            $and:[
+							            {"pubInform.name": {$regex:key1}},
+							            {"pubInform.surname": {$regex:key2}}
+						            ]
+					            },
+					            {
+						            $and:[
+							            {"pubInform.name": {$regex:key2}},
+							            {"pubInform.surname": {$regex:key1}}
+						            ]
+					            }
+
 				            ],
 				            _id: { $in: user.contacts.id}
 			            }
@@ -523,10 +590,49 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
 	            User.aggregate([
 		            {
 			            $match: {
-				            $and:[
-					            {"searchString": {$regex: key1}},
-					            {"searchString": {$regex: key2}},
-					            {"searchString": {$regex: key3}}
+				            $or:[
+					            {
+						            $and:[
+							            {"pubInform.name": {$regex:key1}},
+							            {"pubInform.surname": {$regex:key2}},
+							            {"pubInform.group": {$regex:key3}}
+						            ]
+					            },
+					            {
+						            $and:[
+							            {"pubInform.name": {$regex:key2}},
+							            {"pubInform.surname": {$regex:key1}},
+							            {"pubInform.group": {$regex:key3}}
+						            ]
+					            },
+					            {
+						            $and:[
+							            {"pubInform.name": {$regex:key1}},
+							            {"pubInform.surname": {$regex:key3}},
+							            {"pubInform.group": {$regex:key2}}
+						            ]
+					            },
+					            {
+						            $and:[
+							            {"pubInform.name": {$regex:key2}},
+							            {"pubInform.surname": {$regex:key3}},
+							            {"pubInform.group": {$regex:key1}}
+						            ]
+					            },
+					            {
+						            $and:[
+							            {"pubInform.name": {$regex:key3}},
+							            {"pubInform.surname": {$regex:key1}},
+							            {"pubInform.group": {$regex:key2}}
+						            ]
+					            },
+					            {
+						            $and:[
+							            {"pubInform.name": {$regex:key3}},
+							            {"pubInform.surname": {$regex:key2}},
+							            {"pubInform.group": {$regex:key1}}
+						            ]
+					            }
 				            ],
 				            _id: { $in: user.contacts}
 			            }

@@ -1,9 +1,14 @@
-var User = require('../../models/User').User;
 var mongoose = require("../../libs/mongoose");
+var util = require('util');
+var async = require('async');
+
+var User = require('../../models/User').User;
+var UI = require('../../models/university').university;
+
+
+var taskToMakeContact = require('../../models/university').taskToMakeContact;
 require('../../libs/additionalFunctions/extensionsForBasicTypes');
 var dbError = require('../../error').dbError;
-
-
 
 var universityData = require('../../data/index').universityInfoLoader;
 
@@ -13,8 +18,8 @@ module.exports = function(req, res, next){
 	var keyword = [];
 	try{
 		for(var i = 0; i< keywords.length; i++){
-			keyword[i] = keywords[i].toLowerCase();
-			keyword[i] = keyword[i].capitilizeFirstLetter();
+			keyword[i] = '^' + keywords[i].toLowerCase();
+			keyword[i] = new RegExp(keyword[i], 'ig');
 		}
 	}catch(e){
 		return next(400);
@@ -33,12 +38,14 @@ module.exports = function(req, res, next){
                     else return next(err);
                 }
                 else{
-	                var result = [];
-	                users.forEach(function(element){
-		                result.push(universityData.makeContact(element));
-	                });
-                    res.json(result);
-                    return next();
+		            var tasks = [];
+		            users.forEach(function(element){
+			            tasks.push(taskToMakeContact(element));
+		            });
+		            async.parallel(tasks, function(err, results){
+			            res.json(results);
+			            return next();
+		            })
                 }
             });
             break;
@@ -55,12 +62,14 @@ module.exports = function(req, res, next){
 		            else return next(err);
 	            }
                 else{
-	                var result = [];
-	                users.forEach(function(element){
-		                result.push(universityData.makeContact(element));
-	                });
-	                res.json(result);
-	                return next();
+		            var tasks = [];
+		            users.forEach(function(element){
+			            tasks.push(taskToMakeContact(element));
+		            });
+		            async.parallel(tasks, function(err, results){
+			            res.json(results);
+			            return next();
+		            })
                 }
             });
             break;
@@ -77,26 +86,32 @@ module.exports = function(req, res, next){
 		            else return next(err);
 	            }
                 else{
-	                var result = [];
+	                var tasks = [];
 	                users.forEach(function(element){
-		                result.push(universityData.makeContact(element));
+		                tasks.push(taskToMakeContact(element));
 	                });
-	                res.json(result);
-	                return next();
+		            async.parallel(tasks, function(err, results){
+			            res.json(results);
+			            return next();
+		            })
+
 
                 }
             });
             break;
         default:
             User.getPeopleByOneKey(keyword[0], function(err, users){
-                if(err) return next(err);
+                if(err) throw err;//return next(err);
                 else{
-	                var result = [];
+	                var tasks = [];
 	                users.forEach(function(element){
-		                result.push(universityData.makeContact(element));
+		                tasks.push(taskToMakeContact(element));
 	                });
-	                res.json(result);
-	                return next();
+	                async.parallel(tasks, function(err, results){
+		                console.log(results);
+		                res.json(results);
+		                return next();
+	                })
 
                 }
             })

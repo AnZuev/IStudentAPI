@@ -2,10 +2,11 @@
  * Created by anton on 25/01/16.
  */
 
-var log = require('../../../libs/log')(module);
 var conversation = require('../../../models/conversation').conversation;
 var User = require('../../../models/User').User;
 var sockets = require('../../common/sockets').sockets;
+var UI = require('../../../models/university').university;
+
 
 
 var wsError = require('../../../error').wsError;
@@ -17,6 +18,10 @@ var async = require("async");
 
 var libs = require('../libs');
 var universityInterface = require('../../../data/index').universityInfoLoader;
+var taskToMakeContact = require('../../../models/university').taskToMakeContact;
+var log = require('../../../libs/log')(module);
+
+
 /*
  1) Ищем личные диалоги по имени второго юзера
  2) Ищем групповые диалоги по названию
@@ -29,8 +34,8 @@ var universityInterface = require('../../../data/index').universityInfoLoader;
 module.exports = function(socket, data, cb){
 	var keyword = data.title.split(' ');
 	for(var i = 0; i< keyword.length; i++){
-		keyword[i] = keyword[i].toLowerCase();
-		keyword[i] = keyword[i].capitilizeFirstLetter();
+		keyword[i] = '^' + keyword[i].toLowerCase();
+		keyword[i] = new RegExp(keyword[i], 'ig');
 	}
 
 	async.parallel([
@@ -43,19 +48,14 @@ module.exports = function(socket, data, cb){
 							if(err instanceof dbError) return callback(null, []);
 							else return callback(null);
 						}else{
-							var usersToReturn = [];
-							users.forEach(function(item){
-								var userToReturn = {
-									student: item.student,
-									group: item.group,
-									description: universityInterface.getUniversityName(item.university) + ", " + universityInterface.getFacultyName(item.university, item.faculty) + ", " + item.year + " курс",
-									photo: item.photo,
-									id: item._id,
-									type: "private"
-								};
-								usersToReturn.push(userToReturn);
+							var tasks = [];
+							users.forEach(function(element){
+								tasks.push(taskToMakeContact(element));
 							});
-							return callback(null, usersToReturn);
+							async.parallel(tasks, function(err, results){
+								callback(null, results);
+								return next();
+							});
 						}
 					});
 

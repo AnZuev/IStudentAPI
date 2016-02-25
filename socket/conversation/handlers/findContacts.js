@@ -8,11 +8,14 @@ var log = require('../../../libs/log')(module);
 var wsError = require('../../../error').wsError;
 
 module.exports = function(socket, data, cb){
-	var keyword = data.query.split(' ');
-	for(var i = 0; i< keyword.length; i++){
-		keyword[i] = keyword[i].toLowerCase();
-		keyword[i] = keyword[i].capitilizeFirstLetter();
+	var keywords = data.query.split(' ');
+	var keyword = [];
+
+	for(var i = 0; i< keywords.length; i++){
+		keyword[i] = '^' + keywords[i].toLowerCase();
+		keyword[i] = new RegExp(keyword[i], 'ig');
 	}
+
 	switch (keyword.length){
 		case 1:
 			User.getContactsByOneKey(socket.request.headers.user.id, keyword[0], function(err, users){

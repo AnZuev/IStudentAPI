@@ -2,14 +2,12 @@ var User = require('../../models/User').User;
 
 
 exports.get = function(req, res, next){
-    if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
-        var mail = req.param('mail');
-        User.findOne({"personal_information.mail": mail}, function(err, user){
-            if(err) return next(err);
-            if(user) res.send(true);
-            else{
-                res.send(false);
-            }
-        });
-    }
+	var mail = req.param('mail');
+	User.findOne({"personal_information.mail": mail}, function(err, user){
+		if(err) return next(err);
+		if(user) res.send(true);
+		else{
+			res.send(false);
+		}
+	});
 };

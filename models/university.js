@@ -35,7 +35,7 @@ var university = new Schema({
 		street: String,
 		building:String
 	},
-	rating:Number
+	rating: Number
 });
 
 
@@ -112,26 +112,39 @@ faculty.statics.getGroups = function(id, year, callback){
 	});
 };
 
-/*
+/*2
  Метод для получения списка факультетов в рамках одного универа по id
  Вход:  id универа
  Выход: либо список факультетов с названием универа, либо ошибка
 
  */
-university.statics.getFaculties = function(id, year, callback){
+university.statics.getFaculties = function(univertisy, callback){
 	this.aggregate([
 		{
+			$limit:1
+		},
+		{
 			$match:{
-				_id: id
-			},
+				_id: mongoose.Types.ObjectId(univertisy)
+			}
+		},
+		{
 			$project:{
-				faculties: "$faculties.title",
-				title: "$title"
+				faculties: "$faculties",
+				id: "$_id",
+				_id: 0
 			}
 		}
 	], function(err, facultiesItem){
 		if(err) return callback(err);
 		else{
+			if(facultiesItem.length == 0) return callback(null, []);
+			facultiesItem = facultiesItem[0];
+			facultiesItem.faculties.forEach(function(element){
+				delete element.groups;
+				element.id = element._id;
+				delete element._id;
+			});
 			return callback(null, facultiesItem);
 		}
 	});
@@ -144,18 +157,34 @@ university.statics.getFaculties = function(id, year, callback){
  */
 
 university.statics.getUniversities = function(callback){
-	this.find({}, {$limit: 20}, function(err, universities){
-		if(err) return callback(err);
-		else{
-			return callback(null, universities);
+	this.aggregate([
+		{
+			$limit: 20
+		},
+		{
+			$sort: {rating:1}
+		},
+		{
+			$project: {
+				title: "$title",
+				id: "$_id",
+				_id:0
+			}
+		}],
+		function(err, results){
+			if(err || (results.length == 0)){
+				return callback(null, []);
+			}else{
+				return callback(null, results);
+			}
 		}
+	);
 
-	})
 };
 
 /*
  Метод для получения списка универов по названию(используем поиск с помощью regex)
- Вход:
+ Вход: title
  Выход: либо ошибка, либо список универов, отсортированный по рейтингу
  */
 university.statics.getUniversitiesByTitle = function(title, callback){
@@ -174,9 +203,10 @@ university.statics.getUniversitiesByTitle = function(title, callback){
 		{
 			$project: {
 				title: "$title",
-				id: "$_id"
+				id: "$_id",
+				_id:0
 			}
-		},
+		}],
 		function(err, results){
 			if(err || (results.length == 0)){
 				return callback(null, []);
@@ -184,7 +214,7 @@ university.statics.getUniversitiesByTitle = function(title, callback){
 				return callback(null, results);
 			}
 		}
-	])
+	)
 };
 
 /*
@@ -196,8 +226,8 @@ university.statics.getFacultiesByTitle = function(title, university, callback){
 	this.aggregate([
 		{
 			$match: {
-				_id: university,
-				title: {$regex: title}
+				_id: mongoose.Types.ObjectId(university),
+				"faculties.title": {$regex: title}
 			}
 		},
 		{
@@ -207,18 +237,23 @@ university.statics.getFacultiesByTitle = function(title, university, callback){
 			$sort: {title:1}
 		},
 		{
-			$project: {
-				title: "$title",
-				id: "$_id"
+			$project:{
+				faculties: "$faculties",
+				id: "$_id",
+				_id: 0
 			}
 		}
 
-	], function(err, results){
-		if(err || (results.length == 0)){
-			return callback(null, []);
-		}else{
-			return callback(null, results);
-		}
+	], function(err, facultiesItem){
+		if(err) return callback(err);
+		if(facultiesItem.length == 0) return callback(null, []);
+		facultiesItem = facultiesItem[0];
+		facultiesItem.faculties.forEach(function(element){
+			delete element.groups;
+			element.id = element._id;
+			delete element._id;
+		});
+		return callback(null, facultiesItem);
 	})
 };
 
@@ -242,23 +277,27 @@ university.statics.makeContact = function(user, callback){
 	this.findOne(
 		{
 			_id: user.university,
-			faculty: user.faculty
+			"faculties._id": user.faculty
+		},
+		{
+			"faculties.$":1,
+			title:1
 		},
 		function(err, universityItem){
 			if(err || !universityItem) return callback(err);
 			else{
-				user.about = util.format("%s, %d, курс, группа %d", universityItem.faculties[0].getFacultyName(), user.year, user.group);
+				user.about = util.format("%s, %d курс", universityItem.faculties[0].title, user.year);
 				user.university = universityItem.getUniversityName();
 				delete user.faculty;
 				delete user.year;
-				return user;
+				return callback(null,user);
 			}
 		}
 	)
 };
 
 
-university.statics.addUniversity = function(title, street, building, city, callback){
+university.statics.addUniversity = function(title, street, building, city, rating, callback){
 	var university = this;
 	var newUniversity = new university({
 		title: title,
@@ -266,38 +305,44 @@ university.statics.addUniversity = function(title, street, building, city, callb
 			street: street,
 			building: building,
 			city: city
-		}
+		},
+		rating: rating
 	});
 	newUniversity.save(function(err, university){
 		if(err) return callback(err);
 		else{
-			return callback(null, university);
+			var universityToReturn = {
+				title: university.title,
+				id: university._id
+			};
+			return callback(null, universityToReturn);
 		}
 	})
 };
 
 university.statics.addFacultiesToUniversity = function(id,faculties, callback){
 	var universities = this;
+
 	async.waterfall([
 		function(callback){
 			universities.findById(id, callback)
 		},
 		function(university, callback){
-			if(!university) return callback("no university found");
+			if(!university) return callback("No university found");
 			else {
 				university.faculties = faculties;
-				university.save(function (err) {
+				university.save(function (err, result) {
 					if (err) return callback(err);
 					else {
-						return callback(null, true)
+						return callback(null, result.faculties);
 					}
 				})
 			}
 		}
 	],
 		function(err, result){
-			if(err ){
-				return callback(null, false);
+			if(err){
+				return callback(null, err);
 			}else{
 				if(result) return callback(null, result);
 
@@ -309,6 +354,11 @@ university.statics.addFacultiesToUniversity = function(id,faculties, callback){
 exports.university = mongoose.model('university', university);
 exports.faculty = mongoose.model('faculty', faculty);
 
-
+exports.taskToMakeContact = makeContact;
+function makeContact(user){
+	 return function(callback){
+		exports.university.makeContact(user, callback);
+	}
+}
 
 

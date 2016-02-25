@@ -25,6 +25,7 @@ module.exports = function(app){
     require('./im')(app);
     require('./staticServer')(app);
 	require('./service')(app);
+	require('./universities')(app);
 
 
 

@@ -2,11 +2,13 @@ var User = require('../../models/User').User;
 var mongoose = require("../../libs/mongoose");
 
 module.exports = function(req, res, next){
-    var keyword = req.query.q.split(' ');
-    for(var i = 0; i< keyword.length; i++){
-       keyword[i] = keyword[i].toLowerCase();
-       keyword[i] = keyword[i].capitilizeFirstLetter();
-    }
+    var keywords = req.query.q.split(' ');
+	var keyword = [];
+
+	for(var i = 0; i< keywords.length; i++){
+		keyword[i] = '^' + keywords[i].toLowerCase();
+		keyword[i] = new RegExp(keyword[i], 'ig');
+	}
 
     switch (keyword.length){
         case 1:

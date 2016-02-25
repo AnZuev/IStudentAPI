@@ -20,7 +20,6 @@ module.exports = function(app){
     });
 
     app.get('/user/find', findUsers);
-	app.get('/universities/getUniversities', require('./../universities/getUniversities').get);
-	app.get('/universities/getFaculties', require('./../universities/getFaculties').get);
+
 
 };

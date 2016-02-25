@@ -118,15 +118,18 @@ faculty.statics.getGroups = function(id, year, callback){
  Выход: либо список факультетов с названием универа, либо ошибка
 
  */
-university.statics.getFaculties = function(univertisy, callback){
+university.statics.getFaculties = function(university, callback){
 	this.aggregate([
 		{
-			$limit:1
+			$match: {
+				_id: mongoose.Types.ObjectId(university)
+			}
 		},
 		{
-			$match:{
-				_id: mongoose.Types.ObjectId(univertisy)
-			}
+			$limit: 10
+		},
+		{
+			$sort: {title:1}
 		},
 		{
 			$project:{

@@ -31,6 +31,8 @@
 			<img id="createConversation"src="<%=publicStaticServer%>/images/imCreateDialogButton.png" alt="">
 		</div>
 		<div id="rightPartOfMessagesHeader" class="dialogName fontBlueColor">
+		<p></p>
+		<img style='visibility:hidden;'src="images/global/backArrowIcon.png" alt="">
 		</div>
 
 		<div class="clear"></div>
@@ -71,6 +73,7 @@
 				<li><img src="<%=publicStaticServer%>/images/imAddPhotoIcon.svg" alt=""> <p class="fontBlueColor">Фотография</p> </li>
 				<li><img src="<%=publicStaticServer%>/images/imAddDocumentIcon.svg" alt=""> <p class="fontBlueColor">Документ</p> </li>
 				<li><img src="<%=publicStaticServer%>/images/imAddEventIcon.svg" alt=""> <p class="fontBlueColor">Событие</p> </li>
+				<img id='decorativeTriangle' src="<%=publicStaticServer%>/images/imAddDocumentsBottomTriangle.svg">
 			</ul>
 
 
@@ -86,7 +89,7 @@
 			<input id="inputNameOfCreatingConversation" class="" placeholder="Название..." type="text">
 
 			<div id="areaForAddingParticipantsInConversation">
-				<input id="queryForAddingParticipants"></input>
+				<input id="queryForAddingParticipants" placeholder="Участники беседы..."></input>
 			</div>
 
 			<p class="fontBlueColor" id="tipsForCreatingConversation">Начните вводить критерии для поиска людей(имя, фамилия или номер группы), в начале написав
@@ -114,9 +117,13 @@
             <div class="clear"></div>
 
             <div id='actionsWithUser'>
+              <div><img src="<%=publicStaticServer%>/images/imPersonScreenSendMessageIcon.png" alt=""><span class="fontBlueColor">Отправить сообщение</span></div> 
+              <hr>
               <div><img style='margin-left:-2.5px;'src="<%=publicStaticServer%>/images/imPersonScreenSendContactIcon.png" alt=""><span style='margin-left:22.5px'class="fontBlueColor">Отправить контакт</span></div> 
               <hr>
               <div><img src="<%=publicStaticServer%>/images/imPersonScreenSendEventIcon.png" alt=""><span class="fontBlueColor">Пригласить на событие</span></div> 
+              <hr>
+              <div><img src="<%=publicStaticServer%>/images/imPersonScreenComplainIcon.png" alt=""><span class="fontRedColor">Пожаловаться</span></div> 
               <hr>
               <div><img src="<%=publicStaticServer%>/images/imPersonScreenBlockUserIcon.png" alt=""><span class="fontRedColor">Блокировать</span></div> 
               <hr>

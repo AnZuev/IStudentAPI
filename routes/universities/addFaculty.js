@@ -29,15 +29,8 @@ exports.post = function(req, res, next){
 				var error = new httpError(400, util.format("Ошибка при добавлении %s", err.message));
 				next(error);
 			}else{
-				var results = [];
-				result.forEach(function(element){
-					var fItem = {
-						title: element.title,
-						id: element._id
-					};
-					results.push(fItem);
-				});
-				res.json(results);
+				res.statusCode = 201;
+				res.json({created: true});
 				res.end();
 				next();
 			}

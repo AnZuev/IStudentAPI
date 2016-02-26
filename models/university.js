@@ -50,7 +50,7 @@ university.methods.getUniversityName = function(){
 };
 university.statics.getUniversityName = function(id, callback){
 	this.findById(id, {title:1}, function(err, res){
-		if(err) return callback(err);
+		if(err) return callback(new dbError(err));
 		else{
 			if(!res) return new dbError(null, 404, util.format("no university found by %s", id));
 			else{
@@ -72,12 +72,12 @@ faculty.methods.getFacultyName = function(){
 
 university.statics.getFacultyName = function(uId, id, callback){
 
-	this.findOne({_id: uId, "faculties._id":id} , {title:1}, function(err, res){
-		if(err) return callback(err);
+	this.findOne({_id: uId, "faculties._id":id} , {"faculties.$":1}, function(err, res){
+		if(err) return callback(new dbError(err));
 		else{
 			if(!res) return callback(new dbError(null, 404, util.format("no faculty found by %s", id)));
 			else{
-				return callback(null, res);
+				return callback(null, res.faculties[0]);
 			}
 		}
 
@@ -134,7 +134,6 @@ university.statics.getFaculties = function(university, callback){
 		{
 			$project:{
 				faculties: "$faculties",
-				id: "$_id",
 				_id: 0
 			}
 		}
@@ -148,7 +147,7 @@ university.statics.getFaculties = function(university, callback){
 				element.id = element._id;
 				delete element._id;
 			});
-			return callback(null, facultiesItem);
+			return callback(null, facultiesItem.faculties);
 		}
 	});
 };
@@ -299,6 +298,28 @@ university.statics.makeContact = function(user, callback){
 	)
 };
 
+university.statics.fillUniversityNameAndFacultyNameforUser = function(user, callback){
+	this.findOne(
+		{
+			_id: user.university,
+			"faculties._id": user.faculty
+		},
+		{
+			"faculties.$":1,
+			title:1
+		},
+		function(err, universityItem){
+			if(err || !universityItem) return callback(err);
+			else{
+				user.faculty = universityItem.faculties[0].title;
+				user.university = universityItem.getUniversityName();
+				delete user.faculty;
+				delete user.year;
+				return callback(null,user);
+			}
+		}
+	)
+}
 
 university.statics.addUniversity = function(title, street, building, city, rating, callback){
 	var university = this;
@@ -323,34 +344,17 @@ university.statics.addUniversity = function(title, street, building, city, ratin
 	})
 };
 
-university.statics.addFacultiesToUniversity = function(id,faculties, callback){
+university.statics.addFacultiesToUniversity = function(id, faculties, callback){
 	var universities = this;
-
-	async.waterfall([
-		function(callback){
-			universities.findById(id, callback)
-		},
-		function(university, callback){
-			if(!university) return callback("No university found");
-			else {
-				university.faculties = faculties;
-				university.save(function (err, result) {
-					if (err) return callback(err);
-					else {
-						return callback(null, result.faculties);
-					}
-				})
-			}
+	universities.findOneAndUpdate({_id:id}, {$push : { faculties: {$each: faculties}}}, function(err, university){
+		if(err) return callback(err);
+		if(!university) return callback("No university found");
+		else {
+			return callback(null, true);
 		}
-	],
-		function(err, result){
-			if(err){
-				return callback(null, err);
-			}else{
-				if(result) return callback(null, result);
+	});
 
-			}
-		})
+
 };
 
 

@@ -21,10 +21,14 @@ var faculties = [
 		title: "ГФ"
 	}
 ];
-UI.addUniversity("СПБГЭТУ, ЛЭТИ", "Улица профессора Попова", 5, "Санкт-Петербург", function(err, res){
+/*UI.addUniversity("СПБГЭТУ, ЛЭТИ", "Улица профессора Попова", 5, "Санкт-Петербург", 0,  function(err, res){
 	UI.addFacultiesToUniversity(res._id, faculties, function(err, facult){
 		console.log(arguments);
 	})
+});*/
+
+
+
+UI.getFaculties("56cd7a3fe1848ce622923807",function(err, res){
+	console.log(res);
 });
-
-

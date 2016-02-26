@@ -1,13 +1,11 @@
 var User = require('../../models/User').User;
 var httpError = require('../../error').HttpError;
 var authError = require('../../error').authError;
-var universityInterface = require('../../data/index').universityInfoLoader;
-var dataJson = require('../../data/university.json');
 var UI = require('../../models/university').university;
-var FI = require('../../models/university').faculty;
 var mailNS = require('../../notifications/mail').mailNS;
 var config = require('../../config');
 
+var mongoose = require('mongoose');
 var async = require('async');
 var util = require('util');
 
@@ -20,11 +18,14 @@ exports.post = function(req, res, next){
 		var studNumber = req.body.studNumber;
 		var year = req.body.year;
 		var faculty = req.body.faculty;
-		var group = req.body.group;
+		faculty = mongoose.Types.ObjectId(faculty);
+		var group = req.body.group || "";
 		var university = req.body.university;
+		university = mongoose.Types.ObjectId(university);
 		var mail = req.body.mail;
 	}catch(e){
-		next(400);
+		console.error(e);
+		return next(400);
 	}
 
     async.waterfall([

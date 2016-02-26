@@ -2,9 +2,13 @@
  * Created by anton on 25/01/16.
  */
 var User = require('../../models/User').User;
-var universityInterface = require('../../data/index').universityInfoLoader;
+var UI = require('../../models/university').university;
 
 var async = require('async');
+var util = require('util');
+
+var monthTitles = require('../../data/month');
+
 
 function loadPrivateConvInfo(conv, requesterId, callback){
 
@@ -75,7 +79,7 @@ function loadGroupConvInfo(conv, requesterId, callback){
     async.parallel(tasks, function(err, results){
         if(err) return callback(err);
         var nParticipants = {};
-        results.forEach(function(user, index){
+        results.forEach(function(user){
 	        if(!user) return;
             nParticipants[user.id] = user;
         });
@@ -95,23 +99,57 @@ function loadGroupConvInfo(conv, requesterId, callback){
 
 exports.loadGroupConvInfo = loadGroupConvInfo;
 
-
-
 function taskToGetUserInfo(userId){
 	return function(callback){
-		User.getUserById(userId, function(err, user){
+		async.waterfall([
+			function(callback){
+				User.getUserById(userId, function(err, user){
+					if(err) return callback(err);
+					else{
+						var data = {
+							id: user._id,
+							photo: user.pubInform.photo,
+							faculty: user.pubInform.faculty,
+							university: user.pubInform.university,
+							username: user.pubInform.name + " " + user.pubInform.surname
+						};
+						return callback(null, data);
+					}
+				});
+			},
+			function(user, callback){
+				UI.makeContact(user, callback);
+			}
+		], function(err, result){
 			if(err) return callback(err);
 			else{
-				var data = {
-					id: user._id,
-					photo: user.pubInform.photo,
-					about: universityInterface.getFacultyName(user.pubInform.university, user.pubInform.faculty) + ", " + user.pubInform.year + " курс, группа " + user.pubInform.group,
-					university: universityInterface.getUniversityName(user.pubInform.university),
-					username: user.pubInform.name + " " + user.pubInform.surname
-				};
-
-				return callback(null, data);
+				return callback(null, result);
 			}
 		})
+
 	}
 }
+
+exports.addDateMessages = function(messages){
+	var prevDate = {
+		month: messages[0].date.getMonth(),
+		day: messages[0].date.getDate()
+	};
+
+	var resultMessages = [];
+	messages.forEach(function(element, index){
+		if(index == 0) return;
+		if((element.date.getDate() > prevDate.day) && (element.date.getMonth >= prevDate.month)){
+			var dateMessage = {
+				type: "date",
+				text: util.format("%d %s", element.getDate(), monthTitles[element.getMonth()])
+			};
+			prevDate.day = element.date.getDate();
+			prevDate.month = element.date.getMonth();
+			resultMessages.push(dateMessage);
+		}
+		resultMessages.push(element);
+	});
+	return resultMessages;
+};
+

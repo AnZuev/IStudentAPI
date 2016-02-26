@@ -4,6 +4,8 @@
 
 var User = require('./../models/User').User;
 
+var util = require('util');
+
 var group = 4304;
 var name = 'А';
 var surname = "Зуев";
@@ -39,9 +41,12 @@ var password = 'qwerty1234';
  }
  })
  }
+*/
+var userId = ["5611659632ede0011018e974", "561163f932ede0011018e96f"];
+var name = '^езер';
+var str = new RegExp(name, 'ig');
 
-var userId = ["5611659632ede0011018e974", "561163f932ede0011018e96f"]
-User.getPeopleByOneKey(new RegExp("4303", "i"), function(err, callback){
+User.getPeopleByOneKey(str, function(err, callback){
 	console.log(arguments);
 });
 /*User.getUserById(userId, function(err, user){
@@ -55,6 +60,7 @@ for(var i = 0; i<userId.length; i++){
 }
 */
 
+/*
 User.activate("anzuev@bk.ru", "44a1f39b454a0df16639a9d0c98f51481ffe68a5", function(err, res){
 	console.log(arguments);
-})
+});*/

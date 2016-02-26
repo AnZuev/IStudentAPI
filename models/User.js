@@ -53,8 +53,8 @@ var User = new Schema({
             require:true
         },
         group:{
-            type: Number,
-            require: true
+            type: String,
+            require: false
         },
         year:{
             type: Number,

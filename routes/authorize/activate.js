@@ -1,5 +1,6 @@
 var User = require('../../models/User').User;
 var authError = require('../../error').authError;
+var dbError = require('../../error').dbError;
 var UI = require('../../models/university').university;
 var FI = require('../../models/university').faculty;
 
@@ -40,17 +41,29 @@ exports.get = function(req, res, next){
 			}
 		}
 	], function(err, result, user){
+		var userToReturn;
 		if(err) {
 			if(err instanceof authError) {
 				res.json({result: "failed"});
 				res.end();
 				return next();
+			}else if(err instanceof dbError && err.code != 404){
+				userToReturn = {
+					name: user.pubInform.name,
+					surname: user.pubInform.surname,
+					photo:user.pubInform.photo,
+					year: user.pubInform.year,
+					group: user.pubInform.group,
+					id: user._id
+				};
+				res.json(userToReturn);
+				res.end();
 			}else{
 				return next(err);
 			}
 		}
 		else{
-			var userToReturn = {
+			userToReturn = {
 				name: user.pubInform.name,
 				surname: user.pubInform.surname,
 				photo:user.pubInform.photo,

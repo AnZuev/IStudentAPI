@@ -38,9 +38,21 @@ exports.post = function(req, res, next){
 					UI.getUniversityName(user.pubInform.university, callback);
 				}
 			], function(err, result){
-				if(err) throw err;//return next(err);
+				var userToReturn;
+				if(err){
+					 userToReturn = {
+						name: user.pubInform.name,
+						surname: user.pubInform.surname,
+						photo:user.pubInform.photo,
+						year: user.pubInform.year,
+						group: user.pubInform.group,
+						id: user._id
+					};
+					res.json(userToReturn);
+					res.end();
+				}
 				else{
-					var userToReturn = {
+					userToReturn = {
 						name: user.pubInform.name,
 						surname: user.pubInform.surname,
 						photo:user.pubInform.photo,

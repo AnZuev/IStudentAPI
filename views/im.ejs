@@ -108,6 +108,46 @@
 
 
 		</div>
+
+		<div id="spaceForInformationAboutUser" class='hide'>
+            <!--Сюда вставляется информация о юзере-->
+            <div class="clear"></div>
+
+            <div id='actionsWithUser'>
+              <div><img style='margin-left:-2.5px;'src="<%=publicStaticServer%>/images/imPersonScreenSendContactIcon.png" alt=""><span style='margin-left:22.5px'class="fontBlueColor">Отправить контакт</span></div> 
+              <hr>
+              <div><img src="<%=publicStaticServer%>/images/imPersonScreenSendEventIcon.png" alt=""><span class="fontBlueColor">Пригласить на событие</span></div> 
+              <hr>
+              <div><img src="<%=publicStaticServer%>/images/imPersonScreenBlockUserIcon.png" alt=""><span class="fontRedColor">Блокировать</span></div> 
+              <hr>
+            </div>
+        </div>
+
+        <div id="spaceForInformationAboutConversation" class='hide'>
+            <!--Сюда вставляется информация о групповом чате-->
+            <div class="clear"></div>
+            
+            <div id='actionsWithConversation'>
+              <div><img src="<%=publicStaticServer%>/images/imDialogScreenInviteIcon.png" alt=""><span class="fontBlueColor">Пригласить</span></div> 
+              <hr>
+              <div><img src="<%=publicStaticServer%>/images/imDialogScreenNotificationsIcon.png" alt=""><span class="fontBlueColor">Выключить нотификации</span> <p id="indicatorOfNotification" class="fontBlueColor">Вкл</p> </div> 
+              <hr>
+              <div><img src="<%=publicStaticServer%>/images/imDialogScreenLeaveDialogIcon.png" alt=""><span class="fontRedColor">Покинуть беседу</span></div> 
+              <hr>
+            </div>
+
+            <div class="fontBlueColor">Участники: </div>
+
+            <div id="wrapperOfListParticipantsInConversation">
+              <ul id="ListParticipantsInConversation">              
+              	<!--Сюда вставляются участники беседы-->
+
+              </ul>
+            </div>
+
+        </div>
+
+
 		<div class="clear"></div>
 	</div>
 

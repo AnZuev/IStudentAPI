@@ -3,6 +3,7 @@ var authError = require('../../error').authError;
 var dbError = require('../../error').dbError;
 
 var util = require('util');
+var User = require('../../models/User').User;
 
 
 exports.checkAuth = function(req, res, next){
@@ -23,7 +24,8 @@ exports.checkAuthAndRedirect = function(req, res, next){
 exports.checkAuthAndActivation = function(req, res, next){
 	if(!req.session.user) return next(new HttpError(401, "Вы не авторизованы"));
 	else{
-		User.checkActivation(req.session.user, function(err, activated){
+		User.checkActivation(req.session.user, function(err, activated, user){
+			console.log(arguments);
 			if(err){
 				if(err instanceof dbError){
 					return next(new HttpError(400, "No users found"));
@@ -32,6 +34,7 @@ exports.checkAuthAndActivation = function(req, res, next){
 				}
 			}else{
 				if(activated){
+					req.user = user;
 					return next();
 				}else{
 					var httpError = new HttpError(405, "Почта не подтверждена. Пожалуйста, подтвердите свою почту");

@@ -251,7 +251,7 @@ User.statics.checkActivation = function(id, callback){
 		else if(!user){
 			return callback(new dbError(404));
 		}else{
-			return callback(null, user.activation.activated);
+			return callback(null, user.activation.activated, user);
 		}
 	})
 };

@@ -14,10 +14,7 @@ module.exports = function(app){
     /*
     * Непонятно насколько нужен этот метод. Пусть пока будет
     * */
-    app.get('/auth/checkAuth', checkAuth, function(req, res, next){
-	    next(200);
-
-    });
+    app.get('/auth/checkAuth', checkAuthAndActivation, require('./checkAuthHandler').get);
 
     app.get('/user/find', findUsers);
 

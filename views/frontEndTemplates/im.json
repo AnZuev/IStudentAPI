@@ -1,5 +1,5 @@
 {
-	"contactModule": "<tr  class='contact'><td style='width:50px'><img class='avatar' src='%s' alt=''></td><td><p class='nameOfDialog fontBlueColor'>%s</p><p class='lastMessage'>%s</p></td></tr>",
+	"contactModule": "<tr  class='contact'><td style='width:50px'><img class='avatar' src='%s' alt=''></td><td><p class='nameOfDialog fontBlueColor'>%s</p><p class='lastMessage'>%s</p><div style='background-color:%s' class='tagForContact'></div></td></tr>",
 
     "messageTemp": "<div> <div class='blockForMessage fromCompanion'> %s <div class='time'>%s</div> </div> <div class='clear'> </div> </div>",
     "messageInGroupTemp": "<div> <p class='senderName fontBlueColor'> %s </p> <div class='blockForMessage fromCompanion'> %s <div class='time'>%s</div> </div> <div class='clear'></div> </div>",
@@ -7,6 +7,7 @@
     "messageWith1DocTemp": "<div> <div class='blockForMessage '> %s<table class='documentInMessage'><tr><td> <img src='assets/imAddDocumentIcon.svg' > </td><td class='brownText'>Документ:</td><td class='addedDocument fontBlueColor'>%s</td></tr></table><div class='time'>%s</div></div><div class='clear'></div></div>",
     "messageWith2DocTemp":"<div> <div class='blockForMessage '> %s<table class='documentInMessage'><tr><td> <img src='assets/imAddDocumentIcon.svg' alt=''> </td><td class='brownText'>Документ:</td><td class='addedDocument fontBlueColor'>%s</td></tr><tr><td> <img src='assets/imAddDocumentIcon.svg' alt=''> </td><td class='brownText'>Документ:</td><td class='addedDocument fontBlueColor'>%s</td></tr></table><div class='time'>%s</div></div><div class='clear'></div></div>",
     "messageWith3DocTemp":"<div> <div class='blockForMessage '> %s<table class='documentInMessage'><tr><td> <img src='assets/imAddDocumentIcon.svg' alt=''> </td><td class='brownText'>Документ:</td><td class='addedDocument fontBlueColor'>%s</td></tr><tr><td> <img src='assets/imAddDocumentIcon.svg' alt=''> </td><td class='brownText'>Документ:</td><td class='addedDocument fontBlueColor'>%s</td></tr><tr><td> <img src='assets/imAddDocumentIcon.svg' alt=''> </td><td class='brownText'>Документ:</td><td class='addedDocument fontBlueColor'>%s</td></tr></table><div class='time'>%s</div></div><div class='clear'></div></div>",
+    "tecnicalMessageTemp":"<div class='tecnicalMessage'>%s</div>",
   
 	"documentsModule":{
 		"addedDocumentTemp": "<li><ins class='addedDocument fontBlueColor'>%s</ins> <div class='indicatorOfLoad blueBorders'><div style='width:0%'></div></div> <span></span></li>"

@@ -16,7 +16,7 @@ var dbError = require('../../../error').dbError;
 var async = require("async");
 
 
-var libs = require('../libs');
+var libs = require('../libs/libs');
 var universityInterface = require('../../../data/index').universityInfoLoader;
 var taskToMakeContact = require('../../../models/university').taskToMakeContact;
 var log = require('../../../libs/log')(module);

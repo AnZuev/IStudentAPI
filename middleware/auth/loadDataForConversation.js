@@ -5,7 +5,7 @@ var log = require('../../libs/log')(module);
 
 var async = require('async');
 
-var conversationLibs = require('../../socket/conversation/libs');
+var conversationLibs = require('../../socket/conversation/libs/libs');
 
 var numberConvToReturn = require('../../config').get("im:convsToReturn");
 
@@ -29,6 +29,7 @@ module.exports = function(req, res, next){
 			convs.forEach(function(conv){
 				conv.unreadMessages =  false;
 				for(var i = 0; i< conv.messages.length; i++){
+					if(conv.messages[0].service || conv.messages[0].type == date) continue;
 					if(conv.messages[i].sender != req.session.user){
 						conv.unreadMessages = (conv.messages[i].unread.indexOf(req.session.user) >= 0);
 						break;

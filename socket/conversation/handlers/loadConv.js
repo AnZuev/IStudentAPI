@@ -15,7 +15,7 @@ var dbError = require('../../../error').dbError;
 var async = require("async");
 
 
-var libs = require('../libs');
+var libs = require('../libs/libs');
 /*
  1) Вызываем метод базы данных getMessages
  2) Если ошибка - возвращаем wsError c кодом 400

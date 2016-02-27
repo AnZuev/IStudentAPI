@@ -11,7 +11,7 @@ var dbError = require('../../../error').dbError;
 var async = require('async');
 
 
-var libs = require('../libs');
+var libs = require('../libs/libs');
 
 /*
  1) Проверяем существует ли пользователь

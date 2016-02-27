@@ -12,26 +12,30 @@ require('../libs/additionalFunctions/extensionsForBasicTypes');
 var Message = new Schema({
     text: {
         type:String,
-            require: true
+	    require: false
     },
     sender: {
         type:Schema.Types.ObjectId,
-            require: true
+	    require: false
     },
     date:{
         type: Date,
         default: Date.now()
     },
     unread:[Schema.Types.ObjectId],
-    mType: Number,
+    etc: {
+	    mType: String,
+	    action: String,
+	    actionMember: Schema.Types.ObjectId
+    },
     attachments: {
         type: {
             type: String,
-                require: true
+	        require: true
         },
         name: {
             type: String,
-                require: true
+	        require: true
         },
         content: {}
     }
@@ -104,13 +108,22 @@ conversation.statics.createPrivateConversation = function(userId1, userId2, call
  */
 conversation.statics.createGroupConversation = function(title, owner, photo, participants, callback){
     var conversation = this;
+	var messageItem = {
+		etc:{
+			mType: "service",
+			action: "create",
+			actionMember: owner
+		}
+	};
+
     var newConv = new conversation({
         participants:participants,
         group:{
             title: title,
             owner: owner,
             photo: photo
-        }
+        },
+	    messages:[messageItem]
     });
     newConv.save(function(err, conv){
         if(err) throw err;
@@ -286,7 +299,6 @@ conversation.statics.getMessages = function(convId, userId, skipFromEnd, callbac
 };
 
 conversation.statics.getConvsByTitle = function(title, userId, callback){
-	console.log(title + " " + userId);
     this.aggregate([
         {
             $match:
@@ -478,7 +490,7 @@ exports.message = mongoose.model('message', Message);
 //----------functions
 
 function addMessageToDialog(conv, messageItem, errCounter, callback){
-    conv.save(function(err){
+    conv.save(function(err, conv){
         if(err) {
             if(errCounter > 5) {
                 return callback(new dbError(null, 500, "Произошла ошибка при добавлении сообщения " + errCounter + " раз"));
@@ -488,7 +500,7 @@ function addMessageToDialog(conv, messageItem, errCounter, callback){
             }
         }
         else{
-            return callback(null, messageItem)
+            return callback(null, conv)
         }
     })
 }

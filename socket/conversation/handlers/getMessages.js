@@ -28,7 +28,10 @@ module.exports = function(socket, data, cb){
       else{
           if(conv){
               if(conv.messages.length == 0) return cb(new wsError(204, "No messages"));
-              else return cb(conv);
+              else {
+	              conv.messages = require('../libs/libs').addDateAndServiceMessages(conv.messages);
+	              return cb(conv);
+              }
           }else{
               return cb(new wsError(403, "Forbidden"))
           }

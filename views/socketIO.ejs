@@ -14,13 +14,13 @@
 
     </ul>
 <script>
-    var im = io("ws://192.168.100.7:3000/im");
+    var im = io("ws://localhost:3000/im");
 
     im.on('connect', function(){
         im.emit("connection:accepted");
 
         var imItem = {
-            participants: ["56a39f9e0e5d3cd81d876f98","56a37f4ebff41af71b54c752"],
+            participants: ["56d1e4d1b2bc66943c9a6724","56d1e52bb2bc66943c9a6725"],
             message:{
                 attachments: [],
                 text: "Первое сообщение"

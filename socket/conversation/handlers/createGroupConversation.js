@@ -14,7 +14,7 @@ var dbError = require('../../../error').dbError;
 
 var async = require('async');
 
-var libs = require('../libs');
+var libs = require('../libs/libs');
 require('../../../libs/additionalFunctions/extensionsForBasicTypes');
 
 
@@ -64,14 +64,6 @@ module.exports = function(socket, data, cb){
                 });
             }
         },
-	    function(conv, users, callback){
-		    if(!conv) callback(new dbError(null, 500, "После добавления не вернулась беседа"));
-		    libs.loadGroupConvInfo(conv, socket.request.headers.user.id, function(err, convWithParts){
-			    if(err) return callback(err);
-			    else return callback(null, convWithParts, users);
-
-		    })
-	    },
         function(conv, users, callback){
 	        var messageItem = {};
 	        try{
@@ -84,10 +76,11 @@ module.exports = function(socket, data, cb){
 
 	        }
 	        if(messageItem){
-		        conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err){
+
+		        conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err, convUpdated){
 			        if(err) callback(err);
 			        else{
-				        conv.messages.push(messageItem);
+				        conv.messages = convUpdated.messages;
 				        callback(null, conv, messageItem, users);
 			        }
 		        });
@@ -95,6 +88,16 @@ module.exports = function(socket, data, cb){
 		        return callback(null, conv,  null, users);
 	        }
         },
+	    function(conv, messageItem, users, callback){
+		    if(!conv) callback(new dbError(null, 500, "После добавления не вернулась беседа"));
+
+		    libs.loadGroupConvInfo(conv, socket.request.headers.user.id, function(err, convWithParts){
+
+			    if(err) return callback(err);
+			    else return callback(null, convWithParts, messageItem, users);
+
+		    })
+	    },
         function(conv, messageItem, users, callback){
 	        if(messageItem){
 		        var options ={

@@ -25,7 +25,6 @@ exports.checkAuthAndActivation = function(req, res, next){
 	if(!req.session.user) return next(new HttpError(401, "Вы не авторизованы"));
 	else{
 		User.checkActivation(req.session.user, function(err, activated, user){
-			console.log(arguments);
 			if(err){
 				if(err instanceof dbError){
 					return next(new HttpError(400, "No users found"));

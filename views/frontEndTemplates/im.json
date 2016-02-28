@@ -14,7 +14,7 @@
 	},
 
 	"creatingConversationModule":{
-		"addedParticipant": "<span class='addedParticipant' contenteditable='false'>%s</span>"
+		"addedParticipant": "<span>%s <img class='removeAddedParticipant' src='<%=publicStaticServer%>/images/imRemoveAddedParticipantButton.svg'></span>"
 	},
 	"cleverSearchModule":{
 		"itemOfSearchMenu": "<li id='%s' class='%s'><img src='%s'> <p>%s</p> <span class='group'>%s </span> </li>"

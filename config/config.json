@@ -21,9 +21,9 @@
         "publicKey": "/libs/certificate/cert.crt"
     },
     "general":{
-        "version": "0.0.1(19)",
+        "version": "0.0.1(22)",
         "host": "http://pre-api.istudentapp.ru",
-        "privateStaticServer": "http://pre-api.istudentapp.ru",
+        "privateStaticServer": "http://pre-static.istudentapp.ru",
         "privateStaticServerPort": 4000,
         "publicStaticServer": "http://pre-static.istudentapp.ru"
     },

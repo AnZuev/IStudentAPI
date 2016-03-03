@@ -247,6 +247,7 @@ User.statics.getNoactivatedUserByMail = function(mail, callback){
 
 User.statics.checkActivation = function(id, callback){
 	this.findOne({_id: id}, function(err, user){
+		console.lo
 		if(err) return callback(err);
 		else if(!user){
 			return callback(new dbError(404));

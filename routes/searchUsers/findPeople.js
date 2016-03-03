@@ -16,6 +16,7 @@ var universityData = require('../../data/index').universityInfoLoader;
 module.exports = function(req, res, next){
     var keywords = req.query.q.split(' ');
 	var keyword = [];
+
 	try{
 		for(var i = 0; i< keywords.length; i++){
 			keyword[i] = '^' + keywords[i].toLowerCase();

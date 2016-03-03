@@ -29,6 +29,10 @@ var university = new Schema({
 		type: String,
 		unique: true
 	},
+	shortTitle:{
+		type: String,
+		unique: true
+	},
 	faculties:[faculty],
 	location:{
 		city: String,
@@ -158,7 +162,25 @@ university.statics.getFaculties = function(university, callback){
  Выход: либо ошибка, либо список универов, отсортированный по рейтингу
  */
 
-university.statics.getUniversities = function(callback){
+university.statics.getUniversities = function(format, callback){
+	var project = {};
+	if(format){
+		project = {
+			$project: {
+				title: "$shortTitle",
+				id: "$_id",
+				_id:0
+			}
+		}
+	}else{
+		project = {
+			$project: {
+				title: "$title",
+				id: "$_id",
+				_id:0
+			}
+		}
+	}
 	this.aggregate([
 		{
 			$limit: 20
@@ -166,13 +188,8 @@ university.statics.getUniversities = function(callback){
 		{
 			$sort: {rating:1}
 		},
-		{
-			$project: {
-				title: "$title",
-				id: "$_id",
-				_id:0
-			}
-		}],
+		project
+		],
 		function(err, results){
 			if(err || (results.length == 0)){
 				return callback(null, []);
@@ -186,10 +203,28 @@ university.statics.getUniversities = function(callback){
 
 /*
  Метод для получения списка универов по названию(используем поиск с помощью regex)
- Вход: title
+ Вход: title, format
  Выход: либо ошибка, либо список универов, отсортированный по рейтингу
  */
-university.statics.getUniversitiesByTitle = function(title, callback){
+university.statics.getUniversitiesByTitle = function(title, format, callback){
+	var project = {};
+	if(format){
+		project = {
+			$project: {
+				title: "$shortTitle",
+				id: "$_id",
+				_id:0
+			}
+		}
+	}else{
+		project = {
+			$project: {
+				title: "$title",
+				id: "$_id",
+				_id:0
+			}
+		}
+	}
 	this.aggregate([
 		{
 			$match: {
@@ -202,13 +237,8 @@ university.statics.getUniversitiesByTitle = function(title, callback){
 		{
 			$sort: {rating:1}
 		},
-		{
-			$project: {
-				title: "$title",
-				id: "$_id",
-				_id:0
-			}
-		}],
+		project
+		],
 		function(err, results){
 			if(err || (results.length == 0)){
 				return callback(null, []);
@@ -321,10 +351,11 @@ university.statics.fillUniversityNameAndFacultyNameforUser = function(user, call
 	)
 }
 
-university.statics.addUniversity = function(title, street, building, city, rating, callback){
+university.statics.addUniversity = function(title, shortTitle, street, building, city, rating, callback){
 	var university = this;
 	var newUniversity = new university({
 		title: title,
+		shortTitle: shortTitle,
 		location:{
 			street: street,
 			building: building,

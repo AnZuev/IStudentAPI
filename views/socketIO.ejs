@@ -14,28 +14,28 @@
 
     </ul>
 <script>
-    var im = io("ws://localhost:3000/im");
+    var im = io("ws://pre-api.istudentapp.ru/im");
 
     im.on('connect', function(){
         im.emit("connection:accepted");
 /*
         var imItem = {
-            participants: ["56dc4eab380e1b4e768fe12d","56dc4ecc380e1b4e768fe12e"],
+            participants: ["56dd295d715e16c53ce2e8da","56dd2929715e16c53ce2e8d9", "56dd2900715e16c53ce2e8d8"],
             message:{
                 attachments: [],
                 text: "Первое сообщение"
             },
-            title: "Название 76 групповой беседы."
+            title: "Беседа 1 2 3"
         }
 
        im.emit('createGroupConversation', imItem, function(data){
             console.log(data);
         });
 */
-        var messageItem = {
+		var messageItem = {
             text:"Сообщение в public беседу",
             attachments: [],
-            convId:"56dd2bdc9b737ce67e13b775"
+            convId:"56dd2e30cb66b6293ebb2990"
         }
 
         im.emit('sendMessage', messageItem, function(data){

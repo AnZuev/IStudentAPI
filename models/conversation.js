@@ -153,7 +153,8 @@ conversation.statics.addMessage = function(convId, userId, rawMessage, callback)
                     sender:userId,
                     text:rawMessage.text,
                     unread: participants,
-                    attachments: rawMessage.attachments //TODO сделать проверку для прикрепленных документов дабы избежать возможности атак
+                    attachments: rawMessage.attachments, //TODO сделать проверку для прикрепленных документов дабы избежать возможности атак
+	                date: Date.now()
                 };
                 conv.updated = Date.now();
                 conv.messages.push(messageItem);

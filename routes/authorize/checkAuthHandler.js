@@ -26,7 +26,7 @@ exports.get = function(req, res, next){
 				photo:req.user.photo,
 				year: req.user.year,
 				group: req.user.group,
-				id: req.user._id
+				id: req.session.user
 			};
 			res.json(userToReturn);
 			res.end();
@@ -40,7 +40,7 @@ exports.get = function(req, res, next){
 				faculty: result[0].title,
 				university: result[1].title,
 				group: req.user.group,
-				id: req.user._id
+				id: req.session.user
 			};
 			res.json(userToReturn);
 			res.end();

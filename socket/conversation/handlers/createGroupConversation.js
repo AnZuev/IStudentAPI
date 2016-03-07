@@ -77,10 +77,11 @@ module.exports = function(socket, data, cb){
 	        }
 	        if(messageItem){
 
-		        conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err, convUpdated){
+		        conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err, messageItemUpdated, convUpdated){
 			        if(err) callback(err);
 			        else{
-				        conv.messages = convUpdated.messages;
+
+				        conv.messages = convUpdated;
 				        callback(null, conv, messageItem, users);
 			        }
 		        });

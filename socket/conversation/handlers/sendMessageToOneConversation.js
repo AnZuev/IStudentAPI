@@ -16,7 +16,7 @@ var async = require('async');
  1) Проверяем существует ли пользователь
  2) Если не существует - посылаем
  3) Проверяем есть ли беседа в таком составе. Если есть - пишем туда сообщение и отдаем ее пользователю
- 4) Если беседы нет - создаем, потом пишем туда сообщение, потом отправляем юзеру
+ --- Если беседы нет - создаем, потом пишем туда сообщение, потом отправляем юзеру
 
  */
 module.exports = function(socket, data, cb){
@@ -37,7 +37,7 @@ module.exports = function(socket, data, cb){
            conversation.addMessage(data.convId, socket.request.headers.user.id, rawMessage, callback);
        },
 
-       function(messageItem, callback){
+       function(messageItem, convMessageUpdated, callback){
            if(!messageItem){
                callback(new dbError(null, 500, "После добавления сообщение сообщение не вернулось"));
            }else{
@@ -67,7 +67,6 @@ module.exports = function(socket, data, cb){
                 cb(wsEr.sendError());
             }
         }else{
-
             cb(messageItem);
         }
    })

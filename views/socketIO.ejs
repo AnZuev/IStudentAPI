@@ -18,7 +18,7 @@
 
     im.on('connect', function(){
         im.emit("connection:accepted");
-
+/*
         var imItem = {
             participants: ["56dc4eab380e1b4e768fe12d","56dc4ecc380e1b4e768fe12e"],
             message:{
@@ -27,15 +27,15 @@
             },
             title: "Название 76 групповой беседы."
         }
-		/*
+
        im.emit('createGroupConversation', imItem, function(data){
             console.log(data);
         });
 */
         var messageItem = {
-            text:"Сообщение в public беседу12",
+            text:"Сообщение в public беседу",
             attachments: [],
-            convId:"56dc4f280eb9518376ecc258"
+            convId:"56dd2bdc9b737ce67e13b775"
         }
 
         im.emit('sendMessage', messageItem, function(data){

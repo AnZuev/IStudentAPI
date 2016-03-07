@@ -160,7 +160,7 @@ conversation.statics.addMessage = function(convId, userId, rawMessage, callback)
                 var errCounter = 0;
                 addMessageToDialog(conv, messageItem, errCounter,function(err){
 	                if(err) return callback(err);
-	                else{ return callback(null, messageItem)}
+	                else{ return callback(null, messageItem, conv.messages)}
                 });
 
 	            if(conv.participants.length == 2){

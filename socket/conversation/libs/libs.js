@@ -151,7 +151,6 @@ exports.addDateAndServiceMessages = addDateAndServiceMessages;
 function addDateAndServiceMessages(messages, participants, username){
 	var messageTypes = require('./serviceMessagesType');
 	var resultMessages = [];
-
 	if(messages.length == 0) return;
 	var prevDate = {
 		month: messages[0].date.getMonth(),

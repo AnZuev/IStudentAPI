@@ -45,9 +45,9 @@ module.exports = function(socket, data, cb){
                    attachments: messageItem.attachments,
                    convId: data.convId
                };
-               var mmwsItem = new mmws( data.convId, socket.request.headers.user.id, messageItem, "newMessage", options);
-
-               var ns = new nsItem("imNewMessage", socket.request.headers.user.name + " " + socket.request.headers.user.surname, messageItem.text, socket.request.headers.photo, options);
+               var mmwsItem = new mmws( data.convId, socket.request.headers.user, messageItem, "newMessage", options);
+	           var title = socket.request.headers.user.name + " " + socket.request.headers.user.surname;
+               var ns = new nsItem("imNewMessage", title, messageItem.text, socket.request.headers.photo, options);
 
                ns.send(messageItem.unread);
                mmwsItem.sendToGroup(messageItem.unread);

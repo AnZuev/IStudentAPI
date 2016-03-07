@@ -28,11 +28,10 @@
         });
     }
     function uploadFile(key, formId){
-        console.log("start");
         var form = document.forms.uploadForm;
         var formData = new FormData(form);
         var xhr = new XMLHttpRequest();
-        var path = "http://192.168.100.7:4000/upload/"+key;
+        var path = "http://127.0.0.1:4000/upload/"+key;
         console.log(path);
         xhr.open("POST", path, true);
         xhr.onreadystatechange = function() {
@@ -61,7 +60,7 @@
           onsubmit  = "checkPermissionForUpload('userPhoto'); return false;"
           method    =  "POST"
             >
-        <input type="file" name="userPhoto" id="userPhoto" />
+        <input type="file" name="smthElse" id="userPhoto" />
         <input type="submit" value="Upload Image" name="submit" >
     </form>
 </body>

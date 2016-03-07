@@ -22,22 +22,26 @@ exports.checkAuthAndRedirect = function(req, res, next){
 };
 
 exports.checkAuthAndActivation = function(req, res, next){
-	if(!req.session.user) return next(new HttpError(401, "Вы не авторизованы"));
+	if(!req.session.user) {
+		res.status = 401;
+		res.redirect("/");
+		res.end();
+		next();
+	}
 	else{
 		User.checkActivation(req.session.user, function(err, activated, user){
 			if(err){
 				if(err instanceof dbError){
 					return next(new HttpError(400, "No users found"));
 				}else{
-					next(err);
+					return next(err);
 				}
 			}else{
 				if(activated){
-					req.user = user;
 					return next();
 				}else{
 					var httpError = new HttpError(405, "Почта не подтверждена. Пожалуйста, подтвердите свою почту");
-					return next(httpError)
+					return next(httpError);
 				}
 			}
 		})
@@ -52,7 +56,7 @@ exports.checkAuthAndActivationForResendActivation = function(req, res, next){
 				if(err instanceof dbError){
 					return next(new HttpError(400, "No users found"));
 				}else{
-					next(err);
+					return next(err);
 				}
 			}else{
 				if(!activated){

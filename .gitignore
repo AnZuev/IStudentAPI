@@ -1,21 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 node_modules/*
-node_modules/async/CHANGELOG.md
-
 *.md
-
-node_modules/async/CHANGELOG.md
-
-node_modules/async/CHANGELOG.md
-
-*.md
-
-*.h
-
-*.h
-
-node_modules/mongodb/node_modules/mongodb-core/node_modules/kerberos/node_modules/nan/nan_new.h
-
-*.xml
-
-.idea/workspace.xml
+*.idea/*

@@ -20,27 +20,28 @@
         im.emit("connection:accepted");
 
         var imItem = {
-            participants: ["56d1e4d1b2bc66943c9a6724","56d1e52bb2bc66943c9a6725"],
+            participants: ["56dc4eab380e1b4e768fe12d","56dc4ecc380e1b4e768fe12e"],
             message:{
                 attachments: [],
                 text: "Первое сообщение"
             },
             title: "Название 76 групповой беседы."
         }
-        im.emit('createGroupConversation', imItem, function(data){
+		/*
+       im.emit('createGroupConversation', imItem, function(data){
             console.log(data);
         });
-
+*/
         var messageItem = {
-            text:"Сообщение в private беседу",
+            text:"Сообщение в public беседу12",
             attachments: [],
-            convId:"56a8eeaedc88281bbc9ff623"
+            convId:"56dc4f280eb9518376ecc258"
         }
-		/*
+
         im.emit('sendMessage', messageItem, function(data){
             console.log(data);
         });
-
+/*
         var data = {
             userId:"56a39f9e0e5d3cd81d876f98",
             title: "Попов"
@@ -75,6 +76,7 @@
 	    } )
 	    */
 
+		/*
 		im.emit("loadConv", {convId: "56ab3a55152b83310534ca6c"}, function(data){
 			console.log(data);
 		})
@@ -85,6 +87,7 @@
 		im.emit('findContacts', data, function(data){
 			console.log(data);
 		} )
+		*/
     });
 
 

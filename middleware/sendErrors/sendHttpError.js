@@ -5,6 +5,7 @@ module.exports = function(req, res, next){
 	        res.statusCode = error.status || 500;
             res.json({exception: true, message: error.message, code: error.status || 500});
         }else{
+	        // отдать страницу с ошибкой
 	        res.statusCode = error.status || 500;
 	        res.json({exception: true, message: error.message, code: error.status || 500});
         }

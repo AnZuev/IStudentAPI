@@ -45,17 +45,20 @@ var sockets = new Schema({
 * В случаем ошибки передает в callback ошибку (true)
  */
 sockets.statics.getSocketsByUserIdAndType = function(userId, socketsType, callback){
-    this.findOne(
+    var conditions = [
+	    {
+		    "sockets.cType":socketsType
+	    }
+    ];
+	if(socketsType == "ns"){
+		conditions.push({
+			"sockets.cType":{ $nin: ["im"] }
+		})
+	}
+	this.findOne(
         {
             userId:userId,
-            $and:[
-                {
-                    "sockets.cType":socketsType
-                },
-                {
-                    "sockets.cType":{ $size: 1 }
-                }
-            ]
+            $and:conditions
         },
         {
             "sockets.$.id": 1,
@@ -63,11 +66,11 @@ sockets.statics.getSocketsByUserIdAndType = function(userId, socketsType, callba
         },
 
         function(err, userItem){
-        if(err) return callback(new dbError(err));
-        else{
-            if(!userItem) return callback(null, null);
-            return callback(null, userItem.sockets);
-        }
+	        if(err) return callback(new dbError(err));
+	        else{
+	            if(!userItem) return callback(null, null);
+	            return callback(null, userItem.sockets);
+	        }
     })
 };
 

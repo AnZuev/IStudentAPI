@@ -25,6 +25,9 @@ module.exports = function(app){
         next();
     });
 	app.post("/uploadAvatar", checkAuth, require('./handlers/uploadAvatar').post);
+	app.post("/uploadPrivatePhoto", checkAuth, require('./handlers/uploadPrivatePhoto').post);
+	app.post("/uploadPrivateDocument", checkAuth, require('./handlers/uploadPrivateDocument').post);
+
 	app.put("/uploadCompleted", require('./handlers/uploadCompleted').put);
 }
 

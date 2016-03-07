@@ -3,17 +3,15 @@
  */
 var async = require('async');
 var log = require('../../libs/log')(module);
-
+var util = require('util');
 
 var sockets = require('./sockets').sockets;
 
 function taskToGetUserSockets(userId, socketType){
     return function(callback){
         sockets.getSocketsByUserIdAndType(userId, socketType, function(err, result){
-
             if(err) return callback(null, []);
             if(result){
-
                 return callback(null, result);
             }else{
                 return callback(null, []);

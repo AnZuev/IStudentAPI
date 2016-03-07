@@ -1,16 +1,16 @@
-var User = require('../../models/User').User;
-var conversation = require('../../models/conversation').conversation;
-var dbError = require('../../error').dbError;
-var log = require('../../libs/log')(module);
+var User = require('../models/User').User;
+var conversation = require('../models/conversation').conversation;
+var dbError = require('../error/index').dbError;
+var log = require('../libs/log')(module);
 
 var async = require('async');
 
-var conversationLibs = require('../../socket/conversation/libs/libs');
+var conversationLibs = require('../socket/conversation/libs/libs');
 
-var numberConvToReturn = require('../../config').get("im:convsToReturn");
+var numberConvToReturn = require('../config/index').get("im:convsToReturn");
 
 module.exports = function(req, res, next){
-    if(!req.user) return next(401);
+
 	async.waterfall([
 		function(callback){
 			conversation.getLastConversations(req.session.user, numberConvToReturn, callback);
@@ -29,7 +29,7 @@ module.exports = function(req, res, next){
 			convs.forEach(function(conv){
 				conv.unreadMessages =  false;
 				for(var i = 0; i< conv.messages.length; i++){
-					if(conv.messages[0].service || conv.messages[0].type == date) continue;
+					if(conv.messages[i].service || conv.messages[i].type == "date") continue;
 					if(conv.messages[i].sender != req.session.user){
 						conv.unreadMessages = (conv.messages[i].unread.indexOf(req.session.user) >= 0);
 						break;
@@ -41,7 +41,6 @@ module.exports = function(req, res, next){
 		},
 		function(callback){
 			conversation.getUnreadMessagesForUser(req.session.user, function(err, count){
-
 				req.notifications = {
 					newMessages:count
 				};
@@ -55,9 +54,9 @@ module.exports = function(req, res, next){
 
 	],function(err, convs){
 		if(err){
-			return next(err);
+			next(err);
 		}else{
-			return next();
+			next();
 		}
 	});
 

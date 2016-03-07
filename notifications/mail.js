@@ -11,6 +11,10 @@ var mailBoxes = {
 	auth: {
 		mail: "auth@istudentapp.ru",
 		password: "uxsqplqcfrgorxhj"
+	},
+	restorePassword: {
+		mail: "auth@istudentapp.ru",
+		password: "uxsqplqcfrgorxhj"
 	}
 
 };

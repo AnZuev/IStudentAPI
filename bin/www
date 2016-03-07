@@ -8,7 +8,7 @@ var app = require('../app');
 var http = require('http');
 var config = require('../config');
 var console = require('../libs/log')(module);
-
+var fs = require('fs');
 
 /**
  * Get port from environment and store in Express.

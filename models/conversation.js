@@ -158,7 +158,10 @@ conversation.statics.addMessage = function(convId, userId, rawMessage, callback)
                 conv.updated = Date.now();
                 conv.messages.push(messageItem);
                 var errCounter = 0;
-                addMessageToDialog(conv, messageItem, errCounter,callback);
+                addMessageToDialog(conv, messageItem, errCounter,function(err){
+	                if(err) return callback(err);
+	                else{ return callback(null, messageItem)}
+                });
 
 	            if(conv.participants.length == 2){
 		            var tasks = [];

@@ -111,6 +111,9 @@ var User = new Schema({
 		},
 		key:{
 			type: String
+		},
+		passwordKey:{
+			type: String
 		}
 	}
 });
@@ -141,12 +144,15 @@ User.statics.signIn = function(mail, password, callback){
         },
         function(user, callback){
             if(user){
-	            if(!user.activation.activated){
-		            callback(new authError('Необходимо подтвердить почтовый адрес', 110001));
-	            }
+
                 if(user.checkPassword(password)){
-                    callback(null, user);
-                    log.info("Авторизация прошла успешно");
+	                if(!user.activation.activated){
+		                callback(new authError('Необходимо подтвердить почтовый адрес', 110001));
+	                }else{
+		                callback(null, user);
+		                log.info("Авторизация прошла успешно");
+	                }
+
                 }else{
                     callback(new authError("Неверный пароль"));
                 }
@@ -191,14 +197,12 @@ User.statics.signUp = function(name, surname, group, faculty, university, year, 
                             mail: mail,
                             password: password
                         },
-                        searchString: name + " " + surname + " " + group + " ",
 	                    activation:{
 		                    key: key
 	                    }
                     });
                     newUser.save(function(err, user){
                         if(err) {
-	                        throw err;
                             return callback(new dbError(err, null, null));
                         }
                         else {
@@ -241,13 +245,13 @@ User.statics.activate = function(mail, key, callback){
 User.statics.getActivatedUserByMail = function(mail, callback){
 	this.findOne({"auth.mail": mail, "activation.activated": true}, callback);
 };
+
 User.statics.getNoactivatedUserByMail = function(mail, callback){
 	this.findOne({"auth.mail": mail, "activation.activated": false}, callback);
 };
 
 User.statics.checkActivation = function(id, callback){
 	this.findOne({_id: id}, function(err, user){
-		console.lo
 		if(err) return callback(err);
 		else if(!user){
 			return callback(new dbError(404));
@@ -266,6 +270,61 @@ User.statics.checkActivationByMail = function(mail, callback){
 			return callback(null, user.activation.activated);
 		}
 	})
+};
+
+User.statics.setKeyToChangePassword = function(mail,callback){
+	var key = crypto.createHmac('sha1', Math.random() + "").update(mail).digest("hex").toString();
+	this.update(
+		{
+			"auth.mail": mail
+		},
+		{
+			"activation.passwordKey": key
+		},
+		function(err, result){
+			if( err || result.nModified == 0 ) return callback(null, false);
+			return callback(null, {mail: mail, key: key});
+		}
+	)
+
+};
+
+User.statics.checkPasswordChangeToken = function(mail, key, callback){
+	this.findOne(
+		{
+			"auth.mail": mail,
+			"activation.passwordKey": key
+		},
+
+		function(err, result){
+			if( err || !result) return callback(null, false);
+			return callback(null, true);
+		}
+	)
+};
+
+User.statics.setNewPassword = function(mail, key, password, callback){
+	var rubbish = crypto.createHmac('sha1', Math.random() + "").update(mail).update(key).digest("hex").toString();
+	this.findOne(
+		{
+			"auth.mail": mail,
+			"activation.passwordKey": key
+		},
+
+		function(err, user){
+			if(err || !user) return callback(false);
+			else{
+				user.auth.password = password;
+				user.activation.passwordKey = rubbish;
+				user.save(function(err, result){
+					if(err) return callback(null, false);
+					else{
+						return callback(null, true);
+					}
+				})
+			}
+		}
+	)
 };
 /*
  * Поиск по пользователям
@@ -721,12 +780,15 @@ User.statics.addContacts = function(userId, contact, callback){
 
 User.statics.updatePhoto = function(userId, newPhoto, callback){
     var User = this;
+	console.log(userId, newPhoto);
     User.findByIdAndUpdate(userId, {"pubInform.photo": newPhoto}, function(err, result){
+	    if(err) return callback(new dbError(err, null, null));
         if(result.nModified == 0){
             return callback(new dbError(null, 404, null));
         }
-        if(err) return callback(new dbError(err, null, null));
-        return callback(null, true);
+	    return callback(null, true);
+
+
     })
 };
 
@@ -871,6 +933,10 @@ User.statics.addImSettings = function(userId, convId, settings, callback){
         return callback(null, true);
 	})
 };
+
+
+
+
 
 
 // =================================testing

@@ -14,15 +14,15 @@
 	},
 
 	"creatingConversationModule":{
-		"addedParticipant": "<span>%s <img class='removeAddedParticipant' src='<%=publicStaticServer%>/images/imRemoveAddedParticipantButton.svg'></span>"
+		"addedParticipant": "<span>%s <img class='removeAddedParticipant' src='http://pre-static.istudentapp.ru/images/imRemoveAddedParticipantButton.svg'></span>"
 	},
 	"cleverSearchModule":{
 		"itemOfSearchMenu": "<li id='%s' class='%s'><img src='%s'> <p>%s</p> <span class='group'>%s </span> </li>"
 	},
 
 	"informationModule":{
-		"informationAboutUser":" <img src='%s'> <div id='mainInformationOfUser'> <p class='fontBlueColor'>%s</p> <p>%s</p> <p>%s</p> </div>",
-		"informationAboutConversation": " <img src='%s'> <div id='mainInformationOfConversation'> <p class='fontBlueColor'>%s</p> <p class='numberOfParticipants'>%s участников</p> </div>",
+		"informationAboutUser":" <div> <img src='%s'> <div id='mainInformationOfUser'> <p class='fontBlueColor'>%s</p> <p>%s</p> <p>%s</p> </div> </div>",
+		"informationAboutConversation": " <div> <img src='%s'> <div id='mainInformationOfConversation'> <p class='fontBlueColor'>%s</p> <p class='numberOfParticipants'>%s участников</p> </div> </div>",
 		"userInConversation": " <li><img src='%s'><p>%s</p></li>"
 
 	}

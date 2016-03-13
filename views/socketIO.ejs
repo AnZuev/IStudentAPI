@@ -14,11 +14,11 @@
 
     </ul>
 <script>
-    var im = io("ws://pre-api.istudentapp.ru/im");
+    var im = io("ws://localhost:3000/im");
 
     im.on('connect', function(){
         im.emit("connection:accepted");
-
+/*
         var imItem = {
             participants: ["56dd295d715e16c53ce2e8da","56dd2929715e16c53ce2e8d9", "56dd2900715e16c53ce2e8d8"],
             message:{
@@ -31,11 +31,11 @@
        im.emit('createGroupConversation', imItem, function(data){
             console.log(data);
         });
-/*
+*/
 		var messageItem = {
             text:"Сообщение в public беседу",
             attachments: [],
-            convId:"56dd2e30cb66b6293ebb2990"
+            convId:"56dd2a38532b3cc87ea716c9"
         }
 
         im.emit('sendMessage', messageItem, function(data){

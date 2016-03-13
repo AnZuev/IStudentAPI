@@ -1,12 +1,9 @@
 var log = require('../../../libs/log')(module);
 var conversation = require('../../../models/conversation').conversation;
-var User = require('../../../models/User').User;
-var sockets = require('../../common/sockets').sockets;
-var nsItem = require('../../notificationService/nsInterface').nsItem;
+
 var mmws = require('../../conversation/imInterface').mmws;
 
 var wsError = require('../../../error').wsError;
-var dbError = require('../../../error').dbError;
 
 
 var async = require('async');

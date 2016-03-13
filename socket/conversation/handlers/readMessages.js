@@ -13,14 +13,17 @@ var async = require('async');
 
 module.exports = function(data, socket, cb){
 	conversation.readMessages(data.convId, socket.request.headers.user.id, function(err, result, conv){
-		if(err) cb(new wsError().sendError());
+		if(err) {
+			cb(new wsError(500).sendError());
+		}
 		else{
 			if(result){
 				var mmwsItem = new mmws(data.convId, socket.request.headers.user.id, {}, "readMessages", {date: Date.now()});
 				conv.participants.splice(conv.participants.indexOf(socket.request.headers.user.id), 1);
 				mmwsItem.sendEventToGroup(conv.participants);
+			}else{
+				cb(new wsError(400).sendError());
 			}
-			return cb(result)
 		}
 	})
 };

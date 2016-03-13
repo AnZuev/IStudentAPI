@@ -10,7 +10,7 @@ var dbError = require('../../../error').dbError;
 
 
 var async = require('async');
-
+var entities = require('entities');
 
 /*
  1) Проверяем существует ли пользователь
@@ -22,11 +22,9 @@ var async = require('async');
 module.exports = function(socket, data, cb){
     var rawMessage = {};
     try{
-        rawMessage.text = data.text;
-        if(rawMessage.length == 0) cb(false);
+        rawMessage.text = entities.encodeHTML(data.text)
+        if(rawMessage.text.length == 0) throw false;
         rawMessage.attachments = data.attachments;
-
-
     }catch(e){
         var wsEr = new wsError(400);
         return cb(wsEr.sendError());
@@ -45,7 +43,7 @@ module.exports = function(socket, data, cb){
                    attachments: messageItem.attachments,
                    convId: data.convId
                };
-               var mmwsItem = new mmws( data.convId, socket.request.headers.user, messageItem, "newMessage", options);
+               var mmwsItem = new mmws(data.convId, socket.request.headers.user, messageItem, "newMessage", options);
 	           var title = socket.request.headers.user.name + " " + socket.request.headers.user.surname;
                var ns = new nsItem("imNewMessage", title, messageItem.text, socket.request.headers.photo, options);
 

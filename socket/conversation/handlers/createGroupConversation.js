@@ -1,6 +1,10 @@
 /**
  * Created by anton on 24/01/16.
  */
+
+
+var async = require('async');
+var entities = require('entities');
 var log = require('../../../libs/log')(module);
 var conversation = require('../../../models/conversation').conversation;
 var User = require('../../../models/User').User;
@@ -12,7 +16,6 @@ var wsError = require('../../../error').wsError;
 var dbError = require('../../../error').dbError;
 
 
-var async = require('async');
 
 var libs = require('../libs/libs');
 require('../../../libs/additionalFunctions/extensionsForBasicTypes');
@@ -29,7 +32,7 @@ require('../../../libs/additionalFunctions/extensionsForBasicTypes');
 module.exports = function(socket, data, cb){
     var title,participants;
     try{
-        title = data.title;
+        title = entities.encodeHTML(data.title);
         participants = data.participants;
         participants.unique();
         if(participants.indexOf(socket.request.headers.user.id) < 0) participants.push(socket.request.headers.user.id);
@@ -69,7 +72,7 @@ module.exports = function(socket, data, cb){
 	        try{
 		        if(data.message.text.length > 0){
 			        messageItem = {
-				        text: data.message.text
+				        text: entities.encodeHTML(data.message.text)
 			        };
 		        }
 	        }catch(e){

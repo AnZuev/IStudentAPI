@@ -8,8 +8,9 @@
         "key": "sid",
         "cookie":{
             "path": "/",
-            "maxAge":null,
-            "httpOnly": true
+            "maxAge":2592000000,
+            "httpOnly": true,
+            "domain":"istudentapp.ru"
         }
     },
     "staticServerAuth":{
@@ -22,13 +23,10 @@
     },
     "general":{
         "version": "0.0.1(22)",
-        "host": "http://pre-api.istudentapp.ru",
-        "privateStaticServer": "http://pre-static.istudentapp.ru",
+        "host": "pre-api.istudentapp.ru",
+        "privateStaticServer": "127.0.0.1",
         "privateStaticServerPort": 4000,
         "publicStaticServer": "http://pre-static.istudentapp.ru"
-    },
-    "multer":{
-        "dest": "../users photos/"
     },
     "im":{
       "convsToReturn": 20

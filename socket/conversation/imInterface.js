@@ -72,6 +72,10 @@ function imService(ee){
 		        require('./handlers/modifyParticipants').removeParticipant(socket, data, cb);
 	        });
 
+	        socket.on('exitFromConv', function(data, cb){
+		        require('./handlers/modifyParticipants').exitFromConv(socket, data, cb);
+	        });
+
 	        socket.on('sendMessageToManyConversations', function(data, cb){
 		        require('./handlers/sendMessageToManyConversations')(socket, data, cb);
 	        });
@@ -84,10 +88,10 @@ function imService(ee){
                 require('./handlers/settings')(socket, data, cb);
             });
 
-	        socket.on('findContacts', function(data, cb){
+	        /*socket.on('findContacts', function(data, cb){
 		        require('./handlers/findContacts')(socket, data, cb);
 	        });
-
+			*/
             socket.on('connection:accepted', function(){
                 log.debug('Событие connection:accepted сработало');
                 addSocketToDB(socket.id, socket.handshake.headers.user.id, "im", function(err){

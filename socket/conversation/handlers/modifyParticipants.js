@@ -19,16 +19,14 @@ var async = require('async');
  */
 
 exports.addParticipants = function(socket, data, cb){
-	if(!data.newParticipants) return cb(new wsError(400).sendError())
+	if(!data.newParticipants) return cb(new wsError(400).sendError());
 
-	conversation.addParticipants(data.convId, socket.request.headers.user.id, data.newParticipants, function(err, conv){
-
+	conversation.addParticipants(data.convId, socket.request.headers.user.id, data.newParticipants, function(err, result){
 		if(err){
-			throw err;
 			return cb(new wsError(400).sendError())
 		}else{
-			if(conv) return cb(true);
-			else return cb(false);
+			if(result) return cb(true);
+			else return cb(new wsError(403).sendError());
 		}
 	})
 };
@@ -38,22 +36,45 @@ exports.addParticipants = function(socket, data, cb){
 /*
  1) Пытаемся найти беседу с юзером
  2) Если найдена, смотрим админ ли наш юзер. Если да и удаленный участник не админ(то есть админ не путается сам себя удалить) - удаляем участника
- 3) Если удаляемый участник админ - 400
+ 3) Если удаляемый участник админ - меняем админа на другого участника и удаляем
  4) Если участник не админ, но он хочет удалить сам себя - разрешаем
 
  */
 
 exports.removeParticipant = function(socket, data, cb){
-	conversation.removeParticipant(data.convId, socket.request.headers.user.id, data.userId, function(err, conv){
+	conversation.removeParticipant(data.convId, socket.request.headers.user.id, data.userId, function(err, result){
 		if(err){
 			if(err instanceof conversationError){
 				if(err.code == 403) return cb(new wsError(403, "Действие запрещено").sendError());
-				else return cb(new wsError(400, "Не найден диалог либо запрещенное действие").sendError());
+				else return cb(new wsError(404, "Не найден диалог").sendError());
 			}
-			return cb(new wsError().sendError())
+			return cb(new wsError().sendError(500));
 		}else{
-			if(conv) return cb(true);
-			else return cb(false);
+			if(result) return cb(true);
+			else return cb(new wsError().sendError(400));
+		}
+	})
+};
+
+/*
+ 1) Пытаемся найти беседу с юзером
+ 2) Если найдена, смотрим админ ли наш юзер. Если да и удаленный участник не админ(то есть админ не путается сам себя удалить) - удаляем участника
+ 3) Если удаляемый участник админ - меняем админа на другого участника и удаляем
+ 4) Если участник не админ, но он хочет удалить сам себя - разрешаем
+
+ */
+
+exports.exitFromConv = function(socket, data, cb){
+	conversation.removeParticipant(data.convId, socket.request.headers.user.id, socket.request.headers.user.id, function(err, result){
+		if(err){
+			if(err instanceof conversationError){
+				if(err.code == 403) return cb(new wsError(403, "Действие запрещено").sendError());
+				else return cb(new wsError(404, "Не найден диалог").sendError());
+			}
+			return cb(new wsError().sendError(500));
+		}else{
+			if(result) return cb(true);
+			else return cb(new wsError().sendError(400));
 		}
 	})
 };

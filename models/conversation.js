@@ -142,7 +142,7 @@ conversation.statics.addMessage = function(convId, userId, rawMessage, callback)
             conversation.findOne({_id:convId, participants: userId}, callback);
         },
         function(conv, callback){
-            if(!conv) return callback(new dbError(null, 404, "Беседа не найдена"));
+            if(!conv) return callback(new dbError(null, 400, "Беседа не найдена"));
             else{
                 var participants = [];
                 conv.participants.forEach(function(element, index, array){
@@ -192,7 +192,23 @@ conversation.statics.removeParticipant = function(convId, userId, removedUser, c
             if(conv){
                 if(userId == conv.group.owner.toString()){
                     if(userId == removedUser){
-                        callback(new conversationError(400, "Нельзя удалить создателя беседы"));
+	                    var newOwner;
+	                    for(var i = 0; i < conv.participants.length; i++){
+		                    if(conv.participants[i] != removedUser) {
+			                    newOwner = conv.participants[i];
+			                    break;
+		                    }
+	                    }
+	                    conv.update({$pull:{participants:removedUser}, owner: newOwner}, function(err, res){
+		                    if(err) callback(new dbError(err, null, null));
+		                    else{
+			                    if(res.nModified > 0){
+				                    return callback(null, true);
+			                    }else{
+				                    return callback(null, false);
+			                    }
+		                    }
+	                    });
                     }else{
                         conv.update({$pull:{participants:removedUser}}, function(err, res){
                             if(err) callback(new dbError(err, null, null));
@@ -231,7 +247,7 @@ conversation.statics.addParticipants = function(convId, userId, invited, callbac
     this.findOneAndUpdate(
         {
             _id:convId,
-            "group.owner":userId
+	        participants: userId
         },
         {
             $addToSet: {
@@ -275,7 +291,6 @@ conversation.statics.readMessages = function(convId, userId, callback){
 	        }catch(e){
 		        return callback(null, false);
 	        }
-
         }
     ], callback);
 };

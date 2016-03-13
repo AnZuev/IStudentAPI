@@ -66,6 +66,7 @@ sockets.statics.getSocketsByUserIdAndType = function(userId, socketsType, callba
         },
 
         function(err, userItem){
+	        console.log(arguments);
 	        if(err) return callback(new dbError(err));
 	        else{
 	            if(!userItem) return callback(null, null);

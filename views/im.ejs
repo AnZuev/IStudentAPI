@@ -30,9 +30,9 @@
 			<input id="searchOfContactsField" type="text" placeholder="Поиск">
 			<img id="createConversation"src="<%=publicStaticServer%>/images/imCreateDialogButton.png" alt="">
 		</div>
-		<div id="rightPartOfMessagesHeader">
-		<p  class="dialogName fontBlueColor"></p>
+		<div id="rightPartOfMessagesHeader" class=''>
 		<img style='visibility:hidden;'src="<%=publicStaticServer%>/images/global/backArrowIcon.png" alt="">
+		<p  class="dialogName fontBlueColor"></p>
 		</div>
 
 		<div class="clear"></div>
@@ -118,15 +118,15 @@
             <div class="clear"></div>
 
             <div id='actionsWithUser'>
-              <div><img src="<%=publicStaticServer%>/images/imPersonScreenSendMessageIcon.png" alt=""><span class="fontBlueColor">Отправить сообщение</span></div> 
+              <div id='sendMessageToUser'><img src="<%=publicStaticServer%>/images/imPersonScreenSendMessageIcon.png" alt=""><span class="fontBlueColor">Отправить сообщение</span></div> 
               <hr>
-              <div><img style='margin-left:-2.5px;'src="<%=publicStaticServer%>/images/imPersonScreenSendContactIcon.png" alt=""><span style='margin-left:22.5px'class="fontBlueColor">Отправить контакт</span></div> 
+              <div id='SendContactOfUser'><img style='margin-left:-2.5px;'src="<%=publicStaticServer%>/images/imPersonScreenSendContactIcon.png" alt=""><span style='margin-left:22.5px'class="fontBlueColor">Отправить контакт</span></div> 
               <hr>
-              <div><img src="<%=publicStaticServer%>/images/imPersonScreenSendEventIcon.png" alt=""><span class="fontBlueColor">Пригласить на событие</span></div> 
+              <div id='inviteUserToEvent'><img src="<%=publicStaticServer%>/images/imPersonScreenSendEventIcon.png" alt=""><span class="fontBlueColor">Пригласить на событие</span></div> 
               <hr>
-              <div><img src="<%=publicStaticServer%>/images/imPersonScreenComplainIcon.png" alt=""><span class="fontRedColor">Пожаловаться</span></div> 
+              <div id='ComplainUser'><img src="<%=publicStaticServer%>/images/imPersonScreenComplainIcon.png" alt=""><span class="fontRedColor">Пожаловаться</span></div> 
               <hr>
-              <div><img src="<%=publicStaticServer%>/images/imPersonScreenBlockUserIcon.png" alt=""><span class="fontRedColor">Блокировать</span></div> 
+              <div id='blockUser'><img src="<%=publicStaticServer%>/images/imPersonScreenBlockUserIcon.png" alt=""><span class="fontRedColor">Блокировать</span></div> 
               <hr>
             </div>
         </div>
@@ -136,11 +136,11 @@
             <div class="clear"></div>
             
             <div id='actionsWithConversation'>
-              <div><img src="<%=publicStaticServer%>/images/imDialogScreenInviteIcon.png" alt=""><span class="fontBlueColor">Пригласить</span></div> 
+              <div id='inviteUsersInConversation'><img src="<%=publicStaticServer%>/images/imDialogScreenInviteIcon.png" alt=""><span class="fontBlueColor">Пригласить</span></div> 
               <hr>
-              <div><img src="<%=publicStaticServer%>/images/imDialogScreenNotificationsIcon.png" alt=""><span class="fontBlueColor">Выключить нотификации</span> <p id="indicatorOfNotification" class="fontBlueColor">Вкл</p> </div> 
+              <div id='notificationsManagment' style='width=100%'><img src="<%=publicStaticServer%>/images/imDialogScreenNotificationsIcon.png" alt=""><span class="fontBlueColor">Выключить нотификации</span> <p id="indicatorOfNotification" class="fontBlueColor">Вкл</p> </div> 
               <hr>
-              <div><img src="<%=publicStaticServer%>/images/imDialogScreenLeaveDialogIcon.png" alt=""><span class="fontRedColor">Покинуть беседу</span></div> 
+              <div id='leaveConversation'><img src="<%=publicStaticServer%>/images/imDialogScreenLeaveDialogIcon.png" alt=""><span class="fontRedColor">Покинуть беседу</span></div> 
               <hr>
             </div>
 

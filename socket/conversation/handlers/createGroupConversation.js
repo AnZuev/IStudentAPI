@@ -81,11 +81,11 @@ module.exports = function(socket, data, cb){
 	        if(messageItem){
 
 		        conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err, messageItemUpdated, convUpdated){
-			        if(err) callback(err);
+			        if(err) return callback(err);
 			        else{
 
 				        conv.messages = convUpdated;
-				        callback(null, conv, messageItem, users);
+				        return callback(null, conv, messageItem, users);
 			        }
 		        });
 	        }else{

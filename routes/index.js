@@ -26,6 +26,7 @@ module.exports = function(app){
    // require('./staticServer')(app);
 	require('./service')(app);
 	require('./universities')(app);
+	require('./profile')(app);
 
 
 

@@ -10,8 +10,7 @@ var dbError = require('../../../error').dbError;
 
 
 var async = require('async');
-var entities = require('entities');
-
+var htmlSpecialChars = require('htmlspecialchars')
 /*
  1) Проверяем существует ли пользователь
  2) Если не существует - посылаем
@@ -22,7 +21,7 @@ var entities = require('entities');
 module.exports = function(socket, data, cb){
     var rawMessage = {};
     try{
-        rawMessage.text = entities.encodeHTML(data.text)
+        rawMessage.text = htmlSpecialChars(data.text);
         if(rawMessage.text.length == 0) throw false;
         rawMessage.attachments = data.attachments;
     }catch(e){

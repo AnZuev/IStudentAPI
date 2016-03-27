@@ -787,8 +787,6 @@ User.statics.updatePhoto = function(userId, newPhoto, callback){
             return callback(new dbError(null, 404, null));
         }
 	    return callback(null, true);
-
-
     })
 };
 

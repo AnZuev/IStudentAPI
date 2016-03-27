@@ -4,7 +4,7 @@
 
 
 var async = require('async');
-var entities = require('entities');
+var htmlSpecialChars = require('htmlspecialchars');
 var log = require('../../../libs/log')(module);
 var conversation = require('../../../models/conversation').conversation;
 var User = require('../../../models/User').User;
@@ -72,7 +72,7 @@ module.exports = function(socket, data, cb){
 	        try{
 		        if(data.message.text.length > 0){
 			        messageItem = {
-				        text: entities.encodeHTML(data.message.text)
+				        text: htmlSpecialChars(data.message.text)
 			        };
 		        }
 	        }catch(e){

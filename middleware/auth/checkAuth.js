@@ -23,10 +23,7 @@ exports.checkAuthAndRedirect = function(req, res, next){
 
 exports.checkAuthAndActivation = function(req, res, next){
 	if(!req.session.user) {
-		res.status = 401;
-		res.redirect("/");
-		res.end();
-		next();
+		return next(401);
 	}
 	else{
 		User.checkActivation(req.session.user, function(err, activated, user){

@@ -32,7 +32,7 @@ require('../../../libs/additionalFunctions/extensionsForBasicTypes');
 module.exports = function(socket, data, cb){
     var title,participants;
     try{
-        title = entities.encodeHTML(data.title);
+        title = htmlSpecialChars(data.title);
         participants = data.participants;
         participants.unique();
         if(participants.indexOf(socket.request.headers.user.id) < 0) participants.push(socket.request.headers.user.id);

@@ -5,10 +5,13 @@ var sockets = require('../../common/sockets').sockets;
 var nsItem = require('../../notificationService/nsInterface').nsItem;
 var mmws = require('../../conversation/imInterface').mmws;
 
+
 var wsError = require('../../../error').wsError;
 var dbError = require('../../../error').dbError;
 
 var async = require('async');
+var htmlSpecialChars = require('htmlspecialchars');
+
 
 
 var libs = require('../libs/libs');
@@ -59,7 +62,7 @@ module.exports = function(socket, data, cb){
                    messageItem.attachments = data.message.attachments;
                }
                if(data.message.text){
-                   messageItem.text = data.message.text;
+                   messageItem.text = htmlSpecialChars(data.message.text);
                }
                conversation.addMessage(conv._id, socket.request.headers.user.id, messageItem, function(err){
                    if(err) callback(err);

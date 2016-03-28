@@ -9,7 +9,6 @@ var FI = require('../../models/university').faculty;
 var async = require('async');
 
 exports.get = function(req, res, next){
-
 	async.parallel([
 		function(callback){
 			UI.getFacultyName(req.user.university, req.user.faculty, callback);

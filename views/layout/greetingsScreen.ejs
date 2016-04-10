@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" class=''>
+<head >
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="<%=publicStaticServer%>\styles\reset.css">
+  <link rel="stylesheet" href="<%=publicStaticServer%>\styles\greetings.css">
+  <link rel="stylesheet" href="<%=publicStaticServer%>\styles\registration.css">
+
+</head>
+<body class='' onload='documentLoaded()'>
+    <div class="allPage">
+        <header class="blueBorders">
+            <div class="fontBlueColor" id='univercityButton'>Универ</div>
+            <div class="fontBlueColor" id='registrationButton' onclick="navigation.registrationBtClick();" >Регистрация</div>
+        </header>
+
+        <div id="allPageContent">
+            <div id="topHeaderOfRegistration" class='hide'>
+                <div class="clear"></div>
+                <p class='fontBlueColor'>Регистрация</p>
+
+                <div id='firstCircle' class="regCircle blueBorders done"><hr class='blueBorders'></div>
+                <div id='secoundCircle' class="regCircle blueBorders"><hr class='blueBorders'></div>
+                <div id='thirdCircle' class="regCircle blueBorders" style='margin-right:0px;'></div>
+            </div>
+
+            <div id='firstStepInRegistration' class='blueBorders regForm hide'>
+                <div class='titleOfStep fontBlueColor'>Расскажи немного о себе</div>
+
+                <input type="text" placeholder='Почта...'>
+                <input type="text"placeholder='Имя...'>
+                <input type="text" placeholder='Фамилия...'>
+
+                <p class='NextButton fontBlueColor' onclick="navigation.goToSecoundStepOfReg()">Далее</p>
+            </div>
+
+            <div id='secoundStepInRegistration' class='blueBorders regForm hide'>
+                <div class='titleOfStep fontBlueColor'>Где ты учишься?</div>
+
+                <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()">
+                <input type="text"placeholder='Факультет' onclick="navigation.showListOfFaculties()">
+                <input type="text" placeholder='Курс' onclick="navigation.hideAllLists()">
+
+                <p class='NextButton fontBlueColor' onclick='navigation.goToThirdStepOfReg()'>Далее</p>
+
+                <ul class='fontBlueColor  hide listOf' id="Universities">
+                    <img src="images/WelcomePageIcons/signUpDecorativeListTriangle.svg" alt="" class="decorativeTriangleInSignUp">
+                    <!-- место для шаблонов "ВУЗы"-->
+                    
+                </ul>
+
+                <ul class='fontBlueColor hide listOf' id="Faculties" >
+                    <img src="images/WelcomePageIcons/signUpDecorativeListTriangle.svg" alt="" class="decorativeTriangleInSignUp">
+                    <!-- место для шаблонов "факультеты"-->
+                    
+                </ul>
+            </div>
+
+            <div id='thirdStepInRegistration' class='blueBorders regForm hide'>
+                <div class='titleOfStep fontBlueColor'>Прекрасно! Придумай пароль</div>
+
+                <input type="text" placeholder='Пароль...'>
+                <input type="text"placeholder='Повтори пароль...'>
+
+                <p class='NextButton fontBlueColor'>Готово</p>
+            </div>
+
+            <div id='firstConfirmation' class='wrapperMessageAboutSendingConfirmation hide'>
+                <div class="blueBorders MessageAboutSendingConfirmation">
+                    <p class='fontBlueColor'>Поздравляю, теперь у тебя есть аккаунт:) </p>
+                    <p class='fontBlueColor'>Чтобы начать пользоваться системой необходимо подтвердить почтовый ящик.</p>
+                    <img src="<%=publicStaticServer%>/images/welcomePageIcons/authNoActivatedIconNoRedCircle.svg" alt="">
+                    <p class='fontBlueColor'>Письмо уже должно быть у тебя на почте anzuev@bk.ru.</p>
+                    <div class='sendConfirmationAgainButton blueButton1 fontBlueColor'>Отправить повторно</div>
+                </div>
+            </div>
+
+            <div id='secoundConfirmation' class='wrapperMessageAboutSendingConfirmation hide'>
+                <div class="blueBorders MessageAboutSendingConfirmation">
+                    <p class='fontBlueColor'>К сожалению, вы еще не подтвердили свой почтовый ящик.</p>
+                    <p class='fontBlueColor'>Пожалуйста, сделайте это и мы сразу вас пустим:)</p>
+                    <img src="<%=publicStaticServer%>/images/welcomePageIcons/authNoActivatedIcon.svg" alt="">
+                    <p class='fontBlueColor'>Если вы потеряли письмо или оно не долшло,</p>
+                    <p class="fontBlueColor"> отправьте его еще раз</p>
+                    <div class='sendConfirmationAgainButton blueButton1 fontBlueColor'>Отправить повторно</div>
+                </div>
+            </div>
+
+            <div id="mainLogInSpace" class=''>
+                <div id="registrationForm">
+                    <div class='fontBlueColor'>Вход</div>
+                    <hr>
+                    <input type="text" id="enterLogin" placeholder='Логин'>
+                    <br>
+                    <input type="text" id="enterPassword" placeholder='Пароль'>
+                    <div class="blueButton1 fontBlueColor" id="enterButton">Войти</div>
+                    <br>
+                    <div id="rememberMe"><input type="checkbox"> <span>Запомнить</span> <div class='fontBlueColor' id='forgotPassword'>Забыл пароль?</div></div>
+                    
+                </div>
+
+                <p id='addingInformationAboutProject' class='hide'>Пoдробнее о проекте <br> <img src="<%=publicStaticServer%>/images/welcomePageIcons/welcomePageTriangle.svg"></p>
+
+            </div>
+
+            <ul id="AdditioanlINFO" class=''>
+                <li id='Info1Row'>
+                    <div>
+                        <div class='leftInfoColumn'> 
+                            <img src="<%=publicStaticServer%>/images/welcomePageIcons/welcomePageConversations.svg">
+                            <p class='fontBlueColor'>Сообщения внутри группы</p>
+                        </div>
+                        <p class="textInINFOblock rightInfoColumn fontBlueColor">
+                            Мы упростили обмен информацией в рамках группы на столько, на сколько это было возможно: <br> 
+                            обмен сообщениями, документами и фотографиями <br>
+                            мгновенное информирование всех участников группы с помощью push-уведомлений.
+                        </p>
+                        <div class="clear"></div>
+                    </div>
+                </li>
+                <li id='Info2Row'>
+                    <div>
+                        <p class="textInINFOblock leftInfoColumn fontBlueColor">Здесь мы постарались объединить разные учебные материалы: учебники, методички, коспекты, лабораторные работы, курсовые и другие подобные вещи. Вы больше не тратите на поиск более 10 минут.</p>
+
+                        <div class="rightInfoColumn">
+                            <p class="fontBlueColor">База знаний</p>
+                            <img src="<%=publicStaticServer%>/images/welcomePageIcons/welcomePageBooksShel.svg">
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </li>
+                <li id='Info3Row'>
+                    <div>
+                        <p class="fontBlueColor">Есть вопросы? - Задавай</p>
+
+                        <input type="text" placeholder='Как нам с вами связаться?'>
+                        <input type="text" placeholder='Тема'>
+                        <textarea placeholder='Ваш вопрос...'></textarea>
+
+                        <div class="blueButton1 fontBlueColor" id='sendQuestionButton'> Отправить </div>
+                    </div>  
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="fontBlueColor blueBorders">
+        <span>IStudent ©</span>
+    </footer>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type='text/javascript' src='<%=publicStaticServer%>/scripts/greetingsScreenNavigation.js'></script>
+  <script type='text/javascript' src='<%=publicStaticServer%>/scripts/greetingsScreenAdapting.js'> </script>
+
+</body>

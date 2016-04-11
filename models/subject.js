@@ -21,7 +21,8 @@ var subject = new Schema({
         default: Date.now()
     },
     enabled: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 })
 
@@ -122,11 +123,10 @@ subject.statics.getSubjectsByTitle = function(title, subject, callback){
  Вход: название, флаг включения
  Выход: либо ошибка, либо созданный предмет
  */
-subject.statics.addSubject = function(title, enabled, callback){
+subject.statics.addSubject = function(title, callback){
     var subject = this;
     var newSubject = new subject({
-        title: title,
-        enabled: enabled
+        title: title
     });
     newSubject.save(function(err, subject){
         if(err) return callback(err);
@@ -140,6 +140,7 @@ subject.statics.addSubject = function(title, enabled, callback){
     })
 };
 
+
 /*
  Метод для изменения статуса предмета на активный
  Вход: предмет
@@ -148,23 +149,31 @@ subject.statics.addSubject = function(title, enabled, callback){
 subject.statics.activate = function(id,callback) {
     this.update({_id: id}, 
     { 
-        enabled: true, 
-
+        enabled: true,
         $currentDate: {updated: true}
-
     },  function(err, res){
-        console.log(arguments);
+             if (res.nModified != 0 && res.n != 0) return callback(null, true);
+             else if(err) return callback(new dbError(err));
+                  else if (res.nModified == 0) return new dbError(null, 404, util.format("no subject found by %s", id));
     });
-
 };
+
+
 /*
  Метод для изменения статуса предмета на неактивный
  Вход: предмет
  Выход: измененный предмет
  */
 subject.methods.deactivate = function(){
-    this.enabled = false;
-    this.update
+    this.update({_id: id},
+        {
+            enabled: false,
+            $currentDate: {updated: true}
+        },  function(err, res){
+            if (res.nModified != 0 && res.n != 0) return callback(null, true);
+            else    if(err) return callback(new dbError(err));
+                    else if (res.nModified == 0) return new dbError(null, 404, util.format("no subject found by %s", id));
+        });
 };
 
 exports.subject = mongoose.model('subject', subject);

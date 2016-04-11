@@ -22,7 +22,7 @@
 	},
 
 	"informationModule":{
-		"informationAboutUser":" <div id='infoAboutUser'> <img src='%s'> <div id='mainInformationOfUser'> <p class='fontBlueColor'>%s</p> <p>%s</p> <p>%s</p> </div> </div>",
+		"informationAboutUser":" <div id='infoAboutUser'> <img src='%s'> <div id='mainInformationOfUser'> <p>%s</p> <p>%s</p> <p>%s</p> </div> </div>",
 		"informationAboutConversation": " <div id='infoAboutConversation'> <img src='%s'> <div id='mainInformationOfConversation'> <p class='fontBlueColor'>%s</p> <p class='numberOfParticipants'>%s</p> </div> </div>",
 		"userInConversation": " <li><img src='%s'><p>%s</p></li>"
 

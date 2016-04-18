@@ -28,7 +28,7 @@ module.exports = function(req, res, next){
 
 	switch (keyword.length){
 		case 1:
-			User.getContactsByOneKey(keyword[0], function(err, users){
+			User.getContactsByOneKey(req.session.user, keyword[0], function(err, users){
 				if(err) {
 					if((err instanceof dbError) && (err.code == 204)) {
 						res.statusCode = 204;
@@ -51,7 +51,7 @@ module.exports = function(req, res, next){
 			});
 			break;
 		case 2:
-			User.getContactsByTwoKeys(keyword[0], keyword[1], function(err, users){
+			User.getContactsByTwoKeys(req.session.user, keyword[0], keyword[1], function(err, users){
 
 				if(err) {
 					if((err instanceof dbError) && (err.code == 204)) {

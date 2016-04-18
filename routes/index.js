@@ -12,13 +12,21 @@ module.exports = function(app){
         next();
     });
 
-    app.get('/', function(req, res, next){
+    app.get('/', function(req, res, next){ //  /
         res.render('welcomePage', {
             host: host,
 	        publicStaticServer: publicStaticServer
         });
         next();
     });
+
+	app.get('/greetingTest', function(req, res, next){ //  /
+		res.render('greetingsScreen', {
+			host: host,
+			publicStaticServer: publicStaticServer
+		});
+		next();
+	});
     require('./authorize')(app);
     require('./general')(app);
     require('./calendar')(app);

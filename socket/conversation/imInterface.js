@@ -140,7 +140,11 @@ function imService(ee){
                                     options: options,
                                     senderId: sender.id
                                 };
-                                channel.connected[results[i][y].id].emit(mmwsItem.eventName, mmwsItem);
+                                if(channel.connected[results[i][y].id]){
+	                                channel.connected[results[i][y].id].emit(mmwsItem.eventName, mmwsItem);
+                                }else{
+	                                log.debug("Перехвачена попытка отправить что-то несуществующему сокету")
+                                }
                             }
                         }
                     }
@@ -171,7 +175,11 @@ function imService(ee){
 								    sender: sender,
 								    eventName: self.eventName
 							    };
-							    channel.connected[results[i][y].id].emit(mmwsItem.eventName, mmwsItem);
+							    if (channel.connected[results[i][y].id]) {
+								    channel.connected[results[i][y].id].emit(mmwsItem.eventName, mmwsItem);
+							    } else {
+								    log.debug("Перехвачена попытка отправить что-то несуществующему сокету");
+							    }
 						    }
 					    }
 				    }

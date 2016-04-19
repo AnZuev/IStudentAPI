@@ -64,7 +64,7 @@
                 <input type="text" placeholder='Пароль...'>
                 <input type="text"placeholder='Повтори пароль...'>
 
-                <p class='NextButton fontBlueColor'>Готово</p>
+                <p class='NextButton fontBlueColor' onclick="navigation.submitRegistration();">Готово</p>
             </div>
 
             <div id='firstConfirmation' class='wrapperMessageAboutSendingConfirmation hide'>
@@ -73,7 +73,7 @@
                     <p class='fontBlueColor'>Чтобы начать пользоваться системой необходимо подтвердить почтовый ящик.</p>
                     <img src="<%=publicStaticServer%>/images/WelcomePageIcons/authNoActivatedIconNoRedCircle.svg" alt="">
                     <p class='fontBlueColor'>Письмо уже должно быть у тебя на почте anzuev@bk.ru.</p>
-                    <div class='sendConfirmationAgainButton blueButton1 fontBlueColor'>Отправить повторно</div>
+                    <div class='sendConfirmationAgainButton blueButton1 fontBlueColor' onclick="navigation.sendConfirmationMessageAgain();">Отправить повторно</div>
                 </div>
             </div>
 
@@ -84,18 +84,18 @@
                     <img src="<%=publicStaticServer%>/images/WelcomePageIcons/authNoActivatedIcon.svg" alt="">
                     <p class='fontBlueColor'>Если вы потеряли письмо или оно не долшло,</p>
                     <p class="fontBlueColor"> отправьте его еще раз</p>
-                    <div class='sendConfirmationAgainButton blueButton1 fontBlueColor'>Отправить повторно</div>
+                    <div class='sendConfirmationAgainButton blueButton1 fontBlueColor' onclick="navigation.sendConfirmationMessageAgain();">Отправить повторно</div>
                 </div>
             </div>
 
             <div id="mainLogInSpace" class=''>
                 <div id="registrationForm">
-                    <div class='fontBlueColor'>Вход</div>
+                    <div class='fontBlueColor' >Вход</div>
                     <hr>
                     <input type="text" id="enterLogin" placeholder='Логин'>
                     <br>
                     <input type="text" id="enterPassword" placeholder='Пароль'>
-                    <div class="blueButton1 fontBlueColor" id="enterButton">Войти</div>
+                    <div class="blueButton1 fontBlueColor" id="enterButton" onclick="navigation.signIn();">Войти</div>
                     <br>
                     <div id="rememberMe"><input type="checkbox"> <span>Запомнить</span> <div class='fontBlueColor' id='forgotPassword'>Забыл пароль?</div></div>
                     
@@ -131,7 +131,7 @@
                         <div class="clear"></div>
                     </div>
                 </li>
-                <li id='Info3Row'>
+                <li id='Info4Row'>
                     <div>
                         <p class="fontBlueColor">Есть вопросы? - Задавай</p>
 

@@ -37,6 +37,12 @@ var subject = new Schema({
 subject.methods.getSubjectsName = function(){
     return this.title;
 };
+
+/*
+Вход:  id предмета
+Выход: либо название предмета, либо ошибка
+
+*/
 subject.statics.getSubjectsName = function(id, callback){
 
     this.find({ _id: id,
@@ -53,31 +59,23 @@ subject.statics.getSubjectsName = function(id, callback){
 };
 
 /*
- Метод для получения списка предметов по id
- Вход:  id предмета
- Выход: либо список предметов с id, либо ошибка
-
+    Вход: -
+    Выход: список всех предметов с названиями и id
  */
-subject.statics.getSubjects= function(id, callback){
-    this.aggregate([
-        {
-            $match:{
-                _id: id,
-                enabled: true
-            },
-            $project:{
+subject.statics.getAllSubjects = function(callback){
 
-                title: "$title"
+    this.find({
+        enabled: true}, {title:1}, function(err, res){
+        if(err) return callback(new dbError(err));
+        else{
+            if(!res) return new dbError(null, 404, util.format("no subject found by %s", id));
+            else{
+                return callback(null, res);
             }
         }
-    ], function(err, subjectsItem){
-        if(err) return callback(err);
-        else{
-            return callback(null, subjectsItem);
-        }
-    });
-};
 
+    })
+};
 
 
 /*
@@ -85,7 +83,7 @@ subject.statics.getSubjects= function(id, callback){
  Вход:
  Выход: либо ошибка, либо список предметов
  */
-subject.statics.getSubjectsByTitle = function(title, subject, callback){
+subject.statics.getSubjectsByTitle = function(title, callback){
     this.aggregate([
         {
             $match: {
@@ -110,11 +108,6 @@ subject.statics.getSubjectsByTitle = function(title, subject, callback){
         if(err) return callback(err);
         if(subjectsItem.length == 0) return callback(null, []);
         subjectsItem = subjectsItem[0];
-        subjectsItem.subjects.forEach(function(element){
-
-            element.id = element._id;
-            delete element._id;
-        });
         return callback(null, subjectsItem);
     })
 };

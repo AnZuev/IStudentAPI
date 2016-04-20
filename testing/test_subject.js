@@ -1,8 +1,30 @@
 var subject = require('../models/subject').subject;
-//
-// subject.addSubject("Физика", function(err,res){
+
+// subject.addSubject("Математика", function(err,res){
 //     console.log(arguments);
 // });
-subject.activate('570c01d1f8117f2010813b8d', function(err,res) {
+// subject.activate('57175af61cba3b680db5c9a9', function(err,res) {
+//
+// });
 
+// subject.getSubjectsByTitle('Математика', function(err,res) {
+//
+//     console.log(arguments);
+// });
+
+//
+// subject.getSubjects('57175af61cba3b680db5c9a9', function(err,res) {
+//
+//     console.log(arguments);
+// });
+
+
+// subject.getSubjectsName('57175af61cba3b680db5c9a9', function(err,res) {
+//
+//     console.log(arguments);
+// });
+
+subject.getAllSubjectsName(function(err,res) {
+
+    console.log(arguments);
 });

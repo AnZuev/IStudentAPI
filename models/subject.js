@@ -133,6 +133,45 @@ subject.statics.addSubject = function(title, callback){
     })
 };
 
+/*
+Метод для удаления предмета
+вход: id
+выход: true , если предмет удален
+       ошибка, если предмета нет
+ */
+subject.statics.deleteSubject = function(id, callback){
+    var subjects = this;
+
+    subjects.findByIdAndRemove( id, function(err, subject){
+        if(err) return callback(err);
+        if(!subject) return callback("No subject found");
+        else {
+            return callback(null, true);
+        }
+    });
+
+};
+
+/*
+    Метод меняет название предмета на new_title по id
+
+    вход: id, new_title
+    выход: true, если успешно изменено имя
+           ошибка, если предмета нет
+ */
+subject.statics.changeName = function(id, new_title, callback){
+    var subjects = this;
+    
+    subjects.findOneAndUpdate({_id:id}, {title: new_title}, function(err, subject){
+        if(err) return callback(err);
+        if(!subject) return callback("No subject found");
+        else {
+            return callback(null, true);
+        }
+    });
+    
+    
+};
 
 /*
  Метод для изменения статуса предмета на активный

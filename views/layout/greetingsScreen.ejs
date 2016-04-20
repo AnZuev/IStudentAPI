@@ -26,7 +26,7 @@
                 <div id='thirdCircle' class="regCircle blueBorders" style='margin-right:0px;'></div>
             </div>
 
-            <div id='firstStepInRegistration' class='blueBorders regForm hide'>
+            <form id='firstStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Расскажи немного о себе</div>
 
                 <input type="text" placeholder='Почта...'>
@@ -34,9 +34,9 @@
                 <input type="text" placeholder='Фамилия...'>
 
                 <p class='NextButton fontBlueColor' onclick="navigation.goToSecoundStepOfReg()">Далее</p>
-            </div>
+            </form>
 
-            <div id='secoundStepInRegistration' class='blueBorders regForm hide'>
+            <form id='secoundStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Где ты учишься?</div>
 
                 <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()">
@@ -56,16 +56,16 @@
                     <!-- место для шаблонов "факультеты"-->
                     
                 </ul>
-            </div>
+            </form>
 
-            <div id='thirdStepInRegistration' class='blueBorders regForm hide'>
+            <form id='thirdStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Прекрасно! Придумай пароль</div>
 
                 <input type="text" placeholder='Пароль...'>
                 <input type="text"placeholder='Повтори пароль...'>
 
                 <p class='NextButton fontBlueColor' onclick="navigation.submitRegistration();">Готово</p>
-            </div>
+            </form>
 
             <div id='firstConfirmation' class='wrapperMessageAboutSendingConfirmation hide'>
                 <div class="blueBorders MessageAboutSendingConfirmation">
@@ -89,17 +89,17 @@
             </div>
 
             <div id="mainLogInSpace" class=''>
-                <div id="registrationForm">
+                <form id="registrationForm">
                     <div class='fontBlueColor' >Вход</div>
                     <hr>
                     <input type="text" id="enterLogin" placeholder='Логин'>
                     <br>
-                    <input type="text" id="enterPassword" placeholder='Пароль'>
+                    <input type="password" id="enterPassword" placeholder='Пароль'>
                     <div class="blueButton1 fontBlueColor" id="enterButton" onclick="navigation.signIn();">Войти</div>
                     <br>
                     <div id="rememberMe"><input type="checkbox"> <span>Запомнить</span> <div class='fontBlueColor' id='forgotPassword'>Забыл пароль?</div></div>
                     
-                </div>
+                </form>
 
                 <p id='addingInformationAboutProject' class='hide'>Пoдробнее о проекте <br> <img src="<%=publicStaticServer%>/images/WelcomePageIcons/welcomePageTriangle.svg"></p>
 
@@ -154,5 +154,8 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script type='text/javascript' src='<%=publicStaticServer%>/scripts/greetingsScreenNavigation.js'></script>
   <script type='text/javascript' src='<%=publicStaticServer%>/scripts/greetingsScreenAdapting.js'> </script>
+  <script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/additionalMethods.js" ></script>
+  <script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/Error.js"></script>
+  <script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/UserClass.js"></script>
 
 </body>

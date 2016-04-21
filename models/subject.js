@@ -28,22 +28,13 @@ var subject = new Schema({
 
 
 
-/*
- Метод для получения имени предмета
- Вход: id
- Выход: название
-
- */
-subject.methods.getSubjectsName = function(){
-    return this.title;
-};
 
 /*
 Вход:  id предмета
 Выход: либо название предмета, либо ошибка
 
 */
-subject.statics.getSubjectsName = function(id, callback){
+subject.statics.getSubjectName = function(id, callback){
 
     this.find({ _id: id,
                 enabled: true}, {title:1}, function(err, res){

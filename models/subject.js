@@ -178,6 +178,7 @@ subject.statics.activate = function(id,callback) {
              if (res.nModified != 0 && res.n != 0) return callback(null, true);
              else if(err) return callback(new dbError(err));
                   else if (res.nModified == 0) return new dbError(null, 404, util.format("no subject found by %s", id));
+
     });
 };
 
@@ -187,7 +188,7 @@ subject.statics.activate = function(id,callback) {
  Вход: предмет
  Выход: измененный предмет
  */
-subject.methods.deactivate = function(){
+subject.statics.deactivate = function(id,callback) {
     this.update({_id: id},
         {
             enabled: false,

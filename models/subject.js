@@ -34,7 +34,7 @@ var subject = new Schema({
 Выход: либо название предмета, либо ошибка
 
 */
-subject.statics.getSubjectName = function(id, callback){
+subject.statics.getSubjectNameById = function(id, callback){
 
     this.find({ _id: id,
                 enabled: true}, {title:1}, function(err, res){

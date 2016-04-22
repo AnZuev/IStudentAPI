@@ -96,7 +96,7 @@ subject.statics.getSubjectsByTitle = function(title, callback){
         },
         {
             $project:{
-                subjects: "$subjects",
+                title: "$title",
                 id: "$_id",
                 _id: 0
             }

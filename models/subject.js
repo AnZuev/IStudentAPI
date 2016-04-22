@@ -41,9 +41,14 @@ subject.statics.getSubjectName = function(id, callback){
         if(err) return callback(new dbError(err));
         else{
             if(!res) return new dbError(null, 404, util.format("no subject found by %s", id));
-            else{
-                return callback(null, res);
+                else {
+                if (res.size == 0) return new dbError(null, 500, util.format("no subjects"), id);
+                else{
+                    if(res.length == 0) return new dbError(null, 204, util.format("empty file by %s", id));
+                    else return callback(null, res);
+                }
             }
+
         }
 
     })
@@ -59,9 +64,10 @@ subject.statics.getAllSubjects = function(callback){
         enabled: true}, {title:1}, function(err, res){
         if(err) return callback(new dbError(err));
         else{
-            if(!res) return new dbError(null, 404, util.format("no subject found by %s", id));
+            if(!res) return new dbError(null, 404, util.format("no subject found"));
             else{
-                return callback(null, res);
+                if(res.length == 0) return new dbError(null, 204, util.format("no subjects"));
+                else return callback(null, res);
             }
         }
 
@@ -97,8 +103,7 @@ subject.statics.getSubjectsByTitle = function(title, callback){
         }
     ], function(err, subjectsItem){
         if(err) return callback(err);
-        if(subjectsItem.length == 0) return callback(null, []);
-        subjectsItem = subjectsItem[0];
+        if(subjectsItem.length == 0) return new dbError(null, 204, util.format("no such subject found by %s", title));
         return callback(null, subjectsItem);
     })
 };
@@ -130,10 +135,10 @@ subject.statics.addSubject = function(title, callback){
 выход: true , если предмет удален
        ошибка, если предмета нет
  */
-subject.statics.deleteSubject = function(id, callback){
+subject.statics.removeSubjectById = function(id, callback){
     var subjects = this;
 
-    subjects.findByIdAndRemove( id, function(err, subject){
+    subjects.remove({_id: id}, function(err, subject){
         if(err) return callback(err);
         if(!subject) return callback("No subject found");
         else {
@@ -144,16 +149,16 @@ subject.statics.deleteSubject = function(id, callback){
 };
 
 /*
-    Метод меняет название предмета на new_title по id
+    Метод меняет название предмета на newTitle по id
 
-    вход: id, new_title
+    вход: id, newTitle
     выход: true, если успешно изменено имя
            ошибка, если предмета нет
  */
-subject.statics.changeName = function(id, new_title, callback){
+subject.statics.changeName = function(id, newTitle, callback){
     var subjects = this;
     
-    subjects.findOneAndUpdate({_id:id}, {title: new_title}, function(err, subject){
+    subjects.findOneAndUpdate({_id:id}, {title: newTitle}, function(err, subject){
         if(err) return callback(err);
         if(!subject) return callback("No subject found");
         else {
@@ -166,8 +171,9 @@ subject.statics.changeName = function(id, new_title, callback){
 
 /*
  Метод для изменения статуса предмета на активный
- Вход: предмет
- Выход: измененный предмет
+ Вход: id
+ Выход: true, если успешно
+        false, если нет
  */
 subject.statics.activate = function(id,callback) {
     this.update({_id: id}, 
@@ -185,8 +191,9 @@ subject.statics.activate = function(id,callback) {
 
 /*
  Метод для изменения статуса предмета на неактивный
- Вход: предмет
- Выход: измененный предмет
+ Вход: id
+ Выход: true, если успешно
+ false, если нет
  */
 subject.statics.deactivate = function(id,callback) {
     this.update({_id: id},

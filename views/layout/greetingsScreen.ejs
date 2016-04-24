@@ -29,9 +29,9 @@
             <form id='firstStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Расскажи немного о себе</div>
 
-                <input type="text" placeholder='Почта...'>
-                <input type="text"placeholder='Имя...'>
-                <input type="text" placeholder='Фамилия...'>
+                <input type="text" placeholder='Почта...' name='mail'>
+                <input type="text"placeholder='Имя...' name='name'>
+                <input type="text" placeholder='Фамилия...' name='surname'>
 
                 <p class='NextButton fontBlueColor' onclick="navigation.goToSecoundStepOfReg()">Далее</p>
             </form>
@@ -39,9 +39,9 @@
             <form id='secoundStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Где ты учишься?</div>
 
-                <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()">
-                <input type="text"placeholder='Факультет' onclick="navigation.showListOfFaculties()">
-                <input type="text" placeholder='Курс' onclick="navigation.hideAllLists()">
+                <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()" name='university'>
+                <input type="text"placeholder='Факультет' onclick="navigation.showListOfFaculties()" name='faculty'>
+                <input type="text" placeholder='Курс' onclick="navigation.hideAllLists()" name='year'>
 
                 <p class='NextButton fontBlueColor' onclick='navigation.goToThirdStepOfReg()'>Далее</p>
 
@@ -61,8 +61,8 @@
             <form id='thirdStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Прекрасно! Придумай пароль</div>
 
-                <input type="text" placeholder='Пароль...'>
-                <input type="text"placeholder='Повтори пароль...'>
+                <input type="text" placeholder='Пароль...' name='password'>
+                <input type="text"placeholder='Повтори пароль...' name='confirmPassword'>
 
                 <p class='NextButton fontBlueColor' onclick="navigation.submitRegistration();">Готово</p>
             </form>
@@ -92,9 +92,9 @@
                 <form action="#" name='signInForm' id="registrationForm">
                     <div class='fontBlueColor' >Вход</div>
                     <hr>
-                    <input type="text" id="enterLogin" placeholder='Логин'>
+                    <input type="text" id="enterLogin" placeholder='Логин' name='mail'>
                     <br>
-                    <input type="password" id="enterPassword" placeholder='Пароль'>
+                    <input type="password" id="enterPassword" placeholder='Пароль' name='password'>
                     <div class="blueButton1 fontBlueColor" id="enterButton" onclick="navigation.signIn();">Войти</div>
                     <br>
                     <div id="rememberMe"><input type="checkbox"> <span>Запомнить</span> <div class='fontBlueColor' id='forgotPassword'>Забыл пароль?</div></div>

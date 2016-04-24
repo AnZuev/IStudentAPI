@@ -175,7 +175,7 @@ conversation.statics.addMessage = function(convId, userId, rawMessage, callback)
     ],callback)
 };
 
-conversation.statics.removeParticipants = function(convId, userId, removedUsers, callback){
+conversation.statics.removeParticipant = function(convId, userId, removedUser, callback){
 
     var conversation = this;
 
@@ -191,50 +191,41 @@ conversation.statics.removeParticipants = function(convId, userId, removedUsers,
         function(conv, callback){
             if(conv){
                 if(userId == conv.group.owner.toString()){
-                    if(removedUsers.indexOf(userId) >= 0){
+                    if(userId == removedUser){
 	                    var newOwner;
 	                    for(var i = 0; i < conv.participants.length; i++){
-		                    if(removedUsers.indexOf(conv.participants[i]) < 0) {
+		                    if(conv.participants[i] != removedUser) {
 			                    newOwner = conv.participants[i];
 			                    break;
 		                    }
 	                    }
-	                    conv.update(
-		                    {
-			                    $pull:{
-				                    participants:{$in:removedUsers}
-			                    },
-			                    owner: newOwner
-		                    }, function(err, res){
-			                    if(err) callback(new dbError(err, null, null));
-			                    else{
-				                    if(res.nModified > 0){
-					                    return callback(null, true);
-				                    }else{
-					                    return callback(null, false);
-				                    }
+	                    conv.update({$pull:{participants:removedUser}, owner: newOwner}, function(err, res){
+		                    if(err) callback(new dbError(err, null, null));
+		                    else{
+			                    if(res.nModified > 0){
+				                    return callback(null, true);
+			                    }else{
+				                    return callback(null, false);
 			                    }
+		                    }
 	                    });
                     }else{
                         conv.update(
 	                        {
-		                        $pull:{
-			                        participants:{$in:removedUsers}
-		                        }
+		                        $pull:{participants:removedUser}
 	                        }, function(err, res){
-	                            if(err) callback(new dbError(err, null, null));
-	                            else{
-	                                if(res.nModified > 0){
-	                                    return callback(null, true);
-	                                }else{
-	                                    return callback(null, false);
-	                                }
-	                            }
+                            if(err) callback(new dbError(err, null, null));
+                            else{
+                                if(res.nModified > 0){
+                                    return callback(null, true);
+                                }else{
+                                    return callback(null, false);
+                                }
+                            }
                         });
                     }
-                }else if(removedUsers.length == 0  && userId == removedUsers[0]){
-
-	                conv.update({$pull:{participants:userId}}, function(err, res){
+                }else if(userId == removedUser){
+                    conv.update({$pull:{participants:removedUser}}, function(err, res){
                         if(err) callback(new dbError(err, null, null));
                         else{
                             if(res.nModified > 0){
@@ -244,7 +235,6 @@ conversation.statics.removeParticipants = function(convId, userId, removedUsers,
                             }
                         }
                     });
-
                 }else{
                     callback(new conversationError(403, "Действие запрещено"));
                 }

@@ -69,7 +69,7 @@ function imService(ee){
 	        });
 
 	        socket.on('removeParticipant', function(data, cb){
-		        require('./handlers/modifyParticipants').removeParticipants(socket, data, cb);
+		        require('./handlers/modifyParticipants').removeParticipant(socket, data, cb);
 	        });
 
 	        socket.on('exitFromConv', function(data, cb){

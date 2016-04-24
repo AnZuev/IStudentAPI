@@ -9,7 +9,8 @@
         "cookie":{
             "path": "/",
             "maxAge":2592000000,
-            "httpOnly": true
+            "httpOnly": true,
+            "domain":"istudentapp.ru"
         }
     },
     "staticServerAuth":{
@@ -21,8 +22,8 @@
         "publicKey": "/libs/certificate/cert.crt"
     },
     "general":{
-        "version": "0.0.1(28)",
-        "host": "http://localhost:3000",
+        "version": "0.0.1(24)",
+        "host": "http://pre-api.istudentapp.ru",
         "privateStaticServer": "127.0.0.1",
         "privateStaticServerPort": 4000,
         "publicStaticServer": "http://pre-static.istudentapp.ru"

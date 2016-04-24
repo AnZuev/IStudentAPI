@@ -102,8 +102,9 @@ module.exports = function(socket, data, cb){
 					else return callback(null);
 				}else{
 					convs.forEach(function(element){
-						for(var i = 0; i < req.settings.im.length; i++){
-							if(req.settings.im[i].convId == element._id){
+						convs.settings = null;
+						for(var i = 0; i < socket.request.headers.user.settings.im.length; i++){
+							if(socket.request.headers.user.settings.im[i].convId == element._id){
 								element.settings = req.settings.im[i];
 								break;
 							}

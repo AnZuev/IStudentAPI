@@ -1,6 +1,7 @@
 var User = require('../models/User').User;
 var conversation = require('../models/conversation').conversation;
 var sockets = require('../socket/common/sockets').sockets;
+var mongoose = require("../libs/mongoose");
 
 
 var convId = "56a3aa906d7a30501f4b0fca";
@@ -32,8 +33,8 @@ im.getDialogById(dialogId, sender, function(err, imItem){
 conversation.createPrivateConversation(userA, userG, function(err, conv){
     console.log(arguments);
 });
-/*
-conversation.createGroupConversation("Попов Георгий", userG, "none", [userA, userG, userP, userPloskov], function(err, conv){
+
+conversation.createGroupConversation("Название", userG, "none", [userA, userG, userP, userPloskov], function(err, conv){
     console.log(arguments);
     var messageItem = {
         attachments:[],
@@ -91,12 +92,18 @@ var skipFromEnd = 0;
 conversation.getMessages(convId, userA, skipFromEnd, function(err, res){
     console.log(arguments);
 });
-
-var title = "Uседа";
+*/
+var title = "Название";
+title = new RegExp(title, 'ig');
 conversation.getConvsByTitle(title, userG, function(err, res){
-    console.log(arguments);
+    console.log(res[0]);
 });
 
+conversation.getLastConversations("56a362eb992f388418145f12", 20, function(err, res){
+	//console.log(arguments);
+})
+
+/*
 
 sockets.getSocketsByUserIdAndType(userPloskov, "ns", function(err, res){
     console.log(arguments);
@@ -134,8 +141,14 @@ conversation.getLastConversations(userA, 20, function(err, result){
 	//console.log(arguments);
 })
 conversation.getUnreadMessagesForUser(userPloskov, function(err, results){
-	console.log(arguments);
+	//console.log(arguments);
 })
+
+conversation.getConvById("571ce4797f9d5cbf78f99310", "56a362eb992f388418145f12", function(err, result){
+	//console.log(arguments);
+})
+
+
 
 
 

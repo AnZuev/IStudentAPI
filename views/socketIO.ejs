@@ -20,7 +20,7 @@
         im.emit("connection:accepted");
 /*
         var imItem = {
-            participants: ["56dd295d715e16c53ce2e8da","56dd2929715e16c53ce2e8d9", "56dd2900715e16c53ce2e8d8"],
+            participants: ["56dd295d715e16c53ce2e8da","56dc4ecc380e1b4e768fe12e", "56dd2900715e16c53ce2e8d8", "56dc4eab380e1b4e768fe12d" ],
             message:{
                 attachments: [],
                 text: "Первое сообщение"
@@ -31,7 +31,7 @@
        im.emit('createGroupConversation', imItem, function(data){
             console.log(data);
         });
-*/
+/*
 		var messageItem = {
             text:"Сообщение в public беседу",
             attachments: [],
@@ -67,14 +67,15 @@
 	    im.emit('addParticipants', data,function(data){
 		    console.log(data);
 	    })
+	    */
 	    data = {
-		    convId:"56a8e20a6a829d09bb40ce04",
-		    userId: "56a39f9e0e5d3cd81d876f98"
+		    convId:"571cfbab3dc135bb7de8a6b9",
+		    users: ["56dc4eab380e1b4e768fe12d", "56dac471cbee69326e9be7bf"]
 	    }
 	    im.emit('removeParticipant',data,function(data){
 		    console.log(data);
 	    } )
-	    */
+
 
 		/*
 		im.emit("loadConv", {convId: "56ab3a55152b83310534ca6c"}, function(data){

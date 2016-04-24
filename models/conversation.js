@@ -210,7 +210,10 @@ conversation.statics.removeParticipant = function(convId, userId, removedUser, c
 		                    }
 	                    });
                     }else{
-                        conv.update({$pull:{participants:removedUser}}, function(err, res){
+                        conv.update(
+	                        {
+		                        $pull:{participants:removedUser}
+	                        }, function(err, res){
                             if(err) callback(new dbError(err, null, null));
                             else{
                                 if(res.nModified > 0){
@@ -318,12 +321,13 @@ conversation.statics.getMessages = function(convId, userId, skipFromEnd, callbac
 };
 
 conversation.statics.getConvsByTitle = function(title, userId, callback){
+
     this.aggregate([
         {
             $match:
             {
                 "group.title": {$regex: title},
-	            "participants": userId
+	            "participants": mongoose.Types.ObjectId(userId)
             }
         },
 	    {
@@ -331,8 +335,20 @@ conversation.statics.getConvsByTitle = function(title, userId, callback){
 		    {
 			    title: "$group.title",
 			    photo: "$group.photo",
-			    type: {$concat:["group"]}
-
+			    type: {$concat:["group"]},
+			    lastMessage: {$slice: ["$messages", -1]}
+		    }
+	    },
+	    {
+		    $unwind: "$lastMessage"
+	    },
+	    {
+		    $project:
+		    {
+			    title: "$title",
+			    photo: "$photo",
+			    type: "$type",
+			    lastMessage: "$lastMessage.text"
 		    }
 	    },
 	    { $limit : 15 },
@@ -341,7 +357,6 @@ conversation.statics.getConvsByTitle = function(title, userId, callback){
 	    }
     ], function(err, convs){
 	    if(err) throw err;
-	    console.log(convs);
         if(convs.length == 0){
             return callback(new dbError(null, 204, null));
         }else{

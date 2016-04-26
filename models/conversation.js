@@ -234,7 +234,7 @@ conversation.statics.removeParticipants = function(convId, userId, removedUsers,
                     }
                 }else if(removedUsers.length == 0  && userId == removedUsers[0]){
 
-	                conv.update({$pull:{participants:userId}}, function(err, res){
+	                conv.update({$pull:{participants:{$in:userId}}}, function(err, res){
                         if(err) callback(new dbError(err, null, null));
                         else{
                             if(res.nModified > 0){

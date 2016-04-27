@@ -9,8 +9,13 @@
 
 </head>
 <body class='' onload='documentLoaded()'>
-    <script> window.host = <%-JSON.stringify(host)%></script>
-    <div class="allPage">
+    <script>
+		window.host = <%-JSON.stringify(host)%>;
+		window.welcomePageTemplates = <%-JSON.stringify(templates)%>;
+
+	</script>
+
+	<div class="allPage">
         <header class="blueBorders">
             <div class="fontBlueColor" id='univercityButton'>Универ</div>
             <div class="fontBlueColor" id='registrationButton' onclick="navigation.registrationBtClick();" >Регистрация</div>
@@ -62,7 +67,7 @@
                 <div class='titleOfStep fontBlueColor'>Прекрасно! Придумай пароль</div>
 
                 <input type="text" placeholder='Пароль...' name='password'>
-                <input type="text"placeholder='Повтори пароль...' name='confirmPassword'>
+                <input type="text" placeholder='Повтори пароль...' name='confirmPassword'>
 
                 <p class='NextButton fontBlueColor' onclick="navigation.submitRegistration();">Готово</p>
             </form>

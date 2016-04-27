@@ -1,6 +1,5 @@
 {
 
 	"univercityListItemSignUp": "<li onclick='navigation.selectUnivercity()'>%s</li>",	
-	"facultyListItemSignUp": "<li onclick='navigation.selectFaculty()'>%s</li>",
-
+	"facultyListItemSignUp": "<li onclick='navigation.selectFaculty()'>%s</li>"
 }

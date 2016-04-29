@@ -47,6 +47,7 @@
                 <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()" name='university'>
                 <input type="text"placeholder='Факультет' onclick="navigation.showListOfFaculties()" name='faculty'>
                 <input type="text" placeholder='Курс' onclick="navigation.hideAllLists()" name='year'>
+                <input type="text" placeholder='Группа' onclick="navigation.hideAllLists()" name='group'>
 
                 <p class='NextButton fontBlueColor' onclick='navigation.goToThirdStepOfReg()'>Далее</p>
 
@@ -66,8 +67,8 @@
             <form id='thirdStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Прекрасно! Придумай пароль</div>
 
-                <input type="text" placeholder='Пароль...' name='password'>
-                <input type="text" placeholder='Повтори пароль...' name='confirmPassword'>
+                <input type="password" placeholder='Пароль...' name='password'>
+                <input type="password" placeholder='Повтори пароль...' name='confirmPassword'>
 
                 <p class='NextButton fontBlueColor' onclick="navigation.submitRegistration();">Готово</p>
             </form>
@@ -77,7 +78,7 @@
                     <p class='fontBlueColor'>Поздравляю, теперь у тебя есть аккаунт:) </p>
                     <p class='fontBlueColor'>Чтобы начать пользоваться системой необходимо подтвердить почтовый ящик.</p>
                     <img src="<%=publicStaticServer%>/images/WelcomePageIcons/authNoActivatedIconNoRedCircle.svg" alt="">
-                    <p class='fontBlueColor'>Письмо уже должно быть у тебя на почте anzuev@bk.ru.</p>
+                    <p class='fontBlueColor'>Письмо уже должно быть у тебя на почте <span id="mailForConfirm"></span></p>
                     <div class='sendConfirmationAgainButton blueButton1 fontBlueColor' onclick="navigation.sendConfirmationMessageAgain();">Отправить повторно</div>
                 </div>
             </div>
@@ -159,7 +160,6 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script type='text/javascript' src='<%=publicStaticServer%>/scripts/greetingsScreenNavigation.js'></script>
   <script type='text/javascript' src='<%=publicStaticServer%>/scripts/greetingsScreenAdapting.js'> </script>
-  <script type='text/javascript' src='<%=publicStaticServer%>/scripts/greetingsScreenRequests.js'> </script>
   <script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/additionalMethods.js" ></script>
   <script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/Error.js"></script>
   <script type="text/javascript" src="http://pre-static.istudentapp.ru/scripts/UserClass.js"></script>

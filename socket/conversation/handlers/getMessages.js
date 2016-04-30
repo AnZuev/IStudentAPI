@@ -23,20 +23,26 @@ var dbError = require('../../../error').dbError;
 
  */
 module.exports = function(socket, data, cb){
-  conversation.getMessages(data.convId, socket.request.headers.user.id, data.skipFromEnd, function(err, conv){
-      if(err) return cb(new wsError(400).sendError());
-      else{
-          if(conv){
-              if(conv.messages.length == 0) return cb(new wsError(204, "No messages"));
-              else {
-	              conv.messages = require('../libs/libs').addDateAndServiceMessages(conv.messages);
-	              return cb(conv);
-              }
-          }else{
-              return cb(new wsError(403, "Forbidden"))
-          }
+	var lastMessage;
+	try{
+		lastMessage = new Date(data.lastMesssage);
+		conversation.getMessages(data.convId, socket.request.headers.user.id, lastMessage , function(err, conv){
+			if(err) return cb(new wsError(400).sendError());
+			else{
+				if(conv){
+					if(conv.messages.length == 0) return cb(new wsError(204, "No messages"));
+					else {
+						conv.messages = require('../libs/libs').addDateAndServiceMessages(conv.messages);
+						return cb(conv);
+					}
+				}else{
+					return cb(new wsError(403, "Forbidden"))
+				}
 
-      }
-  });
+			}
+		});
+	}catch(e){
+		return cb(new wsError(400, "Parse date error"))
+	}
 
 };

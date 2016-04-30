@@ -172,7 +172,7 @@ User.statics.signIn = function(mail, password, callback){
     });
 };
 
-User.statics.signUp = function(name, surname, group, faculty, university, year, studNumber, mail, password, callback){
+User.statics.signUp = function(name, surname, group, faculty, university, year, mail, password, callback){
     var User = this;
         async.waterfall([
             function(callback){
@@ -190,8 +190,7 @@ User.statics.signUp = function(name, surname, group, faculty, university, year, 
                             group:group,
                             faculty: faculty,
                             year: year,
-                            university: university,
-	                        studNumber: studNumber
+                            university: university
                         },
                         auth:{
                             mail: mail,

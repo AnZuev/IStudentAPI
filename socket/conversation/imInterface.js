@@ -85,9 +85,11 @@ function imService(ee){
 	        });
 
             socket.on('settings', function(data, cb){
-                require('./handlers/settings')(socket, data, cb);
+                require('./handlers/settings').setAllSettings(socket, data, cb);
             });
-
+			socket.on("setNotification", function(data, cb){
+				require('./handlers/settings').setNotification(socket, data, cb);
+			})
 	        /*socket.on('findContacts', function(data, cb){
 		        require('./handlers/findContacts')(socket, data, cb);
 	        });

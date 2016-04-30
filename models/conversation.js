@@ -308,22 +308,47 @@ conversation.statics.readMessages = function(convId, userId, callback){
     ], callback);
 };
 
-conversation.statics.getMessages = function(convId, userId, skipFromEnd, callback){
-    if(skipFromEnd < 20){
-        skipFromEnd = 20;
-    }
-    this.findOne(
+conversation.statics.getMessages = function(convId, userId, lastMessage, callback){
+
+
+    this.aggregate(
         {
-            _id:convId,
-            participants:userId
+	        $match:{
+		        _id: mongoose.Types.ObjectId(convId),
+		        participants: mongoose.Types.ObjectId(userId)
+	        }
         },
-        {
-            messages:{
-                $slice:[-1*skipFromEnd, 20 ]
-            }
-        },
+	    {
+		    $project:{
+			    _id: "$_id",
+			    messages: "$messages"
+		    }
+	    },
+	    {
+		    $unwind: "$messages"
+	    },
+	    {
+		    $match:{
+			    "messages.date":{$lt:lastMessage}
+		    }
+	    },
+	    {
+		    $group:{
+			    "_id": "$_id",
+			    messages: {'$push': '$messages'}
+		    }
+	    },
         function(err, conv){
-            return callback(err, {convId: conv._id, messages:conv.messages});
+	        conv = conv[0];
+	        if(err){
+		        return callback(new dbError(err));
+	        }else{
+		        if(conv){
+			        return callback(err, {convId: conv._id, messages:conv.messages});
+		        }else{
+			        return callback(new dbError(null, 204));
+		        }
+	        }
         }
     )
 

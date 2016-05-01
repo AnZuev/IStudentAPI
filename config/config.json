@@ -22,7 +22,7 @@
         "publicKey": "/libs/certificate/cert.crt"
     },
     "general":{
-        "version": "0.0.1(24)",
+        "version": "0.0.1(31)",
         "host": "http://pre-api.istudentapp.ru",
         "privateStaticServer": "127.0.0.1",
         "privateStaticServerPort": 4000,

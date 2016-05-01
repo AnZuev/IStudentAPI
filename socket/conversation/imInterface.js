@@ -89,7 +89,10 @@ function imService(ee){
             });
 			socket.on("setNotification", function(data, cb){
 				require('./handlers/settings').setNotification(socket, data, cb);
-			})
+			});
+	        socket.on('isOnline', function(data, cb){
+		       require('./handlers/isOnlineHandler')(socket, data, cb);
+	        });
 	        /*socket.on('findContacts', function(data, cb){
 		        require('./handlers/findContacts')(socket, data, cb);
 	        });
@@ -101,8 +104,6 @@ function imService(ee){
                     log.debug('Соединение установлено -> im. Socket успешно добавлен');
                 });
             });
-
-
         });
 
 

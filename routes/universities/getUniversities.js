@@ -17,7 +17,11 @@ exports.get = function(req, res, next){
 	}
 
 	if(title && (title.length > 0)){
+
+
 		title = new RegExp(title, "ig");
+
+
 		UI.getUniversitiesByTitle(title, format, function(err,result){
 			if(err || result.length == 0){
 				err = new httpError(204, util.format("Не найдено университетов по запросу %s", req.query.title));

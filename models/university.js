@@ -398,5 +398,3 @@ function makeContact(user){
 		exports.university.makeContact(user, callback);
 	}
 }
-
-

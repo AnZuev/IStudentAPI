@@ -79,7 +79,8 @@ function loadUser(session, callback){
 			            faculty: results[0].title,
 			            university: results[1].title,
 			            group: user.pubInform.group,
-			            id: user._id
+			            id: user._id,
+			            settings: user.settings
 		            };
 
 		            return callback(null, student)

@@ -15,7 +15,6 @@ exports.post = function(req, res, next){
 		var name = req.body.name.capitilizeFirstLetter();
 		var surname = req.body.surname.capitilizeFirstLetter();
 		var password = req.body.password;
-		var studNumber = req.body.studNumber;
 		var year = req.body.year;
 		var faculty = req.body.faculty;
 		faculty = mongoose.Types.ObjectId(faculty);
@@ -34,7 +33,7 @@ exports.post = function(req, res, next){
 	    },
 	    function(validated, callback){
 		    if(!validated) return callback(new httpError(400, "Данные не прошли валидацию"));
-		    User.signUp(name, surname, group, faculty, university, year, studNumber, mail, password,callback);
+		    User.signUp(name, surname, group, faculty, university, year, mail, password,callback);
 	    }
     ], function(err, user){
 	    if(err){

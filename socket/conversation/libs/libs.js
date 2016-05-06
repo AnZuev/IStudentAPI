@@ -182,7 +182,7 @@ function addDateAndServiceMessages(messages, participants, username){
 			resultMessages.push(element);
 		});
 	}else{
-		messages.forEach(function(element, index){
+		messages.forEach(function(element){
 			if((element.date.getDate() > prevDate.day) && (element.date.getMonth >= prevDate.month)){
 				var dateMessage = {
 					type: "date",

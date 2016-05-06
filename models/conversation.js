@@ -175,7 +175,7 @@ conversation.statics.addMessage = function(convId, userId, rawMessage, callback)
     ],callback)
 };
 
-conversation.statics.removeParticipant = function(convId, userId, removedUser, callback){
+conversation.statics.removeParticipants = function(convId, userId, removedUsers, callback){
 
     var conversation = this;
 
@@ -191,38 +191,50 @@ conversation.statics.removeParticipant = function(convId, userId, removedUser, c
         function(conv, callback){
             if(conv){
                 if(userId == conv.group.owner.toString()){
-                    if(userId == removedUser){
+                    if(removedUsers.indexOf(userId) >= 0){
 	                    var newOwner;
 	                    for(var i = 0; i < conv.participants.length; i++){
-		                    if(conv.participants[i] != removedUser) {
+		                    if(removedUsers.indexOf(conv.participants[i]) < 0) {
 			                    newOwner = conv.participants[i];
 			                    break;
 		                    }
 	                    }
-	                    conv.update({$pull:{participants:removedUser}, owner: newOwner}, function(err, res){
-		                    if(err) callback(new dbError(err, null, null));
-		                    else{
-			                    if(res.nModified > 0){
-				                    return callback(null, true);
-			                    }else{
-				                    return callback(null, false);
+	                    conv.update(
+		                    {
+			                    $pull:{
+				                    participants:{$in:removedUsers}
+			                    },
+			                    owner: newOwner
+		                    }, function(err, res){
+			                    if(err) callback(new dbError(err, null, null));
+			                    else{
+				                    if(res.nModified > 0){
+					                    return callback(null, true);
+				                    }else{
+					                    return callback(null, false);
+				                    }
 			                    }
-		                    }
 	                    });
                     }else{
-                        conv.update({$pull:{participants:removedUser}}, function(err, res){
-                            if(err) callback(new dbError(err, null, null));
-                            else{
-                                if(res.nModified > 0){
-                                    return callback(null, true);
-                                }else{
-                                    return callback(null, false);
-                                }
-                            }
+                        conv.update(
+	                        {
+		                        $pull:{
+			                        participants:{$in:removedUsers}
+		                        }
+	                        }, function(err, res){
+	                            if(err) callback(new dbError(err, null, null));
+	                            else{
+	                                if(res.nModified > 0){
+	                                    return callback(null, true);
+	                                }else{
+	                                    return callback(null, false);
+	                                }
+	                            }
                         });
                     }
-                }else if(userId == removedUser){
-                    conv.update({$pull:{participants:removedUser}}, function(err, res){
+                }else if(removedUsers.length == 0  && userId == removedUsers[0]){
+
+	                conv.update({$pull:{participants:{$in:userId}}}, function(err, res){
                         if(err) callback(new dbError(err, null, null));
                         else{
                             if(res.nModified > 0){
@@ -232,6 +244,7 @@ conversation.statics.removeParticipant = function(convId, userId, removedUser, c
                             }
                         }
                     });
+
                 }else{
                     callback(new conversationError(403, "Действие запрещено"));
                 }
@@ -295,22 +308,47 @@ conversation.statics.readMessages = function(convId, userId, callback){
     ], callback);
 };
 
-conversation.statics.getMessages = function(convId, userId, skipFromEnd, callback){
-    if(skipFromEnd < 20){
-        skipFromEnd = 20;
-    }
-    this.findOne(
+conversation.statics.getMessages = function(convId, userId, lastMessage, callback){
+
+
+    this.aggregate(
         {
-            _id:convId,
-            participants:userId
+	        $match:{
+		        _id: mongoose.Types.ObjectId(convId),
+		        participants: mongoose.Types.ObjectId(userId)
+	        }
         },
-        {
-            messages:{
-                $slice:[-1*skipFromEnd, 20 ]
-            }
-        },
+	    {
+		    $project:{
+			    _id: "$_id",
+			    messages: "$messages"
+		    }
+	    },
+	    {
+		    $unwind: "$messages"
+	    },
+	    {
+		    $match:{
+			    "messages.date":{$lt:lastMessage}
+		    }
+	    },
+	    {
+		    $group:{
+			    "_id": "$_id",
+			    messages: {'$push': '$messages'}
+		    }
+	    },
         function(err, conv){
-            return callback(err, {convId: conv._id, messages:conv.messages});
+	        conv = conv[0];
+	        if(err){
+		        return callback(new dbError(err));
+	        }else{
+		        if(conv){
+			        return callback(err, {convId: conv._id, messages:conv.messages});
+		        }else{
+			        return callback(new dbError(null, 204));
+		        }
+	        }
         }
     )
 
@@ -318,12 +356,13 @@ conversation.statics.getMessages = function(convId, userId, skipFromEnd, callbac
 };
 
 conversation.statics.getConvsByTitle = function(title, userId, callback){
+
     this.aggregate([
         {
             $match:
             {
                 "group.title": {$regex: title},
-	            "participants": userId
+	            "participants": mongoose.Types.ObjectId(userId)
             }
         },
 	    {
@@ -331,8 +370,20 @@ conversation.statics.getConvsByTitle = function(title, userId, callback){
 		    {
 			    title: "$group.title",
 			    photo: "$group.photo",
-			    type: {$concat:["group"]}
-
+			    type: {$concat:["group"]},
+			    lastMessage: {$slice: ["$messages", -1]}
+		    }
+	    },
+	    {
+		    $unwind: "$lastMessage"
+	    },
+	    {
+		    $project:
+		    {
+			    title: "$title",
+			    photo: "$photo",
+			    type: "$type",
+			    lastMessage: "$lastMessage.text"
 		    }
 	    },
 	    { $limit : 15 },
@@ -341,7 +392,6 @@ conversation.statics.getConvsByTitle = function(title, userId, callback){
 	    }
     ], function(err, convs){
 	    if(err) throw err;
-	    console.log(convs);
         if(convs.length == 0){
             return callback(new dbError(null, 204, null));
         }else{

@@ -11,11 +11,27 @@ var wsError = require('../../../error').wsError;
 var async = require('async');
 
 
-module.exports = function(socket, data, cb){
+exports.setAllSettings = function(socket, data, cb){
 	try{
 		var settings = {
-			notification:data.settings.notification,
+			notification: data.settings.notification,
 			tag: data.settings.tag
+		};
+		User.addImSettings(socket.request.headers.user.id, data.convId, settings, function(err, result){
+			if(err) return cb(new wsError(500).sendError());
+			else{
+				return cb(true);
+			}
+		})
+	}catch(e){
+		return cb(new wsError(400, "No settings found in request data").sendError())
+	}
+};
+
+exports.setNotification = function(socket, data, cb){
+	try{
+		var settings = {
+			notification: data.value || false
 		};
 		User.addImSettings(socket.request.headers.user.id, data.convId, settings, function(err, result){
 			if(err) return cb(new wsError(500).sendError());

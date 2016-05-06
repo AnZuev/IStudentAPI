@@ -12,6 +12,7 @@ module.exports = function(req, res, next){
             }else{
 	            if(user){
 		            req.user = res.locals.user = user.pubInform;
+		            req.settings = user.settings;
 	            }else{
 		            req.session.user = null;
 	            }

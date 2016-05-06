@@ -53,8 +53,6 @@ require('./routes')(app);
 
 app.use(function(err, req, res, next) {
     if(err){
-		//throw err;
-	    console.log(err);
         if(typeof err == "number"){
 	        err = new HttpError(err);
         }
@@ -65,10 +63,9 @@ app.use(function(err, req, res, next) {
         }else{
             res.statusCode = (err.status || 500);
         }
-        res.end();
-
     }
-
+	res.end();
+	next();
 
 
 });

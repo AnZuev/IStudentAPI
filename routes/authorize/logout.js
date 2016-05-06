@@ -1,5 +1,5 @@
 exports.post = function(req, res){
-    if(res.req.header['X-Requested-With'] == 'XMLHttpRequest'){
+    if(res.req.headers['x-requested-with'] == 'XMLHttpRequest'){
         req.session.user = null;
         res.end();
     }

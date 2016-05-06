@@ -1,10 +1,12 @@
 # Created by .ignore support plugin (hsz.mobi)
 node_modules/**/
 node_modules/*
-*.md
-*.idea/*
+.idea/
 
+<<<<<<< HEAD
 .idea/workspace.xml
 
 .idea/codeStyleSettings.xml
 .idea/workspace.xml
+=======
+>>>>>>> master

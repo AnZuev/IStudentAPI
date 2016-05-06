@@ -3,10 +3,3 @@ node_modules/**/
 node_modules/*
 .idea/
 
-<<<<<<< HEAD
-.idea/workspace.xml
-
-.idea/codeStyleSettings.xml
-.idea/workspace.xml
-=======
->>>>>>> master

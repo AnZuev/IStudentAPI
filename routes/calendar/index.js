@@ -1,4 +1,6 @@
 var checkAuth = require('../../middleware/auth/checkAuth').checkAuthAndRedirect;
+var loadDataForIm = require('../../middleware/loadDataForConversation');
+
 
 
 module.exports = function(app){

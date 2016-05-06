@@ -7,7 +7,6 @@ var templates = require('../../views/frontEndTemplates/im');
 
 
 exports.get = function(req, res, next){
-
     res.render("im", {
         host: host,
 	    publicStaticServer: publicStaticServer,

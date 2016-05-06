@@ -1,5 +1,5 @@
 var User = require('../models/User').User;
-var conversation = require('../models/conversation').conversation;
+var conversation = require('../models/conversation/index').conversation;
 var dbError = require('../error/index').dbError;
 var log = require('../libs/log')(module);
 

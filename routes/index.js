@@ -32,7 +32,7 @@ module.exports = function(app){
 
     require('./authorize')(app);
     require('./general')(app);
-    require('./calendar')(app);
+	// require('./calendar')(app);
     require('./im')(app);
    // require('./staticServer')(app);
 	require('./service')(app);

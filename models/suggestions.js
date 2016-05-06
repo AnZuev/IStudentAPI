@@ -6,14 +6,14 @@ var mongoose = require('../libs/mongoose'),
 var Suggest = new Schema({
     address:{
         type: String,
-        require: true
+        require: false
     },
-    additional:{
+    topic:{
         require: false,
         type:String
     },
     idea:{
-        require: true,
+        require: false,
         type: String
     },
     senderSession:{
@@ -24,7 +24,12 @@ var Suggest = new Schema({
         type: Date,
         require:true,
         default: Date.now
-    }
+    },
+	new:{
+		type: Boolean,
+		require: true,
+		default:true
+	}
 
 });
 
@@ -37,8 +42,11 @@ Suggest.statics.addSuggestion = function(suggest, callback){
         else return callback(null);
     });
 
-}
+};
 
+Suggest.statics.read = function(id, callback){
+	this.update({_id: id},{new: false}, callback);
+};
 
 exports.Suggest = mongoose.model('Suggest', Suggest);
 

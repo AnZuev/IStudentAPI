@@ -1,7 +1,6 @@
 var User = require('../../models/User').User;
 var httpError = require('../../error').HttpError;
-var authError = require('../../error').authError;
-var UI = require('../../models/university').university;
+
 var mailNS = require('../../notifications/mail').mailNS;
 var config = require('../../config');
 

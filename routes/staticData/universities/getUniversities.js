@@ -1,10 +1,7 @@
-var mongoose = require("../../../libs/mongoose");
 var util = require('util');
-var async = require('async');
 
 var UI = require('../../../models/university').university;
 
-require('../../../libs/additionalFunctions/extensionsForBasicTypes');
 var httpError = require('../../../error/index').HttpError;
 
 exports.get = function(req, res, next){

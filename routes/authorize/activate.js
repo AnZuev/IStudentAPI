@@ -2,7 +2,6 @@ var User = require('../../models/User').User;
 var authError = require('../../error').authError;
 var dbError = require('../../error').dbError;
 var UI = require('../../models/university').university;
-var FI = require('../../models/university').faculty;
 
 var async = require('async');
 var util = require('util');

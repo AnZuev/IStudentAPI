@@ -34,10 +34,11 @@ module.exports = function(app){
     require('./general')(app);
 	// require('./calendar')(app);
     require('./im')(app);
-   // require('./staticServer')(app);
+    //require('./staticServer')(app);
 	require('./service')(app);
-	require('./universities')(app);
-	require('./profile')(app);
+	require('./staticData/universities')(app);
+	require('./staticData/subjects')(app);
+
 
 
 

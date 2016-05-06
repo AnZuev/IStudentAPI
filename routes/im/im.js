@@ -1,4 +1,3 @@
-var HttpError = require('../../error').HttpError;
 var config = require('../../config');
 var host = config.get('general:host');
 var publicStaticServer =config.get('general:publicStaticServer');

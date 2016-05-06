@@ -1,30 +1,24 @@
-var HttpError = require('../../error').HttpError;
 var Suggest = require('../../models/suggestions').Suggest;
 
 
 
 exports.post = function(req, res, next){
-    if(res.req.header['x-requested-with'] !== 'XMLHttpRequest'){
-
+    if(res.req.header['X-Requested-With'] == 'XMLHttpRequest'){
         var address = req.body.address;
-        var AdditionalInformationAboutSuggestor = req.body.AdditionalInformationAboutSuggestor;
-        var idea =  req.body.DescriptionOfSuggestion;
-        if(address == '' || idea == '') {
-            return next(400);
-        }
-        else{
-            var suggestion =  new Suggest({
-                address: address,
-                additional: AdditionalInformationAboutSuggestor,
-                idea: idea
-            });
-            Suggest.addSuggestion(suggestion, function(err){
-                if(err) return next(err);
-                else {
-                    res.send(200);
-                    res.end();
-                }
-            })
-        }
+        var topic = req.body.topic;
+        var idea =  req.body.idea;
+
+        var suggestion =  new Suggest({
+	        address: address,
+	        topic: topic,
+	        idea: idea
+        });
+	    Suggest.addSuggestion(suggestion, function(err){
+		    if(err) return next(err);
+		    else {
+			    res.end();
+			    next();
+		    }
+	    });
     }
 };

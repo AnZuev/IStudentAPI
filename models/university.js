@@ -52,6 +52,7 @@ var university = new Schema({
 university.methods.getUniversityName = function(){
 	return this.title;
 };
+
 university.statics.getUniversityName = function(id, callback){
 	this.findById(id, {title:1}, function(err, res){
 		if(err) return callback(new dbError(err));

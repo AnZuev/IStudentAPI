@@ -1,5 +1,5 @@
 var log = require('../../../libs/log')(module);
-var conversation = require('../../../models/conversation').conversation;
+var conversation = require('../../../models/conversation/index').conversation;
 
 var mmws = require('../../conversation/imInterface').mmws;
 

@@ -10,7 +10,6 @@ var taskToMakeContact = require('../../models/university').taskToMakeContact;
 require('../../libs/additionalFunctions/extensionsForBasicTypes');
 var dbError = require('../../error').dbError;
 
-var universityData = require('../../data/index').universityInfoLoader;
 
 
 module.exports = function(req, res, next){

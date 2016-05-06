@@ -2,7 +2,7 @@
  * Created by anton on 25/01/16.
  */
 
-var conversation = require('../../../models/conversation').conversation;
+var conversation = require('../../../models/conversation/index').conversation;
 var User = require('../../../models/User').User;
 var sockets = require('../../common/sockets').sockets;
 var UI = require('../../../models/university').university;

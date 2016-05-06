@@ -1,10 +1,7 @@
-var User = require('../../models/User').User;
-var authError = require('../../error').authError;
-var httpError = require('../../error').HttpError;
-var log = require('../../libs/log')(module);
+
 
 var UI = require('../../models/university').university;
-var FI = require('../../models/university').faculty;
+
 
 var async = require('async');
 

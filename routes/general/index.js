@@ -1,6 +1,6 @@
 
 module.exports = function(app){
-    // modify
-    app.post('/feedback', require('./feedback').post);
+
+    app.post('/general/feedback', require('./feedback').post);
 
 }

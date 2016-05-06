@@ -7,7 +7,6 @@ var config = require('../../config');
 var User = require('../../models/User').User;
 var HttpError = require('../../error').HttpError;
 var sockets = require('./sockets').sockets;
-var universityFile = require('../../data/university');
 var log = require('../../libs/log')(module);
 var UI = require('../../models/university').university;
 

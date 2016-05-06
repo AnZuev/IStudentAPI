@@ -8,8 +8,10 @@ var config = require('../../config');
 var mongoose = require('mongoose');
 var async = require('async');
 var util = require('util');
+var fs = require('fs');
+var path = require("path");
 
-exports.post = function(req, res, next){
+exports.post = function (req, res, next) {
 
 	try{
 		var name = req.body.name.capitilizeFirstLetter();
@@ -47,12 +49,20 @@ exports.post = function(req, res, next){
 	    }else{
 		    var link = config.get('general:host') + "/auth/activate?mail=%s&key=%s";
 		    link = util.format(link, user.mail,user.key);
-		    var message = util.format("<p>%s, вот ссылка для подтверждения почты - <a href='%s'>Подтвердить</a>",user.name, link);
-	        var ns = new mailNS("Confirm password on istudentapp.ru", "", "auth", message, message);
-		    ns.send(user.mail, function(err, result){});
-		    res.json(user);
-		    res.end();
-		    return next();
+		    fs.readFile(path.join(__dirname, "../../notifications/templates/regConfirm.html"), "UTF-8", function(err, data){
+			   if(err){
+				   console.log(err);
+
+			   }else{
+				   data = util.format(data, link);
+				   console.log(data);
+				   var ns = new mailNS("Подтвердите почтовый адрес", "", "auth", data, "Сообщение не отображается");
+				   ns.send(user.mail, function(err, result){});
+				   res.json(user);
+				   res.end();
+				   return next();
+			   }
+		    });
 	    }
     })
 

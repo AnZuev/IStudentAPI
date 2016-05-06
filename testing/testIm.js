@@ -1,5 +1,5 @@
 var User = require('../models/User').User;
-var conversation = require('../models/conversation').conversation;
+var conversation = require('../models/conversation/index').conversation;
 var sockets = require('../socket/common/sockets').sockets;
 
 
@@ -88,9 +88,7 @@ conversation.readMessages(convId, userG, function(err, res){
 
 /*e
 var skipFromEnd = 0;
-conversation.getMessages(convId, userA, skipFromEnd, function(err, res){
-    console.log(arguments);
-});
+
 
 var title = "Uседа";
 conversation.getConvsByTitle(title, userG, function(err, res){
@@ -125,7 +123,7 @@ var settings = {
 User.addImSettings(userKomarov, convId, settings, function(err, result){
 	console.log(arguments);
 });
-*/
+
 User.getImSettingsByUserAndConvId(userKomarov, convId, function(err, result){
     //console.log(arguments);
 });
@@ -138,4 +136,8 @@ conversation.getUnreadMessagesForUser(userPloskov, function(err, results){
 })
 
 
-
+*/
+var date = new Date("2016-03-09T05:00:31.825Z");
+conversation.getMessages("56e49004a74508c3ab958164", "56dc4ecc380e1b4e768fe12e", date, function(err, res){
+	console.log(arguments);
+});

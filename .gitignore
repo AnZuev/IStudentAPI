@@ -7,3 +7,9 @@ node_modules/*
 .idea/workspace.xml
 
 .idea/codeStyleSettings.xml
+
+*.xml
+
+.idea/workspace.xml
+
+.idea/jsLibraryMappings.xml

@@ -15,7 +15,7 @@
 	},
 
 	"creatingConversationModule":{
-		"addedParticipant": "<span>%s <img class='removeAddedParticipant' src='http://pre-static.istudentapp.ru/images/imRemoveAddedParticipantButton.svg'></span>"
+		"addedParticipant": "<span> <span>%s</span> <img class='removeAddedParticipant' src='http://pre-static.istudentapp.ru/images/im/imRemoveAddedParticipantButton.svg'></span>"
 	},
 	"cleverSearchModule":{
 		"itemOfSearchMenu": "<li id='%s' class='%s'><img src='%s'> <p>%s</p> <span class='group'>%s </span> </li>"

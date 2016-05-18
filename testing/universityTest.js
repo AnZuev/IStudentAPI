@@ -29,6 +29,9 @@ var faculties = [
 
 
 
-UI.getFaculties("56cd7a3fe1848ce622923807",function(err, res){
-	console.log(res);
+UI.getFaculties("56d6bcd1017cf10359b31292",function(err, res){
+	console.log(err);
 });
+UI.getFacultyName("56d6bcd1017cf10359b3129b", "56dab169d41242256d8b8d08", function(err, res){
+	//console.log(res);
+})

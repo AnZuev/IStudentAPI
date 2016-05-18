@@ -13,20 +13,23 @@ exports.post = function(req, res, next){
 	var city = req.body.city;
 	var building = req.body.building;
 	var rating = req.body.rating || 0;
-
-
-	if(title.length > 0 && street.length > 0 && city.length > 0 && building.length > 0){
-		UI.addUniversity(title, shortTitle, street, building, city, rating, function(err,result){
-			if(err){
-				next(err);
-			}else{ 
-				res.json(result);
-				res.end();
-				next();
-			}
-		})
-	}else{
+	try {
+		if(title.length > 0 && street.length > 0 && city.length > 0 && building.length > 0){
+			UI.addUniversity(title, shortTitle, street, building, city, rating, function(err,result){
+				if(err){
+					next(err);
+				}else{
+					res.json(result);
+					res.end();
+					next();
+				}
+			})
+		}else{
+			throw "s";
+		}
+	}catch(e){
 		var err = new httpError(400, util.format("Не переданы все необходимые параметры"));
 		next(err);
 	}
+
 };

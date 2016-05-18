@@ -5,5 +5,4 @@ module.exports = function(app){
 	app.get('/universities/getFaculties', require('./getFaculties').get);
 	app.post('/universities/addUniversity', require('./addUniversity').post);
 	app.post('/universities/addFaculty', require('./addFaculty').post);
-
 };

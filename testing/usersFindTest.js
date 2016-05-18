@@ -24,31 +24,30 @@ User.getPeopleByNameAndSurnameAndGroup(name, surname, group, function(err, resul
     console.log(arguments);
 })
 */
-/*
+
 var firstNames = ['Георгий', "Георг", "Антон", "Ант", "Кирилл", "Леша", "Сергей", "Паша"];
 var lastNames = ['Попов', "Езеров", "Ильин", "Зуев", "Горбунов", "Павлюк", "Комаров"];
 var group = 4304;
-var faculty = 'KTI';
+var university = "56d6bcd1017cf10359b3129b";
+var faculty = "56dab169d41242256d8b8d08";
 var year = 1;
 var studNumber = 43029899;
 var password = 'qwerty1234';
-
+//name, surname, group, faculty, university, year, mail, password,
  for(var i = 0; i < 10; i++){
- User.signUp(firstNames[i%8], lastNames[i%7], group, faculty, year, studNumber+i+1, password, function(err, user){
- if(err) throw err;
- else{
- console.log(user);
+	 User.signUp(firstNames[i%8], lastNames[i%7], group, faculty, university, year, studNumber+i+1+"", password, function(err, user){
+		 if(err) throw err;
+		 else{
+		    console.log(user);
+		 }
+	 });
  }
- })
- }
-*/
-var userId = ["5611659632ede0011018e974", "561163f932ede0011018e96f"];
-var name = '^езер';
-var str = new RegExp(name, 'ig');
 
-User.getPeopleByOneKey(str, function(err, callback){
+
+
+/*User.getPeopleByOneKey(str, function(err, callback){
 	console.log(arguments);
-});
+});*/
 /*User.getUserById(userId, function(err, user){
     console.log(user);
 })

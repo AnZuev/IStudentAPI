@@ -11,8 +11,6 @@ var log = require('../libs/log')(module);
 
 
 
-
-
 var User = new Schema({
     auth: {
         mail:{
@@ -115,13 +113,17 @@ var User = new Schema({
 		passwordKey:{
 			type: String
 		}
+	},
+	created:{
+		type: Date,
+		default: Date.now()
 	}
 });
 
 
 
 User.methods.encryptPassword = function(password){
-    return crypto.createHmac('sha1',this.auth.salt).update(password).digest("hex");
+    return crypto.createHmac('sha1',this.auth.salt).update(password + "").digest("hex");
 };
 
 User.virtual('auth.password')
@@ -731,45 +733,20 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
     Добавление контактов
  */
 User.statics.addContacts = function(userId, contact, callback){
-    var User = this;
+	this.update({_id: userId}, {$addToSet:{contacts: contact}}, function(err, res){
+		if(err){
+			return callback(new dbError(err));
+		}else{
+			if(res.n == 0){
+				return callback(new dbError(null, 400, util.format('Не найден пользователь по id = %s', userId)));
+			}else if(res.nModified == 0){
+				return callback(new dbError(null, 409, util.format('У user c id = %s пользователь c id %s уже в контактах', userId, contact)));
+			}else{
+				return callback(null, true);
+			}
+		}
+	})
 
-    async.waterfall([
-        function(callback){
-           User.findById(userId, function(err, user){
-                if(err) return callback(new dbError(err, null, null));
-                else{
-                    return callback(null, user);
-                }
-            });
-        },
-        function(user, callback){
-            if(user){
-	            var tmp = false;
-                for(var i = 0; i < user.contacts.length; i++){
-                    if(user.contacts[i].id.toString() == contact.toString()){
-	                    user.contacts[i].updated = Date.now();
-	                    tmp = true;
-                       break;
-                    }
-                }
-	            if(!tmp) user.contacts.push({id: contact});
-	            user.save(callback)
-            }else{
-                callback(new dbError(null, 400, 'Не найден юзер по id = ' + userId));
-            }
-        }
-    ],  function(err){
-       if(err) {
-           if(err instanceof dbError){
-               return callback(err);
-           }else{
-               return callback(new dbError(err, null, null));
-           }
-       }
-       else{
-           return callback(null, true);
-       }
-    });
 
 };
 
@@ -956,7 +933,7 @@ User.statics.removeSettings = function(userId, callback){
 		},
 		callback
 	)
-}
+};
 
 
 exports.User = mongoose.model('User', User);

@@ -57,7 +57,9 @@ exports.post = function (req, res, next) {
 				   data = util.format(data, link);
 				   console.log(data);
 				   var ns = new mailNS("Подтвердите почтовый адрес", "", "auth", data, "Сообщение не отображается");
-				   ns.send(user.mail, function(err, result){});
+				   ns.send(user.mail, function(err, result){
+					   console.log(arguments);
+				   });
 				   res.json(user);
 				   res.end();
 				   return next();

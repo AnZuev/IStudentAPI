@@ -62,7 +62,6 @@ university.statics.getUniversityName = function(id, callback){
 				return callback(null, res);
 			}
 		}
-
 	})
 };
 /*
@@ -85,37 +84,11 @@ university.statics.getFacultyName = function(uId, id, callback){
 				return callback(null, res.faculties[0]);
 			}
 		}
-
 	})
 };
 
 
 
-/*
- Метод для получения списка групп в рамках одного факультета по id
- Вход:  id факультета, год обучения(курс)
- Выход: либо список групп с названием факультета и с id, либо ошибка
-
- */
-faculty.statics.getGroups = function(id, year, callback){
-	this.aggregate([
-		{
-			$match:{
-				_id: id,
-				"groups.year": year
-			},
-			$project:{
-				groups: "$groups",
-				title: "$title"
-			}
-		}
-	], function(err, groupsItem){
-		if(err) return callback(err);
-		else{
-			return callback(null, groupsItem);
-		}
-	});
-};
 
 /*2
  Метод для получения списка факультетов в рамках одного универа по id
@@ -143,7 +116,7 @@ university.statics.getFaculties = function(university, callback){
 			}
 		}
 	], function(err, facultiesItem){
-		if(err) return callback(err);
+		if(err) return callback(new dbError(err));
 		else{
 			if(facultiesItem.length == 0) return callback(null, []);
 			facultiesItem = facultiesItem[0];
@@ -229,7 +202,15 @@ university.statics.getUniversitiesByTitle = function(title, format, callback){
 	this.aggregate([
 		{
 			$match: {
-				title: {$regex: title}
+				$or:[
+					{
+						title: {$regex: title}
+					},
+					{
+						shortTitle: {$regex: title}
+					}
+				]
+
 			}
 		},
 		{
@@ -278,7 +259,7 @@ university.statics.getFacultiesByTitle = function(title, university, callback){
 		}
 
 	], function(err, facultiesItem){
-		if(err) return callback(err);
+		if(err) return callback(new dbError(err));
 		if(facultiesItem.length == 0) return callback(null, []);
 		facultiesItem = facultiesItem[0];
 		facultiesItem.faculties.forEach(function(element){
@@ -317,7 +298,7 @@ university.statics.makeContact = function(user, callback){
 			title:1
 		},
 		function(err, universityItem){
-			if(err || !universityItem) return callback(err);
+			if(err || !universityItem) return callback(new dbError(err));
 			else{
 				user.about = util.format("%s, %d курс", universityItem.faculties[0].title, user.year);
 				user.university = universityItem.getUniversityName();
@@ -340,7 +321,7 @@ university.statics.fillUniversityNameAndFacultyNameforUser = function(user, call
 			title:1
 		},
 		function(err, universityItem){
-			if(err || !universityItem) return callback(err);
+			if(err || !universityItem) return callback(new dbError(err));
 			else{
 				user.faculty = universityItem.faculties[0].title;
 				user.university = universityItem.getUniversityName();
@@ -350,7 +331,7 @@ university.statics.fillUniversityNameAndFacultyNameforUser = function(user, call
 			}
 		}
 	)
-}
+};
 
 university.statics.addUniversity = function(title, shortTitle, street, building, city, rating, callback){
 	var university = this;
@@ -365,9 +346,10 @@ university.statics.addUniversity = function(title, shortTitle, street, building,
 		rating: rating
 	});
 	newUniversity.save(function(err, university){
-		if(err) return callback(err);
+		if(err) return callback(new dbError(err));
 		else{
 			var universityToReturn = {
+				shortTitle: university.shortTitle,
 				title: university.title,
 				id: university._id
 			};

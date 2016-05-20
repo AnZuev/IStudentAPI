@@ -102,8 +102,8 @@ subject.statics.getSubjectsByTitle = function(title, callback){
             }
         }
     ], function(err, subjectsItem){
-        if(err) return callback(err);
-        if(subjectsItem.length == 0) return new dbError(null, 204, util.format("no such subject found by %s", title));
+         if(err) return callback(new dbError(err));
+        if(subjectsItem.length == 0) return callback(new dbError(null, 204, util.format("no such subject found by %s", title)));
         return callback(null, subjectsItem);
     })
 };
@@ -118,7 +118,7 @@ subject.statics.addSubject = function(title, callback){
         title: title
     });
     newSubject.save(function(err, subject){
-        if(err) return callback(err);
+        if(err) return callback(new dbError(err));
         else{
             var subjectToReturn = {
                 title: subject.title,
@@ -139,7 +139,7 @@ subject.statics.removeSubjectById = function(id, callback){
     var subjects = this;
 
     subjects.remove({_id: id}, function(err, subject){
-        if(err) return callback(err);
+        if(err) return callback(new dbError(err));
         if(!subject) return callback("No subject found");
         else {
             return callback(null, true);
@@ -159,7 +159,7 @@ subject.statics.changeName = function(id, newTitle, callback){
     var subjects = this;
     
     subjects.findOneAndUpdate({_id:id}, {title: newTitle}, function(err, subject){
-        if(err) return callback(err);
+        if(err) return callback(new dbError(err));
         if(!subject) return callback("No subject found");
         else {
             return callback(null, true);

@@ -253,7 +253,6 @@ university.statics.getFacultiesByTitle = function(title, university, callback){
 		{
 			$project:{
 				faculties: "$faculties",
-				id: "$_id",
 				_id: 0
 			}
 		}
@@ -261,8 +260,8 @@ university.statics.getFacultiesByTitle = function(title, university, callback){
 	], function(err, facultiesItem){
 		if(err) return callback(new dbError(err));
 		if(facultiesItem.length == 0) return callback(null, []);
-		facultiesItem = facultiesItem[0];
-		facultiesItem.faculties.forEach(function(element){
+		facultiesItem = facultiesItem[0].faculties;
+		facultiesItem.forEach(function(element){
 			delete element.groups;
 			element.id = element._id;
 			delete element._id;

@@ -26,15 +26,15 @@
                 <div class="clear"></div>
                 <p class='fontBlueColor'>Регистрация</p>
 
-                <div id='firstCircle' class="regCircle blueBorders done"><hr class='blueBorders'></div>
-                <div id='secoundCircle' class="regCircle blueBorders"><hr class='blueBorders'></div>
-                <div id='thirdCircle' class="regCircle blueBorders" style='margin-right:0px;'></div>
+                <div id='firstCircle' class="regCircle blueBorders done" onclick="navigation.registrationBtClick();"><hr class='blueBorders'></div>
+                <div id='secoundCircle' class="regCircle blueBorders" onclick="navigation.goToSecoundStepOfReg();"><hr class='blueBorders'></div>
+                <div id='thirdCircle' class="regCircle blueBorders" style='margin-right:0px;' onclick="navigation.goToThirdStepOfReg();"></div>
             </div>
 
             <form id='firstStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Расскажи немного о себе</div>
 
-                <input type="text" placeholder='Почта...' name='mail'>
+                <input type="email" placeholder='Почта...' name='mail' id="mailSignUp">
                 <input type="text"placeholder='Имя...' name='name'>
                 <input type="text" placeholder='Фамилия...' name='surname'>
 
@@ -44,10 +44,10 @@
             <form id='secoundStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Где ты учишься?</div>
 
-                <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()" name='university'>
-                <input type="text"placeholder='Факультет' onclick="navigation.showListOfFaculties()" name='faculty'>
-                <input type="text" placeholder='Курс' onclick="navigation.hideAllLists()" name='year'>
-                <input type="text" placeholder='Группа' onclick="navigation.hideAllLists()" name='group'>
+                <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()" name='university' readonly>
+                <input type="text"placeholder='Факультет' onclick="navigation.showListOfFaculties()" name='faculty' readonly>
+                <input type="number" placeholder='Курс' onclick="navigation.hideAllLists()" name='year'>
+                <input type="number" placeholder='Группа' onclick="navigation.hideAllLists()" name='group'>
 
                 <p class='NextButton fontBlueColor' onclick='navigation.goToThirdStepOfReg()'>Далее</p>
 
@@ -119,7 +119,7 @@
                             <p class='fontBlueColor'>Сообщения внутри группы</p>
                         </div>
                         <p class="textInINFOblock rightInfoColumn fontBlueColor">
-                            Мы упростили обмен информацией в рамках группы на столько, на сколько это было возможно: <br> 
+                            Мы упростили обмен информацией в рамках группы настолько, насколько это было возможно: <br> 
                             обмен сообщениями, документами и фотографиями <br>
                             мгновенное информирование всех участников группы с помощью push-уведомлений.
                         </p>

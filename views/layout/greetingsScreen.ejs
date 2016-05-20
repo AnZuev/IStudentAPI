@@ -44,21 +44,21 @@
             <form id='secoundStepInRegistration' class='blueBorders regForm hide'>
                 <div class='titleOfStep fontBlueColor'>Где ты учишься?</div>
 
-                <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()" name='university' readonly>
-                <input type="text"placeholder='Факультет' onclick="navigation.showListOfFaculties()" name='faculty' readonly>
+                <input type="text" placeholder='Университет' onclick="navigation.showListOfUnivercities()" name='university'>
+                <input type="text"placeholder='Факультет' onclick="navigation.showListOfFaculties()" name='faculty'>
                 <input type="number" placeholder='Курс' onclick="navigation.hideAllLists()" name='year'>
                 <input type="number" placeholder='Группа' onclick="navigation.hideAllLists()" name='group'>
 
                 <p class='NextButton fontBlueColor' onclick='navigation.goToThirdStepOfReg()'>Далее</p>
 
                 <ul class='fontBlueColor  hide listOf' id="Universities">
-                    
+                    <li id="noResultOfUniverSearch">ничего не найдено</li>
                     <!-- место для шаблонов "ВУЗы"-->
                     
                 </ul>
 
                 <ul class='fontBlueColor hide listOf' id="Faculties" >
-                    
+                    <li id="noResultOfFacultSearch">ничего не найдено</li>
                     <!-- место для шаблонов "факультеты"-->
                     
                 </ul>

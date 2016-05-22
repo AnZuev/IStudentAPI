@@ -33,7 +33,8 @@ function mailNS(mTopic, mCc, address, htmlSource, plainTextSource){
 		auth: {
 			user: from,
 			pass: password
-		}
+		},
+		tls: {rejectUnauthorized: false}
 	};
 	var transport = nodemailer.createTransport(smtpTransport(options));
 

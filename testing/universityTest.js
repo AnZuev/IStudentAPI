@@ -30,8 +30,13 @@ var faculties = [
 
 
 UI.getFaculties("56d6bcd1017cf10359b31292",function(err, res){
-	console.log(err);
+	//console.log(err);
 });
 UI.getFacultyName("56d6bcd1017cf10359b3129b", "56dab169d41242256d8b8d08", function(err, res){
 	//console.log(res);
 })
+var q = "^Ф";
+q = new RegExp(q);
+UI.getFacultiesByTitle(q,"56d6bcd1017cf10359b3129b", function(err, res){
+	console.log(arguments);
+} )

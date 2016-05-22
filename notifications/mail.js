@@ -10,11 +10,11 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var mailBoxes = {
 	auth: {
 		mail: "auth@istudentapp.ru",
-		password: "uxsqplqcfrgorxhj"
+		password: "quetbxdfpzhtsnid"
 	},
 	restorePassword: {
 		mail: "auth@istudentapp.ru",
-		password: "uxsqplqcfrgorxhj"
+		password: "quetbxdfpzhtsnid"
 	}
 
 };

@@ -7,13 +7,11 @@ exports.post = function(req, res, next){
     var id;
     try {
         id = mongoose.Types.ObjectId(req.body.id);
-
     }
     catch (err){
-        next(new HttpError(400, "Не переданы все необходимые параметры"));
+        return next(new HttpError(400, "Не переданы все необходимые параметры"));
     }
 
-    console.log(arguments);
     SI.activate(id, function (err, result) {
         if (err) {
             next(err);

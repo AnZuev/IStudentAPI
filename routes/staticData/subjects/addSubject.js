@@ -5,12 +5,12 @@ var HttpError = require('../../../error/index').HttpError;
 exports.post = function(req, res, next){
 
 	var title = req.body.title;
-	console.log(title);
 	try {
 		if (title.length > 0) {
 			SI.addSubject(title, function (err, result) {
 				if (err) {
-					next(err);
+					if (err.code == 400) next(new HttpError(400, "Невозможно выполнить операцию"))
+					else next(err);
 				} else {
 					res.json(result);
 					res.end();
@@ -24,7 +24,5 @@ exports.post = function(req, res, next){
 		var err = new HttpError(400, util.format("Не переданы все необходимые параметры"));
 		next(err);
 	}
-
-
 };
 

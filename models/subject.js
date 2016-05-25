@@ -118,7 +118,10 @@ subject.statics.addSubject = function(title, callback){
         title: title
     });
     newSubject.save(function(err, subject){
-        if(err) return callback(new dbError(err));
+        if(err) {
+            if (err.code == 11000 || err.code == 11001) return callback(new dbError(null, 400, "Уже существует такой"));
+            else return callback(new dbError(err));
+        }
         else{
             var subjectToReturn = {
                 title: subject.title,
@@ -137,15 +140,11 @@ subject.statics.addSubject = function(title, callback){
  */
 subject.statics.removeSubjectById = function(id, callback){
     var subjects = this;
-
-    subjects.remove({_id: id}, function(err, subject){
-        if(err) return callback(new dbError(err));
-        if(!subject) return callback("No subject found");
-        else {
-            return callback(null, true);
-        }
+    subjects.remove({_id: id}, function (err, subject) {
+        if (err) return callback(new dbError(err));
+        if (subject.result.n == 0) return callback(new dbError(null, 204, "No subject found"));
+        else return callback(null, true);
     });
-
 };
 
 /*
@@ -157,16 +156,19 @@ subject.statics.removeSubjectById = function(id, callback){
  */
 subject.statics.changeName = function(id, newTitle, callback){
     var subjects = this;
-    
-    subjects.findOneAndUpdate({_id:id}, {title: newTitle}, function(err, subject){
-        if(err) return callback(new dbError(err));
-        if(!subject) return callback("No subject found");
-        else {
-            return callback(null, true);
-        }
-    });
-    
-    
+
+    subjects.update({_id: id},
+        {
+            title: newTitle
+        },  function(err, subject){
+            if (err){
+                if (err.code == 11000|| err.code == 11001) return callback(new dbError(null, 400, "Невозможно выполнить операцию"));
+                else return callback(new dbError(err));
+            }
+            else    if(subject.nModified == 0) return callback(new dbError(null, 204, "No subject found"));
+            else return callback(null,true);
+
+        });
 };
 
 /*
@@ -183,7 +185,7 @@ subject.statics.activate = function(id,callback) {
     },  function(err, res){
              if (res.nModified != 0 && res.n != 0) return callback(null, true);
              else if(err) return callback(new dbError(err));
-                  else if (res.nModified == 0) return new dbError(null, 404, util.format("no subject found by %s", id));
+                  else if (res.nModified == 0) return callback(new dbError(null, 404, util.format("no subject found by %s", id)));
 
     });
 };

@@ -10,14 +10,14 @@ exports.post = function(req, res, next){
         id = mongoose.Types.ObjectId(req.body.id);
     }
     catch (err){
-        next(new HttpError(400, "Не переданы все необходимые параметры"));
-    }   
+        return next(new HttpError(400, "Не переданы все необходимые параметры"));
+    }
     if(newTitle.length > 0) {
         SI.changeName(id, newTitle,  function (err, result) {
             if (err) {
-                next(err);
+                if(err.code == 400) next(new HttpError(400,"Невозможно выполнить операцию"));
+                else next(err);
             } else {
-
                 res.json({result: result});
                 res.end();
                 next();

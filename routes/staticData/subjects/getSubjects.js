@@ -1,5 +1,6 @@
 var util = require('util');
 var SI = require('../../../models/subject').subject;
+var HttpError = require('../../../error/index').HttpError;
 
 exports.get = function(req, res, next){
 	var title = req.query.title;
@@ -25,8 +26,11 @@ exports.get = function(req, res, next){
 			}
 		})
 	}else {
-		SI.getAllSubjects(function(err,result) {
-			if(err) next(err);
+		SI.getActivatedSubjects(function(err,result) {
+			if(err) {
+				if (err.code == 204) return next(new HttpError(204, err.message));
+				else next(err);
+			}
 			else {
 				res.json(result);
 				res.end();

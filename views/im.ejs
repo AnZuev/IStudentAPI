@@ -41,6 +41,7 @@
 	<div>
 
 		<div id="wrapperOfLayoutForContact">
+			<p id='addContactButton' onclick="IM.addNewContact();"> <img src="<%=publicStaticServer%>/images/im/imAddContactButton.png" alt="">Добавить</p>
 			<div id="layoutForContact">
 				<p id="waitingResult" class="hide">Здесь будут выводиться результаты</p>
 				<p id="noResultsContacts" class="hide">Ничего не найдено</p>
@@ -64,6 +65,13 @@
 			</div>
 
 		</div>
+
+		<div id="menuForSwitchContactsDialogs" class='dialogsActive'>            
+            <img src="<%=publicStaticServer%>/images/im/bottomBarIconActiveDialogsTab.svg" onclick="IM.DialogsButtonClick();"alt="">
+            <img src="<%=publicStaticServer%>/images/im/bottomBarIconDisactiveDialogsTab.svg" alt="">
+            <img src="<%=publicStaticServer%>/images/im/bottomBarIconDisactiveContactsTab.svg" alt="">
+            <img src="<%=publicStaticServer%>/images/im/bottomBarIconActiveContactsTab.svg" onclick="IM.ContactsButtonClick();"alt="">
+        </div>
 
 		<form action="" id="formForMessage" class="hide">
 			
@@ -154,6 +162,23 @@
             </div>
 
         </div>
+
+        <div id="areaForAddingContact" class=''>
+            <ul>
+              <li> <p>Имя, Фамилия</p>  <input type="text"> </li>
+              <li> <p>Университет</p>  <input type="text"> </li>
+              <li> <p>Факультет</p>  <input type="text"> </li>
+            </ul>
+
+            <hr>
+
+            <p id="noFindedParticipants" class="hide">Ваш друг не найден <br> Проверьте критерии поиска</p>
+
+            <ul id="listForFindedParticipants" class="">      
+                                
+      
+            </ul>
+          </div>
 
 
 		<div class="clear"></div>

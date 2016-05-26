@@ -1,4 +1,4 @@
-var UI = require('../../../models/subject').subject;
+var SI = require('../../../models/subject').subject;
 var HttpError = require('../../../error/index').HttpError;
 var mongoose = require("../../../libs/mongoose");
 
@@ -7,19 +7,17 @@ exports.post = function(req, res, next){
     var newTitle, id;
     try {
         newTitle = req.body.title;
-        id = req.body.id;
-        id = mongoose.Types.ObjectId(id);
+        id = mongoose.Types.ObjectId(req.body.id);
     }
     catch (err){
-        next(new HttpError(400, "Не переданы все необходимые параметры"));
+        return next(new HttpError(400, "Не переданы все необходимые параметры"));
     }
-
     if(newTitle.length > 0) {
-        UI.changeName(id, newTitle,  function (err, result) {
+        SI.changeName(id, newTitle,  function (err, result) {
             if (err) {
-                next(err);
+                if(err.code == 400) next(new HttpError(400,err.message));
+                else next(err);
             } else {
-
                 res.json({result: result});
                 res.end();
                 next();

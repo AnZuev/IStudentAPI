@@ -1,4 +1,4 @@
-var UI = require('../../../models/subject').subject;
+var SI = require('../../../models/subject').subject;
 var HttpError = require('../../../error/index').HttpError;
 var mongoose = require("../../../libs/mongoose");
 
@@ -10,10 +10,10 @@ exports.post = function(req, res, next){
         id = mongoose.Types.ObjectId(id);
     }
     catch (err){
-        next(new HttpError(400, "Не переданы все необходимые параметры"));
+        return next(new HttpError(400, "Не переданы все необходимые параметры"));
     }
 
-    UI.deactivate(id, function (err, result) {
+    SI.deactivate(id, function (err, result) {
         if (err) {
             next(err);
         } else {

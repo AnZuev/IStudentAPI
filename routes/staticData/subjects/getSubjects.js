@@ -1,14 +1,14 @@
 var util = require('util');
-var UI = require('../../../models/subject').subject;
+var SI = require('../../../models/subject').subject;
 
 exports.get = function(req, res, next){
 	var title = req.query.title;
+	
 
-	if (title.length > 0) {
+	if (title) {
 		title = '^' + title;
 		title = new RegExp(title, "i");
-
-		UI.getSubjectsByTitle(title, function (err, result) {
+		SI.getSubjectsByTitle(title, function (err, result) {
 			if (err) {
 				if(err.code == 204)
 				{
@@ -26,7 +26,8 @@ exports.get = function(req, res, next){
 			}
 		})
 	}else {
-		UI.getAllSubjects(function(err,result) {
+		SI.getAllSubjects(function(err,result) {
+
 			if(err) next(err);
 			else {
 				res.json(result);

@@ -41,7 +41,7 @@
 	<div>
 
 		<div id="wrapperOfLayoutForContact">
-			<p id='addContactButton' onclick="IM.addNewContact();"> <img src="<%=publicStaticServer%>/images/im/imAddContactButton.png" alt="">Добавить</p>
+			<p id='addContactButton' onclick="IM.addNewContact();" class='hide'> <img src="<%=publicStaticServer%>/images/im/imAddContactButton.png" alt="">Добавить</p>
 			<div id="layoutForContact">
 				<p id="waitingResult" class="hide">Здесь будут выводиться результаты</p>
 				<p id="noResultsContacts" class="hide">Ничего не найдено</p>
@@ -56,6 +56,14 @@
 		</div>
 
 
+		<div id="menuForSwitchContactsDialogs" class='dialogsActive'>            
+            <img src="<%=publicStaticServer%>/images/im/bottomBarIconActiveDialogsTab.svg" alt="">
+            <img src="<%=publicStaticServer%>/images/im/bottomBarIconDisactiveDialogsTab.svg" onclick="IM.DialogsButtonClick();"alt="">
+            <img src="<%=publicStaticServer%>/images/im/bottomBarIconDisactiveContactsTab.svg" onclick="IM.ContactsButtonClick();"alt="">
+            <img src="<%=publicStaticServer%>/images/im/bottomBarIconActiveContactsTab.svg" alt="">
+        </div>
+
+
 		<div id="wrapperOfLayoutMessages" class="">
 			<div id="layoutForMessages">
 				<p id="noMessages" class='hide'><span class="imGreetingScreenUsername">Привет, <%=user.name%>!</span> <br/> Выбери диалог</p>
@@ -66,12 +74,7 @@
 
 		</div>
 
-		<div id="menuForSwitchContactsDialogs" class='dialogsActive'>            
-            <img src="<%=publicStaticServer%>/images/im/bottomBarIconActiveDialogsTab.svg" alt="">
-            <img src="<%=publicStaticServer%>/images/im/bottomBarIconDisactiveDialogsTab.svg" onclick="IM.DialogsButtonClick();"alt="">
-            <img src="<%=publicStaticServer%>/images/im/bottomBarIconDisactiveContactsTab.svg" onclick="IM.ContactsButtonClick();"alt="">
-            <img src="<%=publicStaticServer%>/images/im/bottomBarIconActiveContactsTab.svg" alt="">
-        </div>
+		
 
 		<form action="" id="formForMessage" class="hide">
 			

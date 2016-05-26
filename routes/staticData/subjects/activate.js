@@ -3,7 +3,6 @@ var HttpError = require('../../../error/index').HttpError;
 var mongoose = require("../../../libs/mongoose");
 
 exports.post = function(req, res, next){
-
     var id;
     try {
         id = mongoose.Types.ObjectId(req.body.id);

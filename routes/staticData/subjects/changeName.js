@@ -15,7 +15,7 @@ exports.post = function(req, res, next){
     if(newTitle.length > 0) {
         SI.changeName(id, newTitle,  function (err, result) {
             if (err) {
-                if(err.code == 400) next(new HttpError(400,"Невозможно выполнить операцию"));
+                if(err.code == 400) next(new HttpError(400,err.message));
                 else next(err);
             } else {
                 res.json({result: result});

@@ -14,7 +14,7 @@ exports.post = function(req, res, next){
     SI.removeSubjectById(id, function (err, result) {
         if (err) {
             if (err.code == 404) next(new HttpError(404, "No subjects found to remove"));
-            else next(new HttpError(500, util.format("Ошибка при удалении %s", err.message)));
+            else next(500);
         } else {
             res.json({result: result});
             res.end();

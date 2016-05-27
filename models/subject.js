@@ -80,7 +80,7 @@ subject.statics.getActivatedSubjects = function(callback){
  */
 subject.statics.getAllSubjects = function(callback){
 
-    this.find({}, {title:1}, function(err, res){
+    this.find({}, {}, function(err, res){
         if(err) return callback(new dbError(err));
         else{
             if(!res) return callback(new dbError(null, 204, util.format("no subject found")));

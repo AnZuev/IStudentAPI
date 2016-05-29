@@ -58,10 +58,29 @@ subject.statics.getSubjectNameById = function(id, callback){
     Вход: -
     Выход: список всех предметов с названиями и id
  */
-subject.statics.getAllSubjects = function(callback){
+subject.statics.getActivatedSubjects = function(callback){
 
     this.find({
         enabled: true}, {title:1}, function(err, res){
+        if(err) return callback(new dbError(err));
+        else{
+            if(!res) return callback(new dbError(null, 204, util.format("no subject found")));
+            else{
+                if(res.length == 0) return callback(new dbError(null, 204, util.format("no subjects")));
+                else return callback(null, res);
+            }
+        }
+
+    })
+};
+
+/*
+ Вход: -
+ Выход: список всех предметов с названиями и id
+ */
+subject.statics.getAllSubjects = function(callback){
+
+    this.find({}, {}, function(err, res){
         if(err) return callback(new dbError(err));
         else{
             if(!res) return callback(new dbError(null, 204, util.format("no subject found")));

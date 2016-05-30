@@ -1,7 +1,6 @@
 var SI = require('../../../models/subject').subject;
 var HttpError = require('../../../error/index').HttpError;
 var mongoose = require("../../../libs/mongoose");
-var util = require('util');
 
 exports.post = function(req, res, next){
     var id;

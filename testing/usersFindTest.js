@@ -3,12 +3,11 @@
  */
 
 var User = require('./../models/User').User;
-
+var async = require('async');
 var util = require('util');
-
-var group = 4304;
-var name = 'А';
-var surname = "Зуев";
+var mongoose = require('mongoose');
+var conversation = require('./../models/conversation').conversation;
+var id = "573c81ab91a9adc21bd70747";
 /*
 User.getPeopleByGroupNumber(group, function(err, result){
     console.log(arguments);
@@ -34,20 +33,33 @@ var year = 1;
 var studNumber = 43029899;
 var password = 'qwerty1234';
 //name, surname, group, faculty, university, year, mail, password,
- for(var i = 0; i < 10; i++){
+ /*for(var i = 0; i < 10; i++){
 	 User.signUp(firstNames[i%8], lastNames[i%7], group, faculty, university, year, studNumber+i+1+"", password, function(err, user){
 		 if(err) throw err;
 		 else{
 		    console.log(user);
 		 }
 	 });
- }
+ }*/
+/*
+var tasks = [];
+User.find({}, function(err, res){
+	res.forEach(function(user){
+		if(user._id == id) return;
+		tasks.push(taskToAdd(user));
+	});
+	async.parallel(tasks, function(err, res){
+		console.log(arguments);
+	});
+
+});
+*/
 
 
-
-/*User.getPeopleByOneKey(str, function(err, callback){
+var str = 'A'
+User.getPeopleByOneKey(str, function(err, callback){
 	console.log(arguments);
-});*/
+})
 /*User.getUserById(userId, function(err, user){
     console.log(user);
 })
@@ -63,3 +75,4 @@ for(var i = 0; i<userId.length; i++){
 User.activate("anzuev@bk.ru", "44a1f39b454a0df16639a9d0c98f51481ffe68a5", function(err, res){
 	console.log(arguments);
 });*/
+

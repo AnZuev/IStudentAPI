@@ -32,7 +32,7 @@
             console.log(data);
         });
 */
-		var messageItem = {
+		/*var messageItem = {
             text:"Сообщение в public беседу",
             attachments: [],
             convId:"56dd2a38532b3cc87ea716c9"
@@ -40,17 +40,15 @@
 
         im.emit('sendMessage', messageItem, function(data){
             console.log(data);
-        });
-/*
-        var data = {
-            userId:"56a39f9e0e5d3cd81d876f98",
-            title: "Попов"
+        });*/
 
+        var data = {
+            title: "П"
         };
         im.emit('getConvsByTitle', data, function(data){
             console.log(data);
         })
-
+/*
         data = {
             convId: "56a8eeaedc88281bbc9ff623"
         }

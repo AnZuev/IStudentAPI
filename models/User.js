@@ -74,7 +74,7 @@ var User = new Schema({
     },
 
     contacts:[{
-	    id:Schema.Types.ObjectId,
+	    id: Schema.Types.ObjectId,
 	    updated: {
 		    type:Date,
 		    default:Date.now()
@@ -733,7 +733,9 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
     Добавление контактов
  */
 User.statics.addContacts = function(userId, contact, callback){
-	this.update({_id: userId}, {$addToSet:{contacts: contact}}, function(err, res){
+
+
+	this.update({_id: userId}, {$addToSet:{contacts: {id:contact}}}, function(err, res){
 		if(err){
 			return callback(new dbError(err));
 		}else{

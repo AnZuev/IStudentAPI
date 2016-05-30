@@ -17,7 +17,6 @@ var async = require("async");
 
 
 var libs = require('../libs/libs');
-var universityInterface = require('../../../data/index').universityInfoLoader;
 var taskToMakeContact = require('../../../models/university').taskToMakeContact;
 var log = require('../../../libs/log')(module);
 var util = require('util');
@@ -37,13 +36,11 @@ module.exports = function(socket, data, cb){
 		keyword[i] = '^' + keyword[i].toLowerCase();
 		keyword[i] = new RegExp(keyword[i], 'ig');
 	}
-
 	async.parallel([
 		function(callback){
 			switch (keyword.length){
 				case 1:
 					User.getContactsByOneKey(socket.request.headers.user.id, keyword[0], function(err, users){
-
 						if(err) {
 							if(err instanceof dbError) return callback(null, []);
 							else return callback(null);
@@ -118,7 +115,16 @@ module.exports = function(socket, data, cb){
 		if(err) throw err;
 		else{
 			var conversations = [];
-			conversations = conversations.concat(results[0]);
+			results[0].forEach(function(element){
+				var obj = {
+					userId: element._id,
+					title: element.username,
+					description: element.about,
+					photo: element.photo,
+					type: "private"
+				};
+				conversations.push(obj);
+			});
 			conversations = conversations.concat(results[1]);
 			if(conversations.length > 0) return cb(conversations);
 			else{

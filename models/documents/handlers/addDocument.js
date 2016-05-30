@@ -3,9 +3,14 @@ var dbError = require('../../../error').dbError;
 
 exports.addDocument = function(document,callback){
 	var Document = this;
-	document.parts.forEach(function(element, index){
-		document.parts[index].serialNumber = index;
-	});
+	try{
+		document.parts.forEach(function(element, index){
+			document.parts[index].serialNumber = index;
+		});
+	}catch(e){
+		document.parts = [];
+	}
+
 
 	var newDoc = new Document({
 		title: document.title,

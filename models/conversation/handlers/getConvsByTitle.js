@@ -1,5 +1,5 @@
 var dbError = require('../../../error/index').dbError;
-
+var mongoose = require('mongoose');
 
 module.exports = function(title, userId, callback){
 

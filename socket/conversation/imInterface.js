@@ -3,7 +3,7 @@ var imServiceEE = new EventEmitter();
 var sockets = require('../common/sockets').sockets;
 var async = require('async');
 var dialogStorage = require('./../../models/conversation/index').conversation;
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var dbError = require('../../error').dbError;
 var addSocketToDB = require('../common/libs').addSocketToDB;
 var log = require('../../libs/log')(module);
@@ -69,7 +69,7 @@ function imService(ee){
 	        });
 
 	        socket.on('removeParticipant', function(data, cb){
-		        require('./handlers/modifyParticipants').removeParticipant(socket, data, cb);
+		        require('./handlers/modifyParticipants').removeParticipants(socket, data, cb);
 	        });
 
 	        socket.on('exitFromConv', function(data, cb){
@@ -92,6 +92,9 @@ function imService(ee){
 			});
 	        socket.on('isOnline', function(data, cb){
 		       require('./handlers/isOnlineHandler')(socket, data, cb);
+	        });
+	        socket.on('getContacts', function(data, cb){
+		        require('./handlers/getContacts')(socket, data, cb);
 	        });
 	        /*socket.on('findContacts', function(data, cb){
 		        require('./handlers/findContacts')(socket, data, cb);

@@ -42,12 +42,7 @@
             console.log(data);
         });*/
 
-        var data = {
-            title: "П"
-        };
-        im.emit('getConvsByTitle', data, function(data){
-            console.log(data);
-        })
+
 /*
         data = {
             convId: "56a8eeaedc88281bbc9ff623"
@@ -86,7 +81,8 @@
 			console.log(data);
 		} )
 		*/
-		im.emit("isOnline", {userId: "56dac471cbee69326e9be7bf"}, function(data){
+
+		im.emit('getConvsByTitle', { title: "Гео"}, function(data){
 			console.log(data);
 		})
     });

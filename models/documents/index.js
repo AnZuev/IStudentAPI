@@ -47,7 +47,6 @@ var document = new Schema({
 	},
 	parts:[
 		{
-			id: Schema.Types.ObjectId, // идентификатор файла в коллекции files
 			url: String, // ссылка на файл для скачивания
 			serialNumber: Number // номер файла в данной работе(1, 2 и тд)
 		}

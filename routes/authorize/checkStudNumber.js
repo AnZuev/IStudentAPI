@@ -1,4 +1,4 @@
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var console = require('../../libs/log')(module);
 
 

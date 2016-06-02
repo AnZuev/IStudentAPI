@@ -3,7 +3,7 @@ var authError = require('../../error').authError;
 var dbError = require('../../error').dbError;
 
 var util = require('util');
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 
 
 exports.checkPasswordToken = function(req, res, next){

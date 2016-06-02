@@ -10,7 +10,7 @@
 var mongoose = require('../../libs/mongoose'),
     Schema = mongoose.Schema;
 var async = require('async');
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var dbError = require('../../error').dbError;
 var log = require('../../libs/log')(module);
 

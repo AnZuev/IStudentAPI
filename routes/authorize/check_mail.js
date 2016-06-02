@@ -1,4 +1,4 @@
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 
 
 exports.get = function(req, res, next){

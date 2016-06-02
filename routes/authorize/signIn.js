@@ -1,4 +1,4 @@
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var authError = require('../../error').authError;
 var httpError = require('../../error').HttpError;
 var log = require('../../libs/log')(module);

@@ -1,4 +1,4 @@
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var calendarNews = require('../../models/calendarNews').calendarNews;
 var DbError = require('../../error').DbError;
 var async = require('async');

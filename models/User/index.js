@@ -1,14 +1,18 @@
-var crypto  = require('crypto');
-var mongoose = require('../libs/mongoose'),
-    Schema = mongoose.Schema;
-var util = require('util');
+'use strict';
 
+
+var crypto  = require('crypto');
+var mongoose = require('../../libs/mongoose'),
+    Schema = mongoose.Schema,
+	Q = require('q');
+var util = require('util');
+var university = require('../university').university,
+	Sockets = require(appRoot + '/socket/common/sockets.js').sockets;
 
 var async = require('async');
-var authError = require('../error').authError;
-var dbError = require('../error').dbError;
-var log = require('../libs/log')(module);
-
+var authError = require('../../error/index').authError;
+var dbError = require('../../error/index').dbError;
+var log = require('../../libs/log')(module);
 
 
 var User = new Schema({
@@ -515,130 +519,11 @@ User.statics.getPeopleByThreeKeys = function(key1, key2, key3, callback){
 /*
     Поиск по контактам. (по 1-ому, 2-ум или 3-ем ключам)
  */
+User.statics.getAllContacts = require('./handlers/getAllContacts');
 
-User.statics.getUserById = function(userId, callback){
-    this.findById(userId, function(err, user){
-        if(err) return callback(new dbError(err, null, null));
-        else{
-            if(user) return callback(null, user);
-            else return callback(null, false);
+User.statics.getContactsByOneKey = require('./handlers/getContacts').byOneKey;
 
-        }
-    });
-};
-
-User.statics.getContactsByOneKey = function (userId, key, callback){
-    var User = this;
-    async.waterfall([
-        function(callback){
-	        User.findOne({_id:userId}, callback);
-        },
-        function(user, callback){
-           if(!user) return callback(new dbError(null, 400, "Incorrect userId"));
-			else{
-	           var contacts = [];
-	           user.contacts.forEach(function(item){
-		           contacts.push(item.id);
-	           })
-           }
-            User.aggregate([
-	            {
-		            $match: {
-			            $or:[
-				            {"pubInform.name": {$regex:key}},
-				            {"pubInform.surname": {$regex:key}}
-			            ],
-			            _id: { $in: contacts}
-		            }
-	            },
-                {
-                    $project:
-                    {
-                        username:{$concat:["$pubInform.name", " ", "$pubInform.surname"]},
-                        group: "$pubInform.group",
-	                    university: "$pubInform.university",
-	                    faculty: "$pubInform.faculty",
-                        photo: "$pubInform.photo",
-	                    year: "$pubInform.year"
-                    }
-                },
-	            { $limit : 5 },
-	            {
-                    $sort:{"contacts.updated":1}
-                }
-            ], function(err, users){
-	            if(err) throw err;
-                if(users.length == 0){
-                    return callback(new dbError(null, 204, null));
-                }else{
-                    return callback(null, users);
-                }
-            });
-
-
-
-        }
-    ], callback);
-};
-
-User.statics.getContactsByTwoKeys = function(userId, key1, key2, callback){
-    var User = this;
-    async.waterfall([
-        function(callback){
-            User.findById(userId, callback);
-        },
-        function(user, callback){
-            if(user){
-	            User.aggregate([
-		            {
-			            $match: {
-				            $or:[
-					            {
-						            $and:[
-							            {"pubInform.name": {$regex:key1}},
-							            {"pubInform.surname": {$regex:key2}}
-						            ]
-					            },
-					            {
-						            $and:[
-							            {"pubInform.name": {$regex:key2}},
-							            {"pubInform.surname": {$regex:key1}}
-						            ]
-					            }
-
-				            ],
-				            _id: { $in: user.contacts.id}
-			            }
-		            },
-		            {
-			            $project:
-			            {
-				            username:{$concat:["$pubInform.name", " ", "$pubInform.surname"]},
-				            group: "$pubInform.group",
-				            university: "$pubInform.university",
-				            faculty: "$pubInform.faculty",
-				            photo: "$pubInform.photo",
-				            year: "$pubInform.year"
-			            }
-		            },
-		            { $limit : 5 },
-		            {
-                        $sort:{"contacts.updated":1}
-		            }
-	            ], function(err, users){
-		            if(err) throw err;
-		            if(users.length == 0){
-			            return callback(new dbError(null, 204, null));
-		            }else{
-			            return callback(null, users);
-		            }
-	            });
-
-
-            }
-        }
-    ], callback);
-};
+User.statics.getContactsByTwoKeys = require('./handlers/getContacts').byTwoKeys;
 
 User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callback){
     var User = this;
@@ -728,6 +613,18 @@ User.statics.getContactsByThreeKeys = function(userId, key1, key2, key3, callbac
 };
 
 
+
+
+User.statics.getUserById = function(userId, callback){
+	this.findById(userId, function(err, user){
+		if(err) return callback(new dbError(err, null, null));
+		else{
+			if(user) return callback(null, user);
+			else return callback(null, false);
+
+		}
+	});
+};
 
 /*
     Добавление контактов
@@ -911,7 +808,51 @@ User.statics.addImSettings = function(userId, convId, settings, callback){
 };
 
 
+User.methods.makeContact = function(){
+	var user = this;
+	var deferred = Q.defer();
+	let universityName = user.pubInform.university;
+	let facultyName = user.pubInform.faculty;
+	university.findOne(
+		{
+			_id: universityName,
+			"faculties._id": facultyName
+		},
+		{
+			"faculties.$":1,
+			title:1
+		},
+		function(err, universityItem){
+			if(err || !universityItem) deferred.reject(new dbError(err));
+			else{
+				var userToReturn = {
+					id: user._id,
+					username: user.pubInform.name +" " + user.pubInform.surname,
+					group: user.pubInform.group,
+					university:  universityItem.getUniversityName(),
+					faculty: universityItem.faculties[0].title,
+					photo: user.pubInform.photo,
+					year: user.pubInform.year
+				};
+				deferred.resolve(userToReturn);
+			}
+		});
+	return deferred.promise;
+};
+User.methods.isOnline = function(){
+	var user = this;
+	var deferred = Q.defer();
 
+	Sockets.checkIfUserOnline(user.id, function(err, result){
+		if(err){
+			deferred.reject(new dbError(err));
+		}else{
+			deferred.resolve(result);
+		}
+	});
+
+	return deferred.promise;
+};
 
 
 

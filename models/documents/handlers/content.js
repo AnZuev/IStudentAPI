@@ -15,7 +15,7 @@ exports.addPart = function(documentId, userId, newPart, callback){
 				if(document.parts){
 					var flag = false;
 					document.parts.forEach(function(part){
-						if(part.id == newPart.id){
+						if(part.url == newPart.url){
 							flag = true;
 						}
 					});

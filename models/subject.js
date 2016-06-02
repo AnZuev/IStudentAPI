@@ -122,7 +122,7 @@ subject.statics.getSubjectsByTitle = function(title, callback){
         }
     ], function(err, subjectsItem){
          if(err) return callback(new dbError(err));
-        if(subjectsItem.length == 0) return callback(new dbError(null, 204, util.format("no such subject found by %s", title)));
+        if(subjectsItem.length == 0) return callback(new dbError(null, 204, util.format("no subjects found by %s", title)));
         return callback(null, subjectsItem);
     })
 };
@@ -161,7 +161,7 @@ subject.statics.removeSubjectById = function(id, callback){
     var subjects = this;
     subjects.remove({_id: id}, function (err, subject) {
         if (err) return callback(new dbError(err));
-        if (subject.result.n == 0) return callback(new dbError(null, 404, util.format("No subject found with such id: %s",id)));
+        if (subject.result.n == 0) return callback(new dbError(null, 404, util.format("No subject found by id: %s",id)));
         else return callback(null, true);
     });
 };
@@ -184,7 +184,7 @@ subject.statics.changeName = function(id, newTitle, callback){
                 if (err.code == 11000|| err.code == 11001) return callback(new dbError(null, 400, util.format("Невозможно выполнить операцию, так как уже есть предмет с названием %s", newTitle)));
                 else return callback(new dbError(err));
             }
-            else    if(subject.nModified == 0) return callback(new dbError(null, 404, "Не найдено предметов для изменеия"));
+            else if(subject.nModified == 0) return callback(new dbError(null, 404, "Не найдено предметов для изменеия"));
             else return callback(null,true);
 
         });

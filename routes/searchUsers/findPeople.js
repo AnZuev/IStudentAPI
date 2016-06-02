@@ -2,7 +2,7 @@ var mongoose = require("../../libs/mongoose");
 var util = require('util');
 var async = require('async');
 
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var UI = require('../../models/university').university;
 
 

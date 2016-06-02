@@ -1,8 +1,9 @@
-var dbError = require('../../../error/index').dbError;
-var mongoose = require('mongoose');
+'use strict';
+var mongoose = require('mongoose'),
+	Q = require('q');
 
-module.exports = function(title, userId, callback){
-
+module.exports = function(title, userId){
+	var deffer = Q.defer();
 	this.aggregate([
 		{
 			$match:
@@ -36,12 +37,11 @@ module.exports = function(title, userId, callback){
 		{
 			$sort:{updated:1}
 		}
-	], function(err, convs){
-		if(err) throw err;
-		if(convs.length == 0){
-			return callback(new dbError(null, 204, null));
-		}else{
-			return callback(null, convs);
+	], function(err, conversations){
+		if(err) deffer.reject(err);
+		else{
+			return deffer.fulfill(conversations);
 		}
-	})
+	});
+	return deffer.promise;
 };

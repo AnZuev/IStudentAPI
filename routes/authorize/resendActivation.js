@@ -1,4 +1,4 @@
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var authError = require('../../error').authError;
 var UI = require('../../models/university').university;
 var FI = require('../../models/university').faculty;

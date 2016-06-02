@@ -1,4 +1,4 @@
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var httpError = require('../../error').HttpError;
 
 var mailNS = require('../../notifications/mail').mailNS;

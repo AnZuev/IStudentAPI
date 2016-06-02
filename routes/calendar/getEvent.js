@@ -1,7 +1,7 @@
 var Event = require('../../models/Events').Event;
 var HttpError = require('../../error').HttpError;
 var AuthError = require('../../error').AuthError;
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var async = require('async');
 
 

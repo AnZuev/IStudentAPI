@@ -2,7 +2,7 @@ var Event = require('../../models/Events').Event;
 var calendarAdditionalMethods = require("../../libs/additionalFunctions/calendar");
 var ns = require('../../socket/notificationService/nsInterface').ns;
 var HttpError = require('../../error').HttpError;
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var async = require('async');
 
 

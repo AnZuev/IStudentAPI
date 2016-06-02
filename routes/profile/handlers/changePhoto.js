@@ -1,4 +1,4 @@
-var User = require('../../../models/User').User;
+var User = require('../../../models/User/index').User;
 var async = require('async');
 var httpError = require('../../../error').HttpError;
 var file = require('../../../models/file').file;

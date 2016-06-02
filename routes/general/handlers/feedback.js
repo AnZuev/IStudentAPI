@@ -1,4 +1,4 @@
-var Suggest = require('../../models/suggestions').Suggest;
+var Suggest = require('../../../models/suggestions').Suggest;
 
 
 

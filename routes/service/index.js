@@ -2,7 +2,7 @@
  * Created by anton on 30/09/15.
  */
 var httpError = require('../../error').HttpError;
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var util = require("util");
 module.exports = function(app){
 	app.get('/service/stop', function(req, res, next){

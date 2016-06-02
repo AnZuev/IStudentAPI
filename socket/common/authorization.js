@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var sessionStore = require('../../libs/sessionsStore');
 
 var config = require('../../config');
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 var HttpError = require('../../error').HttpError;
 var sockets = require('./sockets').sockets;
 var log = require('../../libs/log')(module);

@@ -11,6 +11,8 @@ var config = require('./config');
 var mongoose = require('./libs/mongoose');
 
 
+global.appRoot = path.resolve(__dirname);
+
 var app = express();
 
 app.engine('ejs', require('ejs-locals'));
@@ -37,22 +39,21 @@ app.use(session({
     saveUninitialized: true,
     store: require('./libs/sessionsStore')
 }));
+
+app.use(require(appRoot + '/testing/testMiddleware/api_key-auth')); // TODO: убрать во время боевого запуска
+
+
 app.use(require('./middleware/sendErrors/sendHttpError'));
 app.use(require('./middleware/sendErrors/sendDbError'));
 app.use(require('./middleware/auth/loadUser'));
 
-
-
-// development error handler
 require('./routes')(app);
 
-// error handlers
-// production error handler
-// no stacktraces leaked to user
 
 
 app.use(function(err, req, res, next) {
     if(err){
+	    console.error(err);
         if(typeof err == "number"){
 	        err = new HttpError(err);
         }
@@ -66,7 +67,6 @@ app.use(function(err, req, res, next) {
     }
 	res.end();
 	next();
-
 
 });
 

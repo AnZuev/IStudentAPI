@@ -1,4 +1,4 @@
-var User = require('../models/User').User;
+var User = require('../models/User/index').User;
 var conversation = require('../models/conversation/index').conversation;
 var sockets = require('../socket/common/sockets').sockets;
 

@@ -203,12 +203,12 @@ university.statics.getUniversitiesByTitle = function(title, format, callback){
 		{
 			$match: {
 				$or:[
-					{
-						title: {$regex: title}
-					},
-					{
-						shortTitle: {$regex: title}
-					}
+						{
+							title: {$regex: title}
+						},
+						{
+							shortTitle: {$regex: title}
+						}
 				]
 
 			}

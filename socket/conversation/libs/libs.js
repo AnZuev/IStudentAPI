@@ -1,7 +1,7 @@
 /**
  * Created by anton on 25/01/16.
  */
-var User = require('../../../models/User').User;
+var User = require('../../../models/User/index').User;
 var UI = require('../../../models/university').university;
 
 var async = require('async');

@@ -2,7 +2,7 @@ var HttpError = require('../../error').HttpError;
 var dbError = require('../../error').dbError;
 
 var util = require('util');
-var User = require('../../models/User').User;
+var User = require('../../models/User/index').User;
 
 
 exports.checkAuth = function(req, res, next){
@@ -21,6 +21,7 @@ exports.checkAuthAndRedirect = function(req, res, next){
 };
 
 exports.checkAuthAndActivation = function(req, res, next){
+
 	if(!req.session.user) {
 		return next(401);
 	}

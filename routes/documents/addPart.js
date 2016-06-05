@@ -18,10 +18,10 @@ exports.post = function(req, res, next) {
 
     async.waterfall([
         function (callback) {
-            FI.getFilePathAndAccessByUrl(url,callback(null,'file'));
+            FI.getFilePathAndAccessByUrl(url,callback);
         },
         function(file,callback){
-            DI.addPart(documentId,userId,file.id,callback);
+            DI.addPart(documentId,userId,file,callback);
         },
         function (callback) {
             FI.markFileUsed(url,callback);

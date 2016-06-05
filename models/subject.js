@@ -24,7 +24,7 @@ var subject = new Schema({
         type: Boolean,
         default: false
     }
-})
+});
 
 
 

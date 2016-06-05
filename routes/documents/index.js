@@ -1,5 +1,8 @@
 module.exports = function(app){
     app.post('/documents/addDocument', require('./addDocument').post);
+    app.post('/documents/addPart', require('./addPart').post);
+    app.post('/documents/removePart', require('./removePart').post);
+
     // app.get('/subjects/getSubjects', require('./getSubjects').get);
     // app.get('/subjects/getAllSubjects', require('./getAllSubjects').get);
     // app.post('/subjects/addSubject', require('./addSubject').post);

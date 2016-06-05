@@ -1,56 +1,56 @@
 var util = require('util');
-var DI = require('../../../models/documents').document;
-var FI = require('../../../models/file').file;
-var HttpError = require('../../../error/index').HttpError;
-var mongoose = require("../../../libs/mongoose");
+var DI = require(appRoot+'/models/documents').document;
+var FI = require(appRoot+'/models/file').file;
+var HttpError = require(appRoot+'/error/index').HttpError;
+var mongoose = require(appRoot+"/libs/mongoose");
+var SI = require(appRoot+'/models/subject').subject;
+var async = require('async');
 
-exports.post = function(req, res, next){
-    console.log(arguments);
-    var document = req.body.document;
+exports.post = function(req, res, next) {
 
-    // var error = new HttpError(400, util.format("Не переда"))
+    var document = req.body;
+
+    if (document.title.length < 6 || document.title.length > 50)
+        return next(new HttpError(400, util.format("РќРµРІРѕР·РјРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РґРѕРєСѓРјРµРЅС‚ СЃ РЅР°Р·РІР°РЅРёРµРј %s", document.title)));
     try {
-        if (req.body.document.title.length < 6 || req.body.document.title.length > 50)
-            return next(new HttpError(400, util.format("Невозможно добавить документ с названием %s", req.body.document.title)));
-        document.title = req.body.document.title;
         document.author = mongoose.Types.ObjectId(req.session.user);
-        document.search.cType = req.body.document.cType;
-        document.search.subject = req.body.document.subject;
-
+        document.search.cType = mongoose.Types.ObjectId(req.body.search.type);
+        document.search.subject = mongoose.Types.ObjectId(req.body.search.subject);
         document.search.universities = req.user.university;
         document.search.faculties = req.user.faculty;
         document.search.year = req.user.year;
-
-    }catch(e){
-        var err = new HttpError(400, util.format("Не переданы все необходимые параметры"));
-        next(err);
+    } catch (e) {
+        var err = new HttpError(400, util.format("Error!"));
+        return next(err);
     }
+    
+        async.series([
+            function (callback) {
+                SI.isExist(document.search.subject, callback);
 
-    if (req.query.isParts == 1) ///
-    {
-        // совпадение айди
-        // document.parts.forEach(function(item,callback){
-        //         FI.getFilePathAndAccessByUrl(item.id,callback){
-        //         if (!res) {
-        //             return next(new HttpError(404, "Не найдена часть загружаемых файлов"));
-        //         }
-        //     };
-        // });
-    }
-
-    else {
-        DI.addDocument(document, function (err, result) {
+            },
+            function (callback) {
+                DI.addDocument(document, callback);
+            }
+        ], function (err, results) {
+            // console.log(results['1']);
             if (err) {
-                if (err.code == 500) next(new HttpError(500, util.format("Ошибка в добавлении")));
+                if (err.code == 404) return next(new HttpError(404, "No subject"));
+                else if (err.code == 500) next(new HttpError(500, "РћС€РёР±РєР° РІ РґРѕР±Р°РІР»РµРЅРёРё"));
                 else next(err);
             } else {
-                res.json(result);
+                if(req.body.parts.length>0) {
+                    document.parts.forEach(function (part) {
+                        console.log(part);
+                        FI.markFileUsed(part.url,function(err,res){
+                            if (err) return next(new HttpError(400, "РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РІ РґРѕР±Р°РІР»РµРЅРёРё С‡Р°СЃС‚РµР№ С„Р°Р№Р»Р°"));
+                        });
+                    });
+                }
+                console.log(arguments);
+                res.json(results['1']);
                 res.end();
                 next();
-            }});
-    }
-
-
-
+            }
+        });
 };
-

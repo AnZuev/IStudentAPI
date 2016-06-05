@@ -1,6 +1,6 @@
 var Document;
 var async = require('async');
-var log = require('../../../libs/log')(module);
+var log = require(appRoot+'/libs/log')(module);
 var taskToAddDocument = require('./addDocument').taskToAddDocument;
 
 exports.addPart = function(documentId, userId, newPart, callback){
@@ -37,7 +37,7 @@ exports.addPart = function(documentId, userId, newPart, callback){
 
 		}
 	],function(err, result){
-		console.log(arguments);
+		// console.log(arguments);
 		if(err){
 			if(err.code == 700){
 				return callback({exception: true, code:403});

@@ -73,10 +73,15 @@ file.statics.markFileUsed = function(url, callback){
 };
 
 
+file.statics.markFileUnUsed = function(url, callback){
+	markFileUnUsedTask(url, 5, callback);
+};
+
 module.exports.file = mongoose.model('file', file);
 
 function addFileTask(file, errCounter, callback){
-	file.save(function(err, result){
+	var FI = require(appRoot+'/models/file').file;
+	FI.save(function(err, result){
 		if(err) {
 			if(errCounter > 5) return callback(err);
 			addFileTask(file, ++errCounter, callback);
@@ -88,8 +93,8 @@ function addFileTask(file, errCounter, callback){
 }
 
 function markFileUsedTask(id, errCounter, callback){
-
-	this.update({_id: id}, {used: true}, function(err, res){
+	var FI = require(appRoot+'/models/file').file;
+	FI.update({_id: id}, {used: true}, function(err, res){
 		if(err) {
 			if(errCounter > 5) return callback(err);
 			markFileUsedTask(id, ++errCounter, callback);
@@ -104,4 +109,20 @@ function markFileUsedTask(id, errCounter, callback){
 
 }
 
+function markFileUnUsedTask(id, errCounter, callback){
+	var FI = require(appRoot+'/models/file').file;
+	FI.update({_id: id}, {used: false}, function(err, res){
+		if(err) {
+			if(errCounter > 5) return callback(err);
+			markFileUnUsedTask(id, ++errCounter, callback);
+		}
+		else{
+			if(res.nModified == 1) return callback(null, true);
+			else{
+				return callback(null, false);
+			}
+		}
+	});
+
+}
 

@@ -6,59 +6,33 @@ var mongoose = require(appRoot+"/libs/mongoose");
 var async = require('async');
 
 exports.post = function(req, res, next) {
-    //var newPart = req.body.newPart;
     try {
         var documentId = mongoose.Types.ObjectId(req.body.documentId);
-        var url = req.body.url;
-        var userId = mongoose.Types.ObjectId(req.session.user);
+        var newPartId = req.body.newPartId;
+        var userId = req.session.user;
     } catch (e) {
-        var err = new HttpError(400,"Error!");
-        return next(err);
+        return next(400);
     }
-
-    async.waterfall([
-        function (callback) {
-            FI.getFilePathAndAccessByUrl(url,callback);
-        },
-        function(file,callback){
-            DI.addPart(documentId,userId,file,callback);
+    async.series([
+        function(callback){
+            DI.addPart(documentId,userId,newPartId,callback);
         },
         function (callback) {
-            FI.markFileUsed(url,callback);
+            FI.markFileUsed(newPartId,callback);
         }
     ], function(err,results){
         if(err)
         {
             console.log(arguments);
-            if (err.code == 500) return next(new HttpError(500, "Ошибка БД"));
-            if (err.code == 404) return next(new HttpError(404, "Данные не получены"));
-            if (err.code == 403) return next(new HttpError(403, "error"));
+            if (err.code == 204) return next(new HttpError(204, "Such part wasn't found"));
+            if (err.code == 500) return next(new HttpError(500, "Error of DB"));
+            if (err.code == 404) return next(new HttpError(404, "No data"));
+            if (err.code == 403) return next(new HttpError(403, "No access"));
             else return next(err);
         }else{
-            res.json(results['1']);
+            res.json(results[1]);
             res.end();
-            next();
         }
     });
-
-    // DI.addPart(documentId,userId,newPart,function (err,res){
-    //     if(err) return next(new HttpError(400,"Error! Can not add part"));
-    //     else{
-    //         res.json(result);
-    //         res.end();
-    //         next();
-    //     }
-    // });
-
-
-        // document.parts.forEach(function(item,callback){
-        //         FI.getFilePathAndAccessByUrl(item.id,callback){
-        //         if (!res) {
-        //             return next(new HttpError(404, "?? ??????? ????? ??????????? ??????"));
-        //         }
-        //     };
-        // });
-
-
-};
+    };
 

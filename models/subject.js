@@ -40,7 +40,7 @@ subject.statics.getSubjectNameById = function(id, callback){
                 enabled: true}, {title:1}, function(err, res){
         if(err) return callback(new dbError(err));
         else {
-            if (res.length == 0) return new dbError(null, 404, util.format("no subject found by %s", id));
+            if (res.length == 0) return callback(new dbError(null, 404, util.format("no subject found by %s", id)));
             else return callback(null, res);
         }
     })
@@ -60,7 +60,8 @@ subject.statics.isExist = function(id, callback){
         }, {title:1}, function(err, res){
         if(err) return callback(new dbError(err));
         else{
-            if(res.length == 0) return callback(new dbError(null, 404, util.format("no subjects")));
+            if(res.length == 0) return callback(404,false);
+            //(new dbError(null, 404, util.format("no subjects")));
             else return callback(null, true);
         }
     })
@@ -78,7 +79,7 @@ subject.statics.getActivatedSubjects = function(callback){
         enabled: true}, {title:1}, function(err, res){
         if(err) return callback(new dbError(err));
         else{
-            if(res.length == 0) return callback(new dbError(null, 204, util.format("no subjects")));
+            if(res.length == 0) return callback(new dbError(null, 204, util.format("No activated subjects were found")));
             else return callback(null, res);
         }
 
@@ -94,13 +95,9 @@ subject.statics.getAllSubjects = function(callback){
     this.find({}, {}, function(err, res){
         if(err) return callback(new dbError(err));
         else{
-            if(!res) return callback(new dbError(null, 204, util.format("no subject found")));
-            else{
-                if(res.length == 0) return callback(new dbError(null, 204, util.format("no subjects")));
-                else return callback(null, res);
-            }
+            if(res.length==0) return callback(new dbError(null, 204, "There were not found any subjects"));
+            else return callback(null, res);
         }
-
     })
 };
 
@@ -235,7 +232,7 @@ subject.statics.deactivate = function(id,callback) {
         },  function(err, res){
             if (res.nModified != 0 && res.n != 0) return callback(null, true);
             else    if(err) return callback(new dbError(err));
-                    else if (res.nModified == 0) return new dbError(null, 404, util.format("no subject found by %s", id));
+                    else if (res.nModified == 0) return callback(new dbError(null, 404, util.format("no subject found by %s", id)));
         });
 };
 

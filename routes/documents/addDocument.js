@@ -20,37 +20,32 @@ exports.post = function(req, res, next) {
         document.search.faculties = req.user.faculty;
         document.search.year = req.user.year;
     } catch (e) {
-        var err = new HttpError(400, util.format("Error!"));
-        return next(err);
+        return next(400);
     }
     
         async.series([
             function (callback) {
                 SI.isExist(document.search.subject, callback);
-
             },
             function (callback) {
                 DI.addDocument(document, callback);
             }
         ], function (err, results) {
-            // console.log(results['1']);
             if (err) {
-                if (err.code == 404) return next(new HttpError(404, "No subject"));
-                else if (err.code == 500) next(new HttpError(500, "Ошибка в добавлении"));
-                else next(err);
+                if (err.code == 404) return next(new HttpError(404, "There is no such subject"));
+                else if (err.code == 500) return next(new HttpError(500, "Error in addition"));
+                else return next(err);
             } else {
                 if(req.body.parts.length>0) {
                     document.parts.forEach(function (part) {
-                        console.log(part);
                         FI.markFileUsed(part.url,function(err,res){
-                            if (err) return next(new HttpError(400, "Произошла ошибка в добавлении частей файла"));
+                            if (err) return next(new HttpError(404, "Error in addition some part of file"));
                         });
                     });
                 }
-                console.log(arguments);
                 res.json(results['1']);
                 res.end();
-                next();
+                // next();
             }
         });
 };

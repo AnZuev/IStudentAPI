@@ -77,7 +77,7 @@ file.statics.markFileUnUsed = function(url, callback){
 	markFileUnUsedTask(url, 5, callback);
 };
 
-module.exports.file = mongoose.model('file', file);
+
 
 function addFileTask(file, errCounter, callback){
 	var FI = require(appRoot+'/models/file').file;
@@ -126,3 +126,4 @@ function markFileUnUsedTask(id, errCounter, callback){
 
 }
 
+module.exports.file = mongoose.model('file', file);

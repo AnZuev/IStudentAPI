@@ -39,13 +39,12 @@ exports.post = function(req, res, next) {
                 if(req.body.parts.length>0) {
                     document.parts.forEach(function (part) {
                         FI.markFileUsed(part.url,function(err,res){
-                            if (err) return next(new HttpError(404, "Error in addition some part of file"));
+                            if (err) return next(err);
                         });
                     });
                 }
                 res.json(results['1']);
                 res.end();
-                // next();
             }
         });
 };

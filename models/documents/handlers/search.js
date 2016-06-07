@@ -2,7 +2,7 @@ var Document;
 var log = require('../../../libs/log')(module);
 var util = require('util');
 var mongoose = require('mongoose');
-
+var dbError = require(appRoot+'/error').dbError;
 
 exports.getDocById = function(documentId, callback){
 	Document = this;
@@ -10,12 +10,23 @@ exports.getDocById = function(documentId, callback){
 };
 
 function taskToFindById(documentId, errCounter, callback){
-	Document.findById(documentId, function(err, document){
+	// Document.findById(documentId, function(err, document){
+    //
+	// 	if(err){
+	// 		if(errCounter < 5 ) taskToFindById(documentId, ++errCounter, callback);
+	// 		log.error('Documents::GetDocByIdError happened' + util.format(err));
+	// 		return callback({exception: true, code: 500, err: err})
+	// 	}else{
+	// 		return callback(null, document);
+	// 	}
+	// })
+	Document.find({_id: documentId}, function(err, document){
 		if(err){
 			if(errCounter < 5 ) taskToFindById(documentId, ++errCounter, callback);
 			log.error('Documents::GetDocByIdError happened' + util.format(err));
 			return callback({exception: true, code: 500, err: err})
 		}else{
+			if (document.length == 0) return callback(204);
 			return callback(null, document);
 		}
 	})
@@ -59,6 +70,7 @@ function taskToFindDocsBy(context, errCounter, callback){
 				log.error('Documents::GetDocsByError happened' + util.format(err));
 				return callback({exception: true, code: 500, err: err})
 			}else{
+				if(documents.length == 0) return callback(new dbError(null, 204, "No documents were found"));
 				return callback(null, documents);
 			}
 		})

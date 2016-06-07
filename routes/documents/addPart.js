@@ -8,25 +8,26 @@ var async = require('async');
 exports.post = function(req, res, next) {
     try {
         var documentId = mongoose.Types.ObjectId(req.body.documentId);
-        var newPartId = req.body.newPartId;
+        var newPart = req.body.newPart;
         var userId = req.session.user;
     } catch (e) {
         return next(400);
     }
     async.series([
         function(callback){
-            DI.addPart(documentId,userId,newPartId,callback);
+            DI.addPart(documentId,userId,newPart,callback);
         },
         function (callback) {
-            FI.markFileUsed(newPartId,callback);
+            FI.markFileUsed(newPart.id,callback);
         }
     ], function(err,results){
         if(err)
         {
-            console.log(arguments);
-            if (err.code == 204) return next(new HttpError(204, "Such part wasn't found"));
-            if (err.code == 500) return next(new HttpError(500, "Error of DB"));
-            if (err.code == 404) return next(new HttpError(404, "No data"));
+            if (err.code == 204) {
+                res.json(results[1]);
+                res.end();
+            }
+            if (err.code == 500) return next(new HttpError(500));
             if (err.code == 403) return next(new HttpError(403, "No access"));
             else return next(err);
         }else{
@@ -34,5 +35,5 @@ exports.post = function(req, res, next) {
             res.end();
         }
     });
-    };
+};
 

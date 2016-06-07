@@ -102,9 +102,11 @@ document.statics.removePart = require('./handlers/content').removePart;
 
 /* search part starts */
 
-document.statics.getDocumentById = require('./handlers/search').getDocById;
+document.statics.getDocById = require('./handlers/search').getDocById;
 
 document.statics.getDocsBy = require('./handlers/search').getDocsBy;
+
+document.statics.getComments = require('./handlers/social').getComments;
 
 
 /* search part ends */

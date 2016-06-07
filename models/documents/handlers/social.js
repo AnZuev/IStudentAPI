@@ -166,10 +166,11 @@ function taskToGetComments(documentId, skipFromEnd, callback){
 		},
 		{
 			"social.comments":{
-				$slice:[-1*skipFromEnd, 20 ]
+				$slice:[-1*skipFromEnd, 20 ]  //Тут что то другое должно быть
 			}
 		},
 		function(err, document){
+			if(!document) return callback(404);
 			return callback(err, {_id: document._id, comments: document.social.comments});
 		}
 	)

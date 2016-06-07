@@ -33,6 +33,8 @@ file.virtual('url')
 		this._id = url;
 	})
 	.get(function() { return this._id} );
+
+
 file.statics.addFile = function(url, publicAccess, access, path, title, uploader, callback){
 	var file = new this({
 		uploader: uploader,
@@ -89,7 +91,7 @@ function addFileTask(file, errCounter, callback){
 
 function markFileUsedTask(id, errCounter, callback){
 
-	this.update({_id: id}, {used: true}, function(err, res){
+	file.update({_id: id}, {used: true}, function(err, res){
 		if(err) {
 			if(errCounter > 5) return callback(err);
 			markFileUsedTask(id, ++errCounter, callback);

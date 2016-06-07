@@ -7,7 +7,6 @@ var UI = require('../../models/university').university;
 
 
 var taskToMakeContact = require('../../models/university').taskToMakeContact;
-require('../../libs/additionalFunctions/extensionsForBasicTypes');
 var dbError = require('../../error').dbError;
 
 

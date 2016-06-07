@@ -6,7 +6,7 @@ var Q = require('q');
 module.exports = function (userId){
 	var User = this;
 	return Q.async(function *(){
-		var user = yield User.findOne({_id: userId});
+		let user = yield User.findOne({_id: userId}).exec();
 		let rawContacts = [];
 
 		user.contacts.forEach(function(item){

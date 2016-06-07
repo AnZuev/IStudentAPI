@@ -1,7 +1,7 @@
 {
     "port": 3000,
     "mongoose":{
-        "uri": "mongodb://localhost/test_IStudentAPI"
+        "uri": "mongodb://127.0.0.1/test_IStudentAPI"
     },
     "session":{
         "secret": "sdjknfskdjnvdfklnvdfjnvldjkfnv",
@@ -9,8 +9,7 @@
         "cookie":{
             "path": "/",
             "maxAge":2592000000,
-            "httpOnly": true,
-            "domain":"istudentapp.ru"
+            "httpOnly": true
         }
     },
     "staticServerAuth":{
@@ -22,7 +21,7 @@
         "publicKey": "/libs/certificate/cert.crt"
     },
     "general":{
-        "version": "0.0.1(38)",
+        "version": "0.0.1(41)",
         "host": "http://pre-api.istudentapp.ru",
         "privateStaticServer": "127.0.0.1",
         "privateStaticServerPort": 4000,

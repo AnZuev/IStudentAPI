@@ -2,12 +2,10 @@ var util = require('util');
 var DI = require(appRoot+'/models/documents').document;
 var HttpError = require(appRoot+'/error/index').HttpError;
 var mongoose = require(appRoot+"/libs/mongoose");
-var async = require('async');
 
 exports.post = function(req, res, next) {
-    console.log(req.body);
     try {
-        var id = mongoose.Types.ObjectId(req.body);
+        var id = mongoose.Types.ObjectId(req.body.id);
         var userId = req.session.user;
     } catch (e) {
         return next(400);

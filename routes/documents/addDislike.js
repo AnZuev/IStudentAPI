@@ -2,7 +2,6 @@ var util = require('util');
 var DI = require(appRoot+'/models/documents').document;
 var HttpError = require(appRoot+'/error/index').HttpError;
 var mongoose = require(appRoot+"/libs/mongoose");
-var async = require('async');
 
 exports.post = function(req, res, next) {
     try {
@@ -11,7 +10,6 @@ exports.post = function(req, res, next) {
     } catch (e) {
         return next(400);
     }
-    console.log(userId);
     DI.addDislike(id,userId, function(err,results){
         if(err)
         {

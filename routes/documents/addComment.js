@@ -5,13 +5,13 @@ var mongoose = require(appRoot+"/libs/mongoose");
 var async = require('async');
 
 exports.post = function(req, res, next) {
-    console.log(req.body);
+    
     try {
         var id = mongoose.Types.ObjectId(req.body.id);
-        //var userId = req.session.user;
-        var comment = req.body.comment;
-
-        // var comment = mongoose.Types.String(req.body.comment);
+        var comment = {
+            author: req.session.user,
+            text: req.body.comment
+        };
     } catch (e) {
         return next(400);
     }

@@ -7,9 +7,7 @@ var SI = require(appRoot+'/models/subject').subject;
 var async = require('async');
 
 exports.post = function(req, res, next) {
-
     var document = req.body;
-
     if (document.title.length < 6 || document.title.length > 50)
         return next(new HttpError(400, util.format("Невозможно добавить документ с названием %s", document.title)));
     try {
@@ -22,29 +20,28 @@ exports.post = function(req, res, next) {
     } catch (e) {
         return next(400);
     }
-    
-        async.series([
-            function (callback) {
-                SI.isExist(document.search.subject, callback);
-            },
-            function (callback) {
-                DI.addDocument(document, callback);
-            }
-        ], function (err, results) {
-            if (err) {
-                if (err.code == 404) return next(new HttpError(404, "There is no such subject"));
-                else if (err.code == 500) return next(new HttpError(500, "Error in addition"));
-                else return next(err);
-            } else {
-                if(req.body.parts.length>0) {
-                    document.parts.forEach(function (part) {
-                        FI.markFileUsed(part.url,function(err,res){
-                            if (err) return next(err);
-                        });
+    async.series([
+        function (callback) {
+            SI.isExist(document.search.subject, callback);
+        },
+        function (callback) {
+            DI.addDocument(document, callback);
+        }
+    ], function (err, results) {
+        if (err) {
+            if (err.code == 404) return next(new HttpError(404, "There is no such subject"));
+            else if (err.code == 500) return next(new HttpError(500, "Error in addition"));
+            else return next(err);
+        } else {
+            if(req.body.parts.length>0) {
+                document.parts.forEach(function (part) {
+                    FI.markFileUsed(part.url,function(err,res){
+                        if (err) return next(err);
                     });
-                }
-                res.json(results['1']);
-                res.end();
+                });
             }
-        });
+            res.json(results[1]);
+            res.end();
+        }
+    });
 };

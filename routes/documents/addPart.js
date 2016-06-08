@@ -24,6 +24,7 @@ exports.post = function(req, res, next) {
         if(err)
         {
             if (err.code == 204) {
+                console.log(results[1]);
                 res.json(results[1]);
                 res.end();
             }

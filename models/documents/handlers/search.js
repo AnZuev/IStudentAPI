@@ -10,26 +10,15 @@ exports.getDocById = function(documentId, callback){
 };
 
 function taskToFindById(documentId, errCounter, callback){
-	// Document.findById(documentId, function(err, document){
-    //
-	// 	if(err){
-	// 		if(errCounter < 5 ) taskToFindById(documentId, ++errCounter, callback);
-	// 		log.error('Documents::GetDocByIdError happened' + util.format(err));
-	// 		return callback({exception: true, code: 500, err: err})
-	// 	}else{
-	// 		return callback(null, document);
-	// 	}
-	// })
-	Document.find({_id: documentId}, function(err, document){
+	Document.findById(documentId, function(err, document){
 		if(err){
 			if(errCounter < 5 ) taskToFindById(documentId, ++errCounter, callback);
 			log.error('Documents::GetDocByIdError happened' + util.format(err));
 			return callback({exception: true, code: 500, err: err})
-		}else{
-			if (document.length == 0) return callback(204);
+		}else{	
 			return callback(null, document);
 		}
-	})
+	});
 }
 
 
@@ -39,8 +28,6 @@ exports.getDocsBy = function(title, context, callback){
 	if(title){
 		context["title"] = title;
 	}
-	console.log(context);
-
 	taskToFindDocsBy(context, 0, callback);
 };
 

@@ -3,6 +3,7 @@ var DI = require(appRoot+'/models/documents').document;
 var HttpError = require(appRoot+'/error/index').HttpError;
 var mongoose = require(appRoot+"/libs/mongoose");
 var async = require('async');
+var chars = require('htmlspecialchars');
 
 exports.post = function(req, res, next) {
     
@@ -10,7 +11,7 @@ exports.post = function(req, res, next) {
         var id = mongoose.Types.ObjectId(req.body.id);
         var comment = {
             author: req.session.user,
-            text: req.body.comment
+            text: chars(req.body.comment)
         };
     } catch (e) {
         return next(400);

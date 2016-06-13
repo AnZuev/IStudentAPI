@@ -4,6 +4,7 @@ var FI = require(appRoot+'/models/file').file;
 var HttpError = require(appRoot+'/error/index').HttpError;
 var mongoose = require(appRoot+"/libs/mongoose");
 var async = require('async');
+var log = require(appRoot+'/libs/log')(module);
 
 exports.post = function(req, res, next) {
     try {
@@ -13,6 +14,7 @@ exports.post = function(req, res, next) {
     } catch (e) {
         return next(400);
     }
+
     async.series([
         function(callback){
             DI.removePart(documentId,userId,partId,callback);
@@ -23,13 +25,15 @@ exports.post = function(req, res, next) {
     ], function(err,results){
         if(err)
         {
-          
             if (err.code == 500) return next(new HttpError(500));
             if (err.code == 403) return next(new HttpError(403, "No access"));
             else return next(err);
-        }else{
-            res.json(results[1]);
-            res.end();
+        }else {
+            if (results[1] == false) return log.err("file wasn't marked as unused");
+            else {
+                res.json(results[0]);
+                res.end();
+            }
         }
     });
 };

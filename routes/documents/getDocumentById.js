@@ -1,6 +1,8 @@
 var DI = require(appRoot+'/models/documents').document;
 var HttpError = require(appRoot+'/error/index').HttpError;
 var mongoose = require(appRoot+"/libs/mongoose");
+var log = require(appRoot+'/libs/log')(module);
+var util = require('util');
 
 exports.get = function(req, res, next){
     try {
@@ -15,9 +17,13 @@ exports.get = function(req, res, next){
             else next(err);
         }
         else {
+            DI.addWatch(documentId, function(err) {
+                if(err) log.err(util.format(err));
+            });
             res.json(result);
             res.end();
             next();
         }
-    })
+    });
+
 };

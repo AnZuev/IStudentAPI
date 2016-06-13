@@ -8,17 +8,18 @@ var async = require('async');
 exports.post = function(req, res, next) {
     try {
         var documentId = mongoose.Types.ObjectId(req.body.documentId);
-        var newPart = req.body.newPart;
+        var newPart = {
+            url:req.body.newPartUrl};
         var userId = req.session.user;
     } catch (e) {
         return next(400);
     }
-    async.series([
+    async.series([ //нет проверки на существование файла
         function(callback){
             DI.addPart(documentId,userId,newPart,callback);
         },
         function (callback) {
-            FI.markFileUsed(newPart.id,callback);
+            FI.markFileUsed(newPart.url,callback);
         }
     ], function(err,results){
         if(err)
@@ -31,8 +32,13 @@ exports.post = function(req, res, next) {
             if (err.code == 403) return next(new HttpError(403, "No access"));
             else return next(err);
         }else{
-            res.json(results[1]);
-            res.end();
+            if (results[1] == false) {
+                return next(new HttpError(400));
+            }
+            else {
+                res.json(results[1]);
+                res.end();
+            }
         }
     });
 };

@@ -29,7 +29,8 @@ exports.post = function(req, res, next) {
         }
     ], function (err, results) {
         if (err) {
-            if (err.code == 404) return next(new HttpError(404, "There is no such subject"));
+            
+            if (err.code == 404) return next(new HttpError(400, "There is no such subject"));
             else if (err.code == 500) return next(new HttpError(500, "Error in addition"));
             else return next(err);
         } else {

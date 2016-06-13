@@ -18,7 +18,7 @@ exports.get = function(req, res, next){
         }
         else {
             DI.addWatch(documentId, function(err) {
-                if(err) log.err(util.format(err));
+                if(err) log.error(util.format(err));
             });
             res.json(result);
             res.end();

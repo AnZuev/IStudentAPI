@@ -28,15 +28,16 @@ exports.post = function(req, res, next) {
                 res.json(err.document);
                 res.end();
             }
-            if (err.code == 500) return next(new HttpError(500));
-            if (err.code == 403) return next(new HttpError(403, "No access"));
+            else if (err.code == 500) return next(new HttpError(500));
+            else if (err.code == 403) return next(new HttpError(403, "No access"));
             else return next(err);
         }else{
+            console.log(results[0]);
             if (results[1] == false) {
                 return next(new HttpError(400));
             }
             else {
-                res.json(results[1]);
+                res.json(results[0]);
                 res.end();
             }
         }

@@ -27,7 +27,7 @@ var subject = require('../models/subject').subject;
 //
 //     console.log(arguments);
 // });
-subject.removeSubjectById('573cb6881b6ea5881c637d42', function(err,res) {
-
-    console.log(arguments);
-});
+// subject.isExist('5751a1c624d0b2a024f575e6', function(err,res) {
+//
+//     console.log(arguments);
+// });

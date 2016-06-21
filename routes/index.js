@@ -39,7 +39,7 @@ module.exports = function(app){
 	require('./service')(app);
 	require('./staticData/universities')(app);
 	require('./staticData/subjects')(app);
-
+    require('./documents')(app);
 
 
 

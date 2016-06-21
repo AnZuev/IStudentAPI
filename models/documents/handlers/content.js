@@ -1,6 +1,6 @@
 var Document;
 var async = require('async');
-var log = require('../../../libs/log')(module);
+var log = require(appRoot+'/libs/log')(module);
 var taskToAddDocument = require('./addDocument').taskToAddDocument;
 
 exports.addPart = function(documentId, userId, newPart, callback){
@@ -40,7 +40,7 @@ exports.addPart = function(documentId, userId, newPart, callback){
 
 		}
 	],function(err, result){
-		console.log(arguments);
+		// console.log(arguments);
 		if(err){
 			if(err.code == 700){
 				return callback({exception: true, code:403});
@@ -92,28 +92,24 @@ exports.removePart = function(documentId, userId, partId, callback){
 	Document = this;
 	async.waterfall([
 		function(callback){
-			Document.findOne({_id: documentId, author: userId, "parts.id": partId}, callback);
+			Document.findOne({_id: documentId, author: userId, "parts._id": partId}, callback);
 		},
 		function(document, callback){
 			if(document){
 				var index = -1;
 				for(var i = 0; i < document.parts.length; i++){
-					if(document.parts[i].id == partId){
+					if(document.parts[i]._id == partId.toString()){
 						index = i;
 						break;
 					}
 				}
-				if(index >= 0){
-					document.parts.splice(i, 1);
-					document.parts.forEach(function(part, tIndex){
-						document.parts[tIndex].serialNumber = tIndex;
-					});
-					return callback(null, document);
-				}else{
-					return callback({exception:true, code:403});
-				}
+				document.parts.splice(i, 1);
+				document.parts.forEach(function(part, tIndex){
+					document.parts[tIndex].serialNumber = tIndex;
+				});
+				return callback(null, document);
 			}else{
-				return callback({exception:true, code:403});
+				return callback({exception:true, code:403, message:"No document found"});
 			}
 		},
 		function(document, callback){

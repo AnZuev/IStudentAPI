@@ -2,7 +2,7 @@ var Document;
 var log = require('../../../libs/log')(module);
 var util = require('util');
 var mongoose = require('mongoose');
-
+var dbError = require(appRoot+'/error').dbError;
 
 exports.getDocById = function(documentId, callback){
 	Document = this;
@@ -15,10 +15,10 @@ function taskToFindById(documentId, errCounter, callback){
 			if(errCounter < 5 ) taskToFindById(documentId, ++errCounter, callback);
 			log.error('Documents::GetDocByIdError happened' + util.format(err));
 			return callback({exception: true, code: 500, err: err})
-		}else{
+		}else{	
 			return callback(null, document);
 		}
-	})
+	});
 }
 
 
@@ -28,8 +28,6 @@ exports.getDocsBy = function(title, context, callback){
 	if(title){
 		context["title"] = title;
 	}
-	console.log(context);
-
 	taskToFindDocsBy(context, 0, callback);
 };
 
@@ -59,6 +57,7 @@ function taskToFindDocsBy(context, errCounter, callback){
 				log.error('Documents::GetDocsByError happened' + util.format(err));
 				return callback({exception: true, code: 500, err: err})
 			}else{
+				if(documents.length == 0) return callback(new dbError(null, 204, "No documents were found"));
 				return callback(null, documents);
 			}
 		})

@@ -1,5 +1,4 @@
 var HttpError = require('../../error').HttpError;
-var authError = require('../../error').authError;
 var dbError = require('../../error').dbError;
 
 var util = require('util');
@@ -27,7 +26,7 @@ exports.checkAuthAndActivation = function(req, res, next){
 		return next(401);
 	}
 	else{
-		User.checkActivation(req.session.user, function(err, activated, user){
+		User.checkActivation(req.session.user, function(err, activated){
 			if(err){
 				if(err instanceof dbError){
 					return next(new HttpError(400, "No users found"));

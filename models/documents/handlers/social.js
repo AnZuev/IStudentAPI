@@ -1,6 +1,5 @@
 var Document;
-var async = require('async');
-var dbError = require('../../../error').dbError;
+
 
 exports.addLike = function(documentId, userId, callback){
 	Document = this;
@@ -113,7 +112,7 @@ function taskToAddDownload(documentId, userId, errCounter, callback){
 	Document.update(
 		{_id:documentId},
 		{
-			$addToSet: {"social.downloads": userId },
+			$addToSet: {"social.downloads": userId }
 		},
 		function(err, result){
 			if(err) {
@@ -170,6 +169,7 @@ function taskToGetComments(documentId, skipFromEnd, callback){
 			}
 		},
 		function(err, document){
+			if(!document) return callback(404);
 			return callback(err, {_id: document._id, comments: document.social.comments});
 		}
 	)

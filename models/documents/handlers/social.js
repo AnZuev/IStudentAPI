@@ -26,7 +26,7 @@ exports.addComment = function(documentId, comment, callback){
 	Document = this;
 	comment.created = new Date();
 	taskToAddComment(documentId, comment, 0, callback);
-}
+};
 
 exports.getComments = function(documentId, skipFromEnd, callback){
 	Document = this;
@@ -72,7 +72,7 @@ function taskToAddDislike(documentId, userId, errCounter, callback){
 				if(errCounter > 5) {
 					return callback({exception: true, code: 500, err: err});
 				}
-				taskToAddLike(documentId, userId, ++errCounter, callback)
+				taskToAddDislike(documentId, userId, ++errCounter, callback)
 			}
 			else{
 				if(result.n == 0){

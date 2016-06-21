@@ -84,7 +84,11 @@ document.statics.addWatch = require('./handlers/social').addWatch;
 
 document.statics.addComment = require('./handlers/social').addComment;
 
+document.statics.getComments = require('./handlers/social').getComments;
+
 document.statics.addDownload = require('./handlers/social').addDownload;
+
+
 
 /* social part ends */
 

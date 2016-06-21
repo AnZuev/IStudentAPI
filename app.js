@@ -58,7 +58,8 @@ app.use(function(err, req, res, next) {
 	        err = new HttpError(err);
         }
         if(err instanceof HttpError){
-            res.sendHttpError(err);
+	        res.send(err.get());
+            //res.sendHttpError(err);
         }else if(err instanceof dbError){
             res.sendDBError(err);
         }else{

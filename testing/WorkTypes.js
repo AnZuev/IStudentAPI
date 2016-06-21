@@ -1,18 +1,18 @@
 'use strict';
-global.appRoot = '/Users/anton/WebstormProjects/IStudentAPI';
+global.appRoot = '/git/IStudentAPI';
 
 var WorkTypes = require(appRoot + "/models/workTypes").WorkTypes;
 var Q = require('q');
-/*
-Q.async(function*(){
-	try{
-		let workType = yield WorkTypes.add("Лабораторная работа", []);
-		console.log(workType);
-	}catch(e){
-		console.error(e);
-	}
 
-})().done();*/
+// Q.async(function*(){
+// 	try{
+// 		let workType = yield WorkTypes.add("Лабораторная работа", []);
+// 		console.log(workType);
+// 	}catch(e){
+// 		console.error(e);
+// 	}
+//
+// })().done();
 
 /*Q.async(function*(){
 	try{

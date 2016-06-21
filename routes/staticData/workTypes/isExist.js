@@ -2,21 +2,21 @@
 var WorkTypes = require(appRoot + "/models/workTypes").WorkTypes;
 var Q = require('q');
 var HttpError = require('../../../error/index').HttpError;
+var mongoose = require(appRoot+"/libs/mongoose");
 
-
-exports.post = function(req, res, next){
+exports.get = function(req, res, next){
 
     Q.async(function*(){
         try{
-            let title = req.body.title;
-            let workType = yield WorkTypes.add(title, []);
+            let id = mongoose.Types.ObjectId(req.query.id);
+            let workType = yield WorkTypes.isExist(id);
             res.json(workType);
             res.end();
             next();
 
         }catch(e){
             if (e.code == 500) return next(500);
-            next(new HttpError(400, "Such type also exist!"));
+            else return next(400);
         }
     })().done();
 };

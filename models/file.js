@@ -1,6 +1,6 @@
 var mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
-require('../libs/additionalFunctions/extensionsForBasicTypes');
+//require(appRoot + '../libs/additionalFunctions/extensionsForBasicTypes');
 var dbError = require('../error').dbError;
 
 var file = new Schema({

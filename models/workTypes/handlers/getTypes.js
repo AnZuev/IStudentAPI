@@ -18,7 +18,7 @@ module.exports.enabled = function(query){
 	let WorkType = this;
 	let deffer = Q.defer();
 	let promise;
-	if(query.length == 0){
+	if(query.length == 0){ //if (!query)
 		promise = WorkType.find(
 			{
 				title: {$regex: query},
@@ -55,7 +55,7 @@ module.exports.enabled = function(query){
 
  Выход:
  500 - ошибка бд
- 404 - нет типа работы с таким id
+ 404 - нет типа работы с таким id !!!!!!! 204
  workType - все прошло хорошо
  */
 module.exports.disabled = function(query){

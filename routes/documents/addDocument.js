@@ -4,6 +4,8 @@ var FI = require(appRoot+'/models/file').file;
 var HttpError = require(appRoot+'/error/index').HttpError;
 var mongoose = require(appRoot+"/libs/mongoose");
 var SI = require(appRoot+'/models/subject').subject;
+var TI = require(appRoot+'/models/workTypes').WorkTypes;
+
 var async = require('async');
 
 exports.post = function(req, res, next) {
@@ -25,11 +27,16 @@ exports.post = function(req, res, next) {
             SI.isExist(document.search.subject, callback);
         },
         function (callback) {
+            TI.isExist(document.search.cType).then(function(result){
+                if (result) return callback(null);
+                else return callback(400);
+            });
+        },
+        function (callback) {
             DI.addDocument(document, callback);
         }
     ], function (err, results) {
         if (err) {
-            
             if (err.code == 404) return next(new HttpError(400, "There is no such subject"));
             else if (err.code == 500) return next(new HttpError(500, "Error in addition"));
             else return next(err);
@@ -41,7 +48,7 @@ exports.post = function(req, res, next) {
                     });
                 });
             }
-            res.json(results[1]);
+            res.json(results[2]);
             res.end();
         }
     });

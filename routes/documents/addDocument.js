@@ -27,7 +27,10 @@ exports.post = function(req, res, next) {
             SI.isExist(document.search.subject, callback);
         },
         function (callback) {
-            TI.isExist(document.search.cType, callback);
+            TI.isExist(document.search.cType).then(function(result){
+                if (result) return callback(null);
+                else return callback(400);
+            });
         },
         function (callback) {
             DI.addDocument(document, callback);

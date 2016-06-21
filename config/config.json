@@ -1,7 +1,7 @@
 {
     "port": 3000,
     "mongoose":{
-        "uri": "mongodb://127.0.0.1/test_IStudentAPI"
+        "uri": "mongodb://pre-api.istudentapp.ru/test_IStudentAPI"
     },
     "session":{
         "secret": "sdjknfskdjnvdfklnvdfjnvldjkfnv",

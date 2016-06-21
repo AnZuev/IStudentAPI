@@ -19,6 +19,8 @@ exports.get = function(req, res, next){
 		if(keywords.length != 0) return next(400);
 	}
 
+
+
 	Q.async(function*(){
 		let contacts;
 		try{

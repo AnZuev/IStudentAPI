@@ -48,11 +48,11 @@ var User = new Schema({
         },
         university:{
             type: Schema.Types.ObjectId,
-            require: true
+            require: false
         },
         faculty:{
 	        type: Schema.Types.ObjectId,
-            require:true
+            require:false
         },
         group:{
             type: String,
@@ -60,7 +60,7 @@ var User = new Schema({
         },
         year:{
             type: Number,
-            require:true
+            require:false
         }
     },
 
@@ -101,11 +101,6 @@ var User = new Schema({
 			}
 		]
 	},
-
-    searchString:{
-        type:String,
-        require: true
-    },
 	activation:{
 		activated: {
 			type: Boolean,
@@ -229,6 +224,54 @@ User.statics.signUp = function(name, surname, group, faculty, university, year, 
             }
         });
 };
+
+User.statics.shortSignUp = function(name, surname, mail, password, callback){
+	var User = this;
+	async.waterfall([
+		function(callback){
+			User.findOne({"auth.mail": mail}, callback)
+		},
+		function(user, callback){
+			if(user){
+				return callback(new authError(util.format("mail %s already in use", mail)));
+			}else{
+				var key = crypto.createHmac('sha1', Math.random() + "").update(mail).digest("hex").toString();
+				var newUser = new User({
+					pubInform:{
+						name: name,
+						surname: surname
+					},
+					auth:{
+						mail: mail,
+						password: password
+					},
+					activation:{
+						key: key
+					}
+				});
+				newUser.save(function(err, user){
+					if(err) {
+						return callback(new dbError(err, null, null));
+					}
+					else {
+						return callback(null, {mail: user.auth.mail, name: user.pubInform.name, key: user.activation.key});
+					}
+				});
+			}
+		}
+	], function(err, user){
+		if(err){
+			if(err instanceof dbError || err instanceof authError){
+				callback(err);
+			}else{
+				callback(new dbError(err, null, null));
+			}
+		}
+		else{
+			callback(null, user);
+		}
+	});
+}
 
 User.statics.activate = function(mail, key, callback){
 	this.update(

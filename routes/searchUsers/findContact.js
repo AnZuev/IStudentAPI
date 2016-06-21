@@ -4,8 +4,6 @@ var util = require('util');
 var User = require('../../models/User/index').User;
 
 
-require('../../libs/additionalFunctions/extensionsForBasicTypes');
-
 
 
 module.exports = function(req, res, next){
@@ -26,6 +24,7 @@ module.exports = function(req, res, next){
 		switch (keyword.length){
 			case 1:
 				contacts = yield User.getContactsByOneKey();
+
 		}
 		res.json(contacts);
 		return next();

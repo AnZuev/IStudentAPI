@@ -2,7 +2,6 @@ var mongoose = require('../../libs/mongoose'),
     Schema = mongoose.Schema;
 
 
-require('../../libs/additionalFunctions/extensionsForBasicTypes');
 
 
 var Message = new Schema({

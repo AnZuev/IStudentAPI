@@ -9,6 +9,9 @@ exports.addPart = function(documentId, userId, newPart, callback){
 	async.waterfall([
 		function(callback){
 			Document.findOne({_id: documentId, author: userId}, callback);
+			/*
+			function(err, document, ...)
+			 */
 		},
 		function(document, callback){
 			if(document){

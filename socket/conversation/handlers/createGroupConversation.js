@@ -18,7 +18,6 @@ var dbError = require('../../../error').dbError;
 
 
 var libs = require('../libs/libs');
-require('../../../libs/additionalFunctions/extensionsForBasicTypes');
 
 
 
@@ -34,7 +33,6 @@ module.exports = function(socket, data, cb){
     try{
         title = htmlSpecialChars(data.title);
         participants = data.participants;
-        participants.unique();
         if(participants.indexOf(socket.request.headers.user.id) < 0) participants.push(socket.request.headers.user.id);
     }catch(e){
 	    var err = new wsError(400);

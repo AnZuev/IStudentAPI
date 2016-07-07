@@ -3,6 +3,10 @@ var host = config.get('general:host');
 var log = require('../libs/log')(module);
 var publicStaticServer = config.get('general:publicStaticServer');
 var welcomePagetemplates = require('../views/frontEndTemplates/greetingsScreen');
+var checkAuthAndActivation = require('../middleware/auth/checkAuth').checkAuthAndActivation;
+var loadDataForIm = require('../middleware/loadDataForConversation');
+
+
 
 
 module.exports = function(app){
@@ -22,11 +26,19 @@ module.exports = function(app){
     });
 
 	app.get('/', function(req, res, next){
-
 		res.render('greetingsScreen', {
             host: host,
 			publicStaticServer: publicStaticServer,
 			templates: welcomePagetemplates
+		});
+		next();
+	});
+
+	app.get('/bz', checkAuthAndActivation, loadDataForIm, function(req, res, next){
+		res.render('bz', {
+			host: host,
+			publicStaticServer: publicStaticServer,
+			notifications: req.notifications
 		});
 		next();
 	});

@@ -1,0 +1,114 @@
+<% layout('/layout/lkLayout') -%>
+<% block('title', 'База знаний') -%>
+<% block('style', '<link rel="stylesheet" href="' + publicStaticServer + '/styles/baseOfKnowledge.css"/>')%>
+<% block('script', '<script type="text/javascript" src="' + publicStaticServer + '/scripts/baseOfKnowledge.js"></script>')%>
+<% block('smoothEverythingContent', '') %>
+
+
+<div id="searchHeader" class=''>
+		  		<input type="text" placeholder="Поиск" name="title">
+		  		<div class="blueButton2">Поиск</div>
+		  		<div onclick='BZ.uploadDocumentBtClicked()' class="blueButton2"><img src="" alt="">Загрузить</div>
+		  	</div>
+
+	  		<div id="documentsSearchWrapper" class=''>
+		  		<div id="areaForShowingDocuments">
+
+		  			
+				  			
+					
+					<div id="wrapperForDocuments">
+						<div id="layoutForDocuments">
+							
+						</div>
+					<div id="showMoreDocuments"> Загрузить еще работы</div>
+					</div>		  			
+		  		</div>
+
+		  		<form id="areaForSearch">
+		  			<input type="text" name="university" placeholder="ВУЗ">
+		  			<input type="text" name="faculty" placeholder="Факультет">
+		  			<input type="text" name="year" placeholder="Курс">
+		  			<input type="text" name="subject" placeholder="Предмет">
+		  			<input type="text" name="type" placeholder="Тип работы">
+
+		  			<ul id="universityList" class='hide'>
+		  				
+		  			</ul>
+
+		  			<ul id="facultyList" class="hide">
+		  				
+		  			</ul>
+		  		</form>
+		  	</div>
+
+		  	<div id="layoutForUploadDocument" class='hide'>
+		  		<div id='layoutForAddingFiles'>
+		  			<div class="blueButton2">Загрузить файл</div>
+		  			<hr>
+		  			<ul>
+		  				<div>Файлы</div>
+		  				<li>Файл 1 <img src="" alt=""></li>
+		  				<li>Файл 2 <img src="" alt=""></li>
+		  				<li>Файл 3 <img src="" alt=""></li>
+		  				<li>Файл 4 <img src="" alt=""></li>
+		  			</ul>
+		  		</div>
+
+		  		<div id="layoutForAddingDescription">
+		  			<p>Название</p>
+		  			<input type="text" placeholder='Как найти эту работу?' name='title'>
+		  			<p>Предмет</p>
+		  			<input type="text" placeholder='По какому предмету эта работа?' name='subject'>
+		  			<p>Курс</p>
+		  			<input type="text" placeholder='Для какого курса эта работа?' name='subject'>
+		  			<p>Тип работы</p>
+		  			<input type="text" id='typeOfWork' placeholder='Тип работы' name='type'>
+		  			<p>Краткое описание</p>
+		  			<textarea name="" id=""></textarea>					
+
+		  			<div id='addDocument'class="blueButton2">Добавить</div>
+
+		  			<ul id="listOfTypesOfAddingDocument">
+						
+					</ul>
+		  		</div>
+		  	</div>
+
+		  	<div id="detailedInformationAboutDocument" class='hide'>
+		  		<div id="leftPart">
+		  			<p id="title">five=25 five=25 five=25 five=25 five=25 five=25 five=25</p>
+
+		  			<div id="previewLayout">
+		  				<div id="mainScreen">
+		  					<div><img src="" alt=""></div> //конпка налево
+		  					<div><img src="" alt=""></div> //сама превьюшка
+		  					<div><img src="" alt=""></div> //конпка направо
+		  				</div>
+
+		  				<div id='diafilmLayout'>
+		  					
+		  				</div>		  				
+		  			</div>
+
+		  			<form id="leaveCommentForm">
+		  					<img id="avatar" src=""></img>
+		  					<textarea name="" id=""></textarea>
+		  					<div class="blueButton2">Ок</div>
+		  			</form>
+
+		  			<div id="layoutForComments">
+		  					
+		  			</div>
+		  		</div>
+		  		<div id="rightPart">
+		  			<p> Предмет: <span> </span></p>
+		  			<p> Автор: <span> </span></p>
+		  			<p> Рейтинг автора: <span> </span></p>
+		  			<p> Количество скачиваний: <span>  </span></p>
+		  			<p> Рейтинг работы: <span> </span></p>
+		  			<p> Дата работы: <span>   </span></p>
+
+		  			<div class="blueButton2">Скачать</div>		  			
+		  		</div>
+		  	</div>
